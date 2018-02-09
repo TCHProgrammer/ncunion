@@ -1,6 +1,7 @@
 <?php
 namespace backend\components\menu;
 use Yii;
+use yii\helpers\Url;
 /**
  * Created by PhpStorm.
  * User: Dev
@@ -31,17 +32,17 @@ class Menu {
         switch ($permission){
             case 'admin_menu_rbac_roles':
                 $name['title'] = 'Роли пользователей';
-                $name['link'] = '/admin/rbac/roles';
+                $name['link'] = Url::toRoute('/rbac/roles');
                 return $name;
 
             case 'admin_menu_rbac_permission':
                 $name['title'] = 'Расшифровка доступов';
-                $name['link'] = '/admin/rbac/permission';
+                $name['link'] = Url::toRoute('/rbac/permission');
                 return $name;
 
             case 'admin_menu_rbac_users':
                 $name['title'] = 'Пользователи';
-                $name['link'] = '/admin/rbac/users';
+                $name['link'] = Url::toRoute('/rbac/users');
                 return $name;
             default:
                 return false;
@@ -69,12 +70,12 @@ class Menu {
 
             case 'admin_menu_rbac_permission':
                 $name['title'] = 'Ожидание модерации';
-                $name['link'] = '/admin/users/users-moder';
+                $name['link'] = Url::toRoute('/users/users-moder');
                 return $name;
 
             case 'users_clients':
                 $name['title'] = 'Клиенты';
-                $name['link'] = '/admin/users';
+                $name['link'] = Url::toRoute('/users');
                 return $name;
 
             default:

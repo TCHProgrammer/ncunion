@@ -10,6 +10,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
 use backend\components\menu\Menu;
+use yii\helpers\Url;
 
 $kek = AppAsset::register($this);
 ?>
@@ -87,7 +88,7 @@ $kek = AppAsset::register($this);
                         <h4>Панель управления</h4>
                     </div>
                     <div class="sidebar-left-link">
-                        <a href="/" target="_blank">http://<?= $_SERVER['HTTP_HOST'] ?></a>
+                        <a href="<?= Url::to('/') ?>" target="_blank"><?= 'http://' . $_SERVER['SERVER_NAME'] ?></a>
                     </div>
 
                     <hr>
@@ -116,7 +117,7 @@ $kek = AppAsset::register($this);
 
                             <?php if($object->menuUsers()){ ?>
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Клиенты<b class="caret"></b></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Пользователи<b class="caret"></b></a>
                                     <ul class="dropdown-menu navmenu-nav small-menu">
                                         <?php
                                         foreach ($userPermissions as $permission => $item){
@@ -137,7 +138,7 @@ $kek = AppAsset::register($this);
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Контент<b class="caret"></b></a>
                                 <ul class="dropdown-menu navmenu-nav small-menu">
-                                    <li><a href="/admin/news">Новости</a></li
+                                    <li><a href="<?= Url::toRoute('news') ?>">Новости</a></li
                                 </ul>
                             </li>
                         </ul>
@@ -146,13 +147,11 @@ $kek = AppAsset::register($this);
 
                 <div class="content">
                     <div class="sidebar-top">
-                        <div class="sidebar-top">
-                            <i class="fa fa-sign-out"></i>
-                            <form action="/admin/site/logout" method="post">
-                                <input type="hidden" name="_csrf-backend" value="0z-xn-Sot0FPPnbYKrBixJlsFShTrswpSQ8sJxKi8P_haP_qgM7YLCcKH6hn0Qj0wFlQUWXIoWsOSxRSUM64iA==">
-                                <button type="submit" class="btn btn-link logout">Выход (admin)</button>
-                            </form>
-                        </div>
+                        <form class="sidebar-top-exit" action="<?= Url::toRoute('site/logout') ?>" method="post">
+                            <input type="hidden" name="_csrf-backend" value="0z-xn-Sot0FPPnbYKrBixJlsFShTrswpSQ8sJxKi8P_haP_qgM7YLCcKH6hn0Qj0wFlQUWXIoWsOSxRSUM64iA==">
+                            <span class="glyphicon glyphicon-log-out" style="top:2px"></span>
+                            <button type="submit" class="btn btn-link logout">Выход (admin)</button>
+                        </form>
                     </div>
                     <div class="my-container">
             <?php }else{ ?>
@@ -161,7 +160,7 @@ $kek = AppAsset::register($this);
                             <div class="no-access-content">
                                 <h2>Доступ запрещен!</h2>
                                 <p>У Вас нет прав для доступа к этому разделу.</p>
-                                <form action="/admin/site/logout" method="post">
+                                <form action="<?= Url::toRoute('site/logout') ?>" method="post">
                                     <input type="hidden" name="_csrf-backend" value="0z-xn-Sot0FPPnbYKrBixJlsFShTrswpSQ8sJxKi8P_haP_qgM7YLCcKH6hn0Qj0wFlQUWXIoWsOSxRSUM64iA==">
                                     <div class="no-access-exit">
                                         <span class="glyphicon glyphicon-log-out"></span>

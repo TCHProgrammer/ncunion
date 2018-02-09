@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\modules\rbac\models\AuthAssignment;
 use Yii;
 use common\models\UserModel;
 use backend\models\UserSearch;
@@ -129,16 +130,32 @@ class UsersController extends Controller
 
     public function actionUsersModer(){
 
-        $users = UserModel::find()->where([])->all();
+        $post = Yii::$app->request->post('UserModel');
+
+        if($post){
+            $userUpdate = AuthAssignment::find()->where(['user_id' => $post['user_id']])->one();
+            if($post['good_user']){
+                $userUpdate->item_name = 'no_pay';
+                $userUpdate->save();
+            }elseif ($post['ban_user']){
+                $userUpdate->item_name = 'ban';
+                $userUpdate->save();
+            }
+        }
+
         $dataProvider = new ActiveDataProvider([
-            'query' => UserModel::find()->where(['check_email' => 1, 'check_phone' => 1])->orderBy('created_at ASC'),
+            'query' => UserModel::find()
+                ->leftJoin('auth_assignment', 'auth_assignment.user_id = user.id')
+                ->where(['auth_assignment.item_name' => 'unknown'])
+                ->andWhere(['check_email' => 1, 'check_phone' => 1])
+                ->orderBy('created_at ASC'),
             'pagination' => [
                 'pageSize' => 20,
             ],
         ]);
 
         return $this->render('users-moder', [
-            'users' => $users,
+            //'users' => $users,
             'dataProvider' => $dataProvider
         ]);
     }

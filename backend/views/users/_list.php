@@ -1,4 +1,8 @@
-
+<?php
+use yii\widgets\ActiveForm;
+use yii\helpers\Html;
+use yii\widgets\Pjax;
+?>
 
 <div class="user-moder">
     <div class="user-moder-avatar">
@@ -10,14 +14,39 @@
     </div>
     <div class="user-moder-email-phone">
         <div class="user-moder-email">
-
+            <?= $model->email ?>
         </div>
         <div class="user-moder-phone">
-
+            <?= $model->phone ?>
         </div>
     </div>
     <div class="user-moder-btn">
-        <input type="button" class="" value="Подтвердить">
-        <input type="button" value="Заблокировать" >
+        <?php
+        Pjax::begin();
+            $form = ActiveForm::begin([
+                'options' => ['data' => ['pjax' => true]],
+            ]);
+
+                echo $form->field($model, 'user_id')->hiddenInput(['value' => $model->id])->label(false);
+                echo $form->field($model, 'good_user')->hiddenInput(['value' => true])->label(false);
+
+                echo Html::submitButton('Подтвердить', ['class' => 'btn btn-success'], ['/admin/users/users-moder']);
+
+            ActiveForm::end();
+        ?>
+
+        <?php
+            $form = ActiveForm::begin([
+                    'options' => ['data' => ['pjax' => true]],
+                ]);
+
+                echo $form->field($model, 'user_id')->hiddenInput(['value' => $model->id])->label(false);
+                echo $form->field($model, 'ban_user')->hiddenInput(['value' => true])->label(false);
+
+                echo Html::submitButton('Заблокировать', ['class' => 'btn btn-danger'], ['/admin/users/users-moder']);
+            ActiveForm::end();
+        Pjax::end();
+        ?>
+
     </div>
 </div>
