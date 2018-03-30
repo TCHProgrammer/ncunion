@@ -121,6 +121,6 @@ class AuthItem extends \yii\db\ActiveRecord
     }
 
     public function getListRoles(){ //static
-        return ArrayHelper::map(self::find()->all(), 'name', 'description');
+        return ArrayHelper::map(self::find()->where(['type' => 1])->all(), 'name', 'description');
     }
 }

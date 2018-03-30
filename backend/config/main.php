@@ -15,11 +15,8 @@ return [
         'rbac' => [
             'class' => 'backend\modules\rbac\Module',
         ],
-        'roles' => [
-            'class' => 'backend\modules\roles\Module',
-        ],
-        'rbac1' => [
-            'class' => 'yii2mod\rbac\Module',
+        'test' => [
+            'class' => 'modules\test\Module',
         ],
     ],
     'homeUrl' => '/admin',
