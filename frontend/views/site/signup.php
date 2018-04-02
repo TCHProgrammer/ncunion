@@ -7,29 +7,49 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Signup';
+$this->title = 'Регистрация';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-signup">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to signup:</p>
-
     <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+        <?php $form = ActiveForm::begin(['id' => 'form-signup',
+            'options' => ['class' => 'form-height'],]); ?>
+<!-- 'class' => 'form-height' -->
+        <div class="col-lg-6">
 
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+            <?//= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
-                <?= $form->field($model, 'email') ?>
+            <?= $form->field($model, 'last_name', ['options' => ['class' => 'form-height']])->textInput() ?>
 
-                <?= $form->field($model, 'password')->passwordInput() ?>
+            <?= $form->field($model, 'first_name', ['options' => ['class' => 'form-height']])->textInput() ?>
 
-                <div class="form-group">
-                    <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
-                </div>
+            <?= $form->field($model, 'middle_name', ['options' => ['class' => 'form-height']])->textInput() ?>
 
-            <?php ActiveForm::end(); ?>
+            <?= $form->field($model, 'email', ['options' => ['class' => 'form-height']])->textInput() ?>
+
         </div>
+
+        <div class="col-lg-6">
+
+            <?= $form->field($model, 'phone', ['options' => ['class' => 'form-height']])->textInput(['placeholder' => '+7 (___) ___ __ __']) ?>
+
+            <?= $form->field($model, 'company_name', ['options' => ['class' => 'form-height']])->textInput() ?>
+
+            <?= $form->field($model, 'password', ['options' => ['class' => 'form-height']])->passwordInput() ?>
+
+            <?= $form->field($model, 'password_repeat', ['options' => ['class' => 'form-height']])->passwordInput() ?>
+
+        </div>
+
+        <div class="col-lg-6">
+            <div class="form-group">
+                <?= Html::submitButton('Регистрация', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+            </div>
+        </div>
+
+        <?php ActiveForm::end(); ?>
     </div>
 </div>
+

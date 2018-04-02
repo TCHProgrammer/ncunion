@@ -18,6 +18,9 @@ return [
             'class' => 'yii\rbac\DbManager',
             'cache' => 'cache' //Включаем кеширование
         ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+        ],
     ],
 
 ];

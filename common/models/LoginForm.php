@@ -15,7 +15,6 @@ class LoginForm extends Model
 
     private $_user;
 
-
     /**
      * {@inheritdoc}
      */
@@ -28,6 +27,15 @@ class LoginForm extends Model
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'email' => 'Электронная почта',
+            'password' => 'Пароль',
+            'rememberMe' => 'Запомнить меня',
         ];
     }
 

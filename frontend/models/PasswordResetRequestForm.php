@@ -12,7 +12,6 @@ class PasswordResetRequestForm extends Model
 {
     public $email;
 
-
     /**
      * {@inheritdoc}
      */
@@ -25,8 +24,15 @@ class PasswordResetRequestForm extends Model
             ['email', 'exist',
                 'targetClass' => '\common\models\User',
                 'filter' => ['status' => User::STATUS_ACTIVE],
-                'message' => 'There is no user with this email address.'
+                'message' => 'Нет пользователя с этим адресом электронной почты.'
             ],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'email' => 'Электронная почта'
         ];
     }
 
@@ -46,13 +52,14 @@ class PasswordResetRequestForm extends Model
         if (!$user) {
             return false;
         }
-        
+
         if (!User::isPasswordResetTokenValid($user->password_reset_token)) {
             $user->generatePasswordResetToken();
             if (!$user->save()) {
                 return false;
             }
         }
+        //var_dump([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot']);die;
 
         return Yii::$app
             ->mailer
