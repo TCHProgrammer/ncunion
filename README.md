@@ -8,3 +8,4 @@
 5) php yii migrate --migrationPath=@yii/rbac/migrations
 6) yii start
 7) yii zalog-zalog
+8) yii migrate --migrationPath=frontend\migrations

@@ -1,6 +1,6 @@
+<?php
 
-
-namespace frontend\models;
+namespace common\models;
 
 use Yii;
 
@@ -8,7 +8,6 @@ use Yii;
  * This is the model class for table "user".
  *
  * @property int $id
- * @property string $username
  * @property string $auth_key
  * @property string $password_hash
  * @property string $password_reset_token
@@ -21,12 +20,13 @@ use Yii;
  * @property string $middle_name
  * @property string $phone
  * @property string $company_name
+ *
+ * @property UserAvatar[] $userAvatars
  */
-class User extends \yii\db\ActiveRecord
+class UserModel extends \yii\db\ActiveRecord
 {
-    /**
-     * @inheritdoc
-     */
+    public $avatar;
+
     public static function tableName()
     {
         return 'user';
@@ -38,10 +38,10 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['first_name', 'last_name', 'middle_name', 'phone', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
+            [['auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
             [['status', 'created_at', 'updated_at'], 'integer'],
-            [['first_name', 'last_name', 'middle_name', 'company_name', 'phone',  'password_hash', 'password_reset_token', 'email', 'first_name', 'last_name', 'middle_name', 'phone', 'company_name'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
+            [['password_hash', 'password_reset_token', 'email', 'first_name', 'last_name', 'middle_name', 'phone', 'company_name', 'avatar'], 'string', 'max' => 255],
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
         ];
@@ -55,17 +55,26 @@ class User extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'auth_key' => 'Auth Key',
-            'password_hash' => 'Пароль',
+            'password_hash' => 'Password Hash',
             'password_reset_token' => 'Password Reset Token',
-            'email' => 'Электронная почта',
-            'first_name' => 'Имя',
-            'last_name' => 'Фамилие',
-            'middle_name' => 'Отчество',
-            'company_name' => 'Название компании',
-            'phone' => 'Мобильный телефон',
-            'status' => 'Статус',
-            'created_at' => 'Дата создания',
-            'updated_at' => 'Дата изменения',
+            'email' => 'Email',
+            'status' => 'Status',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'middle_name' => 'Middle Name',
+            'phone' => 'Phone',
+            'company_name' => 'Company Name',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+
+    public function getUserAvatars()
+    {
+        return $this->hasMany(UserAvatar::className(), ['user_id' => 'id']);
     }
 }

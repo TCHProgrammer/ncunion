@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg enable-background="new 0 0 381.3 381.3" version="1.1" viewBox="0 0 381.3 381.3" xmlns="http://www.w3.org/2000/svg">
+ <style type="text/css">.st0{fill:#FFFFFF;stroke:#666766;stroke-miterlimit:10;} .st1{fill:#6C6C6C;} .st2{fill:none;stroke:#FFFFFF;stroke-width:4;stroke-miterlimit:10;} .st3{fill:none;stroke:#FFFFFF;stroke-width:3;stroke-miterlimit:10;} .st4{fill:none;stroke:#6C6C6C;stroke-miterlimit:10;} .st5{fill:#6C6C6C;stroke:#FFFFFF;stroke-miterlimit:10;}</style>
+ <circle class="st0" cx="190.7" cy="190.7" r="190.2"/>
+ <polygon class="st1" points="102 237.3 102 336.8 279.3 336.8 279.3 237.3 257.2 230.3 251.6 211.2 193.2 270.1 129.2 211.2 124 229"/>
+ <ellipse class="st1" cx="190" cy="130" rx="80.2" ry="97.2"/>
+ <path class="st2" d="m143 119.4h31.6c4.1 0 7.5 3.4 7.5 7.5v12.5c0 4.1-3.4 7.5-7.5 7.5h-31.6c-4.1 0-7.5-3.4-7.5-7.5v-12.5c0-4.2 3.3-7.5 7.5-7.5z"/>
+ <path class="st2" d="m206.5 119.4h31.5c4.1 0 7.5 3.4 7.5 7.5v12.5c0 4.1-3.4 7.5-7.5 7.5h-31.6c-4.1 0-7.5-3.4-7.5-7.5v-12.5c0.1-4.2 3.4-7.5 7.6-7.5z"/>
+ <path class="st3" d="m182 135.6s8.5-11.7 16.9 0"/>
+ <path class="st4" d="m268.6 110.8"/>
+ <path class="st4" d="m245.5 114.1"/>
+ <line class="st3" x1="245.5" x2="267.7" y1="133.1" y2="125.2"/>
+ <line class="st3" x1="135.5" x2="113.2" y1="133.1" y2="125.2"/>
+ <path class="st5" d="m267.5 30.1c-8.3 7-6.2 11.8-0.1 16.6 20.8 16.3 22.9 37.4 16.1 61.3-5.2 18.2-9.3 36.7-14.4 57.3l-17.1-69.4c-41.2 13.2-83.9 8.6-127.6 1.8-2.8 22.5 0 45.1-10.1 65.9-2.1-11.6-3.8-22.7-6.4-33.6-1.3-5.4-4.5-10.3-6.4-15.6-4.1-11.3-3.4-21.8 6.4-31.2l-12.8 4.1-1.6-1.4 28.2-33.6-12.8-9.3 29.2-3.8-18.2-14.2c24.9-3.3 49-7.2 73.3-9.5 17.5-1.8 35 3.2 48.8 14 6.5 5 11.8 8.4 18.9 1.7 1-0.8 3-0.5 6.6-1.1z"/>
+</svg>

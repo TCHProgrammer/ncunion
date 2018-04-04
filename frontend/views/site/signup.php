@@ -14,8 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <div class="row">
-        <?php $form = ActiveForm::begin(['id' => 'form-signup',
-            'options' => ['class' => 'form-height'],]); ?>
+        <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 <!-- 'class' => 'form-height' -->
         <div class="col-lg-6">
 

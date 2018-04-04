@@ -122,3 +122,47 @@ a.desc:after {
 .form-height{
     height: 95px;
 }
+
+/* меню */
+.menu-exit{
+    background-color: #fff;
+    border: 0px;
+    padding: 2px 20px;
+    width: 100%;
+    text-align: left;
+}
+
+.menu-exit:hover{
+    background-color: #f5f5f5;
+}
+
+
+/* Страница профиля (user/profile) */
+.user-avatar{
+    height: 100%;
+    width: 100%;
+}
+
+.user-avatar>img{
+     height: 100%;
+     width: 100%;
+ }
+
+.name-compani{
+    color: #8c8c8c;
+    font-size: 14px;
+    padding: 2px 0 0 20px;
+}
+
+.name-other{
+    margin: 20px;
+}
+
+.user-fio {
+    font-size: 40px;
+}
+
+.profile{
+    margin: 50px 0 0 0;
+}
+

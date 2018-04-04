@@ -51,7 +51,7 @@ AppAsset::register($this);
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
                 'Выйти',
-                ['class' => 'btn btn-link logout']
+                ['class' => 'menu-exit']
             )
             . Html::endForm()
             . '</li>'
