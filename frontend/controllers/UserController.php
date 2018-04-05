@@ -8,7 +8,9 @@
 
 namespace frontend\controllers;
 
+use frontend\components\controllers\DefaultFrontendController;
 use common\models\UserAvatar;
+use yii\filters\AccessControl;
 use frontend\models\UserSettingsForm;
 use yii\helpers\FileHelper;
 use yii\web\NotFoundHttpException;
@@ -17,13 +19,15 @@ use Yii;
 use yii\web\Controller;
 use common\models\UserModel;
 
-class UserController extends Controller{
+class UserController extends DefaultFrontendController{
+
 
     const file_name_length = 8;
 
     public function actionProfile(){
 
         $user = UserModel::findOne(Yii::$app->user->id);
+        //$user = UserModel::find()->where(['id' => Yii::$app->user->id])->leftJoin('user_avatar', 'user_avatar.user_id = user.id');
 
         return $this->render('profile', [
             'user' => $user
@@ -31,29 +35,6 @@ class UserController extends Controller{
     }
 
     public function actionSettings(){
-
-        /*$model = UserSettingsForm::findOne(Yii::$app->user->id);
-        $avatar = UserAvatar::findOne(['user_id' => Yii::$app->user->id]);
-        //var_dump($_POST['UserSettingsForm']);die;
-
-        if (isset($_POST['UserSettingsForm'])){
-
-            $model->attributes = Yii::$app->request->post('UserSettingsForm');
-            $model->attributes['avatar'] = $_POST['UserSettingsForm']['avatar'];
-
-            //проверка правил валидации и запись пользователя в бд
-            if ($model->validate() && $model->updateUser(Yii::$app->user->id)){
-                return $this->goHome();
-            }
-        }*/
-
-
-
-
-
-
-
-
 
         $model = UserSettingsForm::findOne(Yii::$app->user->id);
         $avatar = UserAvatar::findOne(['user_id' => Yii::$app->user->id]);
@@ -81,6 +62,12 @@ class UserController extends Controller{
 
                 $user_avatar->save();
             }
+
+            $user = UserModel::findOne(Yii::$app->user->id);
+
+            return $this->render('profile', [
+                'user' => $user
+            ]);
         }
 
         return $this->render('settings', [
@@ -88,17 +75,4 @@ class UserController extends Controller{
             'avatar' => $avatar
         ]);
     }
-
-    /*protected function findModel($id)
-    {
-        if (($model = UserSettingsForm::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }*/
-
-
-    /* ждём подтверждения */
-
 }

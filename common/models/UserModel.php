@@ -20,6 +20,9 @@ use Yii;
  * @property string $middle_name
  * @property string $phone
  * @property string $company_name
+ * @property string $check_email
+ * @property string $check_phone
+ * @property string $check_moderator
  *
  * @property UserAvatar[] $userAvatars
  */
@@ -66,6 +69,9 @@ class UserModel extends \yii\db\ActiveRecord
             'middle_name' => 'Middle Name',
             'phone' => 'Phone',
             'company_name' => 'Company Name',
+            'check_email' => 'Подтверждение email',
+            'check_phone' => 'Подтверждение телефона',
+            'check_moderator' => 'Подтверждение модерации',
         ];
     }
 

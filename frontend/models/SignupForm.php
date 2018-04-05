@@ -41,7 +41,7 @@ class SignupForm extends Model
     public function attributeLabels() {
         return [
             'first_name' => 'Имя',
-            'last_name' => 'Фамилие',
+            'last_name' => 'Фамилия',
             'middle_name' => 'Отчество',
             'password_hash' => 'Пароль',
             'password' => 'Пароль',
