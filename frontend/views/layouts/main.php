@@ -26,16 +26,14 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-<?php         if (!Yii::$app->user->can('canAdmin')){
-echo AdminPanel::widget();
-} ?>
+<?= AdminPanel::widget(); ?>
 <div class="wrap">
     <?php
     NavBar::begin([
         'brandLabel' => Yii::$app->name,
         'brandUrl' => '/',
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'navbar-inverse',
         ],
     ]);
     $menuItems = [

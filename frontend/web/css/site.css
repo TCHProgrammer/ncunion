@@ -169,7 +169,33 @@ a.desc:after {
 
 /* админ панель */
 .admin-panel{
-    height: 120px;
+    height: 85px;
     width: 100%;
     background-color: #2f4050;
+    border-bottom: 1px solid #bfaaca;
+}
+
+.admin-panel ul{
+    padding: 9px 15px 9px 15px;
+    margin: 0;
+    height: 85px;
+}
+
+.admin-panel ul li{
+    display: inline-block !important;
+    padding: 0px 15px !important;
+}
+
+.admin-panel ul li a{
+    background-size: 60px;
+    width: 80px !important;
+    height: 0 !important;
+    display: block !important;
+    position: relative !important;
+    line-height: 25px !important;
+    text-align: center !important;
+    padding-top: 50px !important;
+    text-transform: uppercase !important;
+    font-size: 10px !important;
+    color: #d3d3d3;
 }

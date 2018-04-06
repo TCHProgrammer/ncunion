@@ -7,8 +7,8 @@ class AdminPanel extends Widget{
 
     public function run(){
 
-        /*if (!Yii::$app->user->can('canAdmin'))
-            return false;*/
+        if (!Yii::$app->user->can('widgetAdminPanel'))
+            return false;
 
         return $this->render('admin-panel');
     }

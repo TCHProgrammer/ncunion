@@ -87,7 +87,7 @@ $kek = AppAsset::register($this);
                         <h4>Панель управления</h4>
                     </div>
                     <div class="sidebar-left-link">
-                        <a href="http://<?= \yii\helpers\Url::home() ?>" target="_blank">http://<?= $_SERVER['HTTP_HOST'] ?></a>
+                        <a href="/" target="_blank">http://<?= $_SERVER['HTTP_HOST'] ?></a>
                     </div>
 
                     <hr>
@@ -95,20 +95,44 @@ $kek = AppAsset::register($this);
                     <div class="menu">
                         <ul class="nav navmenu-nav">
                             <!--<li class="active"><a href="#">Пункт 1</a></li>-->
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Настройки сайта<b class="caret"></b></a>
-                                <ul class="dropdown-menu navmenu-nav small-menu">
-                                    <?php
-                                    foreach ($userPermissions as $permission => $item){
-                                        $object = new Menu();
-                                        $menu = $object->link($permission);
-                                        if ($menu) {
-                                            echo '<li><a href="' . $menu['link'] . '">' . $menu['title'] . '</a></li>';
+
+                            <?php $object = new Menu(); ?>
+
+                            <?php if($object->menuSettingsSite()){ ?>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Настройки сайта<b class="caret"></b></a>
+                                    <ul class="dropdown-menu navmenu-nav small-menu">
+                                        <?php
+                                        foreach ($userPermissions as $permission => $item){
+                                            $menu = $object->linkSettingsSite($permission);
+                                            if ($menu) {
+                                                echo '<li><a href="' . $menu['link'] . '">' . $menu['title'] . '</a></li>';
+                                            }
                                         }
-                                    }
-                                    ?>
-                                </ul>
-                            </li>
+                                        ?>
+                                    </ul>
+                                </li>
+                            <?php } ?>
+
+                            <?php if($object->menuUsers()){ ?>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Клиенты<b class="caret"></b></a>
+                                    <ul class="dropdown-menu navmenu-nav small-menu">
+                                        <?php
+                                        foreach ($userPermissions as $permission => $item){
+                                            $menu = $object->linkUsers($permission);
+                                            if ($menu) {
+                                                echo '<li><a href="' . $menu['link'] . '">' . $menu['title'] . '</a></li>';
+                                            }
+                                        }
+                                        ?>
+                                    </ul>
+                                </li>
+                            <?php } ?>
+
+
+
+
                             <!-- Супер  мега идея!! сделать меню, что бы оно само генерировалось исходя от роли или тупо создать ... -->
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Контент<b class="caret"></b></a>

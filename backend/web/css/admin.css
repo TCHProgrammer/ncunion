@@ -275,6 +275,9 @@ a.desc:after {
     margin: 0 4px 0 0;
 }
 
+.table-hover-gray tbody tr:hover{
+    background-color: #dfdee6;
+}
 
 /* Доступ запрещён в админке */
 .no-access-fon {
