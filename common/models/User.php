@@ -61,8 +61,6 @@ class User extends ActiveRecord implements IdentityInterface
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
             ['check_email', 'default', 'value' => self::check],
             ['check_phone', 'default', 'value' => self::check],
-            ['check_moderator', 'default', 'value' => self::check],
-
         ];
     }
 
