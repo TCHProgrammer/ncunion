@@ -11,7 +11,7 @@ class DefaultFrontendController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['no_pay', 'user']
+                        'roles' => ['no_pay', 'user', 'admin']
                     ]
                 ],
                 'denyCallback' => function ($rule, $action) {
