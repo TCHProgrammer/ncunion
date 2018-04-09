@@ -25,6 +25,7 @@ AppAsset::register($this);
     <?php $this->head() ?>
 </head>
 <body>
+<?php if (!Yii::$app->user->can('ban')){ ?>
 <?php $this->beginBody() ?>
 <?= AdminPanel::widget(); ?>
 <div class="wrap">
@@ -83,6 +84,24 @@ AppAsset::register($this);
     </div>
 </footer>
 
+<?php }else{ ?>
+
+<div class="ban-fon">
+    <div class="ban-contend">
+        <div class="ban-text">
+            <h2>Вы были забанены, свяжитесь с администратором!</h2>
+            <form action="/site/logout" method="post">
+                <input type="hidden" name="_csrf-frontend" value="IAuTD3kiZhigDYINZiLbpA8LMvYiqD-SZYwMjO3wVtAWVN1CC0lLXcJD1UQeWLzeZHhquG_GWsYftD-ho5oV5Q==">
+                <div class="no-access-exit">
+                    <span class="glyphicon glyphicon-log-out"></span>
+                    <button type="submit" class="btn btn-link logout">выход</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<?php } ?>
 <?php $this->endBody() ?>
 </body>
 </html>

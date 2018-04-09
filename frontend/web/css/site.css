@@ -199,3 +199,44 @@ a.desc:after {
     font-size: 10px !important;
     color: #d3d3d3;
 }
+
+
+/* окно бана */
+.ban-fon {
+    display: table;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background-color: #f4f7fb;
+}
+
+.ban-contend{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.ban-text{
+    width: 550px;
+    height: 160px;
+    margin: auto;
+    border: 2px solid rgb(242, 252, 240);
+    border-radius: 20px;
+    box-shadow: rgb(170, 170, 170) 0px 0px 10px 2px;
+    -webkit-box-shadow: rgb(170, 170, 170) 0px 0px 10px 2px;
+}
+
+.no-access-exit{
+    margin: 15px;
+}
+
+.no-access-exit>span {
+    color: #999c9e;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.no-access-exit>button {
+    color: #999c9e;
+    font-size: 20px;
+    padding: 3px;
+}

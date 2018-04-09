@@ -14,7 +14,7 @@ class CatalogController extends Controller{
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['user']
+                        'roles' => ['user', 'admin']
                     ]
                 ],
                 'denyCallback' => function ($rule, $action) {
