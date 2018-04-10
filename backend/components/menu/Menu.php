@@ -16,7 +16,8 @@ class Menu {
         $permissions = [
             'admin_menu_rbac_roles',
             'admin_menu_rbac_permission',
-            'admin_menu_rbac_users'
+            'admin_menu_rbac_users',
+            'info_site'
         ];
 
         foreach ($permissions as $permission) {
@@ -44,12 +45,18 @@ class Menu {
                 $name['title'] = 'Пользователи';
                 $name['link'] = Url::toRoute('/rbac/users');
                 return $name;
+
+            case 'info_site':
+                $name['title'] = 'Общая информация';
+                $name['link'] = Url::toRoute('/info-site/index');
+                return $name;
+
             default:
                 return false;
         }
     }
 
-    /*  */
+    /* Пользователи */
     function menuUsers(){
         $permissions = [
             'users_clients',

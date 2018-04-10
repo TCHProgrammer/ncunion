@@ -1,4 +1,5 @@
 <?php
+use common\models\InfoSite;
 $this->title = 'ZalogZalog';
 ?>
 <div class="site-index">
@@ -12,6 +13,14 @@ $this->title = 'ZalogZalog';
     var_dump( Yii::$app->user->can('canAdmin'));
     var_dump( Yii::$app->user->can('admin_menu_rbac_users'));
     var_dump( Yii::$app->user->can('widgetAdminPanel'));
+
+
+    Yii::$app->mailer->compose()
+        ->setFrom('test.test.37@yandex.ru')
+        ->setTo('alexcpu7@gmail.com')
+        ->setSubject('ss')
+        ->setTextBody('dddd')
+        ->send();
 
     ?>
 
