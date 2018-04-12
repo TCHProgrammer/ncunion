@@ -13,6 +13,7 @@ class m180410_071005_crete_table_info_site extends Migration
     public function safeUp(){
 
         $this->createTable('info_site', [
+            'id' => $this->primaryKey(),
             'title' => $this->string(),
             'bot_title' => $this->string(),
             'descr' => $this->text(),
