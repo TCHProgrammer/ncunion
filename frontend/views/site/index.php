@@ -1,6 +1,6 @@
 <?php
 use common\models\InfoSite;
-$this->title = 'ZalogZalog';
+$this->title = 'ZalogZalog ';
 ?>
 <div class="site-index">
     <?php
