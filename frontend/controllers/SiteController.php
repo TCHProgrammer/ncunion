@@ -98,10 +98,12 @@ class SiteController extends Controller
 
     public function actionContact()
     {
+        Yii::$app->session->setFlash('success', '1111111Thank you for contacting us. We will respond to you as soon as possible.');
+
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
+                Yii::$app->session->setFlash('success', '1111111Thank you for contacting us. We will respond to you as soon as possible.');
             } else {
                 Yii::$app->session->setFlash('error', 'There was an error sending your message.');
             }
@@ -139,8 +141,8 @@ class SiteController extends Controller
                 Yii::$app->session->setFlash('success', 'Проверьте свою электронную почту для получения дальнейших инструкций.');
                 return $this->goHome();
             } else {
-                Yii::$app->session->setFlash('error', '
-К сожалению, мы не можем сбросить пароль для предоставленного адреса электронной почты.');
+                Yii::$app->session->setFlash('error',
+                    'К сожалению, мы не можем сброс пароль для предоставлитьенного адреса электронной почты.');
             }
         }
 

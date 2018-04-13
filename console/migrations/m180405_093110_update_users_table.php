@@ -21,7 +21,6 @@ class m180405_093110_update_users_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropColumn('user', 'check_email');
         $this->dropColumn('user', 'check_phone');
     }
 

@@ -75,6 +75,10 @@ class SignupForm extends Model
         if($user->save()){
             $user_role = Yii::$app->authManager->getRole('unknown');
             Yii::$app->authManager->assign($user_role, $user->id);
+            $contentMas = [
+                'first_name' => $this->first_name,
+            ];
+            Yii::$app->email->regUser( $this->email, $contentMas);
             return $user;
         }else{
             return null;

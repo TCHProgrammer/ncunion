@@ -24,6 +24,8 @@ use yii\web\IdentityInterface;
  * @property integer $phone
  * @property integer $created_at
  * @property integer $updated_at
+ * @property integer $email_confirm_token
+ * @property integer $phone_confirm_token
  * @property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -193,5 +195,10 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    public function generateEmailConfirmToken()
+    {
+        $this->email_confirm_token = Yii::$app->security->generateRandomString() . '_' . time() . '-' . Yii::$app->user->id;
     }
 }

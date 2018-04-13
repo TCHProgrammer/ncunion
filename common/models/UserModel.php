@@ -20,6 +20,8 @@ use Yii;
  * @property string $last_name
  * @property string $middle_name
  * @property string $phone
+ * @property string $email_confirm_token
+ * @property string $phone_confirm_token
  * @property string $company_name
  * @property string $check_email
  * @property string $check_phone

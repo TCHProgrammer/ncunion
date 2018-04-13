@@ -17,6 +17,7 @@ use yii\web\UploadedFile;
 use Yii;
 use yii\web\Controller;
 use common\models\UserModel;
+use frontend\models\RegEmailPhone;
 
 class CheckUserController extends Controller{
 
@@ -25,34 +26,53 @@ class CheckUserController extends Controller{
 
         $user_id = Yii::$app->user->id;
         $user = UserModel::findOne($user_id);
-        //$role = array_shift(Yii::$app->authManager->getRolesByUser($user_id))->name;
-        $d = Yii::$app->user->can('user');
-        $k = Yii::$app->user->can('unknown');
 
         //тут чекам профиль из паспорта, если есть то гуд
         $passport_user = [1,12,3];
 
         if (!($user->check_email && $user->check_phone)){
-            $check = $user->check_email.$user->check_phone;
-            switch ($check){
-                case '01':
-                    $text = 'Подтвердите email';
-                    break;
-                case '10':
-                    $text = 'Подтвердите телефон';
-                    break;
-                default:
-                    $text = 'Подтвердите email и телефон';
-                    break;
-            }
-            return $this->render('check-email-phone', ['text' => $text]);
+
+
+            $model = new RegEmailPhone();
+
+            if(Yii::$app->request->post()['RegEmailPhone']['tokenEmail']){
+
+                if($model->checkEmail()){
+                    Yii::$app->session->setFlash('success', 'Проверьте свою электронную почту для для активации аккаунта.');
+                }else{
+                    Yii::$app->session->setFlash('success', 'Произошла ошибка.');
+                }
+
+            };
+
+            return $this->render('check-email-phone', [
+                'model' => $model
+            ]);
         }elseif (is_null($passport_user)){
             return $this->render('passport');
         }elseif (Yii::$app->user->can('no_pay') || Yii::$app->user->can('user')){
             return $this->redirect('/payment/pay');
         }
 
+
         return $this->render('expectation');
     }
 
+    public function actionEmail($token){
+
+        $user = UserModel::findOne(Yii::$app->user->id);
+
+        if($user->email_confirm_token == $token){
+            $user->check_email = 1;
+            $user->email_confirm_token = null;
+            if ($user->save()){
+                $text = 'Электронная почта была успешно подтверждена!';
+            }else{
+                $text = 'Ошибка! Электронная почта не подтверждена!';
+            }
+            return $this->render('email', [
+                'text' => $text
+            ]);
+        }
+    }
 }
