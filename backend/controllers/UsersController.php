@@ -87,13 +87,15 @@ class UsersController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $role = AuthAssignment::find()->where(['user_id' => $id])->one();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save() && $role->load(Yii::$app->request->post()) && $role->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'role' => $role
         ]);
     }
 

@@ -45,7 +45,7 @@ class UserModel extends \yii\db\ActiveRecord
     {
         return [
             [['auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
-            [['status', 'created_at', 'updated_at'], 'integer'],
+            [['status', 'created_at', 'updated_at', 'check_email', 'check_phone'], 'integer'],
             [['auth_key'], 'string', 'max' => 32],
             [['password_hash', 'password_reset_token', 'email', 'first_name', 'last_name', 'middle_name', 'phone', 'company_name', 'avatar'], 'string', 'max' => 255],
             [['email'], 'unique'],
@@ -74,6 +74,7 @@ class UserModel extends \yii\db\ActiveRecord
             'company_name' => 'Название компании',
             'check_email' => 'Подтверждение email',
             'check_phone' => 'Подтверждение телефона',
+            'role' => 'Роль'
         ];
     }
 

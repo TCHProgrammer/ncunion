@@ -1,12 +1,21 @@
 <?php
 return [
     'language' => 'ru-RU',
+    //'sourceLanguage' =>'ru-RU',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            /*'locale' => 'ru-RU',
+            'decimalSeparator' => ',',
+            'thousandSeparator' => ' ',
+            'currencyCode' => 'EUR',*/
+            'datetimeFormat' => 'd/MMMM/Y, в H:i'
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
@@ -20,6 +29,9 @@ return [
         ],
         'email' => [
             'class' => 'common\components\EmailComponent',
+        ],
+        'date' => [
+            'class' => 'common\components\DateComponent',
         ],
     ],
 

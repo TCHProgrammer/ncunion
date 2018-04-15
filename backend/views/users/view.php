@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use backend\modules\rbac\models\AuthItem;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\UserModel */
@@ -36,11 +37,36 @@ $this->params['breadcrumbs'][] = $this->title;
             'company_name',
             'phone',
             'email:email',
-            'check_email:email',
-            'check_phone',
-            'created_at',
-            'updated_at',
-
+            [
+                'attribute' => 'check_email',
+                'value' => function($model){
+                    return $model->check_email ? 'Подтверждён' : 'Не подтвержён';
+                }
+            ],
+            [
+                'attribute' => 'check_phone',
+                'value' => function($model){
+                    return $model->check_phone ? 'Подтверждён' : 'Не подтвержён';
+                }
+            ],
+            [
+                'attribute' => 'created_at',
+                'value' => function($model){
+                    return Yii::$app->date->month($model->created_at);
+                }
+            ],
+            [
+                'attribute' => 'updated_at',
+                'value' => function($model){
+                    return Yii::$app->date->month($model->updated_at);
+                }
+            ],
+            [
+                'attribute' => 'role',
+                'value' => function($model){
+                    return (AuthItem::find()->select('description')->where(['name' => $model->roles[0]->item_name])->one())->description;
+                }
+            ],
         ],
     ]) ?>
 

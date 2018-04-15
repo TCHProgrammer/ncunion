@@ -4,6 +4,9 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
+use backend\modules\rbac\models\AuthItem;
+
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -28,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'rowOptions' =>function($model){
             return [
-                'onclick' => 'window.location = "' . Url::to(['update', 'id' => $model->id]) . '"',
+                'onclick' => 'window.location = "' . Url::to(['view', 'id' => $model->id]) . '"',
                 'style' => 'cursor:pointer'
             ];
         },
@@ -45,23 +48,36 @@ $this->params['breadcrumbs'][] = $this->title;
                     'style' => 'width:35px',
                 ]
             ],
+
             'last_name',
             'first_name',
             'middle_name',
+
+            [
+                'filter' => true,
+                'attribute' => 'role',
+                'value' => function($model){
+                    return (AuthItem::find()->select('description')->where(['name' => $model->roles[0]->item_name])->one())->description;
+                }
+            ],
+
             'email:email',
             'phone',
-            //'company_name',
-            //'check_email:email',
-            //'check_phone',
+
             [
                 'filter' => false,
                 'attribute' => 'created_at',
-                'format' => ['datetime', 'php:d.m.Y в h:i:s'],
+                'value' => function($model){
+                    return Yii::$app->date->month($model->created_at);
+                }
             ],
+
             [
                 'filter' => false,
                 'attribute' => 'updated_at',
-                'format' => ['datetime', 'php:d.m.Y в h:i:s'],
+                'value' => function($model){
+                    return Yii::$app->date->month($model->updated_at);
+                }
             ],
 
             [
