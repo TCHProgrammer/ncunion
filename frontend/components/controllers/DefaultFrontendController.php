@@ -2,6 +2,7 @@
 namespace frontend\components\controllers;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\filters\VerbFilter;
 class DefaultFrontendController extends Controller
 {
     public function behaviors(){
@@ -17,6 +18,7 @@ class DefaultFrontendController extends Controller
                 'denyCallback' => function ($rule, $action) {
                     return $this->redirect(['/check-user']);
                 }
+
             ],
         ];
     }
