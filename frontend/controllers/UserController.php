@@ -53,7 +53,7 @@ class UserController extends DefaultFrontendController{
             ]);
             $svaz->save();*/
 
-            if($_FILES['UserSettingsForm']['name']['imageFile']) {
+            if($_FILES['UserModel']['name']['imageFile']) {
                 $user_avatar = UserAvatar::findOne(['user_id' => Yii::$app->user->id]);
                 if ($user_avatar == null) {
                     $user_avatar = new UserAvatar();

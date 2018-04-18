@@ -36,3 +36,6 @@ phpunit.phar
 
 # подключение к бд
 /common/config/main-local.php
+
+# папка uploads
+/frontend/web/uploads

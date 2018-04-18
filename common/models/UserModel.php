@@ -47,6 +47,7 @@ class UserModel extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            ['imageFile', 'image', 'extensions' => 'jpg, png'],
             [['noticesArray'], 'safe'],
             [['auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
             [['status', 'created_at', 'updated_at', 'check_email', 'check_phone'], 'integer'],
