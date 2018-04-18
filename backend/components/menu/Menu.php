@@ -51,6 +51,11 @@ class Menu {
                 $name['link'] = Url::toRoute('/info-site/index');
                 return $name;
 
+            case 'settings_add_email_push':
+                $name['title'] = 'Почтовые уведомления';
+                $name['link'] = Url::toRoute('/notice/index');
+                return $name;
+
             default:
                 return false;
         }

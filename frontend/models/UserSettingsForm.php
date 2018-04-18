@@ -7,6 +7,8 @@ use Yii;
 use yii\web\UploadedFile;
 class UserSettingsForm extends UserModel {
 
+    /* походу этот файл не нужен */
+
     public $imageFile;
 
     public function attributeLabels()

@@ -8,6 +8,8 @@
 
 namespace frontend\controllers;
 
+use common\models\Notice;
+use common\models\NoticeUser;
 use frontend\components\controllers\DefaultFrontendController;
 use common\models\UserAvatar;
 use yii\filters\AccessControl;
@@ -27,19 +29,29 @@ class UserController extends DefaultFrontendController{
     public function actionProfile(){
 
         $user = UserModel::findOne(Yii::$app->user->id);
+        $userAvatar = UserAvatar::findOne(Yii::$app->user->id);
         //$user = UserModel::find()->where(['id' => Yii::$app->user->id])->leftJoin('user_avatar', 'user_avatar.user_id = user.id');
 
         return $this->render('profile', [
-            'user' => $user
+            'user' => $user,
+            'userAvatar' => $userAvatar
         ]);
     }
 
     public function actionSettings(){
 
-        $model = UserSettingsForm::findOne(Yii::$app->user->id);
+        //$model = UserSettingsForm::findOne(Yii::$app->user->id);
+        $model = $this->findModel(Yii::$app->user->id);
+
         $avatar = UserAvatar::findOne(['user_id' => Yii::$app->user->id]);
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            /*$svaz = new NoticeUser([
+                'notice_id' => 1,
+                'user_id' => Yii::$app->user->id,
+            ]);
+            $svaz->save();*/
 
             if($_FILES['UserSettingsForm']['name']['imageFile']) {
                 $user_avatar = UserAvatar::findOne(['user_id' => Yii::$app->user->id]);
@@ -63,16 +75,22 @@ class UserController extends DefaultFrontendController{
                 $user_avatar->save();
             }
 
-            $user = UserModel::findOne(Yii::$app->user->id);
-
-            return $this->render('profile', [
-                'user' => $user
-            ]);
+            return $this->redirect('profile');
         }
 
         return $this->render('settings', [
             'model' => $model,
-            'avatar' => $avatar
+            'avatar' => $avatar,
         ]);
     }
+
+    protected function findModel($id)
+    {
+        if (($model = UserModel::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
 }

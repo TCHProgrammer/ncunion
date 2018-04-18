@@ -4,6 +4,8 @@ namespace common\models;
 
 use backend\modules\rbac\models\AuthAssignment;
 use Yii;
+use common\models\NoticeUser;
+use common\models\Notice;
 
 /**
  * This is the model class for table "user".
@@ -32,6 +34,7 @@ use Yii;
 class UserModel extends \yii\db\ActiveRecord
 {
     public $avatar;
+    public $imageFile;
 
     public static function tableName()
     {
@@ -44,6 +47,7 @@ class UserModel extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['noticesArray'], 'safe'],
             [['auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
             [['status', 'created_at', 'updated_at', 'check_email', 'check_phone'], 'integer'],
             [['auth_key'], 'string', 'max' => 32],
@@ -74,7 +78,8 @@ class UserModel extends \yii\db\ActiveRecord
             'company_name' => 'Название компании',
             'check_email' => 'Подтверждение email',
             'check_phone' => 'Подтверждение телефона',
-            'role' => 'Роль'
+            'role' => 'Роль',
+            'noticesArray' => 'Уведомления по почте'
         ];
     }
 
@@ -91,4 +96,54 @@ class UserModel extends \yii\db\ActiveRecord
     {
         return $this->hasMany(AuthAssignment::className(), ['user_id' => 'id']);
     }
+
+    public function getNotice()
+    {
+        return $this->hasMany(Notice::className(), ['id' => 'notice_id'])->viaTable('{{%notice_user}}', ['user_id' => 'id']);
+
+    }
+
+    public function getNoticeUsers()
+    {
+        return $this->hasMany(NoticeUser::className(), ['user_id' => 'id']);
+    }
+
+    private $_noticesArray;
+
+    public function getNoticesArray()
+    {
+        if ($this->_noticesArray === null) {
+            $this->_noticesArray = $this->getNotice()->select('id')->column();
+        }
+        return $this->_noticesArray;
+    }
+
+    public function setNoticesArray($value){
+        return $this->_noticesArray = (array)$value;
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        $this->updateNotices();
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+    private function updateNotices()
+    {
+        $currentNoticeIds = $this->getNotice()->select('id')->column();
+        $newNoticeIds = $this->getNoticesArray();
+
+        foreach (array_filter(array_diff($newNoticeIds, $currentNoticeIds)) as $noticeId) {
+            if ($notice = Notice::find()->where(['id' => $noticeId])->one()) {
+                $this->link('notice', $notice);
+            }
+        }
+
+        foreach (array_filter(array_diff($currentNoticeIds, $newNoticeIds)) as $noticeId) {
+            if ($notice = Notice::find()->where(['id' => $noticeId])->one()) {
+                $this->unlink('notice', $notice, true);
+            }
+        }
+    }
+
 }
