@@ -131,6 +131,22 @@ $kek = AppAsset::register($this);
                                 </li>
                             <?php } ?>
 
+                            <?php if($object->menuObject()){ ?>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Объекты<b class="caret"></b></a>
+                                    <ul class="dropdown-menu navmenu-nav small-menu">
+                                        <?php
+                                        foreach ($userPermissions as $permission => $item){
+                                            $menu = $object->linkObject($permission);
+                                            if ($menu) {
+                                                echo '<li><a href="' . $menu['link'] . '">' . $menu['title'] . '</a></li>';
+                                            }
+                                        }
+                                        ?>
+                                    </ul>
+                                </li>
+                            <?php } ?>
+
 
 
 

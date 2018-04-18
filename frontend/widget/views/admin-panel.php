@@ -1,11 +1,15 @@
+<?php
+use yii\helpers\Url;
+?>
+
 <div class="admin-panel">
     <div class="admin-panel-block1">
         <ul>
             <li>
-                <a href="/admin" style="background: url(/uploads/adminPanel/settings.png) no-repeat center">Админка</a>
+                <a href="<?= Url::toRoute('/admin') ?>" style="background: url(<?= Url::to('@web/img/adminPanel/settings.png') ?>) no-repeat center">Админка</a>
             </li>
             <li>
-                <a href="#"  style="background: url(/uploads/adminPanel/cache.png) no-repeat center">Сбросить кеш</a>
+                <a href="<?= Url::toRoute('#') ?>"  style="background: url(<?= Url::to('@web/img/adminPanel/cache.png') ?>) no-repeat center">Сбросить кеш</a>
             </li>
         </ul>
     </div>

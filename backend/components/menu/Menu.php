@@ -17,7 +17,8 @@ class Menu {
             'admin_menu_rbac_roles',
             'admin_menu_rbac_permission',
             'admin_menu_rbac_users',
-            'info_site'
+            'info_site',
+            'settings_add_email_push'
         ];
 
         foreach ($permissions as $permission) {
@@ -95,6 +96,33 @@ class Menu {
         }
     }
 
+    /* Объекты */
+    function menuObject(){
+        $permissions = [
+            'can_create_object',
+        ];
+
+        foreach ($permissions as $permission) {
+            if (Yii::$app->user->can($permission)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    function linkObject($permission){
+        switch ($permission){
+
+            case 'can_create_object':
+                $name['title'] = 'Объекты';
+                $name['link'] = Url::toRoute('/object');
+                return $name;
+
+            default:
+                return false;
+        }
+    }
 
     /*
      * можно создать 1 большой массив и по циклу выдирать переменные
