@@ -46,7 +46,7 @@ class Object extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type_id', 'status', 'title'], 'required'],
+            [['type_id', 'title'], 'required'],
             [['type_id', 'status', 'place_km', 'area', 'rooms', 'price_cadastral', 'price_tian', 'price_market', 'price_liquidation'], 'integer'],
             [['descr'], 'string'],
             [['amount'], 'number'],
@@ -63,7 +63,7 @@ class Object extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'type_id' => 'Тип объекта',
-            'status' => 'Статус активности',
+            'status' => 'Активность',
             'title' => 'Название',
             'descr' => 'Описание',
             'place_km' => 'Удалённость',
@@ -71,7 +71,7 @@ class Object extends \yii\db\ActiveRecord
             'address' => 'Адресс',
             'address_map' => 'Адрес на карте',
             'area' => 'Метраж',
-            'rooms' => 'Команыт',
+            'rooms' => 'Комнаты',
             //'registered' => 'Прописанные',
             'owner' => 'Правоустановка',
             'price_cadastral' => 'Кадастровая стоимость',

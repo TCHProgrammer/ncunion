@@ -75,7 +75,7 @@ class m180417_093753_creare_lot_tables_object_and_passport extends Migration
         $this->createTable('object', [
             'id' => $this->primaryKey(),
             'type_id' => $this->integer()->notNull(),
-            'status' => $this->integer(1)->notNull(),
+            'status' => $this->integer(1),
             'title' =>$this->string()->notNull(),
             'descr' => $this->text(),
             'place_km' => $this->integer(),
