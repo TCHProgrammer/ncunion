@@ -15,10 +15,13 @@ class AuthAssignmentSearch extends AuthAssignment
     /**
      * @inheritdoc
      */
+
+    public $first_name;
+
     public function rules()
     {
         return [
-            [['item_name', 'user_id'], 'safe'],
+            [['item_name', 'user_id', 'first_name'], 'safe'],
             [['created_at'], 'integer'],
         ];
     }
@@ -41,12 +44,24 @@ class AuthAssignmentSearch extends AuthAssignment
      */
     public function search($params)
     {
-        $query = AuthAssignment::find();
+        $query = AuthAssignment::find()->joinWith(['users']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+        ]);
+
+        $dataProvider->setSort([
+            'attributes' =>[
+                'user_id',
+                'first_name' => [
+                    'asc' => ['first_name' => SORT_ASC, 'last_name' => SORT_ASC],
+                    'desc' => ['first_name' => SORT_DESC, 'last_name' => SORT_DESC],
+                    //'default' => SORT_ASC
+                ],
+                'item_name'
+            ]
         ]);
 
         $this->load($params);
@@ -63,7 +78,8 @@ class AuthAssignmentSearch extends AuthAssignment
         ]);
 
         $query->andFilterWhere(['like', 'item_name', $this->item_name])
-            ->andFilterWhere(['like', 'user_id', $this->user_id]);
+               ->andFilterWhere(['like', 'user_id', $this->user_id])
+               ->andFilterWhere(['like', 'first_name', $this->first_name]);
 
         return $dataProvider;
     }

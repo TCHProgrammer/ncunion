@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\modules\rbac\models\AuthAssignmentSearch */
@@ -24,8 +25,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{update}',
             ],
+
             'user_id',
+
+            [
+                'attribute' => 'first_name',
+                //'value' => 'users.first_name'
+                'value' => function ($data) {
+                    return Html::a(Html::encode($data->users->first_name), Url::to(['/users/view', 'id' => $data->users->id]));
+                },
+                'format' => 'raw'
+            ],
+
             'item_name',
+
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view}',

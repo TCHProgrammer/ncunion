@@ -21,6 +21,8 @@ use frontend\models\RegEmailPhone;
 
 class CheckUserController extends Controller{
 
+    ///ВАЖНО НАПИСАТЬ РОЛИ!!!!! ИХ ТУТ НЕТ !!!!
+
     /* 3 пути: подтверждение, паспорт, ожидание модерации */
     public function actionIndex(){
 

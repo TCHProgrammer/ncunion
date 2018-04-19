@@ -6,6 +6,7 @@ use backend\modules\rbac\models\AuthAssignment;
 use Yii;
 use common\models\NoticeUser;
 use common\models\Notice;
+use common\models\passport\UserPassport;
 
 /**
  * This is the model class for table "user".
@@ -107,6 +108,11 @@ class UserModel extends \yii\db\ActiveRecord
     public function getNoticeUsers()
     {
         return $this->hasMany(NoticeUser::className(), ['user_id' => 'id']);
+    }
+
+    public function getUserPassport()
+    {
+        return$this->hasOne(UserPassport::className(), ['id' => 'user_passport_id']);
     }
 
     private $_noticesArray;

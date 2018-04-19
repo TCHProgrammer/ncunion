@@ -3,6 +3,7 @@
 namespace backend\modules\rbac\models;
 
 use Yii;
+use common\models\UserModel;
 
 /**
  * This is the model class for table "auth_assignment".
@@ -46,6 +47,7 @@ class AuthAssignment extends \yii\db\ActiveRecord
             'item_name' => 'Роль',
             'user_id' => 'ID Пользователя',
             'created_at' => 'Дата создания',
+            'first_name' => 'Имя пользователя'
         ];
     }
 
@@ -55,5 +57,9 @@ class AuthAssignment extends \yii\db\ActiveRecord
     public function getItemName()
     {
         return $this->hasOne(AuthItem::className(), ['name' => 'item_name']);
+    }
+
+    public function getUsers() {
+        return $this->hasOne(UserModel::className(), ['id' => 'user_id']);
     }
 }
