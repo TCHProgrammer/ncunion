@@ -1,20 +1,18 @@
 <?php
 
-namespace backend\controllers;
+namespace backend\controllers\object_settings;
 
 use Yii;
-use common\models\object\Object;
-use backend\models\ObjectSearch;
+use common\models\object\Attribute;
+use backend\models\object_settings\AttributeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use backend\components\controllers\DefaultBackendController;
-use yii\filters\AccessControl;
 
 /**
- * ObjectController implements the CRUD actions for Object model.
+ * AttributeController implements the CRUD actions for Attribute model.
  */
-class ObjectController extends DefaultBackendController
+class AttributeController extends Controller
 {
     /**
      * @inheritdoc
@@ -22,15 +20,6 @@ class ObjectController extends DefaultBackendController
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['can_create_object'],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -41,12 +30,12 @@ class ObjectController extends DefaultBackendController
     }
 
     /**
-     * Lists all Object models.
+     * Lists all Attribute models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ObjectSearch();
+        $searchModel = new AttributeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -56,7 +45,7 @@ class ObjectController extends DefaultBackendController
     }
 
     /**
-     * Displays a single Object model.
+     * Displays a single Attribute model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -69,15 +58,14 @@ class ObjectController extends DefaultBackendController
     }
 
     /**
-     * Creates a new Object model.
+     * Creates a new Attribute model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Object();
+        $model = new Attribute();
 
-        $model->attributes['created_at'] = time();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -88,7 +76,7 @@ class ObjectController extends DefaultBackendController
     }
 
     /**
-     * Updates an existing Object model.
+     * Updates an existing Attribute model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -98,7 +86,7 @@ class ObjectController extends DefaultBackendController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->updateDate() && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -108,7 +96,7 @@ class ObjectController extends DefaultBackendController
     }
 
     /**
-     * Deletes an existing Object model.
+     * Deletes an existing Attribute model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -122,15 +110,15 @@ class ObjectController extends DefaultBackendController
     }
 
     /**
-     * Finds the Object model based on its primary key value.
+     * Finds the Attribute model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Object the loaded model
+     * @return Attribute the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Object::findOne($id)) !== null) {
+        if (($model = Attribute::findOne($id)) !== null) {
             return $model;
         }
 

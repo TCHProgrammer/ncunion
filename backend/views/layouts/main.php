@@ -133,7 +133,7 @@ $kek = AppAsset::register($this);
 
                             <?php if($object->menuObject()){ ?>
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Объекты<b class="caret"></b></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Каталог объектов<b class="caret"></b></a>
                                     <ul class="dropdown-menu navmenu-nav small-menu">
                                         <?php
                                         foreach ($userPermissions as $permission => $item){

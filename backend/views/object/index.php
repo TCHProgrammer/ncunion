@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
+use common\models\object\ObjectType;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\ObjectSearch */
@@ -17,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php Pjax::begin(); ?>
 
-    <p>
+    <div class="btn-admin">
         <div class="btn-group">
 
             <?= Html::a('Создать объект', ['create'], ['class' => 'btn btn-success']) ?>
@@ -25,14 +27,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="btn-group">
             <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Общие настройки <span class="caret"></span></button>
             <ul class="dropdown-menu">
-                <li><a href="#">Действие</a></li>
-                <li><a href="#">Другое действие</a></li>
-                <li><a href="#">Еще и еще</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Отделенный пункт</a></li>
+                <li><a href="<?= Url::toRoute(['object_settings/object-type']) ?>">Типы объектов</a></li>
+                <li><a href="<?= Url::toRoute(['object_settings/prescribed']) ?>">Прописанные</a></li>
+                <li><a href="<?= Url::toRoute(['object_settings/attribute']) ?>">Дополнительные атрибуты</a></li>
+                <li><a href="<?= Url::toRoute(['object_settings/sticker']) ?>">Стикеры</a></li>
             </ul>
         </div>
-    </p>
+    </div>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -63,11 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'attribute' => 'type_id',
-                'filter' => [
-                    1 => 'Квартира',
-                    2 => 'Дом',
-                    3 => 'Коммерция',
-                ],
+                'filter' => ArrayHelper::map(ObjectType::find()->all(), 'id', 'title'),
                 'headerOptions' => ['class' => 'text-center'],
                 'options' => ['style' => 'width:140px;'],
                 'value' => function($model){
@@ -84,6 +81,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 }
             ],
+            /*
+             *   [
+                'attribute' => 'type.title',
+                'filter' => ArrayHelper::map(ObjectType::find()->all(), 'id', 'title'),
+                'headerOptions' => ['class' => 'text-center'],
+                'options' => ['style' => 'width:140px;'],
+            ],
+             */
 
             [
                 'attribute' => 'status',

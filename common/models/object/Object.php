@@ -3,6 +3,7 @@
 namespace common\models\object;
 
 use Yii;
+use common\models\Sticker;
 
 /**
  * This is the model class for table "object".
@@ -23,6 +24,11 @@ use Yii;
  * @property int $price_tian
  * @property int $price_market
  * @property int $price_liquidation
+ * @property int $created_at
+ * @property int $updated_at
+ * @property int $close_at
+ * @property int $status_object
+ * @property int $sticker_id
  *
  * @property ObjectType $type
  * @property ObjectAttribute[] $objectAttributes
@@ -46,8 +52,9 @@ class Object extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type_id', 'title'], 'required'],
-            [['type_id', 'status', 'place_km', 'area', 'rooms', 'price_cadastral', 'price_tian', 'price_market', 'price_liquidation'], 'integer'],
+            [['type_id', 'title', 'created_at', 'updated_at'], 'required'],
+            [['type_id', 'status', 'place_km', 'area', 'rooms', 'price_cadastral', 'price_tian', 'price_market', 'price_liquidation', 'status_object', 'sticker_id', 'created_at', 'updated_at', 'close_at'], 'integer'],
+            [['created_at', 'updated_at'], 'default', 'value' => time()],
             [['descr'], 'string'],
             [['amount'], 'number'],
             [['title', 'address', 'address_map', 'owner'], 'string', 'max' => 255],
@@ -78,7 +85,16 @@ class Object extends \yii\db\ActiveRecord
             'price_tian' => 'ЦИАН',
             'price_market' => 'Рыночная стоимость',
             'price_liquidation' => 'Ликвидационная  стоимость',
+            'created_at' => 'Дата создания',
+            'updated_at' => 'Дата последнего изменения',
+            'close_at' => 'Дата закрытия сделки',
+            'status_object' => 'Статус сделки',
+            'sticker_id' => 'Стикер',
         ];
+    }
+
+    public function updateDate(){
+        return $this->updated_at = time();
     }
 
     /**
@@ -119,5 +135,10 @@ class Object extends \yii\db\ActiveRecord
     public function getObjectPrescribeds()
     {
         return $this->hasMany(ObjectPrescribed::className(), ['object_id' => 'id']);
+    }
+
+    public function getStickers()
+    {
+        return $this->hasOne(Sticker::className(), ['id' => 'sticker_id']);
     }
 }

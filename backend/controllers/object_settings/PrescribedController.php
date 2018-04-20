@@ -1,20 +1,18 @@
 <?php
 
-namespace backend\controllers;
+namespace backend\controllers\object_settings;
 
 use Yii;
-use common\models\object\Object;
-use backend\models\ObjectSearch;
+use common\models\object\Prescribed;
+use backend\models\object_settings\PrescribedSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use backend\components\controllers\DefaultBackendController;
-use yii\filters\AccessControl;
 
 /**
- * ObjectController implements the CRUD actions for Object model.
+ * PrescribedController implements the CRUD actions for Prescribed model.
  */
-class ObjectController extends DefaultBackendController
+class PrescribedController extends Controller
 {
     /**
      * @inheritdoc
@@ -22,15 +20,6 @@ class ObjectController extends DefaultBackendController
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['can_create_object'],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -41,12 +30,12 @@ class ObjectController extends DefaultBackendController
     }
 
     /**
-     * Lists all Object models.
+     * Lists all Prescribed models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ObjectSearch();
+        $searchModel = new PrescribedSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -55,31 +44,18 @@ class ObjectController extends DefaultBackendController
         ]);
     }
 
-    /**
-     * Displays a single Object model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
 
     /**
-     * Creates a new Object model.
+     * Creates a new Prescribed model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Object();
+        $model = new Prescribed();
 
-        $model->attributes['created_at'] = time();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect('index');
         }
 
         return $this->render('create', [
@@ -88,7 +64,7 @@ class ObjectController extends DefaultBackendController
     }
 
     /**
-     * Updates an existing Object model.
+     * Updates an existing Prescribed model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -98,8 +74,8 @@ class ObjectController extends DefaultBackendController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->updateDate() && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect('index');
         }
 
         return $this->render('update', [
@@ -108,7 +84,7 @@ class ObjectController extends DefaultBackendController
     }
 
     /**
-     * Deletes an existing Object model.
+     * Deletes an existing Prescribed model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -122,15 +98,15 @@ class ObjectController extends DefaultBackendController
     }
 
     /**
-     * Finds the Object model based on its primary key value.
+     * Finds the Prescribed model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Object the loaded model
+     * @return Prescribed the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Object::findOne($id)) !== null) {
+        if (($model = Prescribed::findOne($id)) !== null) {
             return $model;
         }
 

@@ -119,6 +119,10 @@ a.desc:after {
     outline: none;
 }
 
+.btn-admin {
+    margin: 15px 0px 15px 0px;
+}
+
 .sidebar-left {
     color: #fff;
     background-color: #2f4050;

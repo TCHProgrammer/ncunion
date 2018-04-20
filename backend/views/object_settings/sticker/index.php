@@ -2,27 +2,29 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-
+use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\NoticeSearch */
+/* @var $searchModel backend\models\object_settings\StickerSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Почтовые уведомления';
+$this->title = 'Стикеры';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="notice-index">
+<div class="sticker-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
+    <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Добавить новое уведомление', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать стикер', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
+
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{update}',
@@ -36,15 +38,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['class' => 'text-center'],
                 'contentOptions' => ['class' => 'text-center'],
             ],
-
             'title',
-
-            /*[
-                'class' => 'yii\grid\ActionColumn',
-                'template' => '{delete}',
-                'options' => ['style' => 'width:35px'],
-                'contentOptions' => ['class' => 'text-center'],
-            ],*/
+            'code',
         ],
     ]); ?>
+    <?php Pjax::end(); ?>
 </div>
