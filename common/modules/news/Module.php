@@ -1,5 +1,5 @@
 <?php
-namespace extensions\modules\news;
+namespace common\modules\news;
 
 class Module extends \yii\base\Module {
 

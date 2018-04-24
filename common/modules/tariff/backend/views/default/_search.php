@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\object_settings\AttributeSearch */
+/* @var $model common\modules\tariff\models\TariffSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="attribute-search">
+<div class="tariff-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -20,9 +20,23 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'title') ?>
+    <?= $form->field($model, 'days') ?>
 
-    <?= $form->field($model, 'type_id') ?>
+    <?= $form->field($model, 'price') ?>
+
+    <?= $form->field($model, 'status') ?>
+
+    <?= $form->field($model, 'img') ?>
+
+    <?php // echo $form->field($model, 'discount_id') ?>
+
+    <?php // echo $form->field($model, 'title') ?>
+
+    <?php // echo $form->field($model, 'top_title') ?>
+
+    <?php // echo $form->field($model, 'bot_title') ?>
+
+    <?php // echo $form->field($model, 'descr') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

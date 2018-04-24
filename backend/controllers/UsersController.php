@@ -6,15 +6,15 @@ use backend\modules\rbac\models\AuthAssignment;
 use Yii;
 use common\models\UserModel;
 use backend\models\UserSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
+use backend\components\controllers\DefaultBackendController;
 
 /**
  * UsersController implements the CRUD actions for UserModel model.
  */
-class UsersController extends Controller
+class UsersController extends DefaultBackendController
 {
     /**
      * @inheritdoc

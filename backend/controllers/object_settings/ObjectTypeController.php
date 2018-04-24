@@ -5,15 +5,15 @@ namespace backend\controllers\object_settings;
 use Yii;
 use common\models\object\ObjectType;
 use backend\models\object_settings\ObjectTypeSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use backend\components\controllers\DefaultBackendController;
 
 /**
  * ObjectTypeController implements the CRUD actions for ObjectType model.
  */
-class ObjectTypeController extends Controller
+class ObjectTypeController extends DefaultBackendController
 {
     /**
      * @inheritdoc

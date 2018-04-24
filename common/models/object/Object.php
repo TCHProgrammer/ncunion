@@ -4,6 +4,8 @@ namespace common\models\object;
 
 use Yii;
 use common\models\Sticker;
+use common\models\object\Attribute;
+use common\models\object\Prescribed;
 
 /**
  * This is the model class for table "object".
@@ -52,6 +54,7 @@ class Object extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['noticesArray'], 'safe'],
             [['type_id', 'title', 'created_at', 'updated_at'], 'required'],
             [['type_id', 'status', 'place_km', 'area', 'rooms', 'price_cadastral', 'price_tian', 'price_market', 'price_liquidation', 'status_object', 'sticker_id', 'created_at', 'updated_at', 'close_at'], 'integer'],
             [['created_at', 'updated_at'], 'default', 'value' => time()],
@@ -73,13 +76,13 @@ class Object extends \yii\db\ActiveRecord
             'status' => 'Активность',
             'title' => 'Название',
             'descr' => 'Описание',
-            'place_km' => 'Удалённость',
+            'place_km' => 'Удалённость (0 - Москва, больше 1 км от МКАД)',
             'amount' => 'Требуемая сумма',
             'address' => 'Адресс',
             'address_map' => 'Адрес на карте',
             'area' => 'Метраж',
             'rooms' => 'Комнаты',
-            //'registered' => 'Прописанные',
+            'noticesArray' => 'Прописанные:',
             'owner' => 'Правоустановка',
             'price_cadastral' => 'Кадастровая стоимость',
             'price_tian' => 'ЦИАН',
@@ -140,5 +143,48 @@ class Object extends \yii\db\ActiveRecord
     public function getStickers()
     {
         return $this->hasOne(Sticker::className(), ['id' => 'sticker_id']);
+    }
+
+    public function getPrescribed() //object_prescribed
+    {
+        return $this->hasMany(Prescribed::className(), ['id' => 'prescribed_id'])->viaTable('{{%object_prescribed}}', ['object_id' => 'id']);
+    }
+
+    private $_noticesArray;
+
+    public function getNoticesArray()
+    {
+        if ($this->_noticesArray === null) {
+            $this->_noticesArray = $this->getPrescribed()->select('id')->column();
+        }
+        return $this->_noticesArray;
+    }
+
+    public function setNoticesArray($value){
+        return $this->_noticesArray = (array)$value;
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        $this->updateNotices();
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+    private function updateNotices()
+    {
+        $currentNoticeIds = $this->getPrescribed()->select('id')->column();
+        $newNoticeIds = $this->getNoticesArray();
+
+        foreach (array_filter(array_diff($newNoticeIds, $currentNoticeIds)) as $noticeId) {
+            if ($notice = Prescribed::find()->where(['id' => $noticeId])->one()) {
+                $this->link('prescribed', $notice);
+            }
+        }
+
+        foreach (array_filter(array_diff($currentNoticeIds, $newNoticeIds)) as $noticeId) {
+            if ($notice = Prescribed::find()->where(['id' => $noticeId])->one()) {
+                $this->unlink('prescribed', $notice, true);
+            }
+        }
     }
 }

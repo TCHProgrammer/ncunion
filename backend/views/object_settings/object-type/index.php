@@ -11,8 +11,8 @@ use yii\widgets\Breadcrumbs;
 
 $this->title = 'Типы объектов';
 $this->params['breadcrumbs'][] = [
-    'label' => 'Каталог объектов', // название ссылки
-    'url' => ['/object'] // сама ссылка
+    'label' => 'Каталог объектов',
+    'url' => ['/object']
 ];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

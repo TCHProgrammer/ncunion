@@ -17,6 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="object-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
+
     <?php Pjax::begin(); ?>
 
     <div class="btn-admin">
@@ -67,18 +68,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => ArrayHelper::map(ObjectType::find()->all(), 'id', 'title'),
                 'headerOptions' => ['class' => 'text-center'],
                 'options' => ['style' => 'width:140px;'],
-                'value' => function($model){
-                    switch ($model->type_id) {
-                        case 1:
-                            return 'Квартира';
-                            break;
-                        case 2:
-                            return 'Дом';
-                            break;
-                        case 3:
-                            return 'Коммерция';
-                            break;
-                    }
+                'value' => function($model,$typeObject){
+                    $rez = ObjectType::find()->select(['title'])->where(['id' => $model->type_id])->one();
+                    return $rez->title;
                 }
             ],
             /*
@@ -107,32 +99,48 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'attribute' => 'place_km',
-                'filter' => [
-                    1 => 'Квартира',
-                    2 => 'Дом',
-                    3 => 'Коммерция',
-                ],
+                'label' => 'Удалённость',
                 'headerOptions' => ['class' => 'text-center'],
                 'options' => ['style' => 'width:140px;'],
                 'value' => function($model){
-                    switch ($model->type_id) {
-                        case 1:
-                            return 'Квартира';
-                            break;
-                        case 2:
-                            return 'Дом';
-                            break;
-                        case 3:
-                            return 'Коммерция';
-                            break;
+                    if ($model->place_km === 0) {
+                        return 'Москва';
+                    }else{
+                        return $model->place_km . ' км от МКАД';
                     }
                 }
             ],
-            //'amount',
+
             //'address',
             //'address_map',
-            //'area',
-            //'rooms',
+
+            [
+                'attribute' => 'amount',
+                'options' => ['style' => 'width:150px;'],
+                'format' => ['decimal', 0],
+                'headerOptions' => ['class' => 'text-center'],
+                'contentOptions' => ['class' => 'text-center'],
+            ],
+
+            [
+                'attribute' => 'area',
+                'options' => ['style' => 'width:95px;'],
+                'headerOptions' => ['class' => 'text-center'],
+                'contentOptions' => ['class' => 'text-center'],
+                'value' => function($model){
+                    if ($model->area){
+                        return $model->area . ' м²';
+                    }
+                }
+            ],
+
+            [
+                'attribute' => 'rooms',
+                'options' => ['style' => 'width:95px;'],
+                'headerOptions' => ['class' => 'text-center'],
+                'contentOptions' => ['class' => 'text-center'],
+            ],
+
             //'owner',
             //'price_cadastral',
             //'price_tian',

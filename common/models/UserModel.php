@@ -102,7 +102,6 @@ class UserModel extends \yii\db\ActiveRecord
     public function getNotice()
     {
         return $this->hasMany(Notice::className(), ['id' => 'notice_id'])->viaTable('{{%notice_user}}', ['user_id' => 'id']);
-
     }
 
     public function getNoticeUsers()

@@ -5,16 +5,15 @@ namespace backend\controllers;
 use Yii;
 use common\models\Notice;
 use backend\models\NoticeSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-
+use backend\components\controllers\DefaultBackendController;
 
 /**
  * NoticeController implements the CRUD actions for Notice model.
  */
-class NoticeController extends Controller
+class NoticeController extends DefaultBackendController
 {
     /**
      * @inheritdoc

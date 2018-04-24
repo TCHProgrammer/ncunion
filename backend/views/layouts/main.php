@@ -147,8 +147,10 @@ $kek = AppAsset::register($this);
                                 </li>
                             <?php } ?>
 
-
-
+                            <?php if (Yii::$app->user->can('can_module_tariff')) ?>
+                            <li class="dropdown">
+                                <a href="<?= Url::toRoute('/tariff') ?>">Тарифы</a>
+                            </li>
 
                             <!-- Супер  мега идея!! сделать меню, что бы оно само генерировалось исходя от роли или тупо создать ... -->
                             <li class="dropdown">

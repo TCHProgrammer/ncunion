@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use common\models\object\ObjectType;
+use common\models\object\Prescribed;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\object\Object */
@@ -44,6 +45,10 @@ use common\models\object\ObjectType;
 
     <?= $form->field($model, 'rooms')->textInput() ?>
 
+    <?= $form->field($model, 'noticesArray')->checkboxList(
+        Prescribed::find()->select(['title', 'id'])->indexBy('id')->column()
+    ) ?>
+
     <?= $form->field($model, 'owner')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'price_cadastral')->textInput() ?>
@@ -55,7 +60,7 @@ use common\models\object\ObjectType;
     <?= $form->field($model, 'price_liquidation')->textInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

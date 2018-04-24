@@ -41,7 +41,7 @@ class ObjectImg extends \yii\db\ActiveRecord
     {
         return [
             'object_id' => 'Object ID',
-            'img' => 'Img',
+            'img' => 'Изображение',
         ];
     }
 

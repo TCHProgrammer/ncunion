@@ -5,14 +5,15 @@ namespace backend\controllers\object_settings;
 use Yii;
 use common\models\object\Prescribed;
 use backend\models\object_settings\PrescribedSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use backend\components\controllers\DefaultBackendController;
 
 /**
  * PrescribedController implements the CRUD actions for Prescribed model.
  */
-class PrescribedController extends Controller
+class PrescribedController extends DefaultBackendController
 {
     /**
      * @inheritdoc
@@ -20,6 +21,15 @@ class PrescribedController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['can_create_object'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

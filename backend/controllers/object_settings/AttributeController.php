@@ -5,14 +5,15 @@ namespace backend\controllers\object_settings;
 use Yii;
 use common\models\object\Attribute;
 use backend\models\object_settings\AttributeSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use backend\components\controllers\DefaultBackendController;
 
 /**
  * AttributeController implements the CRUD actions for Attribute model.
  */
-class AttributeController extends Controller
+class AttributeController extends DefaultBackendController
 {
     /**
      * @inheritdoc
@@ -20,6 +21,15 @@ class AttributeController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['can_create_object'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -45,19 +55,6 @@ class AttributeController extends Controller
     }
 
     /**
-     * Displays a single Attribute model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
      * Creates a new Attribute model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -67,7 +64,7 @@ class AttributeController extends Controller
         $model = new Attribute();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect('index');
         }
 
         return $this->render('create', [

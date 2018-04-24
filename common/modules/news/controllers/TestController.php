@@ -1,8 +1,8 @@
 <?php
-namespace extensions\modules\news\controllers;
+namespace common\modules\news\controllers;
 use backend\components\controllers\DefaultBackendController;
 
-class DefaultController extends DefaultBackendController {
+class TestController extends DefaultBackendController {
 
     public function actionsIndex(){
         return $this->render('index');

@@ -44,8 +44,8 @@ class Attribute extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'type_id' => 'Type ID',
+            'title' => 'Название',
+            'type_id' => 'Тип объекта',
         ];
     }
 

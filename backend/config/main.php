@@ -15,8 +15,14 @@ return [
         'rbac' => [
             'class' => 'backend\modules\rbac\Module',
         ],
-        'test' => [
+        /*'test' => [
             'class' => 'modules\test\Module',
+        ],*/
+        'tariff' => [
+            'class' => 'common\modules\tariff\backend\Module',
+        ],
+        'test' => [
+            'class' => 'common\modules\test\backend\Module',
         ],
     ],
     'homeUrl' => '/admin',

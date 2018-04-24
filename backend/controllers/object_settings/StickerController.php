@@ -5,14 +5,15 @@ namespace backend\controllers\object_settings;
 use Yii;
 use common\models\Sticker;
 use backend\models\object_settings\StickerSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use backend\components\controllers\DefaultBackendController;
 
 /**
  * StickerController implements the CRUD actions for Sticker model.
  */
-class StickerController extends Controller
+class StickerController extends DefaultBackendController
 {
     /**
      * @inheritdoc
@@ -20,6 +21,15 @@ class StickerController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['can_create_object'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

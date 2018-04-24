@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\object\Attribute */
+/* @var $model common\modules\tariff\models\Tariff */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Attributes', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Tariffs', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="attribute-view">
+<div class="tariff-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -29,8 +29,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
+            'days',
+            'price',
+            'status',
+            'img',
+            'discount_id',
             'title',
-            'type_id',
+            'top_title',
+            'bot_title',
+            'descr:ntext',
         ],
     ]) ?>
 

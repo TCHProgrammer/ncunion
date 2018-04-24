@@ -10,6 +10,8 @@ return [
     'components' => [
         'formatter' => [
             'class' => 'yii\i18n\Formatter',
+            'thousandSeparator' => ' ',
+            'decimalSeparator' => ',',
             /*'locale' => 'ru-RU',
             'decimalSeparator' => ',',
             'thousandSeparator' => ' ',
