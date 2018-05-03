@@ -27,8 +27,8 @@ class m180424_132725_create_table_tariff extends Migration
 
         $this->createTable('module_tariff_discount', [
             'id' => $this->primaryKey(),
-            'name' => $this->string()->notNull(),
-            'title' => $this->string(),
+            'title' => $this->string()->notNull(),
+            'number' => $this->integer()->notNull(),
             'type' => $this->integer()->notNull(), // скидка %, простовый вычет
         ]);
 

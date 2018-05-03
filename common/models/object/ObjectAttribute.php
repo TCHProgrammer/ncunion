@@ -16,6 +16,9 @@ use Yii;
  */
 class ObjectAttribute extends \yii\db\ActiveRecord
 {
+
+    const SCENARIO_TABULAR = 'tabular';
+
     /**
      * @inheritdoc
      */
@@ -34,6 +37,14 @@ class ObjectAttribute extends \yii\db\ActiveRecord
             [['value'], 'string', 'max' => 255],
             [['attribute_id'], 'exist', 'skipOnError' => true, 'targetClass' => Attribute::className(), 'targetAttribute' => ['attribute_id' => 'id']],
             [['object_id'], 'exist', 'skipOnError' => true, 'targetClass' => Object::className(), 'targetAttribute' => ['object_id' => 'id']],
+        ];
+    }
+
+    public static function primaryKey()
+    {
+        return [
+            'object_id',
+            'attribute_id'
         ];
     }
 

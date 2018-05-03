@@ -8,8 +8,8 @@ use Yii;
  * This is the model class for table "module_tariff_discount".
  *
  * @property int $id
- * @property string $name
  * @property string $title
+ * @property int $number
  * @property int $type
  *
  * @property Tariff[] $moduleTariffs
@@ -30,9 +30,9 @@ class TariffDiscount extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'type'], 'required'],
-            [['type'], 'integer'],
-            [['name', 'title'], 'string', 'max' => 255],
+            [['title', 'number', 'type'], 'required'],
+            [['number', 'type'], 'integer'],
+            [['title'], 'string', 'max' => 255],
         ];
     }
 
@@ -43,8 +43,8 @@ class TariffDiscount extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Название скидки',
-            'title' => 'Надпись скидки',
+            'title' => 'Название',
+            'number' => 'Сумма скидки',
             'type' => 'Тип',
         ];
     }

@@ -9,6 +9,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use backend\components\controllers\DefaultBackendController;
 use yii\filters\AccessControl;
+use common\modules\tariff\models\TariffDiscount;
 
 /**
  * TariffController implements the CRUD actions for Tariff model.
@@ -55,19 +56,6 @@ class DefaultController extends DefaultBackendController
     }
 
     /**
-     * Displays a single Tariff model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
      * Creates a new Tariff model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -77,7 +65,7 @@ class DefaultController extends DefaultBackendController
         $model = new Tariff();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect('index');
         }
 
         return $this->render('create', [
@@ -97,7 +85,7 @@ class DefaultController extends DefaultBackendController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect('index');
         }
 
         return $this->render('update', [
@@ -133,5 +121,18 @@ class DefaultController extends DefaultBackendController
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionDiscount()
+    {
+        $model = new TariffDiscount();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect('index');
+        }
+
+        return $this->render('discount', [
+            'model' => $model,
+        ]);
     }
 }

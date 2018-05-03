@@ -6,6 +6,8 @@ use Yii;
 use common\models\Sticker;
 use common\models\object\Attribute;
 use common\models\object\Prescribed;
+use common\models\object\ObjectImg;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "object".
@@ -40,9 +42,11 @@ use common\models\object\Prescribed;
  */
 class Object extends \yii\db\ActiveRecord
 {
-    /**
-     * @inheritdoc
-     */
+
+    public $imgFile;
+    public $docFile;
+    const file_name_length = 8;
+
     public static function tableName()
     {
         return 'object';
@@ -55,6 +59,10 @@ class Object extends \yii\db\ActiveRecord
     {
         return [
             [['noticesArray'], 'safe'],
+            [['imgFile'], 'file', 'extensions' => 'png, jpg'],
+            [['docFile'], 'file', 'extensions' => 'txt, pdf, cvg, xlsx, ods, docx'],
+            [['created_at'], 'default', 'value'=> time()],
+            [['updated_at'], 'default', 'value'=> time()],
             [['type_id', 'title', 'created_at', 'updated_at'], 'required'],
             [['type_id', 'status', 'place_km', 'area', 'rooms', 'price_cadastral', 'price_tian', 'price_market', 'price_liquidation', 'status_object', 'sticker_id', 'created_at', 'updated_at', 'close_at'], 'integer'],
             [['created_at', 'updated_at'], 'default', 'value' => time()],
@@ -94,6 +102,22 @@ class Object extends \yii\db\ActiveRecord
             'status_object' => 'Статус сделки',
             'sticker_id' => 'Стикер',
         ];
+    }
+
+    public function beforeSave($insert)
+    {
+
+        if($imgs = UploadedFile::getInstances($this, 'imgFile')){
+            foreach ($imgs as $img){
+                $dir = Yii::getAlias('@frontend/web/uploads/objects/') . $this->id . '/';
+
+                //if (file)
+                    /*https://www.youtube.com/watch?v=0SC7up01NSA*/
+
+            }
+        }
+
+        return parent::beforeSave($insert);
     }
 
     public function updateDate(){
@@ -138,6 +162,11 @@ class Object extends \yii\db\ActiveRecord
     public function getObjectPrescribeds()
     {
         return $this->hasMany(ObjectPrescribed::className(), ['object_id' => 'id']);
+    }
+
+    public function getAttribs()
+    {
+        return $this->hasMany(Attribute::className(), ['id' => 'attribute_id'])->viaTable('{{%object_attribute}}', ['object_id' => 'id']);
     }
 
     public function getStickers()

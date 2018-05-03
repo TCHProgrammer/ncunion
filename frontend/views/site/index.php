@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Url;
 $this->title = 'ZalogZalog';
+use common\models\object\ObjectAttribute;
 ?>
 <div class="site-index">
     <?php
@@ -13,6 +14,13 @@ $this->title = 'ZalogZalog';
     var_dump( Yii::$app->user->can('canAdmin'));
     var_dump( Yii::$app->user->can('admin_menu_rbac_users'));
     var_dump( Yii::$app->user->can('widgetAdminPanel'));
+
+    $modell = ObjectAttribute::find()
+        ->where(['object_id' => 30])
+        ->andWhere(['attribute_id' => 1])
+        ->one();
+
+    var_dump($modell);
 
 
     /*Yii::$app->mailer->compose()

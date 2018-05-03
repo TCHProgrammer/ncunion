@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => ArrayHelper::map(ObjectType::find()->all(), 'id', 'title'),
                 'headerOptions' => ['class' => 'text-center'],
                 'options' => ['style' => 'width:140px;'],
-                'value' => function($model,$typeObject){
+                'value' => function($model){
                     $rez = ObjectType::find()->select(['title'])->where(['id' => $model->type_id])->one();
                     return $rez->title;
                 }
@@ -92,6 +92,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 'options' => ['style' => 'width:110px;'],
                 'value' => function($model){
                     return $model->status ? 'Да' : 'Нет';
+                }
+            ],
+
+            [
+                'attribute' => 'status_object',
+                'filter' => [
+                    1 => 'Сделка открыта',
+                    0 => 'Сделка закрыта',
+                ],
+                'headerOptions' => ['class' => 'text-center'],
+                'options' => ['style' => 'width:170px;'],
+                'value' => function($model){
+                    return $model->status_object ? 'Сделка открыта' : 'Сделка закрыта';
                 }
             ],
 

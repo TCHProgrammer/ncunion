@@ -10,6 +10,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use backend\components\controllers\DefaultBackendController;
 use yii\filters\AccessControl;
+use common\models\object\ObjectAttribute;
+use common\models\object\Attribute;
+use yii\base\Model;
 
 /**
  * ObjectController implements the CRUD actions for Object model.
@@ -76,14 +79,19 @@ class ObjectController extends DefaultBackendController
     public function actionCreate()
     {
         $model = new Object();
+        $values = $this->initValues($model);
 
         $model->attributes['created_at'] = time();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $post = Yii::$app->request->post();
+
+        if ($model->load($post) && $model->save() &&  Model::loadMultiple($values, $post)) {
+            $this->processValues($values, $model);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'values' => $values,
         ]);
     }
 
@@ -97,13 +105,18 @@ class ObjectController extends DefaultBackendController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $values = $this->initValues($model);
+        $post = Yii::$app->request->post();
 
-        if ($model->load(Yii::$app->request->post()) && $model->updateDate() && $model->save()) {
+        if ($model->load($post) && $model->updateDate() && $model->save() &&  Model::loadMultiple($values, $post)) {
+            $this->processValues($values, $model);
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'values' => $values,
         ]);
     }
 
@@ -136,4 +149,52 @@ class ObjectController extends DefaultBackendController
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    private function initValues(Object $model){
+        $values = $model->getObjectAttributes()->indexBy('attribute_id')->all();
+        $attributes = Attribute::find()->indexBy('id')->all();
+
+        foreach (array_diff_key($attributes, $values) as $attribute) {
+            $values[$attribute->id] = new ObjectAttribute(['attribute_id' => $attribute->id]);
+        }
+
+       /*foreach ($values as $value) {
+            $value->setScenario(ObjectAttribute::SCENARIO_TABULAR);
+        }*/
+
+        return $values;
+    }
+
+    private function processValues($values, Object $model)
+    {
+        foreach ($values as $value) {
+            $value->object_id = $model->id;
+
+            $objectAttrinute = ObjectAttribute::find()
+                                    ->where(['object_id' => $model->id])
+                                    ->andWhere(['attribute_id' => $value->attribute_id])
+                                    ->one();
+
+            $checkAttr = Attribute::findOne($value->attribute_id);
+            if ($model->type_id == $checkAttr->type_id) {
+                if ($objectAttrinute) {
+                    if ($value->value === '') {
+                        $objectAttrinute->delete(['object_id' => $model->id, 'attribute_id' => $value->attribute_id]);
+                    } else {
+                        $objectAttrinute->value = $value->value;
+                        $objectAttrinute->save();
+                    }
+                } else {
+                    if (str_replace(' ', '', $value->value)) {
+                        $value->save(false);
+                    }
+                }
+            }else{
+                if($objectAttrinute){
+                    $objectAttrinute->delete(['object_id' => $model->id, 'attribute_id' => $value->attribute_id]);
+                }
+            }
+        }
+    }
+
 }

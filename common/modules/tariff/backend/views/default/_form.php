@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use common\modules\tariff\models\TariffDiscount;
 
 /* @var $this yii\web\View */
 /* @var $model common\modules\tariff\models\Tariff */
@@ -16,11 +18,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?= $form->field($model, 'status')->checkbox() ?>
 
     <?= $form->field($model, 'img')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'discount_id')->textInput() ?>
+    <?= $form->field($model, 'discount_id')->dropDownList(
+        ArrayHelper::map(TariffDiscount::find()->all(), 'id', 'title'),
+        ['prompt' => '']
+    ) ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 

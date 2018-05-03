@@ -18,7 +18,7 @@ class ObjectSearch extends Object
     public function rules()
     {
         return [
-            [['id', 'type_id', 'status', 'place_km', 'area', 'rooms', 'price_cadastral', 'price_tian', 'price_market', 'price_liquidation'], 'integer'],
+            [['id', 'type_id', 'status', 'place_km', 'area', 'rooms', 'price_cadastral', 'price_tian', 'price_market', 'price_liquidation', 'status_object'], 'integer'],
             [['title', 'descr', 'address', 'address_map', 'owner'], 'safe'],
             [['amount'], 'number'],
         ];
@@ -71,6 +71,7 @@ class ObjectSearch extends Object
             'price_tian' => $this->price_tian,
             'price_market' => $this->price_market,
             'price_liquidation' => $this->price_liquidation,
+            'status_object' => $this->status_object
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
