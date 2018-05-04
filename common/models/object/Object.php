@@ -8,6 +8,7 @@ use common\models\object\Attribute;
 use common\models\object\Prescribed;
 use common\models\object\ObjectImg;
 use yii\web\UploadedFile;
+use yii\helpers\FileHelper;
 
 /**
  * This is the model class for table "object".
@@ -107,9 +108,38 @@ class Object extends \yii\db\ActiveRecord
     public function beforeSave($insert)
     {
 
-        if($imgs = UploadedFile::getInstances($this, 'imgFile')){
-            foreach ($imgs as $img){
-                $dir = Yii::getAlias('@frontend/web/uploads/objects/') . $this->id . '/';
+        if($file = UploadedFile::getInstances($this, 'imgFile')){
+
+            foreach ($file as $img){
+
+                $dir = Yii::getAlias('@frontend/web/uploads/objects/img/' . $this->id . '/');
+
+                /*if(file_exists($dir)){
+                    unlink(Yii::getAlias($dir . $img->name));
+                    if(!file_exists($dir)) {
+                        rmdir($dir);
+                    }
+                }*/
+
+                if (!is_dir($dir)){
+                    FileHelper::createDirectory($dir, 0777);
+                }
+
+                $this->imgFile = strtotime('now') . '_'
+                    . Yii::$app->getSecurity()->generateRandomString(8)
+                    . '.' . $img->getExtension();
+
+                $fileName = $dir . $this->imgFile;
+
+                $model = new ObjectImg();
+                $model->object_id = $this->id;
+                $model->img = 'uploads/objects/img/' . $this->id . '/' . $this->imgFile;
+
+                $img->saveAs($fileName);
+
+                $model->save();
+
+//                $imgs->save($dir . $this->imgFile);
 
                 //if (file)
                     /*https://www.youtube.com/watch?v=0SC7up01NSA*/

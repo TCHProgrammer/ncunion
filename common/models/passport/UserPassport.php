@@ -35,6 +35,7 @@ class UserPassport extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['amount', 'type_id'], 'required'],
             [['amount'], 'number'],
             [['type_id', 'form_participation_id'], 'integer'],
             [['form_participation_id'], 'exist', 'skipOnError' => true, 'targetClass' => FormParticipation::className(), 'targetAttribute' => ['form_participation_id' => 'id']],
@@ -49,8 +50,8 @@ class UserPassport extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'amount' => 'Amount',
-            'type_id' => 'Type ID',
+            'amount' => 'Желаемая сумма участия',
+            'type_id' => 'Тип объекта',
             'form_participation_id' => 'Form Participation ID',
         ];
     }
