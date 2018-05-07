@@ -9,6 +9,7 @@ use common\models\object\Prescribed;
 use common\models\object\ObjectImg;
 use yii\web\UploadedFile;
 use yii\helpers\FileHelper;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "object".
@@ -108,11 +109,11 @@ class Object extends \yii\db\ActiveRecord
     public function beforeSave($insert)
     {
 
-        if($file = UploadedFile::getInstances($this, 'imgFile')){
+        if($filesImg = UploadedFile::getInstances($this, 'imgFile')){
 
-            foreach ($file as $img){
+            foreach ($filesImg as $img){
 
-                $dir = Yii::getAlias('@frontend/web/uploads/objects/img/' . $this->id . '/');
+                $dir = Yii::getAlias('@uploads/objects/img/' . $this->id . '/');
 
                 /*if(file_exists($dir)){
                     unlink(Yii::getAlias($dir . $img->name));
@@ -183,7 +184,29 @@ class Object extends \yii\db\ActiveRecord
      */
     public function getObjectImgs()
     {
-        return $this->hasMany(ObjectImg::className(), ['object_id' => 'id']);
+        return $this->hasMany(ObjectImg::className(), ['object_id' => 'id'])->orderBy('sort');
+    }
+
+    public function getImgLists(){
+        return ArrayHelper::getColumn($this->objectImgs, 'imageUrl');
+    }
+
+    public function getImgLinkData(){
+
+        $arr = ArrayHelper::toArray($this->objectImgs, [
+            ObjectImg::className() => [
+                'caption' => 'img',
+                'key' => 'id'
+            ],
+        ]);
+
+        $i = 0;
+        foreach ($arr as $item){
+
+            $arr[$i]['caption'] = substr(strrchr($item['caption'], "/"), 1);
+            $i++;
+        }
+        return $arr;
     }
 
     /**

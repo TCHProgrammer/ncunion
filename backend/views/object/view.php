@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\widgets\Breadcrumbs;
+use metalguardian\fotorama\Fotorama;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\object\Object */
@@ -95,5 +97,33 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]) ?>
+
+    <?php
+    $fotorama = Fotorama::begin(
+        [
+            'options' => [
+                'loop' => true,
+                'hash' => true,
+                'ratio' => 800/600,
+            ],
+            'spinner' => [
+                'lines' => 20,
+            ],
+            'tagName' => 'span',
+            'useHtmlData' => false,
+            'htmlOptions' => [
+                'class' => 'custom-class',
+                'id' => 'custom-id',
+            ],
+        ]
+    );
+
+    foreach ($imgs as $img){
+        $link = str_replace('admin', '', Url::home(true). $img->img);
+        //$dir = Yii::getAlias('@uploads') . '/objects/img/' . $post['object_id'] .'/';
+        echo Html::img($link);
+    }
+
+    Fotorama::end(); ?>
 
 </div>

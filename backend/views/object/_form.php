@@ -8,6 +8,8 @@ use common\models\object\Prescribed;
 use common\models\object\Attribute;
 use mihaildev\ckeditor\CKEditor;
 use kartik\file\FileInput;
+use yii\helpers\Url;
+use yii\web\JsExpression;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\object\Object */
@@ -20,72 +22,108 @@ use kartik\file\FileInput;
         'options' => ['enctype' => 'multipart/form-data']
     ]); ?>
 
-    <?= $form->field($model, 'type_id')->dropDownList(
-        ArrayHelper::map(ObjectType::find()->all(), 'id', 'title'),
-        ['prompt' => 'Выберите тип объекта...']
-    ) ?>
-
     <?//= $form->field($model, 'imgFile')->fileInput() ?>
     <?= FileInput::widget([
-            'model' => $model,
+            /*'model' => $model,
             'attribute' => 'imgFile[]',
-            'options' => ['multiple' => true],
+            'options' => ['multiple' => true],*/
             //'pluginOptions' => ['previewFileType' => 'any', 'uploadUrl' => Url::to(['/site/file-upload'])]
-        ]);
+        'name' => 'imgFile[]',
+        'options'=>[
+            'multiple'=>true
+        ],
+        'pluginOptions' => [
+            'deleteUrl' => Url::toRoute(['/object/delete-img']),
+            'initialPreview' => $model->imgLists,
+            'initialPreviewAsData' => true,
+            'overwriteInitial' => false,
+            'initialPreviewConfig' => $model->imgLinkData,
+            'uploadUrl' => Url::to(['/site/save-img']),
+            'uploadExtraData' => [
+                'class' => $model->formName(),
+                'object_id' => $model->id,
+            ],
+            'maxFileCount' => 10
+        ],
+        'pluginEvents' => [
+            'filesorted' => new JsExpression('function(event, params){
+                $.post("' . Url::toRoute(['/object/sort-img' .
+                "id"=>$model->id]).'",{sort:params});
+            }')
+        ]
+    ]);
     ?>
+    <br>
 
-    ////////////////////////////////////////////////
-    <?php foreach ($values as $value): ?>
-        <?php $attribute = Attribute::findOne($value->attribute_id) ?>
-        <div class="form-attribute-<?= $attribute->type_id ?>">
-            <?= $form->field($value, '[' . $value->attribute0->id . ']value')->label($value->attribute0->title); ?>
-        </div>
-    <?php endforeach; ?>
-    ///////////////////////////////////////////////
+    <div class="row col-lg-12">
+        <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'status')->checkbox() ?>
+        <?= $form->field($model, 'status')->checkbox() ?>
+    </div>
 
-    <?= $form->field($model, 'status_object')->dropDownList([
+    <div class="row">
+        <?= $form->field($model, 'type_id', ['options' => ['class' => 'col-lg-6 col-md-6']])->dropDownList(
+            ArrayHelper::map(ObjectType::find()->all(), 'id', 'title'),
+            ['prompt' => 'Выберите тип объекта...']
+        ) ?>
+
+        <?= $form->field($model, 'status_object', ['options' => ['class' => 'col-lg-6 col-md-6']])->dropDownList([
         1 => 'Сделка открыта',
         0 => 'Сделка закрыта'
-    ]) ?>
+        ]) ?>
 
-    <?//= $form->field($model, 'sticker_id')->checkbox() ?>
+    </div>
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    <div class="row col-lg-12">
+        <?= $form->field($model, 'descr')->widget(CKEditor::className(),[
+            'editorOptions' => [
+                'preset' => 'full', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+                'inline' => false, //по умолчанию false
+            ],
+        ]); ?>
+    </div>
 
-    <?= $form->field($model, 'descr')->widget(CKEditor::className(),[
-        'editorOptions' => [
-            'preset' => 'full', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
-            'inline' => false, //по умолчанию false
-        ],
-    ]); ?>
+    <div class="row">
+        <?= $form->field($model, 'place_km', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'place_km')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'amount', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'amount')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'area', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
 
-    <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'rooms', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
+    </div>
 
-    <?= $form->field($model, 'address_map')->textInput(['maxlength' => true]) ?>
+    <div class="row col-lg-12">
+        <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'area')->textInput() ?>
+        <?= $form->field($model, 'address_map')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'rooms')->textInput() ?>
 
-    <?= $form->field($model, 'noticesArray')->checkboxList(
-        Prescribed::find()->select(['title', 'id'])->indexBy('id')->column()
-    ) ?>
+        <?= $form->field($model, 'noticesArray')->checkboxList(
+            Prescribed::find()->select(['title', 'id'])->indexBy('id')->column()
+        ) ?>
 
-    <?= $form->field($model, 'owner')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'owner')->textInput(['maxlength' => true]) ?>
+    </div>
 
-    <?= $form->field($model, 'price_cadastral')->textInput() ?>
+    <div class="row">
+        <?= $form->field($model, 'price_cadastral', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
 
-    <?= $form->field($model, 'price_tian')->textInput() ?>
+        <?= $form->field($model, 'price_tian', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
 
-    <?= $form->field($model, 'price_market')->textInput() ?>
+        <?= $form->field($model, 'price_market', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
 
-    <?= $form->field($model, 'price_liquidation')->textInput() ?>
+        <?= $form->field($model, 'price_liquidation', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
+    </div>
+
+    <div class="row">
+        <?php foreach ($values as $value): ?>
+            <?php $attribute = Attribute::findOne($value->attribute_id) ?>
+            <div class="form-attribute-<?= $attribute->type_id ?>">
+                <?= $form->field($value, '[' . $value->attribute0->id . ']value', ['options' => ['class' => 'col-lg-6 col-md-6']])->label($value->attribute0->title); ?>
+            </div>
+        <?php endforeach; ?>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

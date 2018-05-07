@@ -13,6 +13,7 @@ use yii\filters\AccessControl;
 use common\models\object\ObjectAttribute;
 use common\models\object\Attribute;
 use yii\base\Model;
+use common\models\object\ObjectImg;
 
 /**
  * ObjectController implements the CRUD actions for Object model.
@@ -66,8 +67,10 @@ class ObjectController extends DefaultBackendController
      */
     public function actionView($id)
     {
+        $imgs = ObjectImg::find()->where(['object_id' => $id])->all();
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'imgs' => $imgs
         ]);
     }
 
@@ -193,6 +196,15 @@ class ObjectController extends DefaultBackendController
                 if($objectAttrinute){
                     $objectAttrinute->delete(['object_id' => $model->id, 'attribute_id' => $value->attribute_id]);
                 }
+            }
+        }
+    }
+
+    public function actionDeleteImg(){
+        $kek = ObjectImg::find()->where(['img' => Yii::$app->request->post('key')])->one();
+        if($model = ObjectImg::findOne(Yii::$app->request->post('key'))){
+            if($model->delete()){
+                return true;
             }
         }
     }
