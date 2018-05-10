@@ -17,9 +17,17 @@ $this->params['breadcrumbs'][] = 'Изменить';
 
     <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [], ]); ?>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-        'values' => $values,
-    ]) ?>
+    <div class="object-form">
+        <?= $this->render('_formFiles', [
+            'addFile' => $addFile,
+            'listFiles' => $listFiles,
+            'time' => $time
+        ]) ?>
+
+        <?= $this->render('_form', [
+            'model' => $model,
+            'values' => $values,
+        ]) ?>
+    </div>
 
 </div>

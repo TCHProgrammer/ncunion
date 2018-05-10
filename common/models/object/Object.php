@@ -10,6 +10,7 @@ use common\models\object\ObjectImg;
 use yii\web\UploadedFile;
 use yii\helpers\FileHelper;
 use yii\helpers\ArrayHelper;
+use common\models\object\ObjectFile;
 
 /**
  * This is the model class for table "object".
@@ -46,7 +47,7 @@ class Object extends \yii\db\ActiveRecord
 {
 
     public $imgFile;
-    public $docFile;
+    //public $docFile;
     const file_name_length = 8;
 
     public static function tableName()
@@ -62,7 +63,7 @@ class Object extends \yii\db\ActiveRecord
         return [
             [['noticesArray'], 'safe'],
             [['imgFile'], 'file', 'extensions' => 'png, jpg'],
-            [['docFile'], 'file', 'extensions' => 'txt, pdf, cvg, xlsx, ods, docx'],
+            //[['docFile'], 'file', 'extensions' => 'png, txt, pdf, cvg, xlsx, ods, docx'],
             [['created_at'], 'default', 'value'=> time()],
             [['updated_at'], 'default', 'value'=> time()],
             [['type_id', 'title', 'created_at', 'updated_at'], 'required'],

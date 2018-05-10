@@ -16,44 +16,12 @@ use yii\web\JsExpression;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="object-form">
 
     <?php $form = ActiveForm::begin([
         'options' => ['enctype' => 'multipart/form-data']
     ]); ?>
 
-    <?//= $form->field($model, 'imgFile')->fileInput() ?>
-    <?= FileInput::widget([
-            /*'model' => $model,
-            'attribute' => 'imgFile[]',
-            'options' => ['multiple' => true],*/
-            //'pluginOptions' => ['previewFileType' => 'any', 'uploadUrl' => Url::to(['/site/file-upload'])]
-        'name' => 'imgFile[]',
-        'options'=>[
-            'multiple'=>true
-        ],
-        'pluginOptions' => [
-            'deleteUrl' => Url::toRoute(['/object/delete-img']),
-            'initialPreview' => $model->imgLists,
-            'initialPreviewAsData' => true,
-            'overwriteInitial' => false,
-            'initialPreviewConfig' => $model->imgLinkData,
-            'uploadUrl' => Url::to(['/site/save-img']),
-            'uploadExtraData' => [
-                'class' => $model->formName(),
-                'object_id' => $model->id,
-            ],
-            'maxFileCount' => 10
-        ],
-        'pluginEvents' => [
-            'filesorted' => new JsExpression('function(event, params){
-                $.post("' . Url::toRoute(['/object/sort-img' .
-                "id"=>$model->id]).'",{sort:params});
-            }')
-        ]
-    ]);
-    ?>
-    <br>
+    <?//= $form->field($model, 'docFile', ['options' => ['id' => 'object-dic-file']])->fileInput() ?>
 
     <div class="row col-lg-12">
         <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
@@ -81,6 +49,40 @@ use yii\web\JsExpression;
                 'inline' => false, //по умолчанию false
             ],
         ]); ?>
+
+        <label class="control-label">Фотогалерея</label>
+        <?= FileInput::widget([
+            /*'model' => $model,
+            'attribute' => 'imgFile[]',
+            'options' => ['multiple' => true],*/
+            //'pluginOptions' => ['previewFileType' => 'any', 'uploadUrl' => Url::to(['/site/file-upload'])]
+            'name' => 'imgFile[]',
+            'options'=>[
+                'multiple'=>true
+            ],
+            'pluginOptions' => [
+                'deleteUrl' => Url::toRoute(['/object/delete-img']),
+                'initialPreview' => $model->imgLists,
+                'initialPreviewAsData' => true,
+                'overwriteInitial' => false,
+                'initialPreviewConfig' => $model->imgLinkData,
+                'uploadUrl' => Url::to(['/object/save-img']),
+                'uploadExtraData' => [
+                    'class' => $model->formName(),
+                    'object_id' => $model->id,
+                ],
+                'maxFileCount' => 10
+            ],
+            'options' => ['accept' => 'image/*'],
+            'pluginEvents' => [
+                'filesorted' => new JsExpression('function(event, params){
+                $.post("' . Url::toRoute(['/object/sort-img?id=' .
+                        $model->id]).'",{sort:params});
+            }')
+            ]
+        ]);
+        ?>
+        <br>
     </div>
 
     <div class="row">
@@ -131,4 +133,3 @@ use yii\web\JsExpression;
 
     <?php ActiveForm::end(); ?>
 
-</div>

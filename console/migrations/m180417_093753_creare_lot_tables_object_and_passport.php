@@ -68,8 +68,9 @@ class m180417_093753_creare_lot_tables_object_and_passport extends Migration
         ]);
 
         $this->createTable('object_file', [
+            'id' => $this->primaryKey(),
             'object_id' => $this->integer(),
-            'file' => $this->string()
+            'doc' => $this->string()
         ]);
 
         $this->createTable('object', [

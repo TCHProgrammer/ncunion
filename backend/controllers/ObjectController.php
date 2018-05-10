@@ -14,6 +14,12 @@ use common\models\object\ObjectAttribute;
 use common\models\object\Attribute;
 use yii\base\Model;
 use common\models\object\ObjectImg;
+use yii\helpers\Url;
+use yii\web\MethodNotAllowedHttpException;
+use yii\helpers\FileHelper;
+use yii\web\Response;
+use yii\web\UploadedFile;
+use common\models\object\ObjectFile;
 
 /**
  * ObjectController implements the CRUD actions for Object model.
@@ -110,6 +116,40 @@ class ObjectController extends DefaultBackendController
         $model = $this->findModel($id);
         $values = $this->initValues($model);
         $post = Yii::$app->request->post();
+        $addFile = new ObjectFile();
+
+        /* загрузка файла */
+        if ($post['ObjectFile'] && $_FILES['ObjectFile']){
+
+            $dir = Yii::getAlias('@frontend') . '/web/uploads/objects/doc/' . $id .'/';
+
+            if (!is_dir($dir)){
+                FileHelper::createDirectory($dir);
+            }
+
+            $addFile->docFile = UploadedFile::getInstance($addFile, 'doc');
+
+            $docName = strtotime('now') . '_' . Yii::$app->security->generateRandomString(8) . '.' . $addFile->docFile->getExtension();
+
+            $addFile->object_id = $id;
+            $addFile->title = $post['ObjectFile']['title'];
+            $addFile->doc = '/uploads/objects/doc/' . $id .'/' . $docName;
+
+            $addFile->docFile->saveAs($dir . $docName);
+
+            if($addFile->validate() && $addFile->save()) {
+                //return $this->redirect(['update', 'id' => $model->id]);
+            }
+        }
+
+        /* удаление файла pjax */
+        $get = Yii::$app->request->get();
+        if(Yii::$app->request->isAjax && $get['file_id'] &&  !$_FILES['ObjectFile']){
+            $delFile = ObjectFile::findOne($get['file_id']);
+            $delFile->delete();
+        }
+
+        $listFiles = ObjectFile::find()->where(['object_id' => $id])->all();
 
         if ($model->load($post) && $model->updateDate() && $model->save() &&  Model::loadMultiple($values, $post)) {
             $this->processValues($values, $model);
@@ -120,6 +160,9 @@ class ObjectController extends DefaultBackendController
         return $this->render('update', [
             'model' => $model,
             'values' => $values,
+            'addFile' => $addFile,
+            'listFiles' => $listFiles,
+             'time' => date('H:i:s'),
         ]);
     }
 
@@ -200,13 +243,86 @@ class ObjectController extends DefaultBackendController
         }
     }
 
+    /**
+     * Загрузка фото
+     */
+    public function actionSaveImg(){
+        if(Yii::$app->request->isPost){
+            $post = Yii::$app->request->post();
+            $dir = Yii::getAlias('@frontend') . '/web/uploads/objects/img/' . $post['object_id'] .'/';
+
+            if (!is_dir($dir)){
+                FileHelper::createDirectory($dir);
+            }
+
+            $result_link = str_replace('admin', '', Url::home(true) . 'uploads/object/img/' . $post['object_id'] .'/');
+            $file = UploadedFile::getInstancesByName( 'imgFile');
+            $file = array_shift($file);
+
+            if (is_null($file)){
+                return 'Файлы уже загруженны';
+            }
+
+            $imgName = strtotime('now') . '_' . Yii::$app->security->generateRandomString(8). '.' . $file->getExtension();
+
+            $fullName = $dir . $imgName;
+
+            $model = new ObjectImg();
+            $model->object_id = $post['object_id'];
+            $model->img = 'uploads/objects/img/' . $post['object_id'] .'/' . $imgName;
+
+            if ($model->validate()){
+                if($file->saveAs($fullName)){
+                    if($model->save()){
+                        $resilt = [
+                            'filelink' => $result_link . $fullName
+                        ];
+                    };
+                }
+            }
+            Yii::$app->response->format = Response::FORMAT_JSON;
+
+            return $resilt;
+        }
+    }
     public function actionDeleteImg(){
-        $kek = ObjectImg::find()->where(['img' => Yii::$app->request->post('key')])->one();
         if($model = ObjectImg::findOne(Yii::$app->request->post('key'))){
+
+            //$dir = Yii::getAlias('@frontend') . '/web/' . $model->img;
+
             if($model->delete()){
                 return true;
+            }else{
+                throw new NotFoundHttpException('Изображение уже было удаленно');
             }
         }
     }
+    public function actionSortImg($id){
+        if(Yii::$app->request->isAjax){
+            $post = Yii::$app->request->post('sort');
+            if($post['oldIndex'] > $post['newIndex']){
+                $param = ['and', ['>=', 'sort', $post['newIndex']],['<', 'sort', $post['oldIndex']]];
+                $conter = 1;
+            }else{
+                $param = ['and', ['<=', 'sort', $post['newIndex']],['>', 'sort', $post['oldIndex']]];
+                $conter = -1;
+            }
+            ObjectImg::updateAllCounters(
+                ['sort' =>$conter], ['and', ['object_id' => $id], $param]
+            );
+            ObjectImg::updateAll(
+                ['sort' =>$post['newIndex']], ['id' => $post['stack'][$post['newIndex']]['key']]
+            );
+            return true;
+        }
+        throw new MethodNotAllowedHttpException();
+    }
+
+
+    public function actionPjax()
+    {
+        return $this->redirect(['update', 'id' => 2]);
+    }
+
 
 }

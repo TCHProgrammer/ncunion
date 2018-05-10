@@ -10,6 +10,7 @@ use yii\helpers\Url;
  *
  * @property int $object_id
  * @property string $img
+ * @property string $sort
  *
  * @property Object $object
  */
@@ -34,7 +35,7 @@ class ObjectImg extends \yii\db\ActiveRecord
                 $count = ObjectImg::find()->count();
                 return ($count > 0 ) ? $count++ : 0;
             }],
-            [['imgFile'], 'image'],
+            [['imgFile'], 'image', 'extensions' => 'jpg, png'],
             [['img'], 'string', 'max' => 255],
             [['object_id'], 'exist', 'skipOnError' => true, 'targetClass' => Object::className(), 'targetAttribute' => ['object_id' => 'id']],
         ];
@@ -49,6 +50,29 @@ class ObjectImg extends \yii\db\ActiveRecord
             'object_id' => 'Object ID',
             'img' => 'Изображение',
         ];
+    }
+
+    public function beforeDelete()
+    {
+        if (parent::beforeDelete()){
+            $dir = Yii::getAlias('@frontend') . '/web/' . $this->img;
+
+            unlink($dir);
+
+            ObjectImg::updateAllCounters(
+                ['sort' => -1], ['and', ['object_id' => $this->object_id], ['>', 'sort', $this->sort]]
+            );
+
+            $delDir = Yii::getAlias('@frontend') . '/web/uploads/objects/img/' . $this->object_id . '/';
+            $arrImg = scandir($delDir);
+            if (is_null($arrImg[2])){
+                rmdir($delDir);
+            }
+
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**

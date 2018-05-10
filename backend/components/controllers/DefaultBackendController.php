@@ -20,7 +20,7 @@ class DefaultBackendController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'save-img'],
+                        'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

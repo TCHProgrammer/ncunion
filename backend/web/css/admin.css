@@ -390,4 +390,11 @@ a.desc:after {
     margin: 25px auto;
 }
 
+.btn-form-file-del{
+    padding: 4px 8px 2px 9px;
+}
+
+.form-a-del{
+    margin: 8px;
+}
 
