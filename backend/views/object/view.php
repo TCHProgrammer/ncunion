@@ -126,4 +126,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
     Fotorama::end(); ?>
 
+    <br>
+    <label class="control-label">Документы:</label>
+    <br>
+    <?php
+        foreach ($files as $file){
+            echo Html::a($file->title, $file->doc, ['class' => 'form-a-del','download' => true]) . '</p>';
+        }
+    ?>
+
 </div>

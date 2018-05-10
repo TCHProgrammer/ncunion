@@ -56,6 +56,18 @@ class UserPassport extends \yii\db\ActiveRecord
         ];
     }
 
+    public function afterSave($insert, $changedAttributes){
+
+        $user = User::findOne(Yii::$app->user->id);
+
+        $user->user_passport_id = $this->id;
+        $user->save();
+
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+
+
     /**
      * @return \yii\db\ActiveQuery
      */

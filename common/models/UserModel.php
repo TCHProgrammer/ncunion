@@ -29,6 +29,7 @@ use common\models\passport\UserPassport;
  * @property string $check_email
  * @property string $check_phone
  * @property string $check_moderator
+ * @property string $user_passport_id
  *
  * @property UserAvatar[] $userAvatars
  */
@@ -51,7 +52,7 @@ class UserModel extends \yii\db\ActiveRecord
             ['imageFile', 'image', 'extensions' => 'jpg, png'],
             [['noticesArray'], 'safe'],
             [['auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
-            [['status', 'created_at', 'updated_at', 'check_email', 'check_phone'], 'integer'],
+            [['status', 'created_at', 'updated_at', 'check_email', 'check_phone', 'user_passport_id'], 'integer'],
             [['auth_key'], 'string', 'max' => 32],
             [['password_hash', 'password_reset_token', 'email', 'first_name', 'last_name', 'middle_name', 'phone', 'company_name', 'avatar'], 'string', 'max' => 255],
             [['email'], 'unique'],

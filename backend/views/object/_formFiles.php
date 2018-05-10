@@ -32,9 +32,6 @@ use yii\helpers\Url;
 <div id="kek">
     <?php
         $get = Yii::$app->request->get();
-        if (Yii::$app->request->isAjax ){
-            echo 'хуй';
-        }
             foreach ($listFiles as $file) {
                 /*echo '
                     <p>

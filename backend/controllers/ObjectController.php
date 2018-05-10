@@ -74,9 +74,13 @@ class ObjectController extends DefaultBackendController
     public function actionView($id)
     {
         $imgs = ObjectImg::find()->where(['object_id' => $id])->all();
+
+        $files = ObjectFile::find()->where(['object_id' => $id])->all();
+
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'imgs' => $imgs
+            'imgs' => $imgs,
+            'files' => $files
         ]);
     }
 
