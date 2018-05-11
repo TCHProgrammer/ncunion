@@ -22,13 +22,13 @@ $this->title="Паспорт клиента";
                 ['prompt' => 'Выберите тип объекта...']
             ) ?>
 
-            <?= $form->field($model, 'amount', ['options' => ['class' => 'form-height']])->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'amount', ['options' => ['class' => 'form-height']])->textInput() ?>
         </div>
 
         <div class="col-lg-6">
-            <?= $form->field($model, 'area', ['options' => ['class' => 'form-height']])->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'area', ['options' => ['class' => 'form-height']])->textInput() ?>
 
-            <?= $form->field($model, 'rooms', ['options' => ['class' => 'form-height']])->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'rooms', ['options' => ['class' => 'form-height']])->textInput() ?>
         </div>
 
         <div class="col-lg-12">
@@ -37,7 +37,7 @@ $this->title="Паспорт клиента";
 
         <div class="col-lg-12">
             <div class="form-group">
-                <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+                <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary']) ?>
             </div>
         </div>
 

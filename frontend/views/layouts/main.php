@@ -50,6 +50,7 @@ AppAsset::register($this);
         $menuItems[] = ['label' => Yii::$app->user->identity->email, 'items' => [
             ['label' => 'Профиль', 'url' => ['/user/profile']],
             ['label' => 'Настройки', 'url' => ['/user/settings']],
+            ['label' => 'Паспорт', 'url' => ['/user/passport']],
             '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(

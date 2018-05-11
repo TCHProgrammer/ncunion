@@ -10,6 +10,7 @@ namespace frontend\controllers;
 
 use common\models\Notice;
 use common\models\NoticeUser;
+use common\models\passport\UserPassport;
 use frontend\components\controllers\DefaultFrontendController;
 use common\models\UserAvatar;
 use yii\filters\AccessControl;
@@ -84,9 +85,34 @@ class UserController extends DefaultFrontendController{
         ]);
     }
 
+    public function actionPassport(){
+
+        $user = UserModel::find()->where(['id' => Yii::$app->user->id])->select('user_passport_id')->one();
+        $model = $this->findPassport($user->user_passport_id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()){
+            if ($model->save()){
+                return $this->redirect('profile');
+            }
+        }
+
+        return $this->render('passport', [
+            'model' => $model
+        ]);
+    }
+
     protected function findModel($id)
     {
         if (($model = UserModel::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    protected function findPassport($id)
+    {
+        if (($model = UserPassport::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

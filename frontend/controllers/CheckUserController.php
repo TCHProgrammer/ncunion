@@ -30,9 +30,6 @@ class CheckUserController extends Controller{
         $user_id = Yii::$app->user->id;
         $user = UserModel::findOne($user_id);
 
-        //тут чекам профиль из паспорта, если есть то гуд
-        $passport_user = UserPassport::findOne($user_id);
-
         if (!($user->check_email && $user->check_phone)){
 
 
@@ -51,19 +48,18 @@ class CheckUserController extends Controller{
             return $this->render('check-email-phone', [
                 'model' => $model
             ]);
-        }elseif (is_null($passport_user)){
+
+        //тут чекам профиль из паспорта, если есть то гуд
+        }elseif (is_null($user->user_passport_id)){
 
             $model = new UserPassport();
 
             if ($model->load(Yii::$app->request->post())) {
                 if($model->validate()){
-                    $model->save();
-                    //он вроде как сохраняет, но надо сделать ещё правильную выбору(что паспорт у клиента имеется) и
-                    // и нужно сохранить id паспорта в столбик с id юзера
+                    if($model->save()){
+                        return $this->redirect('/payment/pay');
+                    };
                 }
-                /*if($model->save()){
-                    return $this->redirect('/payment/pay');
-                };*/
             }
 
             return $this->render('passport', [

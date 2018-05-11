@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::begin(); ?>
 
     <p>
-        <?= Html::a('Зарегистрировать нового клиента', ['create'], ['class' => 'btn btn-success']) ?>
+        <?//= Html::a('Зарегистрировать нового клиента', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'style' => 'width:35px',
                 ]
             ],
-
+            'subscribe_dt',
             'last_name',
             'first_name',
             'middle_name',

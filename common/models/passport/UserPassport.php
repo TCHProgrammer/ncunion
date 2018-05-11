@@ -12,6 +12,8 @@ use common\models\UserModel as User;
  * @property int $id
  * @property string $amount
  * @property int $type_id
+ * @property int $area
+ * @property int $rooms
  * @property int $form_participation_id
  *
  * @property PassportAttribute[] $passportAttributes
@@ -35,9 +37,9 @@ class UserPassport extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['amount', 'type_id'], 'required'],
+            [['amount', 'type_id', 'form_participation_id'], 'required'],
             [['amount'], 'number'],
-            [['type_id', 'form_participation_id'], 'integer'],
+            [['type_id', 'form_participation_id', 'area', 'rooms'], 'integer'],
             [['form_participation_id'], 'exist', 'skipOnError' => true, 'targetClass' => FormParticipation::className(), 'targetAttribute' => ['form_participation_id' => 'id']],
             [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ObjectType::className(), 'targetAttribute' => ['type_id' => 'id']],
         ];
@@ -52,7 +54,9 @@ class UserPassport extends \yii\db\ActiveRecord
             'id' => 'ID',
             'amount' => 'Желаемая сумма участия',
             'type_id' => 'Тип объекта',
-            'form_participation_id' => 'Form Participation ID',
+            'area' => 'Площадь',
+            'rooms' => 'Комнаты',
+            'form_participation_id' => 'Форма участия',
         ];
     }
 

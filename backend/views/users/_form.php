@@ -20,6 +20,8 @@ $list = [
 
     <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'subscribe_dt')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'middle_name')->textInput(['maxlength' => true]) ?>

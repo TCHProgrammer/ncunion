@@ -26,11 +26,13 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
+    <h3>Общая информация</h3>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
 
             'id',
+            'subscribe_dt',
             'last_name',
             'first_name',
             'middle_name',
