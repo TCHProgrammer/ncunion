@@ -41,6 +41,50 @@ use yii\web\JsExpression;
 
     </div>
 
+    //////////////////////////////////////////////
+    <div class="row col-lg-12">
+
+        <?php foreach ($listCheckbox as $itemCheckbox){ ?>
+            <div class="form-attribute-<?= $itemCheckbox->type_id ?>">
+                <label><?= $itemCheckbox->title ?></label>
+                <div>
+                    <?php foreach ($itemCheckbox->groupCheckboxes as $itemGroup){ ?>
+                        <label>
+                            <input type="checkbox" name="GroupCheckboxes[<?= $itemCheckbox->type_id ?>][<?= $itemCheckbox->id ?>][]" value="<?= $itemGroup->id ?>" <?= (in_array($itemGroup->id, $rezCheckbox))?'checked':'' ?>>
+                            <?= $itemGroup->title ?>
+                        </label>
+                    <?php } ?>
+                </div>
+            </div>
+            <!-- $itemCheckbox->groupCheckboxes //массив четбоксов -->
+        <?php } ?>
+
+    </div>
+    <br>
+    //////////////////////////////////////////////
+
+    //////////////////// radio //////////////////////////
+    <div class="row col-lg-12">
+
+        <?php foreach ($listRadio as $itemRadio){ ?>
+            <div class="form-attribute-<?= $itemRadio->type_id ?>">
+                <label><?= $itemRadio->title ?></label>
+                <div>
+                    <?php foreach ($itemRadio->groupRadios as $itemGroup){ ?>
+                        <label>
+                            <input type="radio" name="GroupRadios[<?= $itemRadio->type_id ?>][<?= $itemRadio->id ?>][]" value="<?= $itemGroup->id ?>" <?= (in_array($itemGroup->id, $rezRadio))?'checked':'' ?>>
+                            <?= $itemGroup->title ?>
+                        </label>
+                    <?php } ?>
+                </div>
+            </div>
+            <!-- $itemCheckbox->groupCheckboxes //массив четбоксов -->
+        <?php } ?>
+
+    </div>
+    <br>
+    //////////////////////////////////////////////
+
     <div class="row col-lg-12">
         <?= $form->field($model, 'descr')->widget(CKEditor::className(),[
             'editorOptions' => [

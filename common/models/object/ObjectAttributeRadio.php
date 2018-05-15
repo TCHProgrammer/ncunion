@@ -48,6 +48,14 @@ class ObjectAttributeRadio extends \yii\db\ActiveRecord
         ];
     }
 
+    public static function primaryKey()
+    {
+        return [
+            'group_id',
+            'object_id'
+        ];
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */

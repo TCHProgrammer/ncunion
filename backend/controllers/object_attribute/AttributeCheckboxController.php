@@ -87,9 +87,27 @@ class AttributeCheckboxController extends DefaultBackendController
 
         $addGroup = new GroupCheckbox();
 
+        if (Yii::$app->request->post('Group')){
+
+            foreach (Yii::$app->request->post('Group') as $idCheckbox => $title){
+                $item = GroupCheckbox::findOne($idCheckbox);
+                if ($item){
+                    $item->title = $title['title'];
+                    if ($item->validate()){
+                        $item->save();
+                    }
+                }
+            }
+
+            /*$addGroup->attribute_id = $id;
+            if ($addGroup->load(Yii::$app->request->post()) && $addGroup->validate() && $addGroup->save()) {
+                return $this->redirect(['update', 'id' => $id]);
+            }*/
+        }
+
         if (Yii::$app->request->post('GroupCheckbox')){
             $addGroup->attribute_id = $id;
-            if ($addGroup->load(Yii::$app->request->post()) && $addGroup->save()) {
+            if ($addGroup->load(Yii::$app->request->post()) && $addGroup->validate() && $addGroup->save()) {
                 return $this->redirect(['update', 'id' => $id]);
             }
         }
@@ -122,7 +140,9 @@ class AttributeCheckboxController extends DefaultBackendController
     public function actionDeleteItem($id, $attribute)
     {
         $model = GroupCheckbox::findOne($id);
-        $model->delete();
+        if ($model){
+            $model->delete();
+        }
 
         return $this->redirect(['update', 'id' => $attribute]);
     }

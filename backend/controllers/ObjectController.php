@@ -20,6 +20,12 @@ use yii\helpers\FileHelper;
 use yii\web\Response;
 use yii\web\UploadedFile;
 use common\models\object\ObjectFile;
+use common\models\object\AttributeCheckbox;
+use common\models\object\GroupCheckbox;
+use common\models\object\ObjectAttributeCheckbox;
+use common\models\object\AttributeRadio;
+use common\models\object\GroupRadio;
+use common\models\object\ObjectAttributeRadio;
 
 /**
  * ObjectController implements the CRUD actions for Object model.
@@ -94,17 +100,37 @@ class ObjectController extends DefaultBackendController
         $model = new Object();
         $values = $this->initValues($model);
 
+        $listCheckbox = AttributeCheckbox::find()->joinWith('groupCheckboxes')->all();
+        $rezCheckbox = [];
+
+        /* Radio/ */
+        $listRadio = AttributeRadio::find()->joinWith('groupRadios')->all();
+        $rezRadio = [];
+        /* /Radio */
+
         $model->attributes['created_at'] = time();
         $post = Yii::$app->request->post();
 
         if ($model->load($post) && $model->save() &&  Model::loadMultiple($values, $post)) {
             $this->processValues($values, $model);
+
+            $this->saveCheckbox(Yii::$app->request->post('GroupCheckboxes')[$model->type_id], $model);
+
+            /* Radio/ */
+            $this->saveRadio(Yii::$app->request->post('GroupRadios')[$model->type_id], $model);
+            /* /Radio */
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
             'values' => $values,
+            'listCheckbox' => $listCheckbox,
+            'rezCheckbox' => $rezCheckbox,
+            'listRadio' => $listRadio,
+            'rezRadio' => $rezRadio
+
         ]);
     }
 
@@ -119,6 +145,23 @@ class ObjectController extends DefaultBackendController
     {
         $model = $this->findModel($id);
         $values = $this->initValues($model);
+
+        $listCheckbox = AttributeCheckbox::find()->joinWith('groupCheckboxes')->all();
+        $modelCheckbox = ObjectAttributeCheckbox::find()->where(['object_id' => $id])->all();
+        $rezCheckbox = [];
+        foreach ($modelCheckbox as $item){
+            $rezCheckbox[] .= $item->group_id;
+        }
+
+        /* Radio/ */
+        $listRadio = AttributeRadio::find()->joinWith('groupRadios')->all();
+        $modelRadio = ObjectAttributeRadio::find()->where(['object_id' => $id])->all();
+        $rezRadio = [];
+        foreach ($modelRadio as $item){
+            $rezRadio[] .= $item->group_id;
+        }
+        /* /Radio */
+
         $post = Yii::$app->request->post();
         $addFile = new ObjectFile();
 
@@ -158,6 +201,12 @@ class ObjectController extends DefaultBackendController
         if ($model->load($post) && $model->updateDate() && $model->save() &&  Model::loadMultiple($values, $post)) {
             $this->processValues($values, $model);
 
+            $this->saveCheckbox(Yii::$app->request->post('GroupCheckboxes')[$model->type_id], $model);
+
+            /* Radio/ */
+            $this->saveRadio(Yii::$app->request->post('GroupRadios')[$model->type_id], $model);
+            /* /Radio */
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -166,6 +215,10 @@ class ObjectController extends DefaultBackendController
             'values' => $values,
             'addFile' => $addFile,
             'listFiles' => $listFiles,
+            'listCheckbox' => $listCheckbox,
+            'rezCheckbox' => $rezCheckbox,
+            'listRadio' => $listRadio,
+            'rezRadio' => $rezRadio
         ]);
     }
 
@@ -244,6 +297,158 @@ class ObjectController extends DefaultBackendController
                 }
             }
         }
+    }
+
+    /**
+     * Сохраниение checkbox
+     */
+    private function saveCheckbox($groups, $model){
+
+        $listModel = ObjectAttributeCheckbox::find()->where(['object_id' => $model->id])->all();
+
+        $arrListGroups = [];
+        foreach ($listModel as $item){
+            $arrListGroups[] .= $item->group_id;
+        }
+
+        $delArr = [];
+        if ($groups){
+            foreach ($groups as $id => $group){
+                foreach ($group as $item){
+                    if (!in_array($item, $arrListGroups)){
+                        $addNewAttr = new ObjectAttributeCheckbox();
+                        $addNewAttr->object_id = $model->id;
+                        $addNewAttr->attribute_id = $id;
+                        $addNewAttr->group_id = $item;
+                        if($addNewAttr->validate()){
+                            $addNewAttr->save();
+                        }
+                    }else{
+                        $delArr[] .= $item;
+                        unset($arrListGroups[array_search($item,$arrListGroups)]);
+                    }
+
+                    /*$checkGroup = ObjectAttributeCheckbox::find()
+                        ->where(['object_id' => $model->id])
+                        ->andWhere(['attribute_id' => $id])
+                        ->andWhere(['group_id' => $item])
+                        ->one();
+                    if (!$checkGroup){
+                        $addNewAttr = new ObjectAttributeCheckbox();
+                        $addNewAttr->object_id = $model->id;
+                        $addNewAttr->attribute_id = $id;
+                        $addNewAttr->group_id = $item;
+                        if($addNewAttr->validate()){
+                            $addNewAttr->save();
+                        }
+                    }*/
+
+                }
+
+            }
+        }
+
+
+        foreach ($arrListGroups as $arrListGroup) {
+            $delModel = ObjectAttributeCheckbox::find()
+                ->where(['object_id' => $model->id])
+                ->andWhere(['group_id' => $arrListGroup])
+                ->one();
+            //$delModel1 = ObjectAttributeCheckbox::findOne(18);
+            if ($delModel) {
+                $delModel->delete(['object_id' => $model->id, 'group_id' => $arrListGroup]);
+            }
+        }
+
+
+        /*foreach ($arrListGroups as $arrListGroup) {
+            if (!in_array($arrListGroup, $delArr)) {
+                $delModel = ObjectAttributeCheckbox::find()
+                    ->where(['object_id' => $model->id])
+                    ->andWhere(['group_id' => $arrListGroup])
+                    ->one();*/
+                /*if ($delModel) {
+                    $delModel->delete();
+                }*/
+            /*}
+        }*/
+
+    }
+
+    /**
+     * Сохраниение radio
+     */
+    private function saveRadio($groups, $model){
+
+        $listModel = ObjectAttributeRadio::find()->where(['object_id' => $model->id])->all();
+
+        $arrListGroups = [];
+        foreach ($listModel as $item){
+            $arrListGroups[] .= $item->group_id;
+        }
+
+        $delArr = [];
+        if ($groups){
+            foreach ($groups as $id => $group){
+                foreach ($group as $item){
+                    if (!in_array($item, $arrListGroups)){
+                        $addNewAttr = new ObjectAttributeRadio();
+                        $addNewAttr->object_id = $model->id;
+                        $addNewAttr->attribute_id = $id;
+                        $addNewAttr->group_id = $item;
+                        if($addNewAttr->validate()){
+                            $addNewAttr->save();
+                        }
+                    }else{
+                        $delArr[] .= $item;
+                        unset($arrListGroups[array_search($item,$arrListGroups)]);
+                    }
+
+                    /*$checkGroup = ObjectAttributeCheckbox::find()
+                        ->where(['object_id' => $model->id])
+                        ->andWhere(['attribute_id' => $id])
+                        ->andWhere(['group_id' => $item])
+                        ->one();
+                    if (!$checkGroup){
+                        $addNewAttr = new ObjectAttributeCheckbox();
+                        $addNewAttr->object_id = $model->id;
+                        $addNewAttr->attribute_id = $id;
+                        $addNewAttr->group_id = $item;
+                        if($addNewAttr->validate()){
+                            $addNewAttr->save();
+                        }
+                    }*/
+
+                }
+
+            }
+        }
+
+
+        foreach ($arrListGroups as $arrListGroup) {
+            $delModel = ObjectAttributeRadio::find()
+                ->where(['object_id' => $model->id])
+                ->andWhere(['group_id' => $arrListGroup])
+                ->one();
+            //$delModel1 = ObjectAttributeRadio::findOne(18);
+            if ($delModel) {
+                $delModel->delete(['object_id' => $model->id, 'group_id' => $arrListGroup]);
+            }
+        }
+
+
+        /*foreach ($arrListGroups as $arrListGroup) {
+            if (!in_array($arrListGroup, $delArr)) {
+                $delModel = ObjectAttributeCheckbox::find()
+                    ->where(['object_id' => $model->id])
+                    ->andWhere(['group_id' => $arrListGroup])
+                    ->one();*/
+        /*if ($delModel) {
+            $delModel->delete();
+        }*/
+        /*}
+    }*/
+
     }
 
     /**

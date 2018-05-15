@@ -18,7 +18,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
-        'values' => $values
+        'values' => $values,
+        'listCheckbox' => $listCheckbox,
+        'rezCheckbox' => $rezCheckbox,
+        'listRadio' => $listRadio,
+        'rezRadio' => $rezRadio
     ]) ?>
 
 </div>

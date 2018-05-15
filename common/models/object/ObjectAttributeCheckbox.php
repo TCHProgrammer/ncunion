@@ -36,6 +36,14 @@ class ObjectAttributeCheckbox extends \yii\db\ActiveRecord
         ];
     }
 
+    public static function primaryKey()
+    {
+        return [
+            'group_id',
+            'object_id'
+        ];
+    }
+
     /**
      * @inheritdoc
      */

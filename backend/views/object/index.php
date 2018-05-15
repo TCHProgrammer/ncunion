@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="btn-group">
             <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Дополнительные атрибуты<span class="caret"></span></button>
             <ul class="dropdown-menu">
-                <li><a href="<?= Url::toRoute(['object_attribute/attribute']) ?>">Строчка</a></li>
+                <li><a href="<?= Url::toRoute(['object_attribute/attribute']) ?>">Строка</a></li>
                 <li><a href="<?= Url::toRoute(['object_attribute/attribute-checkbox']) ?>">Список (checkbox)</a></li>
                 <li><a href="<?= Url::toRoute(['object_attribute/attribute-radio']) ?>">Переключатель (radio)</a></li>
             </ul>

@@ -16,10 +16,13 @@ use common\models\object\ObjectType;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'type_id')->dropDownList(
-        ArrayHelper::map(ObjectType::find()->all(), 'id', 'title'),
-        ['prompt' => 'Выберите тип объекта...']
-    ) ?>
+    <?php if ($model->isNewRecord){ ?>
+        <?= $form->field($model, 'type_id')->dropDownList(
+            ArrayHelper::map(ObjectType::find()->all(), 'id', 'title'),
+            ['prompt' => 'Выберите тип объекта...']
+        ) ?>
+    <?php } ?>
+
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

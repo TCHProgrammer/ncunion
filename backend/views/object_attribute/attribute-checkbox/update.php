@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = 'Изменить';
         <div class="row form-group">
             <?php foreach($groupList as $item){ ?>
                 <div class="form-group-input col-lg-3">
-                    <input type="text" class="form-control input-group" name="GroupCheckbox[<?= $item->id ?>][title]" value="<?= $item->title ?>">
+                    <input type="text" class="form-control input-group" name="Group[<?= $item->id ?>][title]" value="<?= $item->title ?>">
                     <?= Html::a('', Url::to(['delete-item', 'id' => $item->id, 'attribute' => $model->id]), ['class' => 'glyphicon glyphicon-trash btn-del-group']) ?>
                 </div>
             <?php } ?>
@@ -60,13 +60,13 @@ $this->params['breadcrumbs'][] = 'Изменить';
                 <?php $formCheckbox = ActiveForm::begin(); ?>
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="gridSystemModalLabel">Modal title</h4>
+                        <h4 class="modal-title" id="gridSystemModalLabel">Добавить новый элемент</h4>
                     </div>
                     <div class="modal-body modal-checkbox">
                         <?= $formCheckbox->field($addGroup, 'title')->textInput(['maxlength' => true]) ?>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
                         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
                     </div>
                 <?php ActiveForm::end(); ?>

@@ -2,6 +2,7 @@
 
 namespace backend\controllers\object_attribute;
 
+use common\models\object\GroupRadio;
 use Yii;
 use common\models\object\AttributeRadio;
 use backend\models\object_attribute\AttributeRadioSearch;
@@ -82,6 +83,43 @@ class AttributeRadioController extends DefaultBackendController{
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $groupList = $this->findModelGroup($id);
+
+        $addGroup = new GroupRadio();
+
+        if (Yii::$app->request->post('Group')){
+
+            foreach (Yii::$app->request->post('Group') as $idRadio => $title){
+                $item = GroupRadio::findOne($idRadio);
+                if ($item){
+                    $item->title = $title['title'];
+                    if ($item->validate()){
+                        $item->save();
+                    }
+                }
+            }
+        }
+
+        if (Yii::$app->request->post('GroupRadio')){
+            $addGroup->attribute_id = $id;
+            if ($addGroup->load(Yii::$app->request->post()) && $addGroup->validate() && $addGroup->save()) {
+                return $this->redirect(['update', 'id' => $id]);
+            }
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index']);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+            'addGroup' => $addGroup,
+            'groupList' => $groupList
+        ]);
+
+
+
+        $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
@@ -106,6 +144,16 @@ class AttributeRadioController extends DefaultBackendController{
         return $this->redirect(['index']);
     }
 
+    public function actionDeleteItem($id, $attribute)
+    {
+        $model = GroupRadio::findOne($id);
+        if ($model){
+            $model->delete();
+        }
+
+        return $this->redirect(['update', 'id' => $attribute]);
+    }
+
     /**
      * Finds the AttributeRadio model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -116,6 +164,15 @@ class AttributeRadioController extends DefaultBackendController{
     protected function findModel($id)
     {
         if (($model = AttributeRadio::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    protected function findModelGroup($id)
+    {
+        if (($model = GroupRadio::find()->where(['attribute_id' => $id])->all()) !== null) {
             return $model;
         }
 

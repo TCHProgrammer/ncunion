@@ -30,7 +30,7 @@ class GroupRadio extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['attribute_id'], 'required'],
+            [['attribute_id', 'title'], 'required'],
             [['attribute_id'], 'integer'],
             [['title'], 'string', 'max' => 255],
             [['attribute_id'], 'exist', 'skipOnError' => true, 'targetClass' => AttributeRadio::className(), 'targetAttribute' => ['attribute_id' => 'id']],
