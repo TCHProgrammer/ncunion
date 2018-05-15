@@ -398,3 +398,16 @@ a.desc:after {
     margin: 8px;
 }
 
+.form-group-input{
+    margin: 5px 0 5px 0;
+}
+
+.input-group{
+    width: calc(100% - 40px);
+    display: inline-block;
+}
+
+.btn-del-group{
+    display: inline-block;
+    margin: 0px 0 0 3px;
+}

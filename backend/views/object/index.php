@@ -26,13 +26,20 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a('Создать объект', ['create'], ['class' => 'btn btn-success']) ?>
         </div>
         <div class="btn-group">
-            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Общие настройки <span class="caret"></span></button>
+            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Общие настройки<span class="caret"></span></button>
             <ul class="dropdown-menu">
                 <li><a href="<?= Url::toRoute(['object_settings/object-type']) ?>">Типы объектов</a></li>
                 <li><a href="<?= Url::toRoute(['object_settings/prescribed']) ?>">Прописанные</a></li>
-                <li><a href="<?= Url::toRoute(['object_settings/attribute']) ?>">Дополнительные атрибуты</a></li>
                 <li><a href="<?= Url::toRoute(['object_settings/sticker']) ?>">Стикеры</a></li>
                 <li><a href="<?= Url::toRoute(['object_settings/form-participation']) ?>">Форма участия</a></li>
+            </ul>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Дополнительные атрибуты<span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a href="<?= Url::toRoute(['object_attribute/attribute']) ?>">Строчка</a></li>
+                <li><a href="<?= Url::toRoute(['object_attribute/attribute-checkbox']) ?>">Список (checkbox)</a></li>
+                <li><a href="<?= Url::toRoute(['object_attribute/attribute-radio']) ?>">Переключатель (radio)</a></li>
             </ul>
         </div>
     </div>

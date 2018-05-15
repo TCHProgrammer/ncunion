@@ -61,4 +61,19 @@ class ObjectType extends \yii\db\ActiveRecord
     {
         return $this->hasMany(UserPassport::className(), ['type_id' => 'id']);
     }
+
+    public function getAttributes0()
+    {
+        return $this->hasMany(Attribute::className(), ['type_id' => 'id']);
+    }
+
+    public function getAttributeCheckboxs()
+    {
+        return $this->hasMany(AttributeCheckbox::className(), ['type_id' => 'id']);
+    }
+
+    public function getAttributeRadios()
+    {
+        return $this->hasMany(AttributeRadio::className(), ['type_id' => 'id']);
+    }
 }

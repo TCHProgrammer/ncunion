@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\models\object_settings;
+namespace backend\models\object_attribute;
 
 use Yii;
 use yii\base\Model;

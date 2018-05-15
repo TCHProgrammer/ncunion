@@ -4,17 +4,18 @@ use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\object\Attribute */
+/* @var $model common\models\object\AttributeRadio */
 
 $this->title = 'Добавить атрибут';
 $this->params['breadcrumbs'][] = [
     'label' => 'Каталог объектов',
     'url' => ['/object']
 ];
-$this->params['breadcrumbs'][] = ['label' => 'Дополнительные атрибуты', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Дополнительные атрибуты: переключатель', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="attribute-create">
+
+<div class="attribute-radio-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

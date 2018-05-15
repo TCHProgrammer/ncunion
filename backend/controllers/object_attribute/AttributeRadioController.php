@@ -1,20 +1,19 @@
 <?php
 
-namespace backend\controllers\object_settings;
+namespace backend\controllers\object_attribute;
 
 use Yii;
-use common\models\object\Attribute;
-use backend\models\object_settings\AttributeSearch;
+use common\models\object\AttributeRadio;
+use backend\models\object_attribute\AttributeRadioSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use backend\components\controllers\DefaultBackendController;
 
 /**
- * AttributeController implements the CRUD actions for Attribute model.
+ * AttributeRadioController implements the CRUD actions for AttributeRadio model.
  */
-class AttributeController extends DefaultBackendController
-{
+class AttributeRadioController extends DefaultBackendController{
     /**
      * @inheritdoc
      */
@@ -39,13 +38,14 @@ class AttributeController extends DefaultBackendController
         ];
     }
 
+
     /**
-     * Lists all Attribute models.
+     * Lists all AttributeRadio models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new AttributeSearch();
+        $searchModel = new AttributeRadioSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -55,16 +55,16 @@ class AttributeController extends DefaultBackendController
     }
 
     /**
-     * Creates a new Attribute model.
+     * Creates a new AttributeRadio model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Attribute();
+        $model = new AttributeRadio();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect('index');
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -73,7 +73,7 @@ class AttributeController extends DefaultBackendController
     }
 
     /**
-     * Updates an existing Attribute model.
+     * Updates an existing AttributeRadio model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -84,7 +84,7 @@ class AttributeController extends DefaultBackendController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
@@ -93,7 +93,7 @@ class AttributeController extends DefaultBackendController
     }
 
     /**
-     * Deletes an existing Attribute model.
+     * Deletes an existing AttributeRadio model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -107,15 +107,15 @@ class AttributeController extends DefaultBackendController
     }
 
     /**
-     * Finds the Attribute model based on its primary key value.
+     * Finds the AttributeRadio model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Attribute the loaded model
+     * @return AttributeRadio the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Attribute::findOne($id)) !== null) {
+        if (($model = AttributeRadio::findOne($id)) !== null) {
             return $model;
         }
 

@@ -3,26 +3,26 @@
 namespace common\models\object;
 
 use Yii;
-use common\models\passport\PassportAttribute;
 
 /**
- * This is the model class for table "attribute".
+ * This is the model class for table "attribute_radio".
  *
  * @property int $id
  * @property string $title
  * @property int $type_id
  *
- * @property ObjectAttribute[] $objectAttributes
- * @property PassportAttribute[] $passportAttributes
+ * @property ObjectType $type
+ * @property GroupRadio[] $groupRadios
+ * @property ObjectAttributeRadio[] $objectAttributeRadios
  */
-class Attribute extends \yii\db\ActiveRecord
+class AttributeRadio extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'attribute';
+        return 'attribute_radio';
     }
 
     /**
@@ -34,6 +34,7 @@ class Attribute extends \yii\db\ActiveRecord
             [['title', 'type_id'], 'required'],
             [['type_id'], 'integer'],
             [['title'], 'string', 'max' => 255],
+            [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ObjectType::className(), 'targetAttribute' => ['type_id' => 'id']],
         ];
     }
 
@@ -52,21 +53,24 @@ class Attribute extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getObjectAttributes()
+    public function getType()
     {
-        return $this->hasMany(ObjectAttribute::className(), ['attribute_id' => 'id']);
+        return $this->hasOne(ObjectType::className(), ['id' => 'type_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPassportAttributes()
+    public function getGroupRadios()
     {
-        return $this->hasMany(PassportAttribute::className(), ['attribute_id' => 'id']);
+        return $this->hasMany(GroupRadio::className(), ['attribute_id' => 'id']);
     }
 
-    public function getType()
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getObjectAttributeRadios()
     {
-        return $this->hasOne(ObjectType::className(), ['id' => 'type_id']);
+        return $this->hasMany(ObjectAttributeRadio::className(), ['attribute_id' => 'id']);
     }
 }

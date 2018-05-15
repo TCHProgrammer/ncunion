@@ -166,7 +166,6 @@ class ObjectController extends DefaultBackendController
             'values' => $values,
             'addFile' => $addFile,
             'listFiles' => $listFiles,
-             'time' => date('H:i:s'),
         ]);
     }
 

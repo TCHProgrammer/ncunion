@@ -16,7 +16,6 @@ use yii\web\JsExpression;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-
     <?php $form = ActiveForm::begin([
         'options' => ['enctype' => 'multipart/form-data']
     ]); ?>
@@ -36,8 +35,8 @@ use yii\web\JsExpression;
         ) ?>
 
         <?= $form->field($model, 'status_object', ['options' => ['class' => 'col-lg-6 col-md-6']])->dropDownList([
-        1 => 'Сделка открыта',
-        0 => 'Сделка закрыта'
+            1 => 'Сделка открыта',
+            0 => 'Сделка закрыта'
         ]) ?>
 
     </div>
@@ -50,39 +49,41 @@ use yii\web\JsExpression;
             ],
         ]); ?>
 
-        <label class="control-label">Фотогалерея</label>
-        <?= FileInput::widget([
-            /*'model' => $model,
-            'attribute' => 'imgFile[]',
-            'options' => ['multiple' => true],*/
-            //'pluginOptions' => ['previewFileType' => 'any', 'uploadUrl' => Url::to(['/site/file-upload'])]
-            'name' => 'imgFile[]',
-            'options'=>[
-                'multiple'=>true
-            ],
-            'pluginOptions' => [
-                'deleteUrl' => Url::toRoute(['/object/delete-img']),
-                'initialPreview' => $model->imgLists,
-                'initialPreviewAsData' => true,
-                'overwriteInitial' => false,
-                'initialPreviewConfig' => $model->imgLinkData,
-                'uploadUrl' => Url::to(['/object/save-img']),
-                'uploadExtraData' => [
-                    'class' => $model->formName(),
-                    'object_id' => $model->id,
+        <?php if (!$model->isNewRecord){ ?>
+            <label class="control-label">Фотогалерея</label>
+            <?= FileInput::widget([
+                /*'model' => $model,
+                'attribute' => 'imgFile[]',
+                'options' => ['multiple' => true],*/
+                //'pluginOptions' => ['previewFileType' => 'any', 'uploadUrl' => Url::to(['/site/file-upload'])]
+                'name' => 'imgFile[]',
+                'options'=>[
+                    'multiple'=>true
                 ],
-                'maxFileCount' => 10
-            ],
-            'options' => ['accept' => 'image/*'],
-            'pluginEvents' => [
-                'filesorted' => new JsExpression('function(event, params){
-                $.post("' . Url::toRoute(['/object/sort-img?id=' .
+                'pluginOptions' => [
+                    'deleteUrl' => Url::toRoute(['/object/delete-img']),
+                    'initialPreview' => $model->imgLists,
+                    'initialPreviewAsData' => true,
+                    'overwriteInitial' => false,
+                    'initialPreviewConfig' => $model->imgLinkData,
+                    'uploadUrl' => Url::to(['/object/save-img']),
+                    'uploadExtraData' => [
+                        'class' => $model->formName(),
+                        'object_id' => $model->id,
+                    ],
+                    'maxFileCount' => 10
+                ],
+                'options' => ['accept' => 'image/*'],
+                'pluginEvents' => [
+                    'filesorted' => new JsExpression('function(event, params){
+                    $.post("' . Url::toRoute(['/object/sort-img?id=' .
                         $model->id]).'",{sort:params});
-            }')
-            ]
-        ]);
-        ?>
-        <br>
+                }')
+                ]
+            ]);
+            ?>
+            <br>
+        <?php } ?>
     </div>
 
     <div class="row">
