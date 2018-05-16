@@ -29,7 +29,6 @@ use yii\helpers\Url;
 
     <?php ActiveForm::end(); ?>
 
-<div id="kek">
     <?php
         $get = Yii::$app->request->get();
             foreach ($listFiles as $file) {
@@ -49,5 +48,4 @@ use yii\helpers\Url;
             }
         Pjax::end();
     ?>
-</div>
 <br>

@@ -107,6 +107,50 @@ class Object extends \yii\db\ActiveRecord
         ];
     }
 
+    public function beforeDelete()
+    {
+        if (parent::beforeDelete()){
+
+            /* удаление файлов у объекта */
+            $listFiles = ObjectFile::find()->where(['object_id' => $this->id])->all();
+
+            if ($listFiles){
+                foreach ($listFiles as $file){
+                    $dir = Yii::getAlias('@frontend') . '/web/' . $file->doc;
+                    unlink($dir);
+                }
+
+                $delDirFile = Yii::getAlias('@frontend') . '/web/uploads/objects/doc/' . $this->id . '/';
+
+                $arrFiles = scandir($delDirFile);
+                if (is_null($arrFiles[2])){
+                    rmdir($delDirFile);
+                }
+            }
+
+            /* удаление изображений у объекта */
+            $listImg = ObjectImg::find()->where(['object_id' => $this->id])->all();
+
+            if ($listImg){
+                foreach ($listImg as $img){
+                    $dir = Yii::getAlias('@frontend') . '/web/' . $img->img;
+                    unlink($dir);
+                }
+
+                $delDirImg = Yii::getAlias('@frontend') . '/web/uploads/objects/img/' . $this->id . '/';
+
+                $arrImg = scandir($delDirImg);
+                if (is_null($arrImg[2])){
+                    rmdir($delDirImg);
+                }
+            }
+
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public function beforeSave($insert)
     {
 

@@ -16,28 +16,64 @@ $this->title="Паспорт клиента";
 
         <?php $form = ActiveForm::begin(); ?>
 
-        <div class="col-lg-6">
-            <?= $form->field($model, 'type_id', ['options' => ['class' => 'form-height']])->dropDownList(
-                ArrayHelper::map(ObjectType::find()->all(), 'id', 'title'),
-                ['prompt' => 'Выберите тип объекта...']
-            ) ?>
+        <div class="row">
+            <div class="col-lg-6">
+                <?= $form->field($model, 'type_id', ['options' => ['class' => 'form-height']])->dropDownList(
+                    ArrayHelper::map(ObjectType::find()->all(), 'id', 'title'),
+                    ['prompt' => 'Выберите тип объекта...']
+                ) ?>
 
-            <?= $form->field($model, 'amount', ['options' => ['class' => 'form-height']])->textInput() ?>
+                <?= $form->field($model, 'amount', ['options' => ['class' => 'form-height']])->textInput() ?>
+            </div>
+
+            <div class="col-lg-6">
+                <?= $form->field($model, 'area', ['options' => ['class' => 'form-height']])->textInput() ?>
+
+                <?= $form->field($model, 'rooms', ['options' => ['class' => 'form-height']])->textInput() ?>
+            </div>
         </div>
 
-        <div class="col-lg-6">
-            <?= $form->field($model, 'area', ['options' => ['class' => 'form-height']])->textInput() ?>
-
-            <?= $form->field($model, 'rooms', ['options' => ['class' => 'form-height']])->textInput() ?>
+        <div class="row row-padding">
+            <?php foreach ($listCheckbox as $itemCheckbox){ ?>
+                <div class="form-attribute form-attribute-<?= $itemCheckbox->type_id ?>">
+                    <label><?= $itemCheckbox->title ?></label>
+                    <div>
+                        <?php foreach ($itemCheckbox->groupCheckboxes as $itemGroup){ ?>
+                            <label class="checkbox">
+                                <input type="checkbox" name="GroupCheckboxes[<?= $itemCheckbox->type_id ?>][<?= $itemCheckbox->id ?>][]" value="<?= $itemGroup->id ?>" <?= (in_array($itemGroup->id, $rezCheckbox))?'checked':'' ?>>
+                                <?= $itemGroup->title ?>
+                            </label>
+                        <?php } ?>
+                    </div>
+                </div>
+            <?php } ?>
         </div>
 
-        <div class="col-lg-12">
-            <?= $form->field($model, 'form_participation_id')->radioList(ArrayHelper::map(FormParticipation::find()->all(), 'id', 'title')) ?>
+        <div class="row row-padding">
+            <?php foreach ($listRadio as $itemRadio){ ?>
+                <div class="form-attribute form-attribute-<?= $itemRadio->type_id ?>">
+                    <label><?= $itemRadio->title ?></label>
+                    <?php foreach ($itemRadio->groupRadios as $itemGroup){ ?>
+                        <label class="radio">
+                            <input type="radio" name="GroupRadios[<?= $itemRadio->type_id ?>][<?= $itemRadio->id ?>][]" value="<?= $itemGroup->id ?>" <?= (in_array($itemGroup->id, $rezRadio))?'checked':'' ?>>
+                            <?= $itemGroup->title ?>
+                        </label>
+                    <?php } ?>
+                </div>
+            <?php } ?>
         </div>
 
-        <div class="col-lg-12">
-            <div class="form-group">
-                <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary']) ?>
+        <div class="row">
+            <div class="col-lg-12">
+                <?= $form->field($model, 'form_participation_id', ['options' => ['class' => 'radio-form']])->radioList(ArrayHelper::map(FormParticipation::find()->all(), 'id', 'title')) ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary']) ?>
+                </div>
             </div>
         </div>
 

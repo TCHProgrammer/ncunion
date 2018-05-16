@@ -338,3 +338,29 @@ a.desc:after {
     top: 85px;
     right: 140px;
 }
+
+.radio-form>div label{
+    display: block;
+    padding: 0 0 0 15px;
+}
+
+.checkbox{
+    display: block;
+    padding: 0 0 0 35px;
+    margin: 0 0 10px 0;
+}
+
+.radio{
+    display: block;
+    padding: 0 0 0 35px;
+    margin: 0 0 10px 0;
+}
+
+.form-attribute{
+    margin: 5px 0 5px 0;
+}
+
+.row-padding{
+    padding-right: 15px;
+    padding-left: 15px;
+}

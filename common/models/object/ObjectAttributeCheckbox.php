@@ -36,14 +36,6 @@ class ObjectAttributeCheckbox extends \yii\db\ActiveRecord
         ];
     }
 
-    public static function primaryKey()
-    {
-        return [
-            'group_id',
-            'object_id'
-        ];
-    }
-
     /**
      * @inheritdoc
      */
@@ -53,6 +45,14 @@ class ObjectAttributeCheckbox extends \yii\db\ActiveRecord
             'object_id' => 'Object ID',
             'attribute_id' => 'Attribute ID',
             'group_id' => 'Group ID',
+        ];
+    }
+
+    public static function primaryKey()
+    {
+        return [
+            'group_id',
+            'object_id'
         ];
     }
 

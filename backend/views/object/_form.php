@@ -41,50 +41,6 @@ use yii\web\JsExpression;
 
     </div>
 
-    //////////////////////////////////////////////
-    <div class="row col-lg-12">
-
-        <?php foreach ($listCheckbox as $itemCheckbox){ ?>
-            <div class="form-attribute-<?= $itemCheckbox->type_id ?>">
-                <label><?= $itemCheckbox->title ?></label>
-                <div>
-                    <?php foreach ($itemCheckbox->groupCheckboxes as $itemGroup){ ?>
-                        <label>
-                            <input type="checkbox" name="GroupCheckboxes[<?= $itemCheckbox->type_id ?>][<?= $itemCheckbox->id ?>][]" value="<?= $itemGroup->id ?>" <?= (in_array($itemGroup->id, $rezCheckbox))?'checked':'' ?>>
-                            <?= $itemGroup->title ?>
-                        </label>
-                    <?php } ?>
-                </div>
-            </div>
-            <!-- $itemCheckbox->groupCheckboxes //массив четбоксов -->
-        <?php } ?>
-
-    </div>
-    <br>
-    //////////////////////////////////////////////
-
-    //////////////////// radio //////////////////////////
-    <div class="row col-lg-12">
-
-        <?php foreach ($listRadio as $itemRadio){ ?>
-            <div class="form-attribute-<?= $itemRadio->type_id ?>">
-                <label><?= $itemRadio->title ?></label>
-                <div>
-                    <?php foreach ($itemRadio->groupRadios as $itemGroup){ ?>
-                        <label>
-                            <input type="radio" name="GroupRadios[<?= $itemRadio->type_id ?>][<?= $itemRadio->id ?>][]" value="<?= $itemGroup->id ?>" <?= (in_array($itemGroup->id, $rezRadio))?'checked':'' ?>>
-                            <?= $itemGroup->title ?>
-                        </label>
-                    <?php } ?>
-                </div>
-            </div>
-            <!-- $itemCheckbox->groupCheckboxes //массив четбоксов -->
-        <?php } ?>
-
-    </div>
-    <br>
-    //////////////////////////////////////////////
-
     <div class="row col-lg-12">
         <?= $form->field($model, 'descr')->widget(CKEditor::className(),[
             'editorOptions' => [
@@ -117,7 +73,7 @@ use yii\web\JsExpression;
                     ],
                     'maxFileCount' => 10
                 ],
-                'options' => ['accept' => 'image/*'],
+                //'options' => ['accept' => 'image/*'],
                 'pluginEvents' => [
                     'filesorted' => new JsExpression('function(event, params){
                     $.post("' . Url::toRoute(['/object/sort-img?id=' .
@@ -147,7 +103,8 @@ use yii\web\JsExpression;
 
 
         <?= $form->field($model, 'noticesArray')->checkboxList(
-            Prescribed::find()->select(['title', 'id'])->indexBy('id')->column()
+            //Prescribed::find()->select(['title', 'id'])->indexBy('id')->column()
+            ArrayHelper::map(Prescribed::find()->all(), 'id', 'title')
         ) ?>
 
         <?= $form->field($model, 'owner')->textInput(['maxlength' => true]) ?>
@@ -171,6 +128,38 @@ use yii\web\JsExpression;
             </div>
         <?php endforeach; ?>
     </div>
+
+    <div class="row row-padding">
+        <?php foreach ($listCheckbox as $itemCheckbox){ ?>
+            <div class="form-attribute form-attribute-<?= $itemCheckbox->type_id ?>">
+                <label><?= $itemCheckbox->title ?></label>
+                <div>
+                    <?php foreach ($itemCheckbox->groupCheckboxes as $itemGroup){ ?>
+                        <label class="checkbox">
+                            <input type="checkbox" name="GroupCheckboxes[<?= $itemCheckbox->type_id ?>][<?= $itemCheckbox->id ?>][]" value="<?= $itemGroup->id ?>" <?= (in_array($itemGroup->id, $rezCheckbox))?'checked':'' ?>>
+                            <?= $itemGroup->title ?>
+                        </label>
+                    <?php } ?>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
+
+    <div class="row row-padding">
+        <?php foreach ($listRadio as $itemRadio){ ?>
+            <div class="form-attribute form-attribute-<?= $itemRadio->type_id ?>">
+                <label><?= $itemRadio->title ?></label>
+                    <?php foreach ($itemRadio->groupRadios as $itemGroup){ ?>
+                        <label class="radio">
+                            <input type="radio" name="GroupRadios[<?= $itemRadio->type_id ?>][<?= $itemRadio->id ?>][]" value="<?= $itemGroup->id ?>" <?= (in_array($itemGroup->id, $rezRadio))?'checked':'' ?>>
+                            <?= $itemGroup->title ?>
+                        </label>
+                    <?php } ?>
+            </div>
+        <?php } ?>
+    </div>
+
+    <br>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
