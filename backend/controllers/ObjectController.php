@@ -477,7 +477,7 @@ class ObjectController extends DefaultBackendController
 
             $model = new ObjectImg();
             $model->object_id = $post['object_id'];
-            $model->img = 'uploads/objects/img/' . $post['object_id'] .'/' . $imgName;
+            $model->img = '/uploads/objects/img/' . $post['object_id'] .'/' . $imgName;
 
             if ($model->validate()){
                 if($file->saveAs($fullName)){

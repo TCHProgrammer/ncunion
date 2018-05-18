@@ -1,41 +1,57 @@
 <?php
 
 namespace frontend\controllers;
-use Frontend\components\controllers\DefaultFrontendController;
-use yii\web\Controller;
-use yii\filters\AccessControl;
-use yii\data\ActiveDataProvider;
-use common\models\object\Object;
 
-class CatalogController extends Controller{
+use Yii;
+use common\models\object\Object;
+use frontend\models\ObjectSearch;
+use yii\web\NotFoundHttpException;
+use frontend\components\controllers\DefaultFrontendController;
+use yii\filters\AccessControl;
+
+class CatalogController extends DefaultFrontendController{
 
     public function behaviors(){
-    return [
-        'access' => [
-            'class' => AccessControl::className(),
-            'rules' => [
-                [
-                    'allow' => true,
-                    'roles' => ['user', 'admin']
-                ]
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['user', 'admin']
+                    ]
+                ],
+                'denyCallback' => function ($rule, $action) {
+                    return $this->redirect(['payment/pay']);
+                }
             ],
-            'denyCallback' => function ($rule, $action) {
-                return $this->redirect(['payment/pay']);
-            }
-        ],
+        ];
+    }
 
-    ];
-}
+    public function actionIndex()
+    {
+        $searchModel = new ObjectSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-    public function actionIndex(){
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => Object::find()->where(['status' => 1])->andWhere()->all(),
-            'pagination' => [
-                'pageSize' => 20,
-            ],
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
+    }
 
-        return $this->render('index');
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    protected function findModel($id)
+    {
+        if (($model = Object::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

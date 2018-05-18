@@ -364,3 +364,23 @@ a.desc:after {
     padding-right: 15px;
     padding-left: 15px;
 }
+
+.input-adjustment label{
+    display: table-cell;
+    vertical-align: middle;
+    height: 50px;
+}
+
+.object-item {
+    margin: 20px 0 20px 0;
+    padding: 15px 0 14px 0;
+    border: 1px solid #e7e7e7;
+    border-radius: 10px;
+    background: #fefefe;
+    -webkit-box-shadow: 0 2px 2px #f1f0f0;
+    box-shadow: 0 2px 2px #f1f0f0;
+}
+
+.object-item-img img{
+    width: 100%;
+}
