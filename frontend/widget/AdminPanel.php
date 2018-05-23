@@ -13,4 +13,8 @@ class AdminPanel extends Widget{
         return $this->render('admin-panel');
     }
 
+    public function actionCache(){
+        var_dump('actionCache');die;
+    }
+
 }

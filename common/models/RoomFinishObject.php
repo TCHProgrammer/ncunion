@@ -3,40 +3,38 @@
 namespace common\models;
 
 use Yii;
-use common\models\UserModel as User;
 use common\models\object\Object;
 
 /**
- * This is the model class for table "room_object_user".
+ * This is the model class for table "room_finish_object".
  *
  * @property int $object_id
  * @property int $user_id
- * @property int $sum
- * @property int $rate
- * @property int $consumption
+ * @property int $manager_id
+ * @property int $created_at
  * @property string $comment
  *
  * @property User $user
  * @property Object $object
  */
-class RoomObjectUser extends \yii\db\ActiveRecord
+class RoomFinishObject extends \yii\db\ActiveRecord
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'room_object_user';
+        return 'room_finish_object';
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['object_id', 'user_id', 'sum', 'consumption', 'rate'], 'required'],
-            [['object_id', 'user_id', 'sum', 'rate', 'consumption', 'created_at'], 'integer'],
+            [['object_id', 'user_id'], 'required'],
+            [['object_id', 'user_id', 'manager_id', 'created_at'], 'integer'],
             [['created_at'], 'default', 'value' => time()],
             [['comment'], 'string'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
@@ -45,26 +43,16 @@ class RoomObjectUser extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {
         return [
             'object_id' => 'Object ID',
             'user_id' => 'User ID',
-            'sum' => 'Сумма',
-            'rate' => 'Ставка',
-            'consumption' => 'Расход по сделке',
-            'comment' => 'Пожелания ',
-            'created_at' => 'Дата создания'
-        ];
-    }
-
-    public static function primaryKey()
-    {
-        return [
-            'object_id',
-            'user_id'
+            'manager_id' => 'Manager ID',
+            'created_at' => 'Created At',
+            'comment' => 'Comment',
         ];
     }
 
@@ -83,10 +71,4 @@ class RoomObjectUser extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Object::className(), ['id' => 'object_id']);
     }
-
-    public function getUserAvatar()
-    {
-        return $this->hasOne(UserAvatar::className(), ['user_id' => 'user_id']);
-    }
-
 }

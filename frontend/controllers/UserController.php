@@ -10,6 +10,7 @@ namespace frontend\controllers;
 
 use common\models\Notice;
 use common\models\NoticeUser;
+use common\models\passport\PassportAttribute;
 use common\models\passport\UserPassport;
 use frontend\components\controllers\DefaultFrontendController;
 use common\models\UserAvatar;
@@ -94,6 +95,13 @@ class UserController extends DefaultFrontendController{
         $user = UserModel::find()->where(['id' => Yii::$app->user->id])->select('user_passport_id')->one();
         $model = $this->findPassport($user->user_passport_id);
 
+        $listValue = AttributeCheckbox::find()->all();
+        $modelValue = PassportAttribute::find()->where(['passport_id' => $user->user_passport_id])->all();
+        $rezValue = [];
+        foreach ($modelValue as $item){
+            $rezValue[] .= $item->attribute_id;
+        }
+
         $listCheckbox = AttributeCheckbox::find()->joinWith('groupCheckboxes')->all();
         $modelCheckbox = PassportAttributeCheckbox::find()->where(['passport_id' => $user->user_passport_id])->all();
         $rezCheckbox = [];
@@ -111,6 +119,7 @@ class UserController extends DefaultFrontendController{
         if ($model->load(Yii::$app->request->post()) && $model->validate()){
             if ($model->save()){
 
+                $this->saveText(Yii::$app->request->post('GroupValue')[$model->type_id], $model);
                 $this->saveCheckbox(Yii::$app->request->post('GroupCheckboxes')[$model->type_id], $model);
                 $this->saveRadio(Yii::$app->request->post('GroupRadios')[$model->type_id], $model);
 
@@ -124,7 +133,9 @@ class UserController extends DefaultFrontendController{
             'listCheckbox' => $listCheckbox,
             'rezCheckbox' => $rezCheckbox,
             'listRadio' => $listRadio,
-            'rezRadio' => $rezRadio
+            'rezRadio' => $rezRadio,
+            'listValue' => $listValue,
+            'rezValue' => $rezValue
         ]);
     }
 
@@ -143,6 +154,49 @@ class UserController extends DefaultFrontendController{
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    /**
+     * Сохраниение text
+     */
+    private function saveText($groups, $model){
+
+        $listModel = PassportAttribute::find()->where(['passport_id' => $model->id])->all();
+
+        $arrListGroups = [];
+        foreach ($listModel as $item){
+            $arrListGroups[] .= $item->attribute_id;
+        }
+
+        $delArr = [];
+        if ($groups){
+            foreach ($groups as $id => $group){
+                foreach ($group as $item){
+                    if (!in_array($item, $arrListGroups)){
+                        $addNewAttr = new PassportAttribute();
+                        $addNewAttr->passport_id = $model->id;
+                        $addNewAttr->attribute_id = $id;
+                        $addNewAttr->value = $item;
+                        if($addNewAttr->validate()){
+                            $addNewAttr->save();
+                        }
+                    }else{
+                        $delArr[] .= $item;
+                        unset($arrListGroups[array_search($item,$arrListGroups)]);
+                    }
+                }
+            }
+        }
+
+        foreach ($arrListGroups as $arrListGroup) {
+            $delModel = PassportAttributeCheckbox::find()
+                ->where(['passport_id' => $model->id])
+                ->andWhere(['attribute_id' => $arrListGroup])
+                ->one();
+            if ($delModel) {
+                $delModel->delete(['passport_id' => $model->id, 'attribute_id' => $arrListGroup]);
+            }
         }
     }
 

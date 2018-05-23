@@ -16,6 +16,9 @@ return [
         'test' => [
             'class' => 'common\modules\test\frontend\Module',
         ],
+        'comment' => [
+            'class' => 'yii2mod\comments\Module',
+        ],
     ],
     'components' => [
         'request' => [

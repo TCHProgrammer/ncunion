@@ -35,7 +35,8 @@ use yii\web\JsExpression;
         ) ?>
 
         <?= $form->field($model, 'status_object', ['options' => ['class' => 'col-lg-6 col-md-6']])->dropDownList([
-            1 => 'Сделка открыта',
+            2 => 'Сделка открыта',
+            1 => 'Сделка частично закрыта',
             0 => 'Сделка закрыта'
         ]) ?>
 

@@ -46,6 +46,7 @@ use common\models\object\ObjectFile;
 class Object extends \yii\db\ActiveRecord
 {
 
+    public $amountRemained;
     public $imgFile;
     //public $docFile;
     const file_name_length = 8;
@@ -104,6 +105,7 @@ class Object extends \yii\db\ActiveRecord
             'close_at' => 'Дата закрытия сделки',
             'status_object' => 'Статус сделки',
             'sticker_id' => 'Стикер',
+            'amountRemained' => 'Нехватает до закрытия'
         ];
     }
 

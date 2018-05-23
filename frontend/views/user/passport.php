@@ -34,6 +34,17 @@ $this->title="Паспорт клиента";
         </div>
 
         <div class="row row-padding">
+            <?php foreach ($listValue as $itemValue){ ?>
+                <div class="form-attribute form-attribute-<?= $itemValue->type_id ?>">
+                    <label><?= $itemValue->title ?></label>
+                    <div>
+                        <input type="text" class="form-control" name="GroupValue[<?= $itemValue->type_id ?>][<?= $itemValue->id ?>][]>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
+
+        <div class="row row-padding">
             <?php foreach ($listCheckbox as $itemCheckbox){ ?>
                 <div class="form-attribute form-attribute-<?= $itemCheckbox->type_id ?>">
                     <label><?= $itemCheckbox->title ?></label>

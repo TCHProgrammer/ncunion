@@ -384,3 +384,45 @@ a.desc:after {
 .object-item-img img{
     width: 100%;
 }
+
+
+/* каталог */
+.comments{
+    border: 1px solid #e7e7e7;
+    border-radius: 10px;
+    background: #fefefe;
+    -webkit-box-shadow: 0 2px 2px #f1f0f0;
+    box-shadow: 0 2px 2px #f1f0f0;
+    margin: 15px 0 15px 0;
+}
+
+.comments-field{
+    min-height: 545px;
+    padding: 15px 0 0;
+}
+
+.comments-form{
+    padding: 15px 0 15px 0;
+}
+
+.comments-textarea{
+    width: 100%;
+}
+
+
+/* view каталог */
+.catalog-user-profil{
+    margin: 20px -15px 20px -15px;
+}
+
+.catalog-user-avatar img{
+    width: 100%;
+}
+
+.catalog-user-info {
+    font-size: 15px;
+}
+
+.catalog-user-btm{
+    padding: 5px 0 10px 0;
+}
