@@ -33,12 +33,14 @@ use yii\helpers\Html;
         </div>
     </div>
 
-    <div class="catalog-user-btm text-center col-lg-12">
-        <div class="catalog-user-item-btm col-lg-6">
-            <?= Html::a('Отдать инвестору', ['/catalog/object-finish-adm?oId='.$model->object_id.'&uId='.$model['user']->id], ['class' => 'btn btn-success', 'data-confirm' => 'Вы уверены, что хотите отдать объект именно этому инвестору?']) ?>
+    <?php if ($finishObject){ ?>
+        <div class="catalog-user-btm text-center col-lg-12">
+            <div class="catalog-user-item-btm col-lg-6">
+                <?= Html::a('Отдать инвестору', ['/catalog/object-finish-adm?oId='.$model->object_id.'&uId='.$model['user']->id], ['class' => 'btn btn-success', 'data-confirm' => 'Вы уверены, что хотите отдать объект именно этому инвестору?']) ?>
+            </div>
+            <div class="catalog-user-item-btm text-center col-lg-6">
+                <?= Html::a('Отписаться', ['/catalog/unsubscribe-adm?oId='.$model->object_id.'&uId='.$model['user']->id], ['class' => 'btn btn-primary', 'data-confirm' => 'Вы уверены, что хотите отписаться?']) ?>
+            </div>
         </div>
-        <div class="catalog-user-item-btm text-center col-lg-6">
-            <?= Html::a('Отписаться', ['/catalog/unsubscribe-adm?oId='.$model->object_id.'&uId='.$model['user']->id], ['class' => 'btn btn-primary', 'data-confirm' => 'Вы уверены, что хотите отписаться?']) ?>
-        </div>
-    </div>
+    <?php } ?>
 </div>

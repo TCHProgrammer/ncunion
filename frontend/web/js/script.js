@@ -14,3 +14,15 @@ function checkType(j) {
         }
     }
 }
+
+
+function openAnswer(id, lvl) {
+    $('.answer-form-'+id).html($('.form-push').html());
+    console.log(lvl+1);
+    $('#commentobject-level').val(lvl+1);
+
+}
+
+function closeAnswer(id) {
+    $('.answer-form-'+id).html('<button class="btn btn-link" onclick="openAnswer(' + id + ')">Ответить</button>')
+}

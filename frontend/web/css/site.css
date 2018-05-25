@@ -426,3 +426,11 @@ a.desc:after {
 .catalog-user-btm{
     padding: 5px 0 10px 0;
 }
+
+.comments-fon{
+    padding: 5px 15px 0 15px;
+}
+
+.news-comment hr{
+    margin-top: 5px;
+}

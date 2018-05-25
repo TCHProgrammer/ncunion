@@ -2,8 +2,10 @@
 
 namespace frontend\controllers;
 
+use common\models\CommentObject;
 use common\models\RoomFinishObject;
 use common\models\RoomObjectUser;
+use common\models\UserModel;
 use Yii;
 use common\models\object\Object;
 use frontend\models\ObjectSearch;
@@ -45,7 +47,22 @@ class CatalogController extends DefaultFrontendController{
     public function actionView($id)
     {
         $userRoom = new RoomObjectUser();
+        $commentNew = new CommentObject();
         $model = $this->findModel($id);
+        $chekFinishObject = RoomFinishObject::find()->where(['object_id' => 3])->one();
+
+        $commentList = new ActiveDataProvider([
+            'query' => CommentObject::find()->where(['object_id' => 3]),
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+
+        if (is_null($chekFinishObject)){
+            $finishObject = true;
+        }else{
+            $finishObject = false;
+        }
 
         $userFoll = RoomObjectUser::find()
             ->where(['object_id' => $id])
@@ -70,7 +87,7 @@ class CatalogController extends DefaultFrontendController{
                 $object = Object::findOne($id);
                 if ($object){
                     if ((int)$post['RoomObjectUser']['sum'] >= $object->amount){
-                        $object->status_object = 0;
+                        $this->modelObjectFinish($id, Yii::$app->user->id);
                     }else{
                         $object->status_object = 1;
                     }
@@ -80,24 +97,50 @@ class CatalogController extends DefaultFrontendController{
             }
         }
 
+
         return $this->render('view', [
             'model' => $model,
             'userRoom' => $userRoom,
             'userFoll' => $userFoll,
-            'usersObjectlist' => $usersObjectlist
+            'usersObjectlist' => $usersObjectlist,
+            'finishObject' => $finishObject,
+            'commentNew' => $commentNew,
+            'commentList' => $commentList
         ]);
     }
 
+    /* сохраняем комментарий */
+    public function actionComment()
+    {
+        if (Yii::$app->request->post('CommentObject')){
+            $user = UserModel::findOne(Yii::$app->user->id);
+            if ($user){
+                $comment = new CommentObject();
+                $comment->load(Yii::$app->request->post());
+                $comment->user_id = $user->id;
+                $comment->user_name = $user->last_name . ' ' . $user->first_name;
+                if ($comment->validate()){
+                    $comment->save();
+                }
+            }
+
+        }
+        return $this->redirect(['view', 'id' => Yii::$app->request->post('CommentObject')['object_id']]);
+    }
+
+    /* отписавться user */
     public function actionUnsubscribe($oId)
     {
         $this->unsubscribeAll($oId, Yii::$app->user->id);
     }
 
+    /* отписавться adm */
     public function actionUnsubscribeAdm($oId, $uId)
     {
         $this->unsubscribeAll($oId, $uId);
     }
 
+    /* отдать инвестору adm */
     public function actionObjectFinishAdm($oId, $uId)
     {
         $mId = Yii::$app->user->id;

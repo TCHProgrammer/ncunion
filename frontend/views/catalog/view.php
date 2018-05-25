@@ -18,7 +18,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <h1><?= Html::encode($this->title) ?></h1>
 
         <?php if ($userFoll){ ?>
-            <p><?= Html::a('Отписаться', ['/catalog/unsubscribe?oId=' . $model->id], ['class' => 'btn btn-primary', 'data-confirm' => 'Вы уверены, что хотите отписаться?']) ?></p>
+            <?php if ($finishObject){ ?>
+                <p><?= Html::a('Отписаться', ['/catalog/unsubscribe?oId=' . $model->id], ['class' => 'btn btn-primary', 'data-confirm' => 'Вы уверены, что хотите отписаться?', 'disable' => true]) ?></p>
+            <?php }else{ ?>
+                <p class="btn-success">Вы успешно получили данный объект!</p>
+            <?php } ?>
         <?php }else{ ?>
             <p><?= Html::button('Откликнуться', ['class' => 'btn btn-primary', 'data-toggle' => 'modal', 'data-target' => '.bs-example-modal-lg']) ?></p>
         <?php } ?>
@@ -66,7 +70,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="users col-lg-6 col-md-6">
         <?php if (Yii::$app->user->can('btn_give_investor')) { ?>
             <?= $this->render('_userList', [
-                'usersObjectlist' => $usersObjectlist
+                'usersObjectlist' => $usersObjectlist,
+                'finishObject' => $finishObject
             ]); ?>
         <?php }else{ ?>
             <?= $this->render('_comments'); ?>
@@ -75,7 +80,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="col-lg-12 col-md-12">
         <?php if (Yii::$app->user->can('btn_give_investor')) { ?>
-            <?= $this->render('_comments'); ?>
+            <?= $this->render('_comments', [
+                'commentNew' => $commentNew,
+                'oId' => $model->id,
+                'commentList' => $commentList
+            ]); ?>
         <?php } ?>
     </div>
 

@@ -6,7 +6,7 @@ use yii\widgets\Pjax;
 
 <div class="user-moder">
     <div class="user-moder-avatar">
-        <img src="/uploads/other/default-avatar.png" />
+        <img src="/img/other/default-avatar.png" />
     </div>
     <div class="user-moder-name">
         <div class="user-moder-fio"><?= $model->last_name . ' ' . $model->first_name  . ' ' . $model->middle_name ?></div>
