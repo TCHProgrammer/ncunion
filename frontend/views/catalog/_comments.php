@@ -7,7 +7,7 @@ use yii\widgets\ListView;
 <div class="comments comments-fon">
     <div class="comments-field">
         <?= ListView::widget([
-            'dataProvider' => $commentList,
+            'dataProvider' => $dataProvider,
             'itemView' => '_commentList',
             'viewParams' => [
                 'commentNew' => $commentNew,
