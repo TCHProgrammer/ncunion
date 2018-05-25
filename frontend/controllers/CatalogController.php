@@ -58,6 +58,10 @@ class CatalogController extends DefaultFrontendController{
             ],
         ]);
 
+        if (is_null($commentList)){
+            $commentList = null;
+        }
+
         if (is_null($chekFinishObject)){
             $finishObject = true;
         }else{
