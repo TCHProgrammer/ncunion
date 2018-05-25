@@ -40,6 +40,7 @@ use yii\widgets\ActiveForm;
 
 </div>
 
+<!--
 <div class="form-pushasdasdasd" style="display: none">
     <form action="comment" method="post">
         <input type="hidden" id="commentobject-level" class="form-control" name="CommentObject[level]" value="====0000000000===">
@@ -52,3 +53,4 @@ use yii\widgets\ActiveForm;
     </form>
 
 </div>
+-->

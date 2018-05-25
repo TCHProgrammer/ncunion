@@ -77,9 +77,15 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $this->render('_comments'); ?>
         <?php } ?>
     </div>
-
+<?php var_dump('test'); ?>
     <div class="col-lg-12 col-md-12">
-        
+        <?php if (Yii::$app->user->can('btn_give_investor')) { ?>
+            <?= $this->render('_comments', [
+                'commentNew' => $commentNew,
+                'oId' => $model->id,
+                'commentList' => $commentList
+            ]); ?>
+        <?php } ?>
     </div>
 
 </div>
