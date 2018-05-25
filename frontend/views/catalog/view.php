@@ -66,6 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
 
     </div>
+    <?php var_dump('test'); ?>
 
     <div class="users col-lg-6 col-md-6">
         <?php if (Yii::$app->user->can('btn_give_investor')) { ?>
@@ -77,7 +78,6 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $this->render('_comments'); ?>
         <?php } ?>
     </div>
-<?php var_dump('test'); ?>
     <div class="col-lg-12 col-md-12">
         <?php if (Yii::$app->user->can('btn_give_investor')) { ?>
             <?= $this->render('_comments', [
