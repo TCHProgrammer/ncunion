@@ -14,6 +14,7 @@ use common\models\passport\PassportAttribute;
 use common\models\passport\UserPassport;
 use frontend\components\controllers\DefaultFrontendController;
 use common\models\UserAvatar;
+use frontend\models\UpdatePassword;
 use yii\filters\AccessControl;
 use frontend\models\UserSettingsForm;
 use yii\helpers\FileHelper;
@@ -48,6 +49,7 @@ class UserController extends DefaultFrontendController{
 
         //$model = UserSettingsForm::findOne(Yii::$app->user->id);
         $model = $this->findModel(Yii::$app->user->id);
+        $updatePas = new UpdatePassword();
 
         $avatar = UserAvatar::findOne(['user_id' => Yii::$app->user->id]);
 
@@ -87,6 +89,7 @@ class UserController extends DefaultFrontendController{
         return $this->render('settings', [
             'model' => $model,
             'avatar' => $avatar,
+            'updatePas' => $updatePas
         ]);
     }
 
@@ -135,8 +138,23 @@ class UserController extends DefaultFrontendController{
             'listRadio' => $listRadio,
             'rezRadio' => $rezRadio,
             'listValue' => $listValue,
-            'rezValue' => $rezValue
+            'rezValue' => $rezValue,
         ]);
+    }
+
+    /**
+     * Изменить пароль
+     */
+    public function actionUpdatePassword(){
+        $id = Yii::$app->user->id;
+        $user = $this->findModel($id);
+        if($user->updatePassword($id)){
+            Yii::$app->session->setFlash('success', 'Пароль успешно был изменён.');
+            return $this->redirect('profile');
+        }else{
+            Yii::$app->session->setFlash('error','Пароль не был изменён, вы ввели неправильный пароль.');
+            return $this->redirect('settings');
+        }
     }
 
     protected function findModel($id)
@@ -285,7 +303,5 @@ class UserController extends DefaultFrontendController{
             }
         }
     }
-
-
 
 }

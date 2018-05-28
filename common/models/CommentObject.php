@@ -16,6 +16,7 @@ use common\models\object\Object;
  * @property string $user_name
  * @property string $text
  * @property string $datetime
+ * @property string $path
  *
  * @property Object $object
  */
@@ -38,7 +39,7 @@ class CommentObject extends \yii\db\ActiveRecord
             ['datetime', 'default', 'value' => date('Y-m-d H:i:s')],
             [['object_id', 'level', 'user_id', 'user_name', 'text', 'datetime'], 'required'],
             [['object_id', 'level', 'comment_id', 'user_id'], 'integer'],
-            [['text'], 'string'],
+            [['text', 'path'], 'string'],
             [['datetime'], 'safe'],
             [['user_name'], 'string', 'max' => 255],
             [['object_id'], 'exist', 'skipOnError' => true, 'targetClass' => Object::className(), 'targetAttribute' => ['object_id' => 'id']],
@@ -68,5 +69,9 @@ class CommentObject extends \yii\db\ActiveRecord
     public function getObject()
     {
         return $this->hasOne(Object::className(), ['id' => 'object_id']);
+    }
+
+    public function test($item){
+
     }
 }

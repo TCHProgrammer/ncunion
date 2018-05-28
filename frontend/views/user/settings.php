@@ -40,10 +40,35 @@ $this->title = 'Настройки';
             <h2>Уведомления по почте:</h2>
 
             <?= $form->field($model, 'noticesArray')->checkboxList(
-                    Notice::find()->select(['title', 'id'])->indexBy('id')->column()
+                Notice::find()->select(['title', 'id'])->indexBy('id')->column()
             )->label(false) ?>
 
             <br>
+
+            <div class="form-group">
+                <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+            </div>
+        </div>
+
+        <?php ActiveForm::end(); ?>
+    </div>
+</div>
+
+<div class="settings-block-2">
+    <div class="row">
+        <?php $formPas = ActiveForm::begin([
+            'action' => 'update-password'
+        ]); ?>
+
+        <div class="col-lg-12">
+
+            <h2>Изменить пароль:</h2>
+
+            <?= $formPas->field($updatePas, 'password', ['options' => ['class' => 'form-height']])->textInput() ?>
+
+            <?= $formPas->field($updatePas, 'password_repeat', ['options' => ['class' => 'form-height']])->textInput() ?>
+
+            <?= $formPas->field($updatePas, 'password_new', ['options' => ['class' => 'form-height']])->textInput() ?>
 
             <div class="form-group">
                 <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>

@@ -49,10 +49,10 @@ class CatalogController extends DefaultFrontendController{
         $userRoom = new RoomObjectUser();
         $commentNew = new CommentObject();
         $model = $this->findModel($id);
-        $chekFinishObject = RoomFinishObject::find()->where(['object_id' => 3])->one();
+        $chekFinishObject = RoomFinishObject::find()->where(['object_id' => $id])->one();
 
         $commentList = new ActiveDataProvider([
-            'query' => CommentObject::find()->where(['object_id' => 3]),
+            'query' => CommentObject::find()->where(['object_id' => $id])->orderBy(['path' => SORT_ASC]),
             'pagination' => [
                 'pageSize' => 20,
             ],
@@ -75,7 +75,7 @@ class CatalogController extends DefaultFrontendController{
                 ->joinWith('user')
                 ->joinWith('userAvatar'),
             'pagination' => [
-                'pageSize' => 20,
+                'pageSize' => 50,
             ],
         ]);
 
@@ -119,7 +119,14 @@ class CatalogController extends DefaultFrontendController{
                 $comment->load(Yii::$app->request->post());
                 $comment->user_id = $user->id;
                 $comment->user_name = $user->last_name . ' ' . $user->first_name;
-                if ($comment->validate()){
+                if ($comment->validate() && $comment->save()){
+                    if (Yii::$app->request->post('CommentObject')['comment_id']){
+                        $path = CommentObject::findOne(Yii::$app->request->post('CommentObject')['comment_id']);
+                        $comment->path = $path->path . $comment->id .'.';
+                    }else{
+                        $comment->path = $comment->id . '.';
+                    }
+
                     $comment->save();
                 }
             }

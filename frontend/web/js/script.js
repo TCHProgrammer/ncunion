@@ -17,12 +17,14 @@ function checkType(j) {
 
 
 function openAnswer(id, lvl) {
+    $('#btn-comment-open-'+id).css('display', 'none');
+    $('#commentobject-level').val(lvl + 1);
+    $('#commentobject-comment_id').val(id);
     $('.answer-form-'+id).html($('.form-push').html());
-    console.log(lvl+1);
-    $('#commentobject-level').val(lvl+1);
-
 }
 
-function closeAnswer(id) {
-    $('.answer-form-'+id).html('<button class="btn btn-link" onclick="openAnswer(' + id + ')">Ответить</button>')
+$('#btn-close-comment').html('<button class="btn btn-link" onclick="openAnswer()">Ответить</button>');
+
+function closeAnswer(id, lvl) {
+    $('.answer-form-'+id).html('<button class="btn btn-link" onclick="openAnswer(' + id + ', ' + lvl + ')">Ответить</button>')
 }

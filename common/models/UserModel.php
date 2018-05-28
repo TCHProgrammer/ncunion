@@ -154,4 +154,19 @@ class UserModel extends \yii\db\ActiveRecord
         }
     }
 
+    /* изменить пароль  */
+    public function updatePassword($id){
+        $user = UserModel::findOne($id);
+        $post = Yii::$app->request->post('UpdatePassword');
+        if ($user && $post && ($post['password'] == $post['password_repeat'])){
+            if (Yii::$app->security->validatePassword($post['password'], $this->password_hash)){
+                $user->password_hash = Yii::$app->security->generatePasswordHash($post['password_new']);
+                if($user->save()){
+                    return true;
+                };
+            }
+        }
+        return false;
+    }
+
 }
