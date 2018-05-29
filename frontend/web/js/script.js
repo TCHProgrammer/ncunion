@@ -17,8 +17,9 @@ function checkType(j) {
 
 
 function openAnswer(id, lvl) {
+    var newLvl = lvl + 1;
     $('#btn-comment-open-'+id).css('display', 'none');
-    $('#commentobject-level').val(lvl + 1);
+    $('#commentobject-level').val(newLvl);
     $('#commentobject-comment_id').val(id);
     $('.answer-form-'+id).html($('.form-push').html());
 }
@@ -28,3 +29,11 @@ $('#btn-close-comment').html('<button class="btn btn-link" onclick="openAnswer()
 function closeAnswer(id, lvl) {
     $('.answer-form-'+id).html('<button class="btn btn-link" onclick="openAnswer(' + id + ', ' + lvl + ')">Ответить</button>')
 }
+
+
+
+//альтернативный способ
+/*$('#btn-close-comment').on('click', function(){
+
+});*/
+// $('.any-selector').data('id')
