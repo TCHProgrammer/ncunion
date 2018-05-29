@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\widgets\ActiveForm;
+use yii\widgets\ListView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\object\Object */
@@ -66,13 +67,17 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
 
     </div>
-    <?php var_dump('test'); ?>
 
     <div class="users col-lg-6 col-md-6">
         <?php if (Yii::$app->user->can('btn_give_investor')) { ?>
-            <?= $this->render('_userList', [
-                'usersObjectlist' => $usersObjectlist,
-                'finishObject' => $finishObject
+            <h2>Список откликнувшихся инвесторов</h2>
+
+            <?= ListView::widget([
+                'dataProvider' => $usersObjectlist,
+                'itemView' => '_listUser',
+                'viewParams' => [
+                    'finishObject' => $finishObject,
+                ],
             ]); ?>
         <?php }else{ ?>
             <?= $this->render('_comments'); ?>
