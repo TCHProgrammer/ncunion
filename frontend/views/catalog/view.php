@@ -81,9 +81,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ]); ?>
         <?php }else{ ?>
             <?= $this->render('_comments', [
-                'commentList' => $commentList,
                 'commentNew' => $commentNew,
-                'oId' => $oId
+                'oId' => $model->id,
+                'commentList' => $commentList
             ]); ?>
         <?php } ?>
     </div>
