@@ -93,15 +93,23 @@ class ObjectSearch extends Object
      */
     public function search($params)
     {
+        //данные из паспорта
+        //$this->type_id = 2;
+
         $query = Object::find()
-            ->where(['status' => 1])
+            ->andWhere(['status' => 1])
+            ->select([Object::tableName().'.id'])
             ->orderBy('status_object DESC')
-            ->joinWith('objectImgs');
+            ->joinWith('objectImgs')
+            ->joinWith('objectCheckbox');
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+            'query' => Object::find()->where(['in', 'id', $query]),
+            'pagination' => [
+                'pageSize' => 4,
+            ],
         ]);
 
         $this->load($params);
@@ -136,6 +144,7 @@ class ObjectSearch extends Object
             ->andFilterWhere(['like', 'descr', $this->descr])
             ->andFilterWhere(['like', 'address', $this->address])
             ->andFilterWhere(['like', 'address_map', $this->address_map])
+            //->andFilterWhere(['like', 'objectCheckbox.group_id', 19])
             ->andFilterWhere(['like', 'owner', $this->owner]);
 
         return $dataProvider;

@@ -54,7 +54,8 @@ class PassportAttribute extends \yii\db\ActiveRecord
     public static function primaryKey()
     {
         return [
-            'passport_id'
+            'passport_id',
+            'value'
         ];
     }
 

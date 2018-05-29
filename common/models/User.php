@@ -24,6 +24,8 @@ use yii\web\IdentityInterface;
  * @property integer $phone
  * @property integer $created_at
  * @property integer $updated_at
+ * @property integer $check_email
+ * @property integer $check_phone
  * @property integer $email_confirm_token
  * @property integer $phone_confirm_token
  * @property string $password write-only password

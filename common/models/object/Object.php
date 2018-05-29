@@ -234,6 +234,21 @@ class Object extends \yii\db\ActiveRecord
         return $this->hasMany(ObjectImg::className(), ['object_id' => 'id'])->orderBy('sort');
     }
 
+    public function getObjectValue()
+    {
+        return $this->hasMany(ObjectAttribute::className(), ['object_id' => 'id']);
+    }
+
+    public function getObjectCheckbox()
+    {
+        return $this->hasMany(ObjectAttributeCheckbox::className(), ['object_id' => 'id']);
+    }
+
+    public function getObjectRadio()
+    {
+        return $this->hasMany(ObjectAttributeRadio::className(), ['object_id' => 'id']);
+    }
+
     public function getImgLists(){
         return ArrayHelper::getColumn($this->objectImgs, 'imageUrl');
     }

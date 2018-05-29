@@ -100,6 +100,7 @@ class Menu {
     function menuObject(){
         $permissions = [
             'can_create_object',
+            'can_check_finish_object',
         ];
 
         foreach ($permissions as $permission) {
@@ -117,6 +118,11 @@ class Menu {
             case 'can_create_object':
                 $name['title'] = 'Объекты';
                 $name['link'] = Url::toRoute('/object');
+                return $name;
+
+            case 'can_check_finish_object':
+                $name['title'] = 'Завершённые объекты';
+                $name['link'] = Url::toRoute('/object-finish');
                 return $name;
 
             default:

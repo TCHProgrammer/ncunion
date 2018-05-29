@@ -27,6 +27,7 @@ use common\models\object\AttributeCheckbox;
 use common\models\object\AttributeRadio;
 use common\models\passport\PassportAttributeCheckbox;
 use common\models\passport\PassportAttributeRadio;
+use common\models\object\Attribute;
 
 class UserController extends DefaultFrontendController{
 
@@ -98,11 +99,11 @@ class UserController extends DefaultFrontendController{
         $user = UserModel::find()->where(['id' => Yii::$app->user->id])->select('user_passport_id')->one();
         $model = $this->findPassport($user->user_passport_id);
 
-        $listValue = AttributeCheckbox::find()->all();
+        $listValue = Attribute::find()->all();
         $modelValue = PassportAttribute::find()->where(['passport_id' => $user->user_passport_id])->all();
         $rezValue = [];
         foreach ($modelValue as $item){
-            $rezValue[] .= $item->attribute_id;
+            $rezValue[$item->attribute_id] = $item->value;
         }
 
         $listCheckbox = AttributeCheckbox::find()->joinWith('groupCheckboxes')->all();
@@ -184,26 +185,112 @@ class UserController extends DefaultFrontendController{
 
         $arrListGroups = [];
         foreach ($listModel as $item){
+            $arrListGroups[] .= $item->value;
+        }
+
+        $delArr = [];
+        if ($groups){
+            foreach ($groups as $id => $group){
+                foreach ($group as $itemG){
+                    if (!in_array($itemG, $arrListGroups)){
+                        $addNewAttr = new PassportAttribute();
+                        $addNewAttr->passport_id = $model->id;
+                        $addNewAttr->attribute_id = $id;
+                        $addNewAttr->value = $itemG;
+                        if($addNewAttr->validate()){
+                            $addNewAttr->save();
+                        }
+                    }else{
+                        $delArr[] .= $itemG;
+                        unset($arrListGroups[array_search($itemG,$arrListGroups)]);
+                    }
+                }
+            }
+        }
+
+        foreach ($arrListGroups as $arrListGroup) {
+            $delModel = PassportAttribute::find()
+                ->where(['passport_id' => $model->id])
+                ->andWhere(['value' => $arrListGroup])
+                ->one();
+            if ($delModel) {
+                $delModel->delete(['passport_id' => $model->id, 'value' => $arrListGroup]);
+            }
+        }
+
+
+
+
+
+        /*foreach ($groups as $idType => $value){
+            $itemAtt = PassportAttribute::find()
+                ->where(['passport_id' => $model->id])
+                ->andWhere(['attribute_id' => $idType])
+                ->one();
+            if ($itemAtt){
+                $itemAtt->value = $value;
+                if ($itemAtt->validate()){
+                    $itemAtt->save();
+                }
+            }else{
+                $itemAttNew = new PassportAttribute();
+                $itemAttNew->passport_id = $model->id;
+                $itemAttNew->attribute_id = $idType;
+                $itemAttNew->value = $value;
+                if ($itemAttNew->validate()){
+                    $itemAttNew->save();
+                }
+            }
+        }*/
+
+
+        /*$listModel = PassportAttribute::find()->where(['passport_id' => $model->id])->all();
+
+        $arrListGroups = [];
+        foreach ($listModel as $item){
             $arrListGroups[] .= $item->attribute_id;
         }
 
         $delArr = [];
         if ($groups){
             foreach ($groups as $id => $group){
-                foreach ($group as $item){
-                    if (!in_array($item, $arrListGroups)){
+                if (!in_array($group, $arrListGroups)){
+                    $addNewAttr = new PassportAttribute();
+                    $addNewAttr->passport_id = $model->id;
+                    $addNewAttr->attribute_id = $id;
+                    $addNewAttr->value = $group;
+                    if($addNewAttr->validate()){
+                        $addNewAttr->save();
+                    }
+                }else{
+                    $delArr[] .= $id;
+                    unset($arrListGroups[array_search($id,$arrListGroups)]);
+                }
+            }
+        }*/
+
+        /*$listModel = PassportAttribute::find()->where(['passport_id' => $model->id])->all();
+
+        $arrListGroups = [];
+        foreach ($listModel as $item){
+            $arrListGroups[] .= $item->attribute_id;
+        }
+
+        $delArr = [];
+        if ($groups){
+            foreach ($groups as $id => $group){
+                    if (!in_array($group, $arrListGroups)){
                         $addNewAttr = new PassportAttribute();
                         $addNewAttr->passport_id = $model->id;
                         $addNewAttr->attribute_id = $id;
-                        $addNewAttr->value = $item;
+                        $addNewAttr->value = $group;
                         if($addNewAttr->validate()){
                             $addNewAttr->save();
                         }
                     }else{
-                        $delArr[] .= $item;
-                        unset($arrListGroups[array_search($item,$arrListGroups)]);
+                        $delArr[] .= $group;
+                        unset($arrListGroups[array_search($group,$arrListGroups)]);
                     }
-                }
             }
         }
 
@@ -215,7 +302,7 @@ class UserController extends DefaultFrontendController{
             if ($delModel) {
                 $delModel->delete(['passport_id' => $model->id, 'attribute_id' => $arrListGroup]);
             }
-        }
+        }*/
     }
 
     /**

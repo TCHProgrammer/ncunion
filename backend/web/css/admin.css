@@ -437,3 +437,7 @@ a.desc:after {
     padding-right: 15px;
     padding-left: 15px;
 }
+
+.form-height {
+    height: 95px;
+}

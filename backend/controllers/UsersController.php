@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
 use backend\components\controllers\DefaultBackendController;
+use backend\models\SignupForm;
 
 /**
  * UsersController implements the CRUD actions for UserModel model.
@@ -159,6 +160,19 @@ class UsersController extends DefaultBackendController
         return $this->render('users-moder', [
             //'users' => $users,
             'dataProvider' => $dataProvider
+        ]);
+    }
+
+    public function actionCreateUser(){
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->signup()) {
+                return $this->redirect(['/users/view', 'id' => $user->id]);
+            }
+        }
+
+        return $this->render('create-user', [
+            'model' => $model,
         ]);
     }
 }
