@@ -80,7 +80,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]); ?>
         <?php }else{ ?>
-            <?= $this->render('_comments'); ?>
+            <?= $this->render('_comments', [
+                'commentList' => $commentList,
+                'commentNew' => $commentNew,
+                'oId' => $oId
+            ]); ?>
         <?php } ?>
     </div>
     <div class="col-lg-12 col-md-12">
