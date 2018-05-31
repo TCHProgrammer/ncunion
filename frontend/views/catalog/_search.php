@@ -45,10 +45,39 @@ use common\models\object\ObjectType;
         <?= $form->field($model, 'price_liquidation', ['options' => ['class' => 'input-adjustment col-lg-2 col-md-2']]) ?>
     </div>
 
+    <?php var_dump($_GET); ?>
+
+    <?php foreach ($listCheckboxes as $itemCheckbox){ ?>
+        <div class="form-attribute form-attribute-<?= $itemCheckbox->type_id ?>">
+            <label><?= $itemCheckbox->title ?></label>
+            <div>
+                <?php foreach ($itemCheckbox->groupCheckboxes as $itemGroup){ ?>
+                    <label class="checkbox">
+                        <input type="checkbox" name="GroupCheckboxes[<?= $itemCheckbox->type_id ?>][<?= $itemCheckbox->id ?>][]" value="<?= $itemGroup->id ?>" <?= (in_array($itemGroup->id, $rezCheckboxes))?'checked':'' ?>>
+                        <?= $itemGroup->title ?>
+                    </label>
+                <?php } ?>
+            </div>
+        </div>
+    <?php } ?>
+
+    <div class="row">
+        <?php foreach ($listRadios as $itemRadio){ ?>
+            <div class="form-attribute form-attribute-<?= $itemRadio->type_id ?>">
+                <label><?= $itemRadio->title ?></label>
+                <?php foreach ($itemRadio->groupRadios as $itemGroup){ ?>
+                    <label class="radio">
+                        <input type="radio" name="GroupRadios[<?= $itemRadio->type_id ?>][<?= $itemRadio->id ?>][]" value="<?= $itemGroup->id ?>" <?= (in_array($itemGroup->id, $rezRadios))?'checked':'' ?>>
+                        <?= $itemGroup->title ?>
+                    </label>
+                <?php } ?>
+            </div>
+        <?php } ?>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton('Поиск', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Очистить', ['class' => 'btn btn-default']) ?>
+        <?= Html::a('Сбросить фильтр', ['/catalog'], ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

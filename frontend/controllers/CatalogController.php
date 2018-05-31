@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\CommentObject;
+use common\models\object\AttributeCheckbox;
 use common\models\RoomFinishObject;
 use common\models\RoomObjectUser;
 use common\models\UserModel;
@@ -13,6 +14,8 @@ use yii\web\NotFoundHttpException;
 use frontend\components\controllers\DefaultFrontendController;
 use yii\filters\AccessControl;
 use yii\data\ActiveDataProvider;
+use common\models\object\AttributeRadio;
+use common\models\object\Attribute;
 
 class CatalogController extends DefaultFrontendController{
 
@@ -38,9 +41,49 @@ class CatalogController extends DefaultFrontendController{
         $searchModel = new ObjectSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $type_id = $_GET['ObjectSearch']['type_id'];
+
+        $listValues = Attribute::find()->all();
+        $rezValues = [];
+        if (!is_null($_GET['GroupValues'][$type_id])) {
+            foreach ($_GET['GroupValues'][$type_id] as $items) {
+                foreach ($items as $item){
+                    $rezValues[] = $item;
+                }
+            }
+        }
+
+        $listCheckboxes = AttributeCheckbox::find()->joinWith('groupCheckboxes')->all();
+        $rezCheckboxes = [];
+        if (!is_null($_GET['GroupCheckboxes'][$type_id])) {
+            foreach ($_GET['GroupCheckboxes'][$type_id] as $items) {
+                foreach ($items as $item){
+                    $rezCheckboxes[] = $item;
+                }
+            }
+        }
+
+        $listRadios = AttributeRadio::find()->joinWith('groupRadios')->all();
+        $rezRadios = [];
+        if (!is_null($_GET['GroupRadios'][$type_id])){
+            foreach ($_GET['GroupRadios'][$type_id] as $items){
+                foreach ($items as $item){
+                    $rezRadios[] = $item;
+                }
+            }
+        }
+
+
+        $k = 000;
+
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'searchModel'   => $searchModel,
+            'dataProvider'  => $dataProvider,
+            'listValues'    => $listValues,
+            'listCheckboxes' => $listCheckboxes,
+            'listRadios'    => $listRadios,
+            'rezCheckboxes'  => $rezCheckboxes,
+            'rezRadios'     => $rezRadios
         ]);
     }
 

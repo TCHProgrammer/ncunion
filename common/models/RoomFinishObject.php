@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use common\models\object\Object;
+use common\models\UserModel;
 
 /**
  * This is the model class for table "room_finish_object".
@@ -37,7 +38,7 @@ class RoomFinishObject extends \yii\db\ActiveRecord
             [['object_id', 'user_id', 'manager_id', 'created_at'], 'integer'],
             [['created_at'], 'default', 'value' => time()],
             [['comment'], 'string'],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserModel::className(), 'targetAttribute' => ['user_id' => 'id']],
             [['object_id'], 'exist', 'skipOnError' => true, 'targetClass' => Object::className(), 'targetAttribute' => ['object_id' => 'id']],
         ];
     }
@@ -48,26 +49,36 @@ class RoomFinishObject extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'object_id' => 'Object ID',
-            'user_id' => 'User ID',
-            'manager_id' => 'Manager ID',
-            'created_at' => 'Created At',
-            'comment' => 'Comment',
+            'object' => 'Объект',
+            'user' => 'Пользователь',
+            'manager' => 'Отдал сделку менеджер',
+            'user_id' => 'Пользователь',
+            'manager_id' => 'Менеджер',
+            'created_at' => 'Дата закрытия сделки',
+            'comment' => 'Комментарий',
+        ];
+    }
+
+    public static function primaryKey()
+    {
+        return [
+            'object_id',
+            'user_id'
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
+    public function getUsers()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(UserModel::className(), ['id' => 'user_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getObject()
+    public function getObjects()
     {
         return $this->hasOne(Object::className(), ['id' => 'object_id']);
     }

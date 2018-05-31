@@ -35,14 +35,16 @@ use common\models\object\Object;
  */
 class ObjectSearch extends Object
 {
-    /**
-     * @inheritdoc
-     */
+
+    public $listCheckbox;
+    public $listRadio;
+    public $listValue;
+
     public function rules()
     {
         return [
             [['id', 'type_id', 'status', 'place_km', 'area', 'rooms', 'price_cadastral', 'price_tian', 'price_market', 'price_liquidation', 'status_object', 'sticker_id', 'created_at', 'updated_at', 'close_at'], 'integer'],
-            [['title', 'descr', 'address', 'address_map', 'owner'], 'safe'],
+            [['title', 'descr', 'address', 'address_map', 'owner', 'listCheckbox', 'listRadio', 'listValue'], 'safe'],
             [['amount'], 'number'],
         ];
     }
@@ -101,7 +103,9 @@ class ObjectSearch extends Object
             ->select([Object::tableName().'.id'])
             ->orderBy('status_object DESC')
             ->joinWith('objectImgs')
-            ->joinWith('objectCheckbox');
+            ->joinWith('objectValues')
+            ->joinWith('objectCheckboxs')
+            ->joinWith('objectRadios');
 
         // add conditions that should always apply here
 
@@ -138,15 +142,40 @@ class ObjectSearch extends Object
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'close_at' => $this->close_at,
+            'object_attribute_checkbox.group_id' => $this->getArr($params['GroupCheckbox'][$this->type_id]),
+            'object_attribute_radio.group_id' => $this->getArr($params['GroupRadios'][$this->type_id]),
+            'object_attribute.value' => $this->listValue, // ['22', '333']
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'descr', $this->descr])
             ->andFilterWhere(['like', 'address', $this->address])
             ->andFilterWhere(['like', 'address_map', $this->address_map])
-            //->andFilterWhere(['like', 'objectCheckbox.group_id', 19])
-            ->andFilterWhere(['like', 'owner', $this->owner]);
+            ->andFilterWhere(['like', 'owner', $this->owner])
+           // ->andFilterWhere(['like', 'object_attribute.value', ['222', '33']])
+        ;
+
+        // фильтр по цене
+        /*$query->joinWith(['objectCheckbox' => function ($q) {
+            $q->andFilterWhere(['between', 'group_id', 19, 20]);
+        }]);*/
+
+        //$params['ObjectSearch']['listCheckbox']
+        //фильтр четбоксов
+
 
         return $dataProvider;
+    }
+
+    private function getArr($list){
+        $arr = [];
+        if (!is_null($list)){
+            foreach ($list as $item){
+                foreach ($item as $oneElem){
+                    $arr[] = $oneElem;
+                }
+            }
+        }
+        return $arr;
     }
 }

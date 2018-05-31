@@ -64,11 +64,11 @@ $this->title = 'Настройки';
 
             <h2>Изменить пароль:</h2>
 
-            <?= $formPas->field($updatePas, 'password', ['options' => ['class' => 'form-height']])->textInput() ?>
+            <?= $formPas->field($updatePas, 'password', ['options' => ['class' => 'form-height']])->passwordInput() ?>
 
-            <?= $formPas->field($updatePas, 'password_repeat', ['options' => ['class' => 'form-height']])->textInput() ?>
+            <?= $formPas->field($updatePas, 'password_repeat', ['options' => ['class' => 'form-height']])->passwordInput() ?>
 
-            <?= $formPas->field($updatePas, 'password_new', ['options' => ['class' => 'form-height']])->textInput() ?>
+            <?= $formPas->field($updatePas, 'password_new', ['options' => ['class' => 'form-height']])->passwordInput() ?>
 
             <div class="form-group">
                 <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>

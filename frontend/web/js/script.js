@@ -1,7 +1,15 @@
 
+/* паспорт */
 checkType(Number($('#userpassport-type_id').val()));
 
 $('#userpassport-type_id').change(function(){
+    checkType(Number($(this).val()));
+});
+
+/* фильтрв вв каталоге */
+checkType(Number($('#objectsearch-type_id').val()));
+
+$('#objectsearch-type_id').change(function(){
     checkType(Number($(this).val()));
 });
 
@@ -16,6 +24,7 @@ function checkType(j) {
 }
 
 
+/* комментарии */
 function openAnswer(id, lvl) {
     var newLvl = lvl + 1;
     $('#btn-comment-open-'+id).css('display', 'none');
