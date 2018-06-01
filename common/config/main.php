@@ -16,7 +16,7 @@ return [
             'decimalSeparator' => ',',
             'thousandSeparator' => ' ',
             'currencyCode' => 'EUR',*/
-            'datetimeFormat' => 'd/MMMM/Y, в H:i'
+            'datetimeFormat' => 'd MMMM Y, в H:i'
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -27,7 +27,7 @@ return [
         ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
-            'cache' => 'cache' //Включаем кеширование
+            //'cache' => 'cache' //Включаем кеширование
         ],
         'email' => [
             'class' => 'common\components\EmailComponent',
