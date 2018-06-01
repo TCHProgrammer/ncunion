@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'user',
                 'value' => function($data){
-                    return Html::a(Html::encode($data->users->last_name), Url::to(['/user/view', 'id' => $data->users->id]));
+                    return Html::a(Html::encode($data->users->last_name), Url::to(['/users/view', 'id' => $data->users->id]));
                 },
                 'format' => 'raw'
             ],

@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'style' => 'width:35px',
                 ]
             ],
-            'subscribe_dt',
+            //'subscribe_dt',
             'last_name',
             'first_name',
             'middle_name',
