@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use common\models\object\ObjectAttributeRadio;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -142,8 +143,9 @@ class ObjectSearch extends Object
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'close_at' => $this->close_at,
-            'object_attribute_checkbox.group_id' => $this->getArr($params['GroupCheckbox'][$this->type_id]),
+            'object_attribute_checkbox.group_id' => $this->getArr($params['GroupCheckboxes'][$this->type_id]),
             'object_attribute_radio.group_id' => $this->getArr($params['GroupRadios'][$this->type_id]),
+            //'object_attribute_radio.group_id' => 9,
             'object_attribute.value' => $this->listValue, // ['22', '333']
         ]);
 
@@ -152,17 +154,22 @@ class ObjectSearch extends Object
             ->andFilterWhere(['like', 'address', $this->address])
             ->andFilterWhere(['like', 'address_map', $this->address_map])
             ->andFilterWhere(['like', 'owner', $this->owner])
-           // ->andFilterWhere(['like', 'object_attribute.value', ['222', '33']])
+            //->andFilterWhere(['object_attribute_radio.group_id' => 12])
+            //->andFilterWhere($authorsFilter)
+            // ->andFilterWhere(['like', 'object_attribute.value', ['222', '33']])
         ;
+
+        /*$query->andFilterWhere([
+            'and',
+                ['object_attribute_radio.group_id' => 9],
+                ['object_attribute_radio.group_id' => 12]
+            ,
+        ]);*/
 
         // фильтр по цене
         /*$query->joinWith(['objectCheckbox' => function ($q) {
             $q->andFilterWhere(['between', 'group_id', 19, 20]);
         }]);*/
-
-        //$params['ObjectSearch']['listCheckbox']
-        //фильтр четбоксов
-
 
         return $dataProvider;
     }
