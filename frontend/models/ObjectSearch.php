@@ -3,6 +3,8 @@
 namespace frontend\models;
 
 use common\models\object\ObjectAttributeRadio;
+use common\models\passport\UserPassport;
+use common\models\UserModel;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -32,20 +34,20 @@ use common\models\object\Object;
  * @property int $close_at
  * @property int $status_object
  * @property int $sticker_id
+ * @property int $amount_min
+ * @property int $amount_max
  *
  */
 class ObjectSearch extends Object
 {
-
-    public $listCheckbox;
-    public $listRadio;
-    public $listValue;
+    public $amount_min;
+    public $amount_max;
 
     public function rules()
     {
         return [
-            [['id', 'type_id', 'status', 'place_km', 'area', 'rooms', 'price_cadastral', 'price_tian', 'price_market', 'price_liquidation', 'status_object', 'sticker_id', 'created_at', 'updated_at', 'close_at'], 'integer'],
-            [['title', 'descr', 'address', 'address_map', 'owner', 'listCheckbox', 'listRadio', 'listValue'], 'safe'],
+            [['id', 'type_id', 'status', 'place_km', 'area', 'rooms', 'price_cadastral', 'price_tian', 'price_market', 'price_liquidation', 'amount_min', 'amount_max'], 'integer'],
+            [['title', 'descr', 'address', 'address_map', 'owner'], 'safe'],
             [['amount'], 'number'],
         ];
     }
@@ -70,11 +72,8 @@ class ObjectSearch extends Object
             'price_tian' => 'ЦИАН',
             'price_market' => 'Рыночная стоимость',
             'price_liquidation' => 'Ликвидационная  стоимость',
-            'created_at' => 'Дата создания',
-            'updated_at' => 'Дата последнего изменения',
-            'close_at' => 'Дата закрытия сделки',
-            'status_object' => 'Статус сделки',
-            'sticker_id' => 'Стикер',
+            'amount_min' => 'Мин стоимость',
+            'amount_max' => 'Макс стоимость',
         ];
     }
 
@@ -94,24 +93,25 @@ class ObjectSearch extends Object
      *
      * @return ActiveDataProvider
      */
+
     public function search($params)
     {
         //данные из паспорта
-        //$this->type_id = 2;
+        $user = UserModel::findOne(Yii::$app->user->id);
+        $passport = UserPassport::findOne($user->user_passport_id);
+
+        $this->type_id = $passport->type_id;
+        $this->area = $passport->area;
+        $this->rooms = $passport->rooms;
 
         $query = Object::find()
+            ->alias('o')
             ->andWhere(['status' => 1])
-            ->select([Object::tableName().'.id'])
             ->orderBy('status_object DESC')
-            ->joinWith('objectImgs')
-            ->joinWith('objectValues')
-            ->joinWith('objectCheckboxs')
-            ->joinWith('objectRadios');
-
-        // add conditions that should always apply here
+            ->addGroupBy('o.id');
 
         $dataProvider = new ActiveDataProvider([
-            'query' => Object::find()->where(['in', 'id', $query]),
+            'query' => $query,
             'pagination' => [
                 'pageSize' => 4,
             ],
@@ -120,17 +120,11 @@ class ObjectSearch extends Object
         $this->load($params);
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
             return $dataProvider;
         }
 
-        // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
             'type_id' => $this->type_id,
-            'status' => $this->status,
-            'place_km' => $this->place_km,
             'amount' => $this->amount,
             'area' => $this->area,
             'rooms' => $this->rooms,
@@ -138,51 +132,47 @@ class ObjectSearch extends Object
             'price_tian' => $this->price_tian,
             'price_market' => $this->price_market,
             'price_liquidation' => $this->price_liquidation,
-            'status_object' => $this->status_object,
-            'sticker_id' => $this->sticker_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'close_at' => $this->close_at,
-            'object_attribute_checkbox.group_id' => $this->getArr($params['GroupCheckboxes'][$this->type_id]),
-            'object_attribute_radio.group_id' => $this->getArr($params['GroupRadios'][$this->type_id]),
-            //'object_attribute_radio.group_id' => 9,
-            'object_attribute.value' => $this->listValue, // ['22', '333']
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'descr', $this->descr])
-            ->andFilterWhere(['like', 'address', $this->address])
-            ->andFilterWhere(['like', 'address_map', $this->address_map])
-            ->andFilterWhere(['like', 'owner', $this->owner])
-            //->andFilterWhere(['object_attribute_radio.group_id' => 12])
-            //->andFilterWhere($authorsFilter)
-            // ->andFilterWhere(['like', 'object_attribute.value', ['222', '33']])
+            ->andFilterWhere(['between', 'amount', $this->amount_min, $this->amount_max])
         ;
 
-        /*$query->andFilterWhere([
-            'and',
-                ['object_attribute_radio.group_id' => 9],
-                ['object_attribute_radio.group_id' => 12]
-            ,
-        ]);*/
+        if ($this->place_km) {
+            if ($this->place_km == 0){
+                $query->andFilterWhere(['place_km' => $this->place_km]);
+            }else{
+                $query->andFilterWhere(['<=', 'place_km', $this->place_km])
+                    ->andFilterWhere(['!=', 'place_km', 0]);
+            }
 
-        // фильтр по цене
-        /*$query->joinWith(['objectCheckbox' => function ($q) {
-            $q->andFilterWhere(['between', 'group_id', 19, 20]);
-        }]);*/
+        }
+
+        if (!is_null($params['GroupCheckboxes'][$this->type_id])){
+            foreach ($params['GroupCheckboxes'][$this->type_id] as $attribute => $groups){
+                $query ->joinWith('objectCheckboxes oac' . $attribute);
+                $filter = ['or'];
+                foreach ($groups as $group){
+                    $filter[] = ['oac' . $attribute . '.group_id' => (int)$group];
+
+                }
+                $query->andFilterWhere($filter);
+            };
+        }
+
+        if (!is_null($params['GroupRadios'][$this->type_id])){
+            foreach ($params['GroupRadios'][$this->type_id] as $attribute => $groups){
+                $query ->joinWith('objectRadios oar' . $attribute);
+                $filter = ['or'];
+                foreach ($groups as $group){
+                    $filter[] = ['oar' . $attribute . '.group_id' => (int)$group];
+
+                }
+                $query->andFilterWhere($filter);
+            };
+        }
 
         return $dataProvider;
     }
 
-    private function getArr($list){
-        $arr = [];
-        if (!is_null($list)){
-            foreach ($list as $item){
-                foreach ($item as $oneElem){
-                    $arr[] = $oneElem;
-                }
-            }
-        }
-        return $arr;
-    }
 }

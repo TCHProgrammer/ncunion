@@ -239,7 +239,7 @@ class Object extends \yii\db\ActiveRecord
         return $this->hasMany(ObjectAttribute::className(), ['object_id' => 'id']);
     }
 
-    public function getObjectCheckboxs()
+    public function getObjectCheckboxes()
     {
         return $this->hasMany(ObjectAttributeCheckbox::className(), ['object_id' => 'id']);
     }

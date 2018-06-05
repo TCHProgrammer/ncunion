@@ -35,7 +35,7 @@ $this->title="Паспорт клиента";
 
         <div class="row row-padding">
             <?php foreach ($listValue as $itemValue){ ?>
-                <div class="form-attribute form-attribute-<?= $itemValue->type_id ?>">
+                <div class="form-attribute form-attribute-<?= $itemValue->type_id ?>" style="<?= ($itemValue->type_id == $model->type_id)?'display: block':'display: none' ?>">
                     <label><?= $itemValue->title ?></label>
                     <div>
                         <input type="text" class="form-control" name="GroupValue[<?= $itemValue->type_id ?>][<?= $itemValue->id ?>][]" value="<?= $rezValue[$itemValue->id] ?>">
@@ -46,7 +46,7 @@ $this->title="Паспорт клиента";
 
         <div class="row row-padding">
             <?php foreach ($listCheckbox as $itemCheckbox){ ?>
-                <div class="form-attribute form-attribute-<?= $itemCheckbox->type_id ?>">
+                <div class="form-attribute form-attribute-<?= $itemCheckbox->type_id ?>" style="<?= ($itemCheckbox->type_id == $model->type_id)?'display: block':'display: none' ?>">
                     <label><?= $itemCheckbox->title ?></label>
                     <div>
                         <?php foreach ($itemCheckbox->groupCheckboxes as $itemGroup){ ?>
@@ -62,7 +62,7 @@ $this->title="Паспорт клиента";
 
         <div class="row row-padding">
             <?php foreach ($listRadio as $itemRadio){ ?>
-                <div class="form-attribute form-attribute-<?= $itemRadio->type_id ?>">
+                <div class="form-attribute form-attribute-<?= $itemRadio->type_id ?>" style="<?= ($itemRadio->type_id == $model->type_id)?'display: block':'display: none' ?>">
                     <label><?= $itemRadio->title ?></label>
                     <?php foreach ($itemRadio->groupRadios as $itemGroup){ ?>
                         <label class="radio">
