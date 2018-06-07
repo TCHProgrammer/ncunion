@@ -23,6 +23,22 @@ use common\models\passport\UserPassport;
 class CheckUserController extends Controller{
 
     ///ВАЖНО НАПИСАТЬ РОЛИ!!!!! ИХ ТУТ НЕТ !!!!
+    public function behaviors(){
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['unknown']
+                    ]
+                ],
+                'denyCallback' => function ($rule, $action) {
+                    return $this->redirect(['site/login']);
+                }
+            ],
+        ];
+    }
 
     /* 3 пути: подтверждение, паспорт, ожидание модерации */
     public function actionIndex(){
@@ -30,12 +46,12 @@ class CheckUserController extends Controller{
         $user_id = Yii::$app->user->id;
         $user = UserModel::findOne($user_id);
 
-        if (!($user->check_email && $user->check_phone)){
+        if (!(isset($user->check_email) && isset($user->check_phone))){
 
 
             $model = new RegEmailPhone();
 
-            if(Yii::$app->request->post()['RegEmailPhone']['tokenEmail']){
+            if(isset(Yii::$app->request->post()['RegEmailPhone']['tokenEmail'])){
 
                 if($model->checkEmail()){
                     Yii::$app->session->setFlash('success', 'Проверьте свою электронную почту для для активации аккаунта.');

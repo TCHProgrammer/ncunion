@@ -41,40 +41,45 @@ class CatalogController extends DefaultFrontendController{
         $searchModel = new ObjectSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        $type_id = $_GET['ObjectSearch']['type_id'];
+        if (isset($_GET['ObjectSearch']['type_id'])){
+            $type_id = $_GET['ObjectSearch']['type_id'];
+        }
 
         $listValues = Attribute::find()->all();
         $rezValues = [];
-        if (!is_null($_GET['GroupValues'][$type_id])) {
-            foreach ($_GET['GroupValues'][$type_id] as $items) {
-                foreach ($items as $item){
-                    $rezValues[] = $item;
+        if (isset($type_id)){
+            if (isset($_GET['GroupValues'][$type_id])) {
+                foreach ($_GET['GroupValues'][$type_id] as $items) {
+                    foreach ($items as $item){
+                        $rezValues[] = $item;
+                    }
                 }
             }
         }
 
         $listCheckboxes = AttributeCheckbox::find()->joinWith('groupCheckboxes')->all();
         $rezCheckboxes = [];
-        if (!is_null($_GET['GroupCheckboxes'][$type_id])) {
-            foreach ($_GET['GroupCheckboxes'][$type_id] as $items) {
-                foreach ($items as $item){
-                    $rezCheckboxes[] = $item;
+        if (isset($type_id)) {
+            if (isset($_GET['GroupCheckboxes'][$type_id])) {
+                foreach ($_GET['GroupCheckboxes'][$type_id] as $items) {
+                    foreach ($items as $item) {
+                        $rezCheckboxes[] = $item;
+                    }
                 }
             }
         }
 
         $listRadios = AttributeRadio::find()->joinWith('groupRadios')->all();
         $rezRadios = [];
-        if (!is_null($_GET['GroupRadios'][$type_id])){
-            foreach ($_GET['GroupRadios'][$type_id] as $items){
-                foreach ($items as $item){
-                    $rezRadios[] = $item;
+        if (isset($type_id)) {
+            if (isset($_GET['GroupRadios'][$type_id])) {
+                foreach ($_GET['GroupRadios'][$type_id] as $items) {
+                    foreach ($items as $item) {
+                        $rezRadios[] = $item;
+                    }
                 }
             }
         }
-
-
-        $k = 000;
 
         return $this->render('index', [
             'searchModel'   => $searchModel,

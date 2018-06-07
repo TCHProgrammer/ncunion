@@ -19,7 +19,8 @@ $this->title = 'Роли пользователей';
         <th>Код</th>
         <th></th>
     </tr>
-    <? foreach ($roles as $role){ ?>
+
+    <?php foreach ($roles as $role){ ?>
 
     <tr>
         <td width="16px">
@@ -32,7 +33,7 @@ $this->title = 'Роли пользователей';
         </td>
         <td> <?= $role->name ?></td>
         <td width="16px">
-            <? if (!in_array($role->name,['admin', 'user', 'ban', 'unknown', 'no_pay'])){ ?>
+            <?php if (!in_array($role->name,['admin', 'user', 'ban', 'unknown', 'no_pay'])){ ?>
                 <a href="/admin/rbac/roles/delete?role=<?= $role->name ?>&back=<?=urlencode(Yii::$app->request->getUrl())?>" data-method="post" data-confirm="Вы действительно хотите удалить пользователя?">
                     <span class="glyphicon glyphicon-trash"></span>
                 </a>
@@ -42,29 +43,3 @@ $this->title = 'Роли пользователей';
 
     <?php } ?>
 </table>
-
- <!--foreach ($roles as $role):
-
-    var_dump($role as $k){
-        var_dump($k);
-    }
-
-    <tr>
-        <td width="16px">
-            <a href="/admin/rbac/roles/update?role= $role->attributes['name'] ?>" title="Редактировать" data-pjax="0">
-                <span class="glyphicon glyphicon-pencil"></span>
-            </a>
-        </td>
-        <td>
-           $role->attributes['description'] ?>
-        </td>
-        <td> $role->attributes['name'] ?></td>
-        <td width="16px">
-            <a href="/admin/rbac/roles/delete?role= $role->attributes['name'] ?>&back=urlencode(Yii::$app->request->getUrl())?>" data-method="post" data-confirm="Вы действительно хотите удалить пользователя?">
-                <span class="glyphicon glyphicon-trash"></span>
-            </a>
-        </td>
-    </tr>
-
- endforeach ?>
-</table>-->

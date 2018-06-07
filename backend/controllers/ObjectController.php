@@ -166,7 +166,7 @@ class ObjectController extends DefaultBackendController
         $addFile = new ObjectFile();
 
         /* загрузка файла */
-        if ($post['ObjectFile'] && $_FILES['ObjectFile']){
+        if ($post['ObjectFile'] ?? $_FILES['ObjectFile'] ?? false){
 
             $dir = Yii::getAlias('@frontend') . '/web/uploads/objects/doc/' . $id .'/';
 

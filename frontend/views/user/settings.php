@@ -23,8 +23,6 @@ $this->title = 'Настройки';
             </div>
             <?= $form->field($model, 'imageFile')->fileInput()?>
 
-            <?//= $form->field($model, 'avatar', ['options' => ['class' => 'form-height']])->textInput() ?>
-
             <?= $form->field($model, 'last_name', ['options' => ['class' => 'form-height']])->textInput() ?>
 
             <?= $form->field($model, 'first_name', ['options' => ['class' => 'form-height']])->textInput() ?>

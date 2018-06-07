@@ -68,7 +68,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'options' => ['style' => 'width:110px;'],
                 'value' => function($model){
                     $rez = TariffDiscount::find()->select(['title'])->where(['id' => $model->discount_id])->one();
-                    return $rez->title ? $rez->title : 'Нет';
+                    if (isset($rez)){
+                        return $rez->title;
+                    }else{
+                        return 'Нет';
+                    }
                 }
             ],
 

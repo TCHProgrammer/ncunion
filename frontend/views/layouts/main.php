@@ -44,7 +44,7 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
     } else {
-        $menuItems[] = ['label' => array_shift(Yii::$app->authManager->getRolesByUser(Yii::$app->user->id))->name, 'url' => ['/user/profile']];
+        //$menuItems[] = ['label' => Yii::$app->authManager->getRolesByUser(Yii::$app->user->id)['user']->name, 'url' => ['/user/profile']];
         $menuItems[] = ['label' => 'Каталог объектов', 'url' => ['/catalog']];
         $menuItems[] = ['label' => Yii::$app->user->identity->email, 'items' => [
             ['label' => 'Профиль', 'url' => ['/user/profile']],

@@ -148,7 +148,7 @@ class ObjectSearch extends Object
 
         }
 
-        if (!is_null($params['GroupCheckboxes'][$this->type_id])){
+        if (isset($params['GroupCheckboxes'][$this->type_id])){
             foreach ($params['GroupCheckboxes'][$this->type_id] as $attribute => $groups){
                 $query ->joinWith('objectCheckboxes oac' . $attribute);
                 $filter = ['or'];
@@ -160,7 +160,7 @@ class ObjectSearch extends Object
             };
         }
 
-        if (!is_null($params['GroupRadios'][$this->type_id])){
+        if (isset($params['GroupRadios'][$this->type_id])){
             foreach ($params['GroupRadios'][$this->type_id] as $attribute => $groups){
                 $query ->joinWith('objectRadios oar' . $attribute);
                 $filter = ['or'];

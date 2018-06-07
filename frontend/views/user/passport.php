@@ -38,7 +38,7 @@ $this->title="Паспорт клиента";
                 <div class="form-attribute form-attribute-<?= $itemValue->type_id ?>" style="<?= ($itemValue->type_id == $model->type_id)?'display: block':'display: none' ?>">
                     <label><?= $itemValue->title ?></label>
                     <div>
-                        <input type="text" class="form-control" name="GroupValue[<?= $itemValue->type_id ?>][<?= $itemValue->id ?>][]" value="<?= $rezValue[$itemValue->id] ?>">
+                        <input type="text" class="form-control" name="GroupValue[<?= $itemValue->type_id ?>][<?= $itemValue->id ?>][]" value="<?= isset($rezValue[$itemValue->id])?$rezValue[$itemValue->id]:'' ?>">
                     </div>
                 </div>
             <?php } ?>

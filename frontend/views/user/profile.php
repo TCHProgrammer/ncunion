@@ -12,7 +12,7 @@ $this->title = 'Основная информация';
     <div class="user-profile">
         <div class="user-profile-left user-profile-margin col-sm-3 col-xs-12">
             <div class="user-avatar">
-                <img src="<?= !empty($userAvatar->avatar) ? $userAvatar->avatar : Url::to('@web/img/other/default-avatar.png') ?>" />
+                <img src="<?= (isset($userAvatar->avatar)) ? $userAvatar->avatar : Url::to('@web/img/other/default-avatar.png') ?>" />
             </div>
         </div>
         <div class="user-profile-right user-profile-margin col-sm-9 col-xs-12">

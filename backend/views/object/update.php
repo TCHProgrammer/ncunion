@@ -3,8 +3,9 @@
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
 
-/* @var $this yii\web\View */
+/* @var $this  yii\web\View */
 /* @var $model common\models\object\Object */
+/* @var $time  int */
 
 $this->title = 'Изменить объект: ' . $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Каталог объектов', 'url' => ['index']];
@@ -21,8 +22,8 @@ $this->params['breadcrumbs'][] = 'Изменить';
         <?= $this->render('_formFiles', [
             'addFile' => $addFile,
             'listFiles' => $listFiles,
-            'time' => $time
         ]) ?>
+		<!-- $time чекнуть -->
 
         <?= $this->render('_form', [
             'model' => $model,

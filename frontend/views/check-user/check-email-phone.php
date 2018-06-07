@@ -5,18 +5,21 @@ use yii\widgets\ActiveForm;
 
 $user = UserModel::findOne(Yii::$app->user->id);
 
-$check = $user->check_email.$user->check_phone;
-switch ($check) {
-    case '01':
-        $this->title = 'Подтвердите email';
-        break;
-    case '10':
-        $this->title = 'Подтвердите телефон';
-        break;
-    default:
-        $this->title = 'Подтвердите email и телефон';
-        break;
+if(isset($user)){
+    $check = $user->check_email.$user->check_phone;
+    switch ($check) {
+        case '01':
+            $this->title = 'Подтвердите email';
+            break;
+        case '10':
+            $this->title = 'Подтвердите телефон';
+            break;
+        default:
+            $this->title = 'Подтвердите email и телефон';
+            break;
+    }
 }
+
 ?>
 
 <h1><?= Html::encode($this->title) ?></h1>
@@ -25,7 +28,7 @@ switch ($check) {
 
 <div class="check-email-and-phone">
 
-    <?php if (!$user->check_email){ ?>
+    <?php if (!isset($user->check_email)){ ?>
         <?php $form = ActiveForm::begin(); ?>
 
             <?= $form->field($model, 'tokenEmail')->hiddenInput(['value' => 1])->label(false) ?>
@@ -37,7 +40,7 @@ switch ($check) {
         <?php ActiveForm::end() ?>
     <?php } ?>
 
-    <?php if (!$user->check_phone){ ?>
+    <?php if (!isset($user->check_phone)){ ?>
         <?php $form = ActiveForm::begin(); ?>
 
             <?= $form->field($model, 'tokenPhone')->hiddenInput(['value' => 1])->label(false) ?>

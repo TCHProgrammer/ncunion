@@ -7,7 +7,11 @@ use yii\helpers\Url;
 <div class="row object-item">
     <div class="object-item-img col-lg-6">
         <a href="<?= Url::toRoute('/catalog/view?id='.$model->id) ?>">
-            <img src="<?= $model->objectImgs[0]->img ?>">
+            <?php if (isset($model->objectImgs[0]->img)){ ?>
+                <img src="<?= $model->objectImgs[0]->img ?>">
+            <?php }else{ ?>
+                <img src="/img/object/no-photo.jpg">
+            <?php } ?>
         </a>
     </div>
     <div class="object-info col-lg-6">

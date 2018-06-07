@@ -16,7 +16,7 @@ $this->title = 'Расшифровка доступов';
         <th>Имя роли</th>
         <th>Код</th>
     </tr>
-    <? foreach ($roles as $role){ ?>
+    <?php foreach ($roles as $role){ ?>
 
     <tr>
         <td>

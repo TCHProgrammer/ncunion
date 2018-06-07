@@ -15,7 +15,7 @@ $this->title = 'Редактирование роли "' . $role->description . 
         <?= Html::textInput('role[description]', $role->description ?: Yii::$app->request->post('role')['description'], ['class' => 'form-control']) ?>
     </div>
 
-    <?php if (is_array($errors['description'])){ ?>
+    <?php if (is_array(isset($errors['description']))){ ?>
         <?php foreach ($errors['description'] as $error){ ?>
             <br><?= $error ?>
         <?php } ?>
@@ -26,7 +26,7 @@ $this->title = 'Редактирование роли "' . $role->description . 
             <?= Html::textInput('role[code]', Yii::$app->request->post('role')['code']) ?>
             <label class="control-label">Код</label>
         </div>
-        <?php if (is_array($errors['code'])){ ?>
+        <?php if (is_array(isset($errors['code']))){ ?>
             <?php foreach ($errors['code'] as $error){ ?>
                 <br><?= $error ?>
             <?php } ?>

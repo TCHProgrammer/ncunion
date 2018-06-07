@@ -123,11 +123,16 @@ class UserController extends DefaultFrontendController{
         if ($model->load(Yii::$app->request->post()) && $model->validate()){
             if ($model->save()){
 
-                $this->saveText(Yii::$app->request->post('GroupValue')[$model->type_id], $model);
-                $this->saveCheckbox(Yii::$app->request->post('GroupCheckboxes')[$model->type_id], $model);
-                $this->saveRadio(Yii::$app->request->post('GroupRadios')[$model->type_id], $model);
+                if (isset(Yii::$app->request->post('GroupValue')[$model->type_id])) {
+                    $this->saveText(Yii::$app->request->post('GroupValue')[$model->type_id], $model);
+                }
+                if (isset(Yii::$app->request->post('GroupCheckboxes')[$model->type_id])){
+                    $this->saveCheckbox(Yii::$app->request->post('GroupCheckboxes')[$model->type_id], $model);
+                }
+                if (isset(Yii::$app->request->post('GroupRadios')[$model->type_id])) {
+                    $this->saveRadio(Yii::$app->request->post('GroupRadios')[$model->type_id], $model);
+                }
 
-                //return $this->redirect('profile');
                 return $this->redirect('passport');
             }
         }
