@@ -20,8 +20,6 @@ use yii\web\JsExpression;
         'options' => ['enctype' => 'multipart/form-data']
     ]); ?>
 
-    <?//= $form->field($model, 'docFile', ['options' => ['id' => 'object-dic-file']])->fileInput() ?>
-
     <div class="row col-lg-12">
         <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 

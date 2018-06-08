@@ -106,13 +106,21 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'status_object',
                 'filter' => [
-                    1 => 'Сделка открыта',
-                    0 => 'Сделка закрыта',
+                    2 => 'Сделка открыта',
+                    1 => 'Сделка частично закрыта',
+                    0 => 'Сделка закрыта'
                 ],
                 'headerOptions' => ['class' => 'text-center'],
                 'options' => ['style' => 'width:170px;'],
                 'value' => function($model){
-                    return $model->status_object ? 'Сделка открыта' : 'Сделка закрыта';
+                    switch ($model->status_object){
+                        case 2:
+                            return 'Сделка открыта';
+                        case 1:
+                            return 'Сделка частично закрыта';
+                        default :
+                            return 'Сделка закрыта';
+                    }
                 }
             ],
 
