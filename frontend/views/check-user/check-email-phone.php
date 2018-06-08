@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 
 $user = UserModel::findOne(Yii::$app->user->id);
 
-if(isset($user)){
+if($user){
     $check = $user->check_email.$user->check_phone;
     switch ($check) {
         case '01':
@@ -28,7 +28,7 @@ if(isset($user)){
 
 <div class="check-email-and-phone">
 
-    <?php if (!isset($user->check_email)){ ?>
+    <?php if (!$user->check_email){ ?>
         <?php $form = ActiveForm::begin(); ?>
 
             <?= $form->field($model, 'tokenEmail')->hiddenInput(['value' => 1])->label(false) ?>
@@ -40,7 +40,7 @@ if(isset($user)){
         <?php ActiveForm::end() ?>
     <?php } ?>
 
-    <?php if (!isset($user->check_phone)){ ?>
+    <?php if (!$user->check_phone){ ?>
         <?php $form = ActiveForm::begin(); ?>
 
             <?= $form->field($model, 'tokenPhone')->hiddenInput(['value' => 1])->label(false) ?>

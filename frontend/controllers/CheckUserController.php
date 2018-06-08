@@ -46,8 +46,7 @@ class CheckUserController extends Controller{
         $user_id = Yii::$app->user->id;
         $user = UserModel::findOne($user_id);
 
-        if (!(isset($user->check_email) && isset($user->check_phone))){
-
+        if (!($user->check_email && $user->check_phone)){
 
             $model = new RegEmailPhone();
 
