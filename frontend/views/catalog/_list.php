@@ -6,6 +6,11 @@ use yii\helpers\Url;
 
 <div class="row object-item">
     <div class="object-item-img col-lg-6 ">
+        <?php if(!is_null($model->nks)){ ?>
+            <div class="object-ncs" style="top:10px;">
+                НКС: <?= $model->nks ?>
+            </div>
+        <?php } ?>
         <?php $styleTag = 10 ;?>
         <?php foreach ($model->tag as $tag){ ?>
             <div class="object-tag" style="top: <?= $styleTag ?>px;">

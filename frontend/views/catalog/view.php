@@ -186,8 +186,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         [1 => 'шаровый', 2 => 'аннуитетный']
                     ) ?>
 
-                    <?= $formCheckbox->field($userRoom, 'nks')->textInput() ?>
-
                     <?= $formCheckbox->field($userRoom, 'comment')->textarea() ?>
                 </div>
 

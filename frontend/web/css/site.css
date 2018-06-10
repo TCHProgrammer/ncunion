@@ -472,3 +472,13 @@ a.desc:after {
 #ex1Slider {
     width: 100%;
 }
+
+.object-ncs{
+    position: absolute;
+    left: 40px;
+    background: #e4ef4a;
+    border: 2px solid #398ff9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    padding: 5px 10px;
+}
