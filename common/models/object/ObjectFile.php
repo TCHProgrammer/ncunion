@@ -64,11 +64,13 @@ class ObjectFile extends \yii\db\ActiveRecord
         if (parent::beforeDelete()){
             $dir = Yii::getAlias('@frontend') . '/web/' . $this->doc;
 
-            unlink($dir);
+            if (file_exists($dir)){
+                unlink($dir);
+            }
 
             $delDir = Yii::getAlias('@frontend') . '/web/uploads/objects/doc/' . $this->object_id . '/';
             $arrFiles = scandir($delDir);
-            if (is_null($arrFiles[2])){
+            if (!isset($arrFiles[2])){
                 rmdir($delDir);
             }
 

@@ -2,13 +2,14 @@
 
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\object\Object */
 
-$this->title = 'Создание нового объекта';
+$this->title = 'Добавление документов к объекту';
 $this->params['breadcrumbs'][] = ['label' => 'Каталог объектов', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title . ' (этап 1 из 3)';
+$this->params['breadcrumbs'][] = $this->title . ' (этап 3 из 3)';
 ?>
 <div class="object-create">
 
@@ -16,13 +17,11 @@ $this->params['breadcrumbs'][] = $this->title . ' (этап 1 из 3)';
 
     <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [], ]); ?>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-        'values' => $values,
-        'listCheckbox' => $listCheckbox,
-        'rezCheckbox' => $rezCheckbox,
-        'listRadio' => $listRadio,
-        'rezRadio' => $rezRadio
+    <?= $this->render('_formFiles', [
+        'addFile' => $addFile,
+        'listFiles' => $listFiles,
     ]) ?>
+
+    <?= Html::a('Завершить', Url::toRoute('view?id=' . $objectId), ['class' => 'btn btn-primary']) ?>
 
 </div>

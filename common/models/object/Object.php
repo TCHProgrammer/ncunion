@@ -118,13 +118,15 @@ class Object extends \yii\db\ActiveRecord
             if ($listFiles){
                 foreach ($listFiles as $file){
                     $dir = Yii::getAlias('@frontend') . '/web/' . $file->doc;
-                    unlink($dir);
+                    if (file_exists($dir)){
+                        unlink($dir);
+                    }
                 }
 
                 $delDirFile = Yii::getAlias('@frontend') . '/web/uploads/objects/doc/' . $this->id . '/';
 
                 $arrFiles = scandir($delDirFile);
-                if (is_null($arrFiles[2])){
+                if (!isset($arrFiles[2])){
                     rmdir($delDirFile);
                 }
             }
@@ -135,13 +137,15 @@ class Object extends \yii\db\ActiveRecord
             if ($listImg){
                 foreach ($listImg as $img){
                     $dir = Yii::getAlias('@frontend') . '/web/' . $img->img;
-                    unlink($dir);
+                    if (file_exists($dir)){
+                        unlink($dir);
+                    }
                 }
 
                 $delDirImg = Yii::getAlias('@frontend') . '/web/uploads/objects/img/' . $this->id . '/';
 
                 $arrImg = scandir($delDirImg);
-                if (is_null($arrImg[2])){
+                if (!isset($arrImg[2])){
                     rmdir($delDirImg);
                 }
             }

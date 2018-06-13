@@ -2,16 +2,6 @@
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
-use yii\helpers\Url;
-
-/*$this->registerJs(
-    '$("document").ready(function(){
-            $("#new_note0").on("pjax:end", function() {
-            $.pjax.reload({container:"#kek"});  //Reload GridView
-        });
-    });'
-);*/
-
 ?>
 
     <?php Pjax::begin(['id' => 'new_note']); ?>
@@ -32,14 +22,6 @@ use yii\helpers\Url;
     <?php
         $get = Yii::$app->request->get();
             foreach ($listFiles as $file) {
-                /*echo '
-                    <p>
-                        <button class="btn-form-file-del">
-                            <i class="glyphicon glyphicon-trash"></i>
-                        </button>
-                        <a href="' . $file->doc . '" download>' . $file->title . '</a>
-                    </p>
-                ';*/
                 echo '<p>' . Html::a('X',
                         ['/object/update?id=' . $get['id'] . '&file_id=' . $file->id],
                         ['class' => 'btn btn-form-file-del btn-danger']

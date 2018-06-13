@@ -119,7 +119,7 @@ class ObjectController extends DefaultBackendController
             $this->saveRadio(Yii::$app->request->post('GroupRadios')[$model->type_id], $model);
             /* /Radio */
 
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['create-img', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -166,33 +166,13 @@ class ObjectController extends DefaultBackendController
 
         /* загрузка файла */
         if ($post['ObjectFile'] ?? $_FILES['ObjectFile'] ?? false){
-
-            $dir = Yii::getAlias('@frontend') . '/web/uploads/objects/doc/' . $id .'/';
-
-            if (!is_dir($dir)){
-                FileHelper::createDirectory($dir);
-            }
-
-            $addFile->docFile = UploadedFile::getInstance($addFile, 'doc');
-
-            $docName = strtotime('now') . '_' . Yii::$app->security->generateRandomString(8) . '.' . $addFile->docFile->getExtension();
-
-            $addFile->object_id = $id;
-            $addFile->title = $post['ObjectFile']['title'];
-            $addFile->doc = '/uploads/objects/doc/' . $id .'/' . $docName;
-
-            $addFile->docFile->saveAs($dir . $docName);
-
-            if($addFile->validate() && $addFile->save()) {
-                //return $this->redirect(['update', 'id' => $model->id]);
-            }
+            $this->addFile($addFile, $id, $post);
         }
 
         /* удаление файла pjax */
         $get = Yii::$app->request->get();
-        if(Yii::$app->request->isAjax && $get['file_id'] &&  !$_FILES['ObjectFile']){
-            $delFile = ObjectFile::findOne($get['file_id']);
-            $delFile->delete();
+        if(Yii::$app->request->isAjax && isset($get['file_id']) && !isset($_FILES['ObjectFile'])){
+            $this->delFile((int)$get['file_id']);
         }
 
         $listFiles = ObjectFile::find()->where(['object_id' => $id])->all();
@@ -221,6 +201,37 @@ class ObjectController extends DefaultBackendController
         ]);
     }
 
+    public function actionCreateImg($id){
+        $model = $this->findModel($id);
+        return $this->render('create-img', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionCreateFile($id){
+        $post = Yii::$app->request->post();
+        $addFile = new ObjectFile();
+
+        /* загрузка файла */
+        if ($post['ObjectFile'] ?? $_FILES['ObjectFile'] ?? false){
+            $this->addFile($addFile, $id, $post);
+        }
+
+        /* удаление файла pjax */
+        $get = Yii::$app->request->get();
+        if(Yii::$app->request->isAjax && isset($get['file_id']) && !isset($_FILES['ObjectFile'])){
+            $this->delFile((int)$get['file_id']);
+        }
+
+        $listFiles = ObjectFile::find()->where(['object_id' => $id])->all();
+
+        return $this->render('create-file', [
+            'addFile' => $addFile,
+            'listFiles' => $listFiles,
+            'objectId' => $id
+        ]);
+    }
+
     /**
      * Deletes an existing Object model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -235,13 +246,6 @@ class ObjectController extends DefaultBackendController
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the Object model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Object the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     protected function findModel($id)
     {
         if (($model = Object::findOne($id)) !== null) {
@@ -249,6 +253,36 @@ class ObjectController extends DefaultBackendController
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    private function addFile($addFile, $id, $post){
+
+        $dir = Yii::getAlias('@frontend') . '/web/uploads/objects/doc/' . $id .'/';
+
+        if (!is_dir($dir)){
+            FileHelper::createDirectory($dir);
+        }
+
+        $addFile->docFile = UploadedFile::getInstance($addFile, 'doc');
+
+        $docName = strtotime('now') . '_' . Yii::$app->security->generateRandomString(8) . '.' . $addFile->docFile->getExtension();
+
+        $addFile->object_id = $id;
+        $addFile->title = $post['ObjectFile']['title'];
+        $addFile->doc = '/uploads/objects/doc/' . $id .'/' . $docName;
+
+        $addFile->docFile->saveAs($dir . $docName);
+
+        if($addFile->validate() && $addFile->save()) {
+            //return $this->redirect(['update', 'id' => $model->id]);
+        }
+    }
+
+    private function delFile($fileId){
+        $delFile = ObjectFile::findOne($fileId);
+        if (isset($delFile)){
+            $delFile->delete();
+        }
     }
 
     private function initValues(Object $model){
@@ -502,6 +536,8 @@ class ObjectController extends DefaultBackendController
             }else{
                 throw new NotFoundHttpException('Изображение уже было удаленно');
             }
+        }else{
+            throw new NotFoundHttpException('изображение не найдено');
         }
     }
     public function actionSortImg($id){

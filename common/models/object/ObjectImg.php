@@ -55,9 +55,11 @@ class ObjectImg extends \yii\db\ActiveRecord
     public function beforeDelete()
     {
         if (parent::beforeDelete()){
-            $dir = Yii::getAlias('@frontend') . '/web/' . $this->img;
+            $dir = Yii::getAlias('@frontend') . '/web' . $this->img;
 
-            unlink($dir);
+            if (file_exists($dir)){
+                unlink($dir);
+            }
 
             ObjectImg::updateAllCounters(
                 ['sort' => -1], ['and', ['object_id' => $this->object_id], ['>', 'sort', $this->sort]]
@@ -65,7 +67,7 @@ class ObjectImg extends \yii\db\ActiveRecord
 
             $delDir = Yii::getAlias('@frontend') . '/web/uploads/objects/img/' . $this->object_id . '/';
             $arrImg = scandir($delDir);
-            if (is_null($arrImg[2])){
+            if (!isset($arrImg[2])){
                 rmdir($delDir);
             }
 
