@@ -13,6 +13,9 @@ use backend\modules\rbac\models\AuthItem;
 
 $this->title = 'Клиенты';
 $this->params['breadcrumbs'][] = $this->title;
+$kek = [
+        12 ,2
+];
 ?>
 <div class="user-model-index">
 
@@ -54,10 +57,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'middle_name',
 
             [
-                'filter' => true,
                 'attribute' => 'role',
-                'value' => function($model){
-                    return (AuthItem::find()->select('description')->where(['name' => $model->roles[0]->item_name])->one())->description;
+                'filter' => $listRoles,
+                'value' => function($model, $id, $del, $allItems){
+                    return $allItems->filter[$model->roles->item_name];
                 }
             ],
 

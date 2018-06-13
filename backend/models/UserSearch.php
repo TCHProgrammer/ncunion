@@ -9,17 +9,18 @@ use common\models\UserModel;
 
 /**
  * UserSearch represents the model behind the search form of `common\models\UserModel`.
+ * @property string $role
  */
 class UserSearch extends UserModel
 {
-    /**
-     * @inheritdoc
-     */
+
+    public $role;
+
     public function rules()
     {
         return [
             [['id', 'status', 'created_at', 'updated_at', 'check_email', 'check_phone'], 'integer'],
-            [['auth_key', 'password_hash', 'password_reset_token', 'email', 'first_name', 'last_name', 'middle_name', 'phone', 'company_name'], 'safe'],
+            [['auth_key', 'password_hash', 'password_reset_token', 'email', 'first_name', 'last_name', 'middle_name', 'phone', 'company_name', 'role'], 'safe'],
         ];
     }
 
@@ -40,7 +41,9 @@ class UserSearch extends UserModel
      */
     public function search($params)
     {
-        $query = UserModel::find();
+        $query = UserModel::find()
+            ->orderBy('id DESC')
+            ->joinWith('roles');
 
         // add conditions that should always apply here
 
@@ -74,7 +77,8 @@ class UserSearch extends UserModel
             ->andFilterWhere(['like', 'last_name', $this->last_name])
             ->andFilterWhere(['like', 'middle_name', $this->middle_name])
             ->andFilterWhere(['like', 'phone', $this->phone])
-            ->andFilterWhere(['like', 'company_name', $this->company_name]);
+            ->andFilterWhere(['like', 'company_name', $this->company_name])
+            ->andFilterWhere(['like', 'auth_assignment.item_name', $this->role]);
 
         return $dataProvider;
     }

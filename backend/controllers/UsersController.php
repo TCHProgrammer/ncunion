@@ -3,9 +3,11 @@
 namespace backend\controllers;
 
 use backend\modules\rbac\models\AuthAssignment;
+use backend\modules\rbac\models\AuthItem;
 use Yii;
 use common\models\UserModel;
 use backend\models\UserSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
@@ -40,10 +42,12 @@ class UsersController extends DefaultBackendController
     {
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $listRoles = ArrayHelper::map(AuthItem::find()->where(['type' => 1])->all(), 'name', 'description');
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
+            'listRoles'    => $listRoles
         ]);
     }
 

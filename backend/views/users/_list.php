@@ -2,6 +2,7 @@
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
+use yii\helpers\Url;
 ?>
 
 <div class="user-moder">
@@ -9,7 +10,7 @@ use yii\widgets\Pjax;
         <img src="/img/other/default-avatar.png" />
     </div>
     <div class="user-moder-name">
-        <div class="user-moder-fio"><?= $model->last_name . ' ' . $model->first_name  . ' ' . $model->middle_name ?></div>
+        <div class="user-moder-fio"><a href="<?= Url::toRoute(['view', 'id' => $model->id]) ?>" <?= $model->last_name . ' ' . $model->first_name  . ' ' . $model->middle_name ?></div>
         <div class="user-moder-compani"><?= $model->company_name ?></div>
     </div>
     <div class="user-moder-email-phone">

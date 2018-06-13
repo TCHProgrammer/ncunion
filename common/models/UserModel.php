@@ -3,6 +3,7 @@
 namespace common\models;
 
 use backend\modules\rbac\models\AuthAssignment;
+use backend\modules\rbac\models\AuthItem;
 use Yii;
 use common\models\NoticeUser;
 use common\models\Notice;
@@ -98,7 +99,7 @@ class UserModel extends \yii\db\ActiveRecord
 
     public function getRoles()
     {
-        return $this->hasMany(AuthAssignment::className(), ['user_id' => 'id']);
+        return $this->hasOne(AuthAssignment::className(), ['user_id' => 'id']);
     }
 
     public function getNotice()
