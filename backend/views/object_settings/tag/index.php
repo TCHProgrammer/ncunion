@@ -2,38 +2,33 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
 use yii\widgets\Breadcrumbs;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\object_settings\PrescribedSearch */
+/* @var $searchModel backend\models\object_settings\TagSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Прописанные';
+$this->title = 'Теги';
 $this->params['breadcrumbs'][] = [
     'label' => 'Каталог объектов',
     'url' => ['/object']
 ];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="prescribed-index">
+<div class="tag-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [], ]); ?>
 
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <div class="btn-admin">
-        <?= Html::a('Добавить', ['create'], ['class' => 'btn btn-success']) ?>
-    </div>
+    <p>
+        <?= Html::a('Create Tag', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{update}',
@@ -58,5 +53,4 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-    <?php Pjax::end(); ?>
 </div>

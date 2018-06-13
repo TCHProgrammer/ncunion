@@ -50,7 +50,7 @@ class UserModel extends \yii\db\ActiveRecord
     {
         return [
             ['imageFile', 'image', 'extensions' => 'jpg, png'],
-            [['noticesArray'], 'safe'],
+            [['tagsArray'], 'safe'],
             [['auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
             [['status', 'created_at', 'updated_at', 'check_email', 'check_phone', 'user_passport_id', 'subscribe_dt'], 'integer'],
             [['auth_key'], 'string', 'max' => 32],
@@ -83,7 +83,7 @@ class UserModel extends \yii\db\ActiveRecord
             'check_email' => 'Подтверждение email',
             'check_phone' => 'Подтверждение телефона',
             'role' => 'Роль',
-            'noticesArray' => 'Уведомления по почте'
+            'tagsArray' => 'Уведомления по почте'
         ];
     }
 
@@ -116,18 +116,18 @@ class UserModel extends \yii\db\ActiveRecord
         return$this->hasOne(UserPassport::className(), ['id' => 'user_passport_id']);
     }
 
-    private $_noticesArray;
+    private $_tagsArray;
 
-    public function getNoticesArray()
+    public function getTagsArray()
     {
-        if ($this->_noticesArray === null) {
-            $this->_noticesArray = $this->getNotice()->select('id')->column();
+        if ($this->_tagsArray === null) {
+            $this->_tagsArray = $this->getNotice()->select('id')->column();
         }
-        return $this->_noticesArray;
+        return $this->_tagsArray;
     }
 
-    public function setNoticesArray($value){
-        return $this->_noticesArray = (array)$value;
+    public function setTagsArray($value){
+        return $this->_tagsArray = (array)$value;
     }
 
     public function afterSave($insert, $changedAttributes)
@@ -139,7 +139,7 @@ class UserModel extends \yii\db\ActiveRecord
     private function updateNotices()
     {
         $currentNoticeIds = $this->getNotice()->select('id')->column();
-        $newNoticeIds = $this->getNoticesArray();
+        $newNoticeIds = $this->getTagsArray();
 
         foreach (array_filter(array_diff($newNoticeIds, $currentNoticeIds)) as $noticeId) {
             if ($notice = Notice::find()->where(['id' => $noticeId])->one()) {

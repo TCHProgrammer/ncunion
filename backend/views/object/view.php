@@ -74,7 +74,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'price_tian',
             'price_market',
             'price_liquidation',
-            'sticker_id',
             [
                 'attribute' => 'created_at',
                 'value' => function($model){

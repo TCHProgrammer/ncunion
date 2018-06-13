@@ -108,7 +108,6 @@ class ObjectController extends DefaultBackendController
         $rezRadio = [];
         /* /Radio */
 
-        $model->attributes['created_at'] = time();
         $post = Yii::$app->request->post();
 
         if ($model->load($post) && $model->save() &&  Model::loadMultiple($values, $post)) {

@@ -11,6 +11,8 @@ use yii\web\UploadedFile;
 use yii\helpers\FileHelper;
 use yii\helpers\ArrayHelper;
 use common\models\object\ObjectFile;
+use common\models\Tag;
+use common\models\ObjectTag;
 
 /**
  * This is the model class for table "object".
@@ -35,13 +37,12 @@ use common\models\object\ObjectFile;
  * @property int $updated_at
  * @property int $close_at
  * @property int $status_object
- * @property int $sticker_id
  *
  * @property ObjectType $type
  * @property ObjectAttribute[] $objectAttributes
  * @property ObjectFile[] $objectFiles
  * @property ObjectImg[] $objectImgs
- * @property ObjectPrescribed[] $objectPrescribeds
+ * @property ObjectTag[] $objectTags
  */
 class Object extends \yii\db\ActiveRecord
 {
@@ -62,14 +63,13 @@ class Object extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['noticesArray'], 'safe'],
+            [['tagsArray'], 'safe'],
             [['imgFile'], 'file', 'extensions' => 'png, jpg'],
             //[['docFile'], 'file', 'extensions' => 'png, txt, pdf, cvg, xlsx, ods, docx'],
             [['created_at'], 'default', 'value'=> time()],
             [['updated_at'], 'default', 'value'=> time()],
             [['type_id', 'title', 'created_at', 'updated_at'], 'required'],
-            [['type_id', 'status', 'place_km', 'area', 'rooms', 'price_cadastral', 'price_tian', 'price_market', 'price_liquidation', 'status_object', 'sticker_id', 'created_at', 'updated_at', 'close_at'], 'integer'],
-            [['created_at', 'updated_at'], 'default', 'value' => time()],
+            [['type_id', 'status', 'place_km', 'area', 'rooms', 'price_cadastral', 'price_tian', 'price_market', 'price_liquidation', 'status_object', 'created_at', 'updated_at', 'close_at'], 'integer'],
             [['descr'], 'string'],
             [['amount'], 'number'],
             [['title', 'address', 'address_map', 'owner'], 'string', 'max' => 255],
@@ -94,7 +94,7 @@ class Object extends \yii\db\ActiveRecord
             'address_map' => 'Адрес на карте',
             'area' => 'Метраж',
             'rooms' => 'Комнаты',
-            'noticesArray' => 'Прописанные:',
+            'tagsArray' => 'Теги',
             'owner' => 'Правоустановка',
             'price_cadastral' => 'Кадастровая стоимость',
             'price_tian' => 'ЦИАН',
@@ -104,7 +104,6 @@ class Object extends \yii\db\ActiveRecord
             'updated_at' => 'Дата последнего изменения',
             'close_at' => 'Дата закрытия сделки',
             'status_object' => 'Статус сделки',
-            'sticker_id' => 'Стикер',
             'amountRemained' => 'Нехватает до закрытия'
         ];
     }
@@ -274,9 +273,9 @@ class Object extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getObjectPrescribeds()
+    public function getObjectTags()
     {
-        return $this->hasMany(ObjectPrescribed::className(), ['object_id' => 'id']);
+        return $this->hasMany(ObjectTag::className(), ['object_id' => 'id']);
     }
 
     public function getAttribs()
@@ -284,50 +283,46 @@ class Object extends \yii\db\ActiveRecord
         return $this->hasMany(Attribute::className(), ['id' => 'attribute_id'])->viaTable('{{%object_attribute}}', ['object_id' => 'id']);
     }
 
-    public function getStickers()
+    public function getTag()
     {
-        return $this->hasOne(Sticker::className(), ['id' => 'sticker_id']);
+        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])->viaTable('{{%object_tag}}', ['object_id' => 'id']);
     }
 
-    public function getPrescribed() //object_prescribed
-    {
-        return $this->hasMany(Prescribed::className(), ['id' => 'prescribed_id'])->viaTable('{{%object_prescribed}}', ['object_id' => 'id']);
-    }
+    /* сохраниение тегов */
+    private $_tagsArray;
 
-    private $_noticesArray;
-
-    public function getNoticesArray()
+    public function getTagsArray()
     {
-        if ($this->_noticesArray === null) {
-            $this->_noticesArray = $this->getPrescribed()->select('id')->column();
+        if ($this->_tagsArray === null) {
+            $this->_tagsArray = $this->getTag()->select('id')->column();
         }
-        return $this->_noticesArray;
+        return $this->_tagsArray;
     }
 
-    public function setNoticesArray($value){
-        return $this->_noticesArray = (array)$value;
+    public function setTagsArray($value){
+        return $this->_tagsArray = (array)$value;
     }
 
     public function afterSave($insert, $changedAttributes)
     {
-        $this->updateNotices();
+        $this->updateTags();
         parent::afterSave($insert, $changedAttributes);
     }
 
-    private function updateNotices()
+    private function updateTags()
     {
-        $currentNoticeIds = $this->getPrescribed()->select('id')->column();
-        $newNoticeIds = $this->getNoticesArray();
+        $currentNoticeIds = $this->getTag()->select('id')->column();
+        $newNoticeIds = $this->getTagsArray();
 
         foreach (array_filter(array_diff($newNoticeIds, $currentNoticeIds)) as $noticeId) {
-            if ($notice = Prescribed::find()->where(['id' => $noticeId])->one()) {
-                $this->link('prescribed', $notice);
+            if ($notice = Tag::find()->where(['id' => $noticeId])->one()) {
+                $this->link('tag', $notice);
             }
         }
 
         foreach (array_filter(array_diff($currentNoticeIds, $newNoticeIds)) as $noticeId) {
-            if ($notice = Prescribed::find()->where(['id' => $noticeId])->one()) {
-                $this->unlink('prescribed', $notice, true);
+            if ($notice = Tag::find()->where(['id' => $noticeId])->one()) {
+                $this->unlink('tag', $notice, true);
             }
         }
     }

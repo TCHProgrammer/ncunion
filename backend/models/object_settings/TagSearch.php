@@ -5,15 +5,15 @@ namespace backend\models\object_settings;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\object\Prescribed;
+use common\models\Tag;
 
 /**
- * PrescribedSearch represents the model behind the search form of `common\models\object\Prescribed`.
+ * TagSearch represents the model behind the search form of `common\models\Tag`.
  */
-class PrescribedSearch extends Prescribed
+class TagSearch extends Tag
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -24,7 +24,7 @@ class PrescribedSearch extends Prescribed
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -41,7 +41,7 @@ class PrescribedSearch extends Prescribed
      */
     public function search($params)
     {
-        $query = Prescribed::find();
+        $query = Tag::find();
 
         // add conditions that should always apply here
 

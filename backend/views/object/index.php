@@ -28,9 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="btn-group">
             <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Общие настройки<span class="caret"></span></button>
             <ul class="dropdown-menu">
-                <li><a href="<?= Url::toRoute(['object_settings/object-type']) ?>">Типы объектов</a></li>
-                <li><a href="<?= Url::toRoute(['object_settings/prescribed']) ?>">Прописанные</a></li>
-                <li><a href="<?= Url::toRoute(['object_settings/sticker']) ?>">Стикеры</a></li>
+                <!--<li><a href="<?php //echo Url::toRoute(['object_settings/object-type']) ?>">Типы объектов</a></li>-->
+                <li><a href="<?= Url::toRoute(['object_settings/tag']) ?>">Теги</a></li>
                 <li><a href="<?= Url::toRoute(['object_settings/form-participation']) ?>">Форма участия</a></li>
             </ul>
         </div>

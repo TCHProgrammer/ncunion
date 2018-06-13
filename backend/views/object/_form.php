@@ -4,12 +4,12 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use common\models\object\ObjectType;
-use common\models\object\Prescribed;
 use common\models\object\Attribute;
 use mihaildev\ckeditor\CKEditor;
 use kartik\file\FileInput;
 use yii\helpers\Url;
 use yii\web\JsExpression;
+use common\models\Tag;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\object\Object */
@@ -100,10 +100,8 @@ use yii\web\JsExpression;
 
         <?= $form->field($model, 'address_map')->textInput(['maxlength' => true]) ?>
 
-
-        <?= $form->field($model, 'noticesArray')->checkboxList(
-            //Prescribed::find()->select(['title', 'id'])->indexBy('id')->column()
-            ArrayHelper::map(Prescribed::find()->all(), 'id', 'title')
+        <?= $form->field($model, 'tagsArray')->checkboxList(
+            ArrayHelper::map(Tag::find()->all(), 'id', 'title')
         ) ?>
 
         <?= $form->field($model, 'owner')->textInput(['maxlength' => true]) ?>

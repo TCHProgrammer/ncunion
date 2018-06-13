@@ -3,20 +3,20 @@
 namespace backend\controllers\object_settings;
 
 use Yii;
-use common\models\object\Prescribed;
-use backend\models\object_settings\PrescribedSearch;
+use common\models\Tag;
+use backend\models\object_settings\TagSearch;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use backend\components\controllers\DefaultBackendController;
 
 /**
- * PrescribedController implements the CRUD actions for Prescribed model.
+ * TagController implements the CRUD actions for Tag model.
  */
-class PrescribedController extends DefaultBackendController
+class TagController extends Controller
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function behaviors()
     {
@@ -40,12 +40,12 @@ class PrescribedController extends DefaultBackendController
     }
 
     /**
-     * Lists all Prescribed models.
+     * Lists all Tag models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new PrescribedSearch();
+        $searchModel = new TagSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -54,15 +54,14 @@ class PrescribedController extends DefaultBackendController
         ]);
     }
 
-
     /**
-     * Creates a new Prescribed model.
+     * Creates a new Tag model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Prescribed();
+        $model = new Tag();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect('index');
@@ -74,7 +73,7 @@ class PrescribedController extends DefaultBackendController
     }
 
     /**
-     * Updates an existing Prescribed model.
+     * Updates an existing Tag model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -94,7 +93,7 @@ class PrescribedController extends DefaultBackendController
     }
 
     /**
-     * Deletes an existing Prescribed model.
+     * Deletes an existing Tag model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -108,15 +107,15 @@ class PrescribedController extends DefaultBackendController
     }
 
     /**
-     * Finds the Prescribed model based on its primary key value.
+     * Finds the Tag model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Prescribed the loaded model
+     * @return Tag the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Prescribed::findOne($id)) !== null) {
+        if (($model = Tag::findOne($id)) !== null) {
             return $model;
         }
 

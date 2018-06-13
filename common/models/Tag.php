@@ -1,29 +1,29 @@
 <?php
 
-namespace common\models\object;
+namespace common\models;
 
 use Yii;
 
 /**
- * This is the model class for table "prescribed".
+ * This is the model class for table "tag".
  *
  * @property int $id
  * @property string $title
  *
- * @property ObjectPrescribed[] $objectPrescribeds
+ * @property ObjectTag[] $objectTags
  */
-class Prescribed extends \yii\db\ActiveRecord
+class Tag extends \yii\db\ActiveRecord
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'prescribed';
+        return 'tag';
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -34,7 +34,7 @@ class Prescribed extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {
@@ -47,8 +47,8 @@ class Prescribed extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getObjectPrescribeds()
+    public function getObjectTags()
     {
-        return $this->hasMany(ObjectPrescribed::className(), ['prescribed_id' => 'id']);
+        return $this->hasMany(ObjectTag::className(), ['tag_id' => 'id']);
     }
 }

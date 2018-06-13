@@ -37,7 +37,7 @@ $this->title = 'Настройки';
 
             <h2>Уведомления по почте:</h2>
 
-            <?= $form->field($model, 'noticesArray')->checkboxList(
+            <?= $form->field($model, 'tagsArray')->checkboxList(
                 Notice::find()->select(['title', 'id'])->indexBy('id')->column()
             )->label(false) ?>
 

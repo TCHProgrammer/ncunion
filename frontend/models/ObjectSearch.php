@@ -66,7 +66,7 @@ class ObjectSearch extends Object
             'address_map' => 'Адрес на карте',
             'area' => 'Метраж',
             'rooms' => 'Комнаты',
-            'noticesArray' => 'Прописанные:',
+            'tagsArray' => 'Теги',
             'owner' => 'Правоустановка',
             'price_cadastral' => 'Кадастровая стоимость',
             'price_tian' => 'ЦИАН',
