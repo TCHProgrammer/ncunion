@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'title',
-            'descr:ntext',
+            'descr:html',
             [
                 'attribute' => 'place_km',
                 'value' => function($model){

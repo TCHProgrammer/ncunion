@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'top_title',
             'bot_title',
-            'descr:ntext',
+            'descr:html',
         ],
     ]) ?>
 

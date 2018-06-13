@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'attributes' => [
                 'type_id',
                 'title',
-                'descr:ntext',
+                'descr:html',
                 'place_km',
                 'amount',
                 'address',
