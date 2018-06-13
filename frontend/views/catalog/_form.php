@@ -44,8 +44,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'status_object')->textInput() ?>
 
-    <?= $form->field($model, 'sticker_id')->textInput() ?>
-
     <?= $form->field($model, 'created_at')->textInput() ?>
 
     <?= $form->field($model, 'updated_at')->textInput() ?>

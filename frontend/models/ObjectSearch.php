@@ -33,7 +33,6 @@ use common\models\object\Object;
  * @property int $updated_at
  * @property int $close_at
  * @property int $status_object
- * @property int $sticker_id
  * @property int $amount_min
  * @property int $amount_max
  *

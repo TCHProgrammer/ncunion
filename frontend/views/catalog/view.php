@@ -62,7 +62,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'price_market',
                 'price_liquidation',
                 'status_object',
-                'sticker_id',
             ],
         ]) ?>
 
