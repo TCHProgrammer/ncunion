@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'role',
                 'value' => function($model){
-                    return (AuthItem::find()->select('description')->where(['name' => $model->roles[0]->item_name])->one())->description;
+                    return (AuthItem::find()->select('description')->where(['name' => $model->roles->item_name])->one())->description;
                 }
             ],
         ],

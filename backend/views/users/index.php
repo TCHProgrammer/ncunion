@@ -13,9 +13,7 @@ use backend\modules\rbac\models\AuthItem;
 
 $this->title = 'Клиенты';
 $this->params['breadcrumbs'][] = $this->title;
-$kek = [
-        12 ,2
-];
+
 ?>
 <div class="user-model-index">
 

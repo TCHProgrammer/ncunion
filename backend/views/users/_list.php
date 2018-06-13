@@ -10,7 +10,7 @@ use yii\helpers\Url;
         <img src="/img/other/default-avatar.png" />
     </div>
     <div class="user-moder-name">
-        <div class="user-moder-fio"><a href="<?= Url::toRoute(['view', 'id' => $model->id]) ?>" <?= $model->last_name . ' ' . $model->first_name  . ' ' . $model->middle_name ?></div>
+        <div class="user-moder-fio"><a href="<?= Url::toRoute(['view', 'id' => $model->id]) ?>" target="_blank"><?= $model->last_name . ' ' . $model->first_name  . ' ' . $model->middle_name ?></a></div>
         <div class="user-moder-compani"><?= $model->company_name ?></div>
     </div>
     <div class="user-moder-email-phone">
