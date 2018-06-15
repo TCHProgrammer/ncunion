@@ -71,6 +71,62 @@ class ObjectController extends DefaultBackendController
         ]);
     }
 
+    public function actions()
+    {
+        return [
+            'sorting' => [
+                'class' => \kotchuprik\sortable\actions\Sorting::className(),
+                'query' => Object::find(),
+        ],
+    ];
+}
+
+    public function actionOrder()   {
+
+        $post = Yii::$app->request->post();
+        if (isset( $post['key'], $post['pos'] ))   {
+            $this->findModel( $post['key'] )->order( $post['pos'] );
+        }
+        /*if (isset( $post['key'], $post['pos'] ))   {
+            $model = $this->findModel($post['key']);
+            $i = $model->sort;
+            if ($i > $post['pos']){
+                $newModels = Object::find()
+                    ->where(['<', 'sort', $i])
+                    ->andWhere(['>=', 'sort', $post['pos']])
+                    ->orderBy('sort DESC')
+                    ->all();
+                foreach ($newModels as $newModel){
+                    $newModel->sort = $i;
+                    $newModel->save();
+                    $i--;
+                }
+                $model->sort = $post['pos'];
+                $model->save();
+                /*for ($i = ($model->sort - 1); $i >= $post['pos']; $i--){
+                    $newModel = Object::find()->where(['sort' => $i])->one();
+                    $newModel->sort = $i + 1;
+                    $newModel->save();
+                }
+                $model->sort = $post['pos'];
+                $model->save();*/
+           /* }else{
+                $newModels = Object::find()
+                    ->where(['>', 'sort', $i])
+                    ->andWhere(['<=', 'sort', $post['pos']])
+                    ->orderBy('sort ASC')
+                    ->all();
+                foreach ($newModels as $newModel){
+                    $newModel->sort = $i;
+                    $newModel->save();
+                    $i++;
+                }
+                $model->sort = $post['pos'];
+                $model->save();
+            }
+        }*/
+    }
+
     /**
      * Displays a single Object model.
      * @param integer $id

@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6f9cd99b9e2bde08cd90051d711f9faa",
+    "content-hash": "c824467010accf107ac58edf1b538916",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -22,28 +22,6 @@
             },
             "require": {
                 "bower-asset/jquery": ">=1.9.1,<4.0"
-            },
-            "type": "bower-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "bower-asset/fotorama",
-            "version": "4.6.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/artpolikarpov/fotorama-bower.git",
-                "reference": "bc05ef11b5cd307fd46d50e269abf8c8808fa4e5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/artpolikarpov/fotorama-bower/zipball/bc05ef11b5cd307fd46d50e269abf8c8808fa4e5",
-                "reference": "bc05ef11b5cd307fd46d50e269abf8c8808fa4e5",
-                "shasum": null
-            },
-            "require": {
-                "bower-asset/jquery": ">=1.8"
             },
             "type": "bower-asset",
             "license": [
@@ -96,7 +74,7 @@
             "version": "v1.3.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/bestiejs/punycode.js.git",
+                "url": "git@github.com:bestiejs/punycode.js.git",
                 "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3"
             },
             "dist": {
@@ -507,35 +485,27 @@
             "time": "2017-12-06T12:34:31+00:00"
         },
         {
-            "name": "metalguardian/yii2-fotorama-widget",
-            "version": "1.0.1",
+            "name": "kotchuprik/yii2-sortable-widgets",
+            "version": "v2.0.7",
             "source": {
                 "type": "git",
-                "url": "https://github.com/MetalGuardian/yii2-fotorama-widget.git",
-                "reference": "bc4c0471f9325daf2b4e8f47f28b982f59dc797b"
+                "url": "https://github.com/kotchuprik/yii2-sortable-widgets.git",
+                "reference": "cefe3784bbc72a641f574a922c68b4c16adfd1a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MetalGuardian/yii2-fotorama-widget/zipball/bc4c0471f9325daf2b4e8f47f28b982f59dc797b",
-                "reference": "bc4c0471f9325daf2b4e8f47f28b982f59dc797b",
+                "url": "https://api.github.com/repos/kotchuprik/yii2-sortable-widgets/zipball/cefe3784bbc72a641f574a922c68b4c16adfd1a8",
+                "reference": "cefe3784bbc72a641f574a922c68b4c16adfd1a8",
                 "shasum": ""
             },
             "require": {
-                "bower-asset/fotorama": "4.*",
+                "npm-asset/sortablejs": "^1.6.1",
                 "yiisoft/yii2": "*"
             },
-            "require-dev": {
-                "phpunit/phpunit": "*"
-            },
             "type": "yii2-extension",
-            "extra": {
-                "asset-installer-paths": {
-                    "bower-asset-library": "vendor/bower-asset"
-                }
-            },
             "autoload": {
                 "psr-4": {
-                    "metalguardian\\fotorama\\": "src"
+                    "kotchuprik\\sortable\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -544,19 +514,23 @@
             ],
             "authors": [
                 {
-                    "name": "Ivan Pushkin",
-                    "email": "imetalguardi+yii2@gmail.com"
+                    "name": "Constantine Chuprik",
+                    "email": "constantinchuprik@gmail.com"
                 }
             ],
-            "description": "fotorama image gallery yii2 widget",
-            "homepage": "https://github.com/MetalGuardian/yii2-fotorama-widget",
+            "description": "Implementation Rubaxa/Sortable for Yii2. Sortable grid view inside.",
+            "homepage": "http://github.com/kotchuprik/yii2-sortable-widgets",
             "keywords": [
-                "extension",
-                "fotorama",
-                "widget",
+                "dnd",
+                "grid",
+                "gridview",
+                "jQueryUI",
+                "rubaxa",
+                "sortable",
+                "sorting",
                 "yii2"
             ],
-            "time": "2018-01-16T00:37:45+00:00"
+            "time": "2017-11-29T04:12:23+00:00"
         },
         {
             "name": "mihaildev/yii2-ckeditor",
@@ -610,61 +584,18 @@
             "time": "2014-11-19T22:04:08+00:00"
         },
         {
-            "name": "mirocow/yii2-eav",
-            "version": "v0.7.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Mirocow/yii2-eav.git",
-                "reference": "e4c231cdf7afa5ef21e5fbfececd88ba83b072b9"
-            },
+            "name": "npm-asset/sortablejs",
+            "version": "1.7.0",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Mirocow/yii2-eav/zipball/e4c231cdf7afa5ef21e5fbfececd88ba83b072b9",
-                "reference": "e4c231cdf7afa5ef21e5fbfececd88ba83b072b9",
-                "shasum": ""
+                "type": "tar",
+                "url": "https://registry.npmjs.org/sortablejs/-/sortablejs-1.7.0.tgz",
+                "reference": null,
+                "shasum": null
             },
-            "require": {
-                "php": ">=5.5.0",
-                "yiisoft/yii2": ">=2.0.5"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "mirocow\\eav\\": "./src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
+            "type": "npm-asset",
             "license": [
                 "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Alexey Samoylov",
-                    "email": "alexey.samoylov@gmail.com",
-                    "homepage": "http://yiiblog.ru",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Mirocow",
-                    "email": "mr.mirocow@gmail.com",
-                    "homepage": "http://mirocow.com",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Alien-art",
-                    "email": "alien@alien-art.ru",
-                    "role": "Developer"
-                }
-            ],
-            "description": "EAV for Yii2",
-            "keywords": [
-                "attribute",
-                "cck",
-                "eav",
-                "fields",
-                "yii2"
-            ],
-            "time": "2017-01-07T19:07:59+00:00"
+            ]
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1437,16 +1368,16 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.8.0",
+            "version": "1.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "478465659fd987669df0bd8a9bf22a8710e5f1b6"
+                "reference": "3e01bdad3e18354c3dce54466b7fbe33a9f9f7f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/478465659fd987669df0bd8a9bf22a8710e5f1b6",
-                "reference": "478465659fd987669df0bd8a9bf22a8710e5f1b6",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/3e01bdad3e18354c3dce54466b7fbe33a9f9f7f8",
+                "reference": "3e01bdad3e18354c3dce54466b7fbe33a9f9f7f8",
                 "shasum": ""
             },
             "require": {
@@ -1481,7 +1412,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2018-05-29T17:25:09+00:00"
+            "time": "2018-06-11T23:09:50+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -2320,16 +2251,16 @@
         },
         {
             "name": "sebastian/comparator",
-            "version": "3.0.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "ed5fd2281113729f1ebcc64d101ad66028aeb3d5"
+                "reference": "591a30922f54656695e59b1f39501aec513403da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/ed5fd2281113729f1ebcc64d101ad66028aeb3d5",
-                "reference": "ed5fd2281113729f1ebcc64d101ad66028aeb3d5",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/591a30922f54656695e59b1f39501aec513403da",
+                "reference": "591a30922f54656695e59b1f39501aec513403da",
                 "shasum": ""
             },
             "require": {
@@ -2380,20 +2311,20 @@
                 "compare",
                 "equality"
             ],
-            "time": "2018-04-18T13:33:00+00:00"
+            "time": "2018-06-14T15:05:28+00:00"
         },
         {
             "name": "sebastian/diff",
-            "version": "3.0.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/diff.git",
-                "reference": "e09160918c66281713f1c324c1f4c4c3037ba1e8"
+                "reference": "366541b989927187c4ca70490a35615d3fef2dce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/e09160918c66281713f1c324c1f4c4c3037ba1e8",
-                "reference": "e09160918c66281713f1c324c1f4c4c3037ba1e8",
+                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/366541b989927187c4ca70490a35615d3fef2dce",
+                "reference": "366541b989927187c4ca70490a35615d3fef2dce",
                 "shasum": ""
             },
             "require": {
@@ -2436,7 +2367,7 @@
                 "unidiff",
                 "unified diff"
             ],
-            "time": "2018-02-01T13:45:15+00:00"
+            "time": "2018-06-10T07:54:39+00:00"
         },
         {
             "name": "sebastian/environment",

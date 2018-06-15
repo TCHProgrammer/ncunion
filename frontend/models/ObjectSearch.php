@@ -96,17 +96,16 @@ class ObjectSearch extends Object
     public function search($params)
     {
         //данные из паспорта
-        $user = UserModel::findOne(Yii::$app->user->id);
+        /*$user = UserModel::findOne(Yii::$app->user->id);
         $passport = UserPassport::findOne($user->user_passport_id);
-
         $this->type_id = $passport->type_id;
         $this->area = $passport->area;
-        $this->rooms = $passport->rooms;
+        $this->rooms = $passport->rooms;*/
 
         $query = Object::find()
             ->alias('o')
             ->andWhere(['status' => 1])
-            ->orderBy('status_object DESC')
+            ->orderBy(['order' => SORT_ASC, 'created_at' => SORT_DESC])
             ->addGroupBy('o.id');
 
         $dataProvider = new ActiveDataProvider([

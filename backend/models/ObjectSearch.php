@@ -42,9 +42,7 @@ class ObjectSearch extends Object
      */
     public function search($params)
     {
-        $query = Object::find();
-
-        // add conditions that should always apply here
+        $query = Object::find()->orderBy(['order' => SORT_ASC, 'created_at' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

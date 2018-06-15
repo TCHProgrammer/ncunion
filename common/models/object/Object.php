@@ -37,6 +37,7 @@ use common\models\ObjectTag;
  * @property int $updated_at
  * @property int $close_at
  * @property int $status_object
+ * @property int $order
  *
  * @property ObjectType $type
  * @property ObjectAttribute[] $objectAttributes
@@ -68,7 +69,8 @@ class Object extends \yii\db\ActiveRecord
             //[['docFile'], 'file', 'extensions' => 'png, txt, pdf, cvg, xlsx, ods, docx'],
             [['created_at'], 'default', 'value'=> time()],
             [['updated_at'], 'default', 'value'=> time()],
-            [['type_id', 'title', 'created_at', 'updated_at'], 'required'],
+            [['order'], 'default', 'value' => 0],
+            [['type_id', 'title', 'created_at', 'updated_at', 'order'], 'required'],
             [['type_id', 'status', 'place_km', 'area', 'rooms', 'price_cadastral', 'price_tian', 'price_market', 'price_liquidation', 'status_object', 'created_at', 'updated_at', 'close_at'], 'integer'],
             [['descr'], 'string'],
             [['amount'], 'number'],

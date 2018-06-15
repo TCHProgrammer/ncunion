@@ -46,7 +46,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'tableOptions' => [
+        'rowOptions' => function ($model, $key, $index, $grid) {
+            return ['data-sortable-id' => $model->id];
+        },
+
+        //'orderUrl' => ['order'],
+        /*'tableOptions' => [
             'class' => 'table table-striped table-bordered table-hover-gray'
         ],
         'rowOptions' =>function($model){
@@ -54,13 +59,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 'onclick' => 'window.location = "' . Url::to(['view', 'id' => $model->id]) . '"',
                 'style' => 'cursor:pointer'
             ];
-        },
+        },*/
         'columns' => [
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{update}',
                 'options' => ['style' => 'width:35px'],
                 'contentOptions' => ['class' => 'text-center'],
+            ],
+
+            [
+                'class' => \kotchuprik\sortable\grid\Column::className(),
             ],
 
             [
@@ -174,6 +183,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'price_tian',
             //'price_market',
             //'price_liquidation',
+            'order',
 
             [
                 'class' => 'yii\grid\ActionColumn',
@@ -181,6 +191,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'options' => ['style' => 'width:35px'],
                 'contentOptions' => ['class' => 'text-center'],
             ],
+        ],
+        'options' => [
+            'data' => [
+                'sortable-widget' => 1,
+                'sortable-url' => \yii\helpers\Url::toRoute(['sorting']),
+            ]
         ],
     ]); ?>
     <?php Pjax::end(); ?>
