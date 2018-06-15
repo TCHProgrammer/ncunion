@@ -66,7 +66,8 @@ class SiteController extends Controller
             ->setSubject('Тема сообщения')
             ->setTextBody('Текст сообщения')
             ->setHtmlBody('<b>текст сообщения в формате HTML</b>')
-            ->send();*/
+            ->send();
+       */
         return $this->render('index');
     }
 
@@ -78,7 +79,7 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->redirect('/');
+            return $this->redirect('/catalog');
             //return $this->goBack();
         } else {
             $model->password = '';

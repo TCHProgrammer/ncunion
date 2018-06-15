@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="btn-group">
             <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Общие настройки<span class="caret"></span></button>
             <ul class="dropdown-menu">
-                <!--<li><a href="<?php //echo Url::toRoute(['object_settings/object-type']) ?>">Типы объектов</a></li>-->
+                <li><a href="<?php echo Url::toRoute(['object_settings/object-type']) ?>">Типы объектов</a></li>
                 <li><a href="<?= Url::toRoute(['object_settings/tag']) ?>">Теги</a></li>
                 <li><a href="<?= Url::toRoute(['object_settings/form-participation']) ?>">Форма участия</a></li>
             </ul>
@@ -49,8 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'rowOptions' => function ($model, $key, $index, $grid) {
             return ['data-sortable-id' => $model->id];
         },
-
-        //'orderUrl' => ['order'],
+        /* по клику открывает объект */
         /*'tableOptions' => [
             'class' => 'table table-striped table-bordered table-hover-gray'
         ],
@@ -78,6 +77,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['class' => 'text-center'],
                 'contentOptions' => ['class' => 'text-center'],
             ],
+
+            'title',
 
             [
                 'attribute' => 'type_id',
@@ -132,8 +133,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
 
-            'title',
-
             [
                 'attribute' => 'place_km',
                 'label' => 'Удалённость',
@@ -147,9 +146,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 }
             ],
-
-            //'address',
-            //'address_map',
 
             [
                 'attribute' => 'amount',
@@ -178,12 +174,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => ['class' => 'text-center'],
             ],
 
-            //'owner',
-            //'price_cadastral',
-            //'price_tian',
-            //'price_market',
-            //'price_liquidation',
-            'order',
+            [
+                'attribute' => 'order',
+                'options' => ['style' => 'width:105px;'],
+                'headerOptions' => ['class' => 'text-center'],
+                'contentOptions' => ['class' => 'text-center'],
+            ],
+
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view}',
+                'options' => ['style' => 'width:35px'],
+                'contentOptions' => ['class' => 'text-center'],
+            ],
 
             [
                 'class' => 'yii\grid\ActionColumn',

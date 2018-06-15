@@ -106,7 +106,8 @@ class Object extends \yii\db\ActiveRecord
             'updated_at' => 'Дата последнего изменения',
             'close_at' => 'Дата закрытия сделки',
             'status_object' => 'Статус сделки',
-            'amountRemained' => 'Нехватает до закрытия'
+            'amountRemained' => 'Нехватает до закрытия',
+            'order' => 'Сортировка'
         ];
     }
 

@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <p>Статус:
         <?php
+        //поправить и сденлать как переменные
         switch ($model->status_object){
             case 1:
                 echo '<span class="btn-warning">сделка частично закрыта</span>';
@@ -86,6 +87,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ]); ?>
         <?php } ?>
     </div>
+
+    <div class="col-lg-12 col-md-12">
+    </div>
+
     <div class="col-lg-12 col-md-12">
         <?php if (Yii::$app->user->can('btn_give_investor')) { ?>
             <?= $this->render('_comments', [
