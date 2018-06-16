@@ -88,8 +88,27 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php } ?>
     </div>
 
-    <div class="col-lg-12 col-md-12">
-    </div>
+    <?php if (!empty($modelImgs)){ ?>
+        <div class="col-lg-12 col-md-12">
+            <h3>Фотогалерея</h3>
+            <hr>
+            <?php foreach ($modelImgs as $item){ ?>
+                <img src="<?= $item->img ?>" style="width: 200px">
+            <?php } ?>
+        </div>
+    <?php } ?>
+
+    <?php if (!empty($modelFiles)){ ?>
+        <div class="col-lg-12 col-md-12">
+            <h3>Документы</h3>
+            <hr>
+            <?php foreach ($modelFiles as $item){ ?>
+                <div>
+                    <a href="<?= $item->doc ?>"><?= $item->title ?></a>
+                </div>
+            <?php } ?>
+        </div>
+    <?php } ?>
 
     <div class="col-lg-12 col-md-12">
         <?php if (Yii::$app->user->can('btn_give_investor')) { ?>

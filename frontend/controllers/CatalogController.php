@@ -4,6 +4,8 @@ namespace frontend\controllers;
 
 use common\models\CommentObject;
 use common\models\object\AttributeCheckbox;
+use common\models\object\ObjectFile;
+use common\models\object\ObjectImg;
 use common\models\RoomFinishObject;
 use common\models\RoomObjectUser;
 use common\models\UserModel;
@@ -97,6 +99,8 @@ class CatalogController extends DefaultFrontendController{
         $userRoom = new RoomObjectUser();
         $commentNew = new CommentObject();
         $model = $this->findModel($id);
+        $modelImgs = ObjectImg::find()->where(['object_id' => $id])->orderBy('sort ASC')->all();
+        $modelFiles = ObjectFile::find()->where(['object_id' => $id])->all();
         $chekFinishObject = RoomFinishObject::find()->where(['object_id' => $id])->one();
 
         $commentList = new ActiveDataProvider([
@@ -153,7 +157,9 @@ class CatalogController extends DefaultFrontendController{
             'usersObjectlist' => $usersObjectlist,
             'finishObject' => $finishObject,
             'commentNew' => $commentNew,
-            'commentList' => $commentList
+            'commentList' => $commentList,
+            'modelImgs' => $modelImgs,
+            'modelFiles' => $modelFiles
         ]);
     }
 
