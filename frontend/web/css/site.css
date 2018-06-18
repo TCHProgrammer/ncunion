@@ -434,3 +434,23 @@ a.desc:after {
 .news-comment hr{
     margin-top: 5px;
 }
+
+.left-pr-striped{
+    float: left;
+    margin: 3px 10px 0 10px;
+}
+
+.center-pr-striped{
+    float: left;
+    width: 75%;
+}
+
+.right-pr-striped{
+    float: right;
+    margin: 3px 10px 0 10px;
+}
+
+.print-amount-striped{
+    color: black;
+    margin-left: 4.5cm;
+}

@@ -15,7 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php echo $this->render('_search', [
+    <!-- фильтр -->
+    <?= $this->render('_search', [
         'model'         => $searchModel,
         'listValues'    => $listValues,
         'listCheckboxes' => $listCheckboxes,
@@ -24,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'rezRadios'     => $rezRadios
     ]); ?>
 
+    <!-- каталог объектов -->
     <?= ListView::widget([
         'dataProvider' => $dataProvider,
         'itemView' => '_list',

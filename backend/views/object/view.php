@@ -5,6 +5,7 @@ use yii\widgets\DetailView;
 use yii\widgets\Breadcrumbs;
 use metalguardian\fotorama\Fotorama;
 use yii\helpers\Url;
+use yii\widgets\ListView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\object\Object */
@@ -30,108 +31,145 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'type_id',
-            [
-                'attribute' => 'status',
-                'value' => function($model){
-                    return $model->status ? 'Да' : 'Нет';
-                }
-            ],
-            [
-                'attribute' => 'status_object',
-                'value' => function($model){
-                    return $model->status_object ? 'Сделка открыта' : 'Сделка закрыта';
-                }
-            ],
-            'title',
-            'descr:html',
-            [
-                'attribute' => 'place_km',
-                'value' => function($model){
-                    if ($model->place_km === 0){
-                        return 'Москва';
-                    }else{
-                        return $model->place_km . ' км. от МКАД';
-                    }
-                }
-            ],
-            'amount',
-            'address',
-            'address_map',
-            [
-                'attribute' => 'area',
-                'value' => function($model){
-                    return $model->area . ' кв.м';
-                }
-            ],
-            'rooms',
-            'owner',
-            'price_cadastral',
-            'price_tian',
-            'price_market',
-            'price_liquidation',
-            [
-                'attribute' => 'created_at',
-                'value' => function($model){
-                    return Yii::$app->date->month($model->created_at);
-                }
-            ],
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
 
+            <!-- шкала -->
+            <h3>Итоговая сумма инвесторов:</h3>
+            <div class="object-progress-striped">
+                <div class="left-pr-striped">0</div>
+                <div class="center-pr-striped">
+                    <div class="progress progress-striped active">
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?= $progress['amount-percent'] ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $progress['amount-percent'] ?>%">
+                            <span class="print-amount-striped"><?= $progress['print-amount'] ?>(<?= $progress['amount-percent'] ?>%)</span>
+                            </div>
+                    </div>
+                </div>
+                <div class="right-pr-striped"><?= $model->amount ?></div>
+            </div>
+
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    'id',
+                    'type_id',
+                    [
+                        'attribute' => 'status',
+                        'value' => function($model){
+                            return $model->status ? 'Да' : 'Нет';
+                        }
+                    ],
+                    [
+                        'attribute' => 'status_object',
+                        'value' => function($model){
+                            switch ($model->status_object){
+                                case 2:
+                                    return 'Сделка открыта';
+                                case 1:
+                                    return 'Сделка частично закрыта';
+                                default :
+                                    return 'Сделка закрыта';
+                            }
+                        }
+                    ],
+                    'title',
+                    'descr:html',
+                    [
+                        'attribute' => 'place_km',
+                        'value' => function($model){
+                            if ($model->place_km === 0){
+                                return 'Москва';
+                            }else{
+                                return $model->place_km . ' км. от МКАД';
+                            }
+                        }
+                    ],
+                    'amount',
+                    'address',
+                    'address_map',
+                    [
+                        'attribute' => 'area',
+                        'value' => function($model){
+                            return $model->area . ' кв.м';
+                        }
+                    ],
+                    'rooms',
+                    'owner',
+                    'price_cadastral',
+                    'price_tian',
+                    'price_market',
+                    'price_liquidation',
+                    [
+                        'attribute' => 'created_at',
+                        'value' => function($model){
+                            return Yii::$app->date->month($model->created_at);
+                        }
+                    ],
+                    [
+                        'attribute' => 'updated_at',
+                        'value' => function($model){
+                            return Yii::$app->date->month($model->updated_at);
+                        }
+                    ],
+                ],
+            ]) ?>
+        </div>
+
+        <!-- (правкая колонка) -->
+        <div class="col-lg-6 col-md-6">
+            <h2>Список откликнувшихся инвесторов</h2>
+            <?= ListView::widget([
+                'dataProvider' => $usersObjectlist,
+                'itemView' => '_listUsers',
+                'viewParams' => [
+                    'finishObject' => $finishObject,
+                    'objectAmount' => $model->amount
+                ],
+            ]); ?>
+        </div>
+    </div>
+
+    <?php if (!empty($imgs)) { ?>
+
+        <h3>Фотогалерея</h3>
+        <hr>
+        <?php
+        $fotorama = Fotorama::begin(
             [
-                'attribute' => 'updated_at',
-                'value' => function($model){
-                    return Yii::$app->date->month($model->updated_at);
-                }
-            ],
+                'options' => [
+                    'loop' => true,
+                    'hash' => true,
+                    'ratio' => 800 / 600,
+                ],
+                'spinner' => [
+                    'lines' => 20,
+                ],
+                'tagName' => 'span',
+                'useHtmlData' => false,
+                'htmlOptions' => [
+                    'class' => 'custom-class',
+                    'id' => 'custom-id',
+                ],
+            ]
+        );
 
-            [
-                'attribute' => 'close_at',
-                'value' => function($model){
-                    return Yii::$app->date->month($model->close_at);
-                }
-            ],
-        ],
-    ]) ?>
-
-    <?php
-    $fotorama = Fotorama::begin(
-        [
-            'options' => [
-                'loop' => true,
-                'hash' => true,
-                'ratio' => 800/600,
-            ],
-            'spinner' => [
-                'lines' => 20,
-            ],
-            'tagName' => 'span',
-            'useHtmlData' => false,
-            'htmlOptions' => [
-                'class' => 'custom-class',
-                'id' => 'custom-id',
-            ],
-        ]
-    );
-
-    foreach ($imgs as $img){
-        $link = str_replace('admin', '', Url::home(true). $img->img);
-        //$dir = Yii::getAlias('@uploads') . '/objects/img/' . $post['object_id'] .'/';
-        echo Html::img($link);
-    }
-
-    Fotorama::end(); ?>
-
-    <br>
-    <label class="control-label">Документы:</label>
-    <br>
-    <?php
-        foreach ($files as $file){
-            echo Html::a($file->title, $file->doc, ['class' => 'form-a-del','download' => true]) . '</p>';
+        foreach ($imgs as $img) {
+            $link = str_replace('admin', '', Url::home(true) . $img->img);
+            echo Html::img($link);
         }
+
+        Fotorama::end();
+    }
     ?>
+
+    <?php if (!empty($files)){ ?>
+        <h3>Документы</h3>
+        <hr>
+        <?php foreach ($files as $file){ ?>
+            <div>
+                <?= Html::a($file->title, $file->doc, ['class' => 'form-a-del','download' => true]) . '</p>'; ?>
+            </div>
+        <?php } ?>
+    <?php } ?>
 
 </div>

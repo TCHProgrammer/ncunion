@@ -446,3 +446,45 @@ a.desc:after {
 .create-object-img{
     margin: 20px 0 20px 0;
 }
+
+.catalog-user-avatar img {
+    width: 100%;
+}
+
+.catalog-user-info {
+    font-size: 15px;
+}
+
+.catalog-user-btm {
+    padding: 5px 0 10px 0;
+}
+
+.catalog-user-profil {
+    margin: 20px -15px 20px -15px;
+}
+
+.span-progress-color span{
+    color: #000;
+    margin: 0 5px 0 5px;
+}
+
+
+.left-pr-striped{
+    float: left;
+    margin: 3px 10px 0 10px;
+}
+
+.center-pr-striped{
+    float: left;
+    width: 75%;
+}
+
+.right-pr-striped{
+    float: right;
+    margin: 3px 10px 0 10px;
+}
+
+.print-amount-striped{
+    color: black;
+    margin-left: 4.5cm;
+}

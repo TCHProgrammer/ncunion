@@ -99,9 +99,11 @@ class CatalogController extends DefaultFrontendController{
         $userRoom = new RoomObjectUser();
         $commentNew = new CommentObject();
         $model = $this->findModel($id);
+
         $modelImgs = ObjectImg::find()->where(['object_id' => $id])->orderBy('sort ASC')->all();
         $modelFiles = ObjectFile::find()->where(['object_id' => $id])->all();
-        $chekFinishObject = RoomFinishObject::find()->where(['object_id' => $id])->one();
+
+        $chekRoomUser = RoomObjectUser::find()->where(['object_id' => $id])->andWhere(['active' => 1])->all();
 
         $commentList = new ActiveDataProvider([
             'query' => CommentObject::find()->where(['object_id' => $id])->orderBy(['path' => SORT_ASC]),
@@ -110,26 +112,32 @@ class CatalogController extends DefaultFrontendController{
             ],
         ]);
 
-        if (is_null($chekFinishObject)){
-            $finishObject = true;
-        }else{
-            $finishObject = false;
-        }
-
         $userFoll = RoomObjectUser::find()
             ->where(['object_id' => $id])
             ->andWhere(['user_id' => Yii::$app->user->id])
             ->one();
 
-        $usersObjectlist = new ActiveDataProvider([
-            'query' => RoomObjectUser::find()
-                ->where(['object_id' => $id])
-                ->joinWith('user')
-                ->joinWith('userAvatar'),
-            'pagination' => [
-                'pageSize' => 50,
-            ],
-        ]);
+        if (isset($chekRoomUser)){
+            $sumAmount = 0;
+            foreach ($chekRoomUser as $item){
+                $sumAmount = $sumAmount + $item->sum;
+            }
+            $progress['print-amount'] = $sumAmount;
+
+            if ($sumAmount == 0){
+                $progress['amount-percent'] = 0;
+            }else{
+                if ((int)$model->amount > $sumAmount){
+                    $progress['amount-percent'] = number_format($sumAmount/((int)$model->amount / 100), 2, '.', ' ');
+                }else{
+                    $progress['amount-percent'] = 100;
+                }
+            }
+
+        }else{
+            $progress['print-amount'] = 0;
+            $progress['amount-percent'] = 0;
+        }
 
         $post = Yii::$app->request->post();
         if ($post){
@@ -138,11 +146,10 @@ class CatalogController extends DefaultFrontendController{
             if ($userRoom->load($post) && $userRoom->validate() && $userRoom->save()){
                 $object = Object::findOne($id);
                 if ($object){
-                    if ((int)$post['RoomObjectUser']['sum'] >= $object->amount){
-                        $this->modelObjectFinish($id, Yii::$app->user->id);
-                    }else{
+                    ////if (!((int)$post['RoomObjectUser']['sum'] >= $object->amount)){
+                        //$this->modelObjectFinish($id, Yii::$app->user->id);
                         $object->status_object = 1;
-                    }
+                    ////}
                     $object->save();
                 }
                 return $this->redirect(['view', 'id' => $id]);
@@ -154,12 +161,12 @@ class CatalogController extends DefaultFrontendController{
             'model' => $model,
             'userRoom' => $userRoom,
             'userFoll' => $userFoll,
-            'usersObjectlist' => $usersObjectlist,
-            'finishObject' => $finishObject,
+            //'usersObjectlist' => $usersObjectlist,
             'commentNew' => $commentNew,
             'commentList' => $commentList,
             'modelImgs' => $modelImgs,
-            'modelFiles' => $modelFiles
+            'modelFiles' => $modelFiles,
+            'progress' => $progress
         ]);
     }
 
@@ -189,33 +196,23 @@ class CatalogController extends DefaultFrontendController{
         return $this->redirect(['view', 'id' => Yii::$app->request->post('CommentObject')['object_id']]);
     }
 
-    /* отписавться user */
-    public function actionUnsubscribe($oId)
-    {
-        $this->unsubscribeAll($oId, Yii::$app->user->id);
-    }
-
-    /* отписавться adm */
-    public function actionUnsubscribeAdm($oId, $uId)
-    {
-        $this->unsubscribeAll($oId, $uId);
-    }
-
-    /* отдать инвестору adm */
-    public function actionObjectFinishAdm($oId, $uId)
-    {
-        $mId = Yii::$app->user->id;
-        $this->modelObjectFinish($oId, $uId, $mId);
-        return $this->redirect(['view', 'id' => $oId]);
-    }
-
     protected function findModel($id)
     {
-        if (($model = Object::findOne($id)) !== null) {
+        if (($model = Object::find()->where(['id' => $id])->andWhere(['!=', 'status_object', 0])->one()) !== null) {
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('Объект не найден.');
+    }
+
+    /* отписавться user */
+    public function actionUnsubscribe($oId)
+    {
+        if(isset($oId)) {
+            $this->unsubscribeAll($oId, Yii::$app->user->id);
+        }else{
+            throw new NotFoundHttpException('Вы передали не все параметры');
+        }
     }
 
     protected function unsubscribeAll($oId, $uId)
@@ -237,51 +234,11 @@ class CatalogController extends DefaultFrontendController{
         if (!$checkRoomObjects ){
             $object->status_object = 2;
         }else{
-            foreach ($checkRoomObjects as $checkRoomObject){
-                if ($checkRoomObject->sum >= $object->amount){
-                    $object->status_object = 0;
-                }else{
-                    $object->status_object = 1;
-                }
-            }
+            $object->status_object = 1;
         }
 
         $object->save();
 
         return $this->redirect(['view', 'id' => $oId]);
-    }
-
-    protected function modelObjectFinish($oId, $uId, $mId=null)
-    {
-        $model = new RoomFinishObject();
-        if ($model){
-            $model->object_id = $oId;
-            $model->user_id = $uId;
-            $model->manager_id = $mId;
-            if ($model->validate()){
-                if ($model->save()){
-                    if ($this->modelObjectStatusEnd($oId)){
-                        return true;
-                    };
-                }
-            }
-        }
-
-        return false;
-    }
-
-    protected function modelObjectStatusEnd($oId)
-    {
-        $object = Object::findOne($oId);
-        if ($object){
-            $object->status_object = 0;
-            if ($object->validate()){
-                if ($object->save()){
-                    return true;
-                }
-            }
-        }
-
-        return false;
     }
 }

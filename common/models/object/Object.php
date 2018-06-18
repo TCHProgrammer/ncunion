@@ -70,10 +70,10 @@ class Object extends \yii\db\ActiveRecord
             [['created_at'], 'default', 'value'=> time()],
             [['updated_at'], 'default', 'value'=> time()],
             [['order'], 'default', 'value' => 0],
-            [['type_id', 'title', 'created_at', 'updated_at', 'order'], 'required'],
             [['type_id', 'status', 'place_km', 'area', 'rooms', 'price_cadastral', 'price_tian', 'price_market', 'price_liquidation', 'status_object', 'created_at', 'updated_at', 'close_at'], 'integer'],
             [['descr'], 'string'],
             [['amount'], 'number'],
+            [['type_id', 'title', 'created_at', 'updated_at', 'order', 'descr', 'amount', 'place_km', 'area', 'rooms'], 'required'],
             [['title', 'address', 'address_map', 'owner'], 'string', 'max' => 255],
             [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ObjectType::className(), 'targetAttribute' => ['type_id' => 'id']],
         ];

@@ -120,7 +120,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     0 => 'Сделка закрыта'
                 ],
                 'headerOptions' => ['class' => 'text-center'],
-                'options' => ['style' => 'width:170px;'],
+                'options' => ['style' => 'width:190px;'],
                 'value' => function($model){
                     switch ($model->status_object){
                         case 2:

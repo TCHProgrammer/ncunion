@@ -50,7 +50,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw'
             ],*/
 
-            'created_at:datetime',
+            //'created_at:datetime',
+            [
+                'filter' => false,
+                'attribute' => 'created_at',
+                'value' => function($model){
+                    return Yii::$app->date->month($model->created_at);
+                }
+            ],
 
             [
                 'class' => 'yii\grid\ActionColumn',

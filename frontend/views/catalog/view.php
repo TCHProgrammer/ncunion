@@ -9,42 +9,71 @@ use yii\widgets\ListView;
 /* @var $model common\models\object\Object */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Objects', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Каталог объектов', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="row">
-    <div class="object-view col-lg-6 col-md-6">
+
+    <!-- полная информация об объекте  -->
+    <div class="col-lg-12 col-md-12 object-view">
 
         <h1><?= Html::encode($this->title) ?></h1>
 
         <?php if ($userFoll){ ?>
-            <?php if ($finishObject){ ?>
-                <p><?= Html::a('Отписаться', ['/catalog/unsubscribe?oId=' . $model->id], ['class' => 'btn btn-primary', 'data-confirm' => 'Вы уверены, что хотите отписаться?', 'disable' => true]) ?></p>
-            <?php }else{ ?>
-                <p class="btn-success">Вы успешно получили данный объект!</p>
-            <?php } ?>
+            <p><?= Html::a('Отписаться', ['/catalog/unsubscribe?oId=' . $model->id], ['class' => 'btn btn-primary', 'data-confirm' => 'Вы уверены, что хотите отписаться?', 'disable' => true]) ?></p>
         <?php }else{ ?>
             <p><?= Html::button('Откликнуться', ['class' => 'btn btn-primary', 'data-toggle' => 'modal', 'data-target' => '.bs-example-modal-lg']) ?></p>
         <?php } ?>
 
-        <p>Статус:
-        <?php
-        //поправить и сденлать как переменные
-        switch ($model->status_object){
-            case 1:
-                echo '<span class="btn-warning">сделка частично закрыта</span>';
-                break;
-            case 2:
-                echo '<span class="btn-success">сделка открыта</span>';
-                break;
-            default:
-                echo '<span class="btn-danger">сделка закрыта</span>';
-                break;
-        }
-        ?>
+        <p>
+            Статус:
+            <?php
+                switch ($model->status_object){
+                    case 1:
+                        $statusObject = 'сделка частично закрыта';
+                        $classObject = 'btn-warning';
+                        break;
+                    case 2:
+                        $statusObject = 'сделка открыта';
+                        $classObject = 'btn-success';
+                        break;
+                    default:
+                        $statusObject = 'сделка закрыта';
+                        $classObject = 'btn-danger';
+                        break;
+                }
+            ?>
+            <span class="<?= $classObject ?>"><?= $statusObject ?></span>
         </p>
 
+        <!-- шкала -->
+        <div class="object-view col-lg-6 col-md-6">
+            <div class="object-progress-striped">
+                <div class="left-pr-striped">0</div>
+                <div class="center-pr-striped">
+                    <div class="progress progress-striped active">
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?= $progress['amount-percent'] ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $progress['amount-percent'] ?>%">
+                            <span class="print-amount-striped"><?= $progress['print-amount'] ?>(<?= $progress['amount-percent'] ?>%)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-pr-striped"><?= $model->amount ?></div>
+            </div>
+        </div>
+
+        <!-- вывод информации она подписку -->
+        <?php if ($userFoll){ ?>
+            <div class="col-lg-12 col-md-12">
+                <h2>Вы откликнулись на сделку</h2>
+                <?= $this->render('_listUser', [
+                    'model' => $userFoll
+                ]);
+                ?>
+            </div>
+        <?php } ?>
+
+        <!-- инфо об объекте -->
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [
@@ -65,29 +94,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'status_object',
             ],
         ]) ?>
-
     </div>
 
-    <div class="users col-lg-6 col-md-6">
-        <?php if (Yii::$app->user->can('btn_give_investor')) { ?>
-            <h2>Список откликнувшихся инвесторов</h2>
-
-            <?= ListView::widget([
-                'dataProvider' => $usersObjectlist,
-                'itemView' => '_listUser',
-                'viewParams' => [
-                    'finishObject' => $finishObject,
-                ],
-            ]); ?>
-        <?php }else{ ?>
-            <?= $this->render('_comments', [
-                'commentNew' => $commentNew,
-                'oId' => $model->id,
-                'commentList' => $commentList
-            ]); ?>
-        <?php } ?>
-    </div>
-
+    <!-- фото -->
     <?php if (!empty($modelImgs)){ ?>
         <div class="col-lg-12 col-md-12">
             <h3>Фотогалерея</h3>
@@ -98,6 +107,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     <?php } ?>
 
+    <!-- файлы -->
     <?php if (!empty($modelFiles)){ ?>
         <div class="col-lg-12 col-md-12">
             <h3>Документы</h3>
@@ -110,14 +120,14 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     <?php } ?>
 
+    <!-- комментарии -->
     <div class="col-lg-12 col-md-12">
-        <?php if (Yii::$app->user->can('btn_give_investor')) { ?>
-            <?= $this->render('_comments', [
-                'commentNew' => $commentNew,
-                'oId' => $model->id,
-                'commentList' => $commentList
-            ]); ?>
-        <?php } ?>
+        <h3>Комментарии</h3>
+        <?= $this->render('_comments', [
+            'commentNew' => $commentNew,
+            'oId' => $model->id,
+            'commentList' => $commentList
+        ]); ?>
     </div>
 
 </div>

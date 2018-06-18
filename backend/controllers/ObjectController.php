@@ -26,6 +26,9 @@ use common\models\object\ObjectAttributeCheckbox;
 use common\models\object\AttributeRadio;
 use common\models\object\GroupRadio;
 use common\models\object\ObjectAttributeRadio;
+use yii\data\ActiveDataProvider;
+use common\models\RoomObjectUser;
+use common\models\RoomFinishObject;
 
 /**
  * ObjectController implements the CRUD actions for Object model.
@@ -81,52 +84,6 @@ class ObjectController extends DefaultBackendController
     ];
 }
 
-    public function actionOrder()   {
-
-        $post = Yii::$app->request->post();
-        if (isset( $post['key'], $post['pos'] ))   {
-            $this->findModel( $post['key'] )->order( $post['pos'] );
-        }
-        /*if (isset( $post['key'], $post['pos'] ))   {
-            $model = $this->findModel($post['key']);
-            $i = $model->sort;
-            if ($i > $post['pos']){
-                $newModels = Object::find()
-                    ->where(['<', 'sort', $i])
-                    ->andWhere(['>=', 'sort', $post['pos']])
-                    ->orderBy('sort DESC')
-                    ->all();
-                foreach ($newModels as $newModel){
-                    $newModel->sort = $i;
-                    $newModel->save();
-                    $i--;
-                }
-                $model->sort = $post['pos'];
-                $model->save();
-                /*for ($i = ($model->sort - 1); $i >= $post['pos']; $i--){
-                    $newModel = Object::find()->where(['sort' => $i])->one();
-                    $newModel->sort = $i + 1;
-                    $newModel->save();
-                }
-                $model->sort = $post['pos'];
-                $model->save();*/
-           /* }else{
-                $newModels = Object::find()
-                    ->where(['>', 'sort', $i])
-                    ->andWhere(['<=', 'sort', $post['pos']])
-                    ->orderBy('sort ASC')
-                    ->all();
-                foreach ($newModels as $newModel){
-                    $newModel->sort = $i;
-                    $newModel->save();
-                    $i++;
-                }
-                $model->sort = $post['pos'];
-                $model->save();
-            }
-        }*/
-    }
-
     /**
      * Displays a single Object model.
      * @param integer $id
@@ -135,14 +92,59 @@ class ObjectController extends DefaultBackendController
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+
         $imgs = ObjectImg::find()->where(['object_id' => $id])->all();
 
         $files = ObjectFile::find()->where(['object_id' => $id])->all();
 
+        /* шкала */
+        $chekRoomUser = RoomObjectUser::find()->where(['object_id' => $id])->andWhere(['active' => 1])->all();
+        if (isset($chekRoomUser)){
+            $sumAmount = 0;
+            foreach ($chekRoomUser as $item){
+                $sumAmount = $sumAmount + $item->sum;
+            }
+            $progress['print-amount'] = $sumAmount;
+
+            if ($sumAmount == 0){
+                $progress['amount-percent'] = 0;
+            }else{
+                if ((int)$model->amount > $sumAmount){
+                    $progress['amount-percent'] = number_format($sumAmount/((int)$model->amount / 100), 2, '.', ' ');
+                }else{
+                    $progress['amount-percent'] = 100;
+                }
+            }
+
+        }else{
+            $progress['print-amount'] = 0;
+            $progress['amount-percent'] = 0;
+        }
+
+        $usersObjectlist = new ActiveDataProvider([
+            'query' => RoomObjectUser::find()
+                ->where(['object_id' => $id])
+                ->joinWith('user')
+                ->joinWith('userAvatar'),
+            'pagination' => [
+                'pageSize' => 50,
+            ],
+        ]);
+
+        if ($model->status_object == 0){
+            $finishObject = false;
+        }else{
+            $finishObject = true;
+        }
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'imgs' => $imgs,
-            'files' => $files
+            'files' => $files,
+            'usersObjectlist' => $usersObjectlist,
+            'finishObject' => $finishObject,
+            'progress' => $progress
         ]);
     }
 
@@ -621,6 +623,97 @@ class ObjectController extends DefaultBackendController
     public function actionPjax()
     {
         return $this->redirect(['update', 'id' => 2]);
+    }
+
+    /* отдать объект инвестору */
+    public function actionObjectFinish($oId, $uId)
+    {
+        if(isset($oId) && isset($uId)) {
+            $modelObjUser = RoomObjectUser::find()
+                ->where(['object_id' => $oId])
+                ->andWhere(['user_id' => $uId])
+                ->one();
+            if (isset($modelObjUser)) {
+                $modelObjUser->active = 1;
+                $modelObjUser->update();
+
+                /* проверяем всю собранную сумме, если она подходит, то изменяем статус у объекта на "закрыт" */
+                $object = Object::findOne($oId);
+                $modelObjUsers = RoomObjectUser::find()
+                    ->where(['object_id' => $oId])
+                    ->andWhere(['active' => 1])
+                    ->all();
+                if (isset($modelObjUsers)){
+                    $sum = 0;
+                    foreach ($modelObjUsers as $item){
+                        $sum = $sum + $item->sum;
+                    }
+                    if ($sum >= $object->amount){
+                        $object->status_object = 0;
+                        $object->update();
+                    }
+                }
+            }
+            return $this->redirect(['view', 'id' => $oId]);
+        }else{
+            throw new NotFoundHttpException('Вы передали не все параметры');
+        }
+    }
+
+    /* забрать объект у инвестора */
+    public function actionObjectFinishBack($oId, $uId)
+    {
+        if(isset($oId) && isset($uId)) {
+            $modelObjUser = RoomObjectUser::find()
+                ->where(['object_id' => $oId])
+                ->andWhere(['user_id' => $uId])
+                ->one();
+            if (isset($modelObjUser)){
+                $modelObjUser->active = 0;
+                $modelObjUser->update();
+            }
+            return $this->redirect(['view', 'id' => $oId]);
+        }else{
+            throw new NotFoundHttpException('Вы передали не все параметры');
+        }
+    }
+
+    /* отписавться */
+    public function actionUnsubscribe($oId, $uId)
+    {
+        if(isset($oId) && isset($uId)) {
+            $this->unsubscribeAll($oId, $uId);
+        }else{
+            throw new NotFoundHttpException('Вы передали не все параметры');
+        }
+    }
+
+    private function unsubscribeAll($oId, $uId)
+    {
+        $userList = RoomObjectUser::find()
+            ->where(['object_id' => $oId])
+            ->andWhere(['user_id' => $uId])
+            ->one();
+
+        if ($userList){
+            $userList->delete(['object_id' => $oId, 'user_id' => Yii::$app->user->id]);
+        }
+
+        $checkRoomObjects = RoomObjectUser::find()
+            ->where(['object_id' => $oId])
+            ->all();
+
+            $object = Object::findOne($oId);
+        if (!$checkRoomObjects ){
+            $object->status_object = 2;
+        }else{
+            $object->status_object = 1;
+        }
+
+        $object->save();
+
+        return $this->redirect(['view', 'id' => $oId]);
+
     }
 
 

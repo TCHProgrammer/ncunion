@@ -105,6 +105,7 @@ class ObjectSearch extends Object
         $query = Object::find()
             ->alias('o')
             ->andWhere(['status' => 1])
+            ->andWhere(['!=', 'status_object', 0])
             ->orderBy(['order' => SORT_ASC, 'created_at' => SORT_DESC])
             ->addGroupBy('o.id');
 
