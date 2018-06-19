@@ -35,17 +35,26 @@ use common\models\object\Object;
  * @property int $status_object
  * @property int $amount_min
  * @property int $amount_max
+ * @property int $area_min
+ * @property int $area_max
+ * @property int $rooms_min
+ * @property int $rooms_max
  *
  */
 class ObjectSearch extends Object
 {
     public $amount_min;
     public $amount_max;
+    public $area_min;
+    public $area_max;
+    public $rooms_min;
+    public $rooms_max;
 
     public function rules()
     {
         return [
-            [['id', 'type_id', 'status', 'place_km', 'area', 'rooms', 'price_cadastral', 'price_tian', 'price_market', 'price_liquidation', 'amount_min', 'amount_max'], 'integer'],
+            [['id', 'type_id', 'status', 'place_km', 'area', 'rooms', 'price_cadastral', 'price_tian', 'price_market', 'price_liquidation',
+              'amount_min', 'amount_max', 'area_min', 'area_max', 'rooms_min', 'rooms_max'], 'integer'],
             [['title', 'descr', 'address', 'address_map', 'owner'], 'safe'],
             [['amount'], 'number'],
         ];
@@ -73,6 +82,10 @@ class ObjectSearch extends Object
             'price_liquidation' => 'Ликвидационная  стоимость',
             'amount_min' => 'Мин стоимость',
             'amount_max' => 'Макс стоимость',
+            'area_min' => 'Мин площадь',
+            'area_max' => 'Макс площадь',
+            'rooms_min' => 'Мин колличество комнат',
+            'rooms_max' => 'Макс колличество комнат',
         ];
     }
 
@@ -81,7 +94,6 @@ class ObjectSearch extends Object
      */
     public function scenarios()
     {
-        // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
 
@@ -125,8 +137,8 @@ class ObjectSearch extends Object
         $query->andFilterWhere([
             'type_id' => $this->type_id,
             'amount' => $this->amount,
-            'area' => $this->area,
-            'rooms' => $this->rooms,
+            //'area' => $this->area,
+            //'rooms' => $this->rooms,
             'price_cadastral' => $this->price_cadastral,
             'price_tian' => $this->price_tian,
             'price_market' => $this->price_market,
@@ -135,7 +147,8 @@ class ObjectSearch extends Object
 
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['between', 'amount', $this->amount_min, $this->amount_max])
-        ;
+            ->andFilterWhere(['between', 'area', $this->area_min, $this->area_max])
+            ->andFilterWhere(['between', 'rooms', $this->rooms_min, $this->rooms_max]);
 
         if ($this->place_km) {
             if ($this->place_km == 0){

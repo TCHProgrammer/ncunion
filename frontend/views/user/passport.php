@@ -6,6 +6,10 @@ use common\models\object\ObjectType;
 use common\models\passport\FormParticipation;
 
 $this->title="Паспорт клиента";
+
+function valuePassport($item, $filter, $model){
+    return (!empty($model->$item)) ? $model->$item : $filter['ObjectSearch'][$item];
+}
 ?>
 
 <h1><?= Html::encode($this->title) ?></h1>
@@ -17,19 +21,67 @@ $this->title="Паспорт клиента";
         <?php $form = ActiveForm::begin(); ?>
 
         <div class="row">
-            <div class="col-lg-6">
+            <!-- цена -->
+            <div class="col-lg-4">
+                <?= $form->field($model, 'amount_min', ['options' => ['class' => 'input-adjustment col-lg-6 col-md-6']]) ?>
+
+                <?= $form->field($model, 'amount_max', ['options' => ['class' => 'input-adjustment col-lg-6 col-md-6']]) ?>
+
+                <div class="col-lg-12">
+                    <input id="price-slider"
+                           data-slider-id='ex1Slider'
+                           type="text"
+                           data-slider-min="<?= $filter['ObjectSearch']['amount_min'] ?>"
+                           data-slider-max="<?= $filter['ObjectSearch']['amount_max'] ?>"
+                           data-slider-step="1"
+                           data-slider-value="[<?= valuePassport('amount_min', $filter, $model) ?>, <?= valuePassport('amount_max', $filter, $model) ?>]"
+                    />
+                </div>
+            </div>
+
+            <!-- площадь -->
+            <div class="col-lg-4">
+                <?= $form->field($model, 'area_min', ['options' => ['class' => 'input-adjustment col-lg-6 col-md-6']]) ?>
+
+                <?= $form->field($model, 'area_max', ['options' => ['class' => 'input-adjustment col-lg-6 col-md-6']]) ?>
+
+                <div class="col-lg-12">
+                    <input id="area-slider"
+                           data-slider-id='ex1Slider'
+                           type="text"
+                           data-slider-min="<?= $filter['ObjectSearch']['area_min'] ?>"
+                           data-slider-max="<?= $filter['ObjectSearch']['area_max'] ?>"
+                           data-slider-step="1"
+                           data-slider-value="[<?= valuePassport('area_min', $filter, $model) ?>, <?= valuePassport('area_max', $filter, $model)?>]"
+                    />
+                </div>
+            </div>
+
+            <!-- комнаты -->
+            <div class="col-lg-4">
+                <?= $form->field($model, 'rooms_min', ['options' => ['class' => 'input-adjustment col-lg-6 col-md-6']]) ?>
+
+                <?= $form->field($model, 'rooms_max', ['options' => ['class' => 'input-adjustment col-lg-6 col-md-6']]) ?>
+
+                <div class="col-lg-12">
+                    <input id="rooms-slider"
+                           data-slider-id='ex1Slider'
+                           type="text"
+                           data-slider-min="<?= $filter['ObjectSearch']['rooms_min'] ?>"
+                           data-slider-max="<?= $filter['ObjectSearch']['rooms_max'] ?>"
+                           data-slider-step="1"
+                           data-slider-value="[<?= valuePassport('rooms_min', $filter, $model) ?>, <?= valuePassport('rooms_max', $filter, $model) ?>]"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
                 <?= $form->field($model, 'type_id', ['options' => ['class' => 'form-height']])->dropDownList(
                     ArrayHelper::map(ObjectType::find()->all(), 'id', 'title'),
                     ['prompt' => 'Выберите тип объекта...']
                 ) ?>
-
-                <?= $form->field($model, 'amount', ['options' => ['class' => 'form-height']])->textInput() ?>
-            </div>
-
-            <div class="col-lg-6">
-                <?= $form->field($model, 'area', ['options' => ['class' => 'form-height']])->textInput() ?>
-
-                <?= $form->field($model, 'rooms', ['options' => ['class' => 'form-height']])->textInput() ?>
             </div>
         </div>
 

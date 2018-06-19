@@ -6,6 +6,7 @@ use yii\widgets\ListView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\ObjectSearch */
+/* @var $filter array */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Каталог';
@@ -17,12 +18,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <!-- фильтр -->
     <?= $this->render('_search', [
-        'model'         => $searchModel,
-        'listValues'    => $listValues,
+        'model'          => $searchModel,
+        'listValues'     => $listValues,
         'listCheckboxes' => $listCheckboxes,
-        'listRadios'    => $listRadios,
+        'listRadios'     => $listRadios,
         'rezCheckboxes'  => $rezCheckboxes,
-        'rezRadios'     => $rezRadios
+        'rezRadios'      => $rezRadios,
+        'filter'         => $filter
     ]); ?>
 
     <!-- каталог объектов -->

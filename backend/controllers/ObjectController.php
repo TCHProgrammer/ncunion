@@ -703,8 +703,8 @@ class ObjectController extends DefaultBackendController
             ->where(['object_id' => $oId])
             ->all();
 
-            $object = Object::findOne($oId);
-        if (!$checkRoomObjects ){
+        $object = Object::findOne($oId);
+        if (!$checkRoomObjects){
             $object->status_object = 2;
         }else{
             $object->status_object = 1;

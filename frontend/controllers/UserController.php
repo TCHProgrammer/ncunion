@@ -28,6 +28,7 @@ use common\models\object\AttributeRadio;
 use common\models\passport\PassportAttributeCheckbox;
 use common\models\passport\PassportAttributeRadio;
 use common\models\object\Attribute;
+use common\models\object\Object;
 
 class UserController extends DefaultFrontendController{
 
@@ -99,6 +100,9 @@ class UserController extends DefaultFrontendController{
         $user = UserModel::find()->where(['id' => Yii::$app->user->id])->select('user_passport_id')->one();
         $model = $this->findPassport($user->user_passport_id);
 
+        /* min и max фильтр */
+        $filter = $this->filter();
+
         $listValue = Attribute::find()->all();
         $modelValue = PassportAttribute::find()->where(['passport_id' => $user->user_passport_id])->all();
         $rezValue = [];
@@ -145,6 +149,7 @@ class UserController extends DefaultFrontendController{
             'rezRadio' => $rezRadio,
             'listValue' => $listValue,
             'rezValue' => $rezValue,
+            'filter' => $filter
         ]);
     }
 
@@ -311,4 +316,27 @@ class UserController extends DefaultFrontendController{
         }
     }
 
+    private function filter(){
+        $objectPriceMin = Object::find()->select('amount')->orderBy('amount ASC')->one();
+        $objectPriceMax = Object::find()->select('amount')->orderBy('amount DESC')->one();
+
+        $objectAreaMin = Object::find()->select('area')->orderBy('area ASC')->one();
+        $objectAreaMax = Object::find()->select('area')->orderBy('area DESC')->one();
+
+        $objectRoomMins = Object::find()->select('rooms')->orderBy('rooms ASC')->one();
+        $objectRoomMaxs = Object::find()->select('rooms')->orderBy('rooms DESC')->one();
+
+        $filter = [
+            'ObjectSearch' => [
+                'amount_min' => (int)$objectPriceMin->amount,
+                'amount_max' => (int)$objectPriceMax->amount,
+                'area_min' => (int)$objectAreaMin->area,
+                'area_max' => (int)$objectAreaMax->area,
+                'rooms_min' => (int)$objectRoomMins->rooms,
+                'rooms_max' => (int)$objectRoomMaxs->rooms,
+            ]
+        ];
+
+        return $filter;
+    }
 }

@@ -10,11 +10,16 @@ use common\models\UserModel as User;
  * This is the model class for table "user_passport".
  *
  * @property int $id
- * @property string $amount
  * @property int $type_id
  * @property int $area
  * @property int $rooms
  * @property int $form_participation_id
+ * @property string $amount_min
+ * @property string $amount_max
+ * @property int $area_min
+ * @property int $area_max
+ * @property int $rooms_min
+ * @property int $rooms_max
  *
  * @property PassportAttribute[] $passportAttributes
  * @property User[] $users
@@ -37,9 +42,9 @@ class UserPassport extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['amount', 'type_id', 'form_participation_id'], 'required'],
-            [['amount'], 'number'],
-            [['type_id', 'form_participation_id', 'area', 'rooms'], 'integer'],
+            [['type_id', 'form_participation_id'], 'required'],
+            [['amount_min', 'amount_max'], 'number'],
+            [['type_id', 'form_participation_id', 'area_min', 'area_max', 'rooms_min', 'rooms_max'], 'integer'],
             [['form_participation_id'], 'exist', 'skipOnError' => true, 'targetClass' => FormParticipation::className(), 'targetAttribute' => ['form_participation_id' => 'id']],
             [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ObjectType::className(), 'targetAttribute' => ['type_id' => 'id']],
         ];
@@ -52,11 +57,15 @@ class UserPassport extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'amount' => 'Желаемая сумма участия',
             'type_id' => 'Тип объекта',
-            'area' => 'Площадь',
-            'rooms' => 'Комнаты',
             'form_participation_id' => 'Форма участия',
+            'amount_min' => 'Мин стоимость',
+            'amount_max' => 'Макс стоимость',
+            'area_min' => 'Мин площадь',
+            'area_max' => 'Макс площадь',
+            'rooms_min' => 'Мин колличество комнат',
+            'rooms_max' => 'Макс колличество комнат',
+
         ];
     }
 
@@ -69,8 +78,6 @@ class UserPassport extends \yii\db\ActiveRecord
 
         parent::afterSave($insert, $changedAttributes);
     }
-
-
 
     /**
      * @return \yii\db\ActiveQuery

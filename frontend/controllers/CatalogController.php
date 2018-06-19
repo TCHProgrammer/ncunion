@@ -43,6 +43,10 @@ class CatalogController extends DefaultFrontendController{
         $searchModel = new ObjectSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        /* min и max фильтр */
+        $filter = $this->filter();
+        //$searchModel->load($filter);
+
         if (isset($_GET['ObjectSearch']['type_id'])){
             $type_id = $_GET['ObjectSearch']['type_id'];
         }
@@ -90,7 +94,8 @@ class CatalogController extends DefaultFrontendController{
             'listCheckboxes' => $listCheckboxes,
             'listRadios'    => $listRadios,
             'rezCheckboxes'  => $rezCheckboxes,
-            'rezRadios'     => $rezRadios
+            'rezRadios'     => $rezRadios,
+            'filter' => $filter
         ]);
     }
 
@@ -146,10 +151,7 @@ class CatalogController extends DefaultFrontendController{
             if ($userRoom->load($post) && $userRoom->validate() && $userRoom->save()){
                 $object = Object::findOne($id);
                 if ($object){
-                    ////if (!((int)$post['RoomObjectUser']['sum'] >= $object->amount)){
-                        //$this->modelObjectFinish($id, Yii::$app->user->id);
                         $object->status_object = 1;
-                    ////}
                     $object->save();
                 }
                 return $this->redirect(['view', 'id' => $id]);
@@ -161,12 +163,11 @@ class CatalogController extends DefaultFrontendController{
             'model' => $model,
             'userRoom' => $userRoom,
             'userFoll' => $userFoll,
-            //'usersObjectlist' => $usersObjectlist,
             'commentNew' => $commentNew,
             'commentList' => $commentList,
             'modelImgs' => $modelImgs,
             'modelFiles' => $modelFiles,
-            'progress' => $progress
+            'progress' => $progress,
         ]);
     }
 
@@ -240,5 +241,29 @@ class CatalogController extends DefaultFrontendController{
         $object->save();
 
         return $this->redirect(['view', 'id' => $oId]);
+    }
+
+    private function filter(){
+        $objectPriceMin = Object::find()->select('amount')->orderBy('amount ASC')->one();
+        $objectPriceMax = Object::find()->select('amount')->orderBy('amount DESC')->one();
+
+        $objectAreaMin = Object::find()->select('area')->orderBy('area ASC')->one();
+        $objectAreaMax = Object::find()->select('area')->orderBy('area DESC')->one();
+
+        $objectRoomMins = Object::find()->select('rooms')->orderBy('rooms ASC')->one();
+        $objectRoomMaxs = Object::find()->select('rooms')->orderBy('rooms DESC')->one();
+
+        $filter = [
+            'ObjectSearch' => [
+                'amount_min' => (int)$objectPriceMin->amount,
+                'amount_max' => (int)$objectPriceMax->amount,
+                'area_min' => (int)$objectAreaMin->area,
+                'area_max' => (int)$objectAreaMax->area,
+                'rooms_min' => (int)$objectRoomMins->rooms,
+                'rooms_max' => (int)$objectRoomMaxs->rooms,
+            ]
+        ];
+
+        return $filter;
     }
 }

@@ -8,6 +8,10 @@ use common\models\object\ObjectType;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\ObjectSearch */
 /* @var $form yii\widgets\ActiveForm */
+
+function valueFilter($item, $filter){
+    return (!empty($_GET['ObjectSearch'][$item])) ? $_GET['ObjectSearch'][$item] : $filter['ObjectSearch'][$item];
+}
 ?>
 
 <div class="object-search">
@@ -18,14 +22,14 @@ use common\models\object\ObjectType;
     ]); ?>
 
     <div class="row">
-        <?= $form->field($model, 'title', ['options' => ['class' => 'input-adjustment col-lg-4 col-md-4']]) ?>
+        <?= $form->field($model, 'title', ['options' => ['class' => 'input-adjustment col-lg-6 col-md-6']]) ?>
 
-        <?= $form->field($model, 'type_id', ['options' => ['class' => 'input-adjustment col-lg-2 col-md-2']])->dropDownList(
+        <?= $form->field($model, 'type_id', ['options' => ['class' => 'input-adjustment col-lg-3 col-md-3']])->dropDownList(
             ArrayHelper::map(ObjectType::find()->all(), 'id', 'title'),
             ['prompt' => 'Выберите тип объекта...']
         ) ?>
 
-        <?= $form->field($model, 'place_km', ['options' => ['class' => 'input-adjustment col-lg-2 col-md-2']])->dropDownList(
+        <?= $form->field($model, 'place_km', ['options' => ['class' => 'input-adjustment col-lg-3 col-md-3']])->dropDownList(
             [
                 0 => 'Москва',
                 10 => 'до 10 км от МКАД',
@@ -36,24 +40,72 @@ use common\models\object\ObjectType;
             ['prompt' => 'Выберите удалённость от Москвы...']
         ) ?>
 
-        <?= $form->field($model, 'amount_min', ['options' => ['class' => 'input-adjustment col-lg-2 col-md-2']]) ?>
-
-        <?= $form->field($model, 'amount_max', ['options' => ['class' => 'input-adjustment col-lg-2 col-md-2']]) ?>
-
     </div>
 
     <div class="row">
-        <?= $form->field($model, 'area', ['options' => ['class' => 'input-adjustment col-lg-2 col-md-2']]) ?>
+        <!-- цена -->
+        <div class="col-lg-4">
+            <?= $form->field($model, 'amount_min', ['options' => ['class' => 'input-adjustment col-lg-6 col-md-6']]) ?>
 
-        <?= $form->field($model, 'rooms', ['options' => ['class' => 'input-adjustment col-lg-2 col-md-2']]) ?>
+            <?= $form->field($model, 'amount_max', ['options' => ['class' => 'input-adjustment col-lg-6 col-md-6']]) ?>
 
-        <?= $form->field($model, 'price_cadastral', ['options' => ['class' => 'input-adjustment col-lg-2 col-md-2']]) ?>
+            <div class="col-lg-12">
+                <input id="price-slider"
+                    data-slider-id='ex1Slider'
+                    type="text"
+                    data-slider-min="<?= $filter['ObjectSearch']['amount_min'] ?>"
+                    data-slider-max="<?= $filter['ObjectSearch']['amount_max'] ?>"
+                    data-slider-step="1"
+                    data-slider-value="[<?= valueFilter('amount_min', $filter) ?>, <?= valueFilter('amount_max', $filter) ?>]"
+                />
+            </div>
+        </div>
 
-        <?= $form->field($model, 'price_tian', ['options' => ['class' => 'input-adjustment col-lg-2 col-md-2']]) ?>
+        <!-- площадь -->
+        <div class="col-lg-4">
+            <?= $form->field($model, 'area_min', ['options' => ['class' => 'input-adjustment col-lg-6 col-md-6']]) ?>
 
-        <?= $form->field($model, 'price_market', ['options' => ['class' => 'input-adjustment col-lg-2 col-md-2']]) ?>
+            <?= $form->field($model, 'area_max', ['options' => ['class' => 'input-adjustment col-lg-6 col-md-6']]) ?>
 
-        <?= $form->field($model, 'price_liquidation', ['options' => ['class' => 'input-adjustment col-lg-2 col-md-2']]) ?>
+            <div class="col-lg-12">
+                <input id="area-slider"
+                    data-slider-id='ex1Slider'
+                    type="text"
+                    data-slider-min="<?= $filter['ObjectSearch']['area_min'] ?>"
+                    data-slider-max="<?= $filter['ObjectSearch']['area_max'] ?>"
+                    data-slider-step="1"
+                    data-slider-value="[<?= valueFilter('area_min', $filter) ?>, <?= valueFilter('area_max', $filter)?>]"
+                />
+            </div>
+        </div>
+
+        <!-- комнаты -->
+        <div class="col-lg-4">
+            <?= $form->field($model, 'rooms_min', ['options' => ['class' => 'input-adjustment col-lg-6 col-md-6']]) ?>
+
+            <?= $form->field($model, 'rooms_max', ['options' => ['class' => 'input-adjustment col-lg-6 col-md-6']]) ?>
+
+            <div class="col-lg-12">
+                <input id="rooms-slider"
+                    data-slider-id='ex1Slider'
+                    type="text"
+                    data-slider-min="<?= $filter['ObjectSearch']['rooms_min'] ?>"
+                    data-slider-max="<?= $filter['ObjectSearch']['rooms_max'] ?>"
+                    data-slider-step="1"
+                    data-slider-value="[<?= valueFilter('rooms_min', $filter) ?>, <?= valueFilter('rooms_max', $filter) ?>]"
+                />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <?= $form->field($model, 'price_cadastral', ['options' => ['class' => 'input-adjustment col-lg-3 col-md-3']]) ?>
+
+        <?= $form->field($model, 'price_tian', ['options' => ['class' => 'input-adjustment col-lg-3 col-md-3']]) ?>
+
+        <?= $form->field($model, 'price_market', ['options' => ['class' => 'input-adjustment col-lg-3 col-md-3']]) ?>
+
+        <?= $form->field($model, 'price_liquidation', ['options' => ['class' => 'input-adjustment col-lg-3 col-md-3']]) ?>
     </div>
 
     <?php //var_dump($_GET); ?>
