@@ -107,8 +107,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'headerOptions' => ['class' => 'text-center'],
                 'options' => ['style' => 'width:110px;'],
+                'format' => 'html',
                 'value' => function($model){
-                    return $model->status ? 'Да' : 'Нет';
+                    return $model->status ? '<span class="btn-success">Да</span>' : '<span class="btn-danger">Нет</span>';
                 }
             ],
 
@@ -121,14 +122,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'headerOptions' => ['class' => 'text-center'],
                 'options' => ['style' => 'width:190px;'],
+                'format' => 'html',
                 'value' => function($model){
                     switch ($model->status_object){
                         case 2:
-                            return 'Сделка открыта';
+                            return '<span class="btn-success">Сделка открыта</span>';
                         case 1:
-                            return 'Сделка частично закрыта';
+                            return '<span class="btn-warning">Сделка частично закрыта</span>';
                         default :
-                            return 'Сделка закрыта';
+                            return '<span class="btn-danger">Сделка закрыта</span>';
                     }
                 }
             ],

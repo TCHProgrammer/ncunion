@@ -97,7 +97,7 @@ if (($progress['amount-percent'] >= 0) && ($progress['amount-percent'] <= 29)){
                 </div>
             <?php } ?>
             <div class="catalog-user-item-btm text-center col-lg-6">
-                <?= Html::a('Удалить отклик', ['/object/unsubscribe?oId='.$model->object_id.'&uId='.$model['user']->id], ['class' => 'btn btn-primary', 'data-confirm' => 'Вы уверены, что хотите отписаться?']) ?>
+                <?= Html::a('Удалить отклик', ['/object/unsubscribe?oId='.$model->object_id.'&uId='.$model['user']->id], ['class' => 'btn btn-primary', 'data-confirm' => 'Вы уверены, что хотите удалить отклик?']) ?>
             </div>
         </div>
     <?php } ?>
