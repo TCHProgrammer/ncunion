@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\widgets\ActiveForm;
 use yii\widgets\ListView;
+use kartik\slider\Slider;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\object\Object */
@@ -142,17 +143,36 @@ $this->params['breadcrumbs'][] = $this->title;
                 <h4 class="modal-title" id="gridSystemModalLabel">Добавить новый элемент</h4>
             </div>
             <div class="modal-body modal-checkbox">
-                <?= $formCheckbox->field($userRoom, 'object_id')->hiddenInput(['value'=> $model->id])->label(false);?>
 
-                <?= $formCheckbox->field($userRoom, 'user_id')->hiddenInput(['value'=> Yii::$app->user->id])->label(false); ?>
+                <div>
+                    <div style="float: left">
+                        <?= $formCheckbox->field($userRoom, 'sum')->widget(Slider::classname(), [
+                            'pluginOptions'=>[
+                                'min'  => 0,
+                                'max'  => $model->amount,
+                                'step' => 1
+                            ]
+                        ]);
+                        ?>
+                    </div>
 
-                <?= $formCheckbox->field($userRoom, 'sum')->textInput() ?>
+                    <div style="float: left; margin-left: 10px">
+                        <?= $model->amount; ?>
+                    </div>
+                </div>
+<br>
+                <div>
+                    <?= $formCheckbox->field($userRoom, 'object_id')->hiddenInput(['value'=> $model->id])->label(false);?>
 
-                <?= $formCheckbox->field($userRoom, 'rate')->textInput() ?>
+                    <?= $formCheckbox->field($userRoom, 'user_id')->hiddenInput(['value'=> Yii::$app->user->id])->label(false); ?>
 
-                <?= $formCheckbox->field($userRoom, 'consumption')->textInput() ?>
+                    <?= $formCheckbox->field($userRoom, 'rate')->textInput() ?>
 
-                <?= $formCheckbox->field($userRoom, 'comment')->textarea() ?>
+                    <?= $formCheckbox->field($userRoom, 'consumption')->textInput() ?>
+
+                    <?= $formCheckbox->field($userRoom, 'comment')->textarea() ?>
+                </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>

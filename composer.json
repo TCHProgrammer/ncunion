@@ -21,7 +21,8 @@
         "mihaildev/yii2-ckeditor": "*",
         "kartik-v/yii2-widget-fileinput": "@dev",
         "kotchuprik/yii2-sortable-widgets": "*",
-        "metalguardian/yii2-fotorama-widget": "^1.0"
+        "metalguardian/yii2-fotorama-widget": "^1.0",
+        "kartik-v/yii2-slider": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

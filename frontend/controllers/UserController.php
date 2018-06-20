@@ -29,6 +29,8 @@ use common\models\passport\PassportAttributeCheckbox;
 use common\models\passport\PassportAttributeRadio;
 use common\models\object\Attribute;
 use common\models\object\Object;
+use yii\helpers\ArrayHelper;
+use common\models\object\ObjectType;
 
 class UserController extends DefaultFrontendController{
 
@@ -99,6 +101,7 @@ class UserController extends DefaultFrontendController{
 
         $user = UserModel::find()->where(['id' => Yii::$app->user->id])->select('user_passport_id')->one();
         $model = $this->findPassport($user->user_passport_id);
+        $objectTypeList = ArrayHelper::map(ObjectType::find()->all(), 'id', 'title');
 
         /* min и max фильтр */
         $filter = $this->filter();
@@ -143,6 +146,7 @@ class UserController extends DefaultFrontendController{
 
         return $this->render('passport', [
             'model' => $model,
+            'objectTypeList' => $objectTypeList,
             'listCheckbox' => $listCheckbox,
             'rezCheckbox' => $rezCheckbox,
             'listRadio' => $listRadio,

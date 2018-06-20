@@ -46,6 +46,7 @@ AppAsset::register($this);
     } else {
         //$menuItems[] = ['label' => Yii::$app->authManager->getRolesByUser(Yii::$app->user->id)['user']->name, 'url' => ['/user/profile']];
         $menuItems[] = ['label' => 'Каталог объектов', 'url' => ['/catalog']];
+        $menuItems[] = ['label' => 'Мои объекты', 'url' => ['/my-object']];
         $menuItems[] = ['label' => Yii::$app->user->identity->email, 'items' => [
             ['label' => 'Профиль', 'url' => ['/user/profile']],
             ['label' => 'Настройки', 'url' => ['/user/settings']],
