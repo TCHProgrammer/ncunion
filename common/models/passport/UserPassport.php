@@ -2,6 +2,7 @@
 
 namespace common\models\passport;
 
+use common\models\object\AttributeCheckbox;
 use Yii;
 use common\models\object\ObjectType;
 use common\models\UserModel as User;
@@ -105,5 +106,15 @@ class UserPassport extends \yii\db\ActiveRecord
     public function getType()
     {
         return $this->hasOne(ObjectType::className(), ['id' => 'type_id']);
+    }
+
+    public function getCheckboxs()
+    {
+        return $this->hasMany(PassportAttributeCheckbox::className(), ['passport_id' => 'id']);
+    }
+
+    public function getRadios()
+    {
+        return $this->hasMany(PassportAttributeRadio::className(), ['passport_id' => 'id']);
     }
 }

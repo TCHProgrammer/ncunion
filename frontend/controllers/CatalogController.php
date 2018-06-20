@@ -6,7 +6,7 @@ use common\models\CommentObject;
 use common\models\object\AttributeCheckbox;
 use common\models\object\ObjectFile;
 use common\models\object\ObjectImg;
-use common\models\RoomFinishObject;
+use common\models\passport\UserPassport;
 use common\models\RoomObjectUser;
 use common\models\UserModel;
 use Yii;
@@ -42,10 +42,33 @@ class CatalogController extends DefaultFrontendController{
     {
         $searchModel = new ObjectSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $user = UserModel::findOne(Yii::$app->user->id);
 
         /* min и max фильтр */
         $filter = $this->filter();
-        //$searchModel->load($filter);
+
+        $filterPassport = UserPassport::find()
+            ->where(['id' => $user->user_passport_id])
+            ->joinWith('checkboxs')
+            ->joinWith('radios')
+            ->one();
+
+        foreach ($filterPassport->checkboxs as $item){
+            if (isset($arrFilterPassport['checkboxs'][$item->attribute_id])){
+                array_push($arrFilterPassport['checkboxs'][$item->attribute_id], $item->group_id);
+            }else{
+                $arrFilterPassport['checkboxs'][$item->attribute_id] = [$item->group_id];
+            }
+        }
+
+        foreach ($filterPassport->radios as $item){
+            if (isset($arrFilterPassport['radios'][$item->attribute_id])){
+                array_push($arrFilterPassport['radios'][$item->attribute_id], $item->group_id);
+            }else{
+                $arrFilterPassport['radios'][$item->attribute_id] = [$item->group_id];
+            }
+        }
+
 
         if (isset($_GET['ObjectSearch']['type_id'])){
             $type_id = $_GET['ObjectSearch']['type_id'];
@@ -95,7 +118,9 @@ class CatalogController extends DefaultFrontendController{
             'listRadios'    => $listRadios,
             'rezCheckboxes'  => $rezCheckboxes,
             'rezRadios'     => $rezRadios,
-            'filter' => $filter
+            'filter' => $filter,
+            'filterPassport' => $filterPassport,
+            'arrFilterPassport' => $arrFilterPassport
         ]);
     }
 

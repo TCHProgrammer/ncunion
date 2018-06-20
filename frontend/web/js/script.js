@@ -1,5 +1,4 @@
 function checkType(j) {
-    console.log('dd');
     for(var i = 1; i <= 3; i++){
         if(i == j){
             $('.form-attribute-' + i).attr('style', "display:block");
@@ -27,7 +26,7 @@ $(document).ready(function () {
         checkType(Number($(this).val()));
     });
 
-    /* фильтрв вв каталоге */
+    /* фильтрв в каталоге */
     $('#objectsearch-type_id').change(function(){
         checkType(Number($(this).val()));
     });
@@ -68,9 +67,7 @@ $(document).ready(function () {
         $("#objectsearch-rooms_min").val(value[0]);
         $("#objectsearch-rooms_max").val(value[1]);
     });
-    /* !!! сделай плиз что бы при изменение филтра в input менялась полоса(slider) !!! */
 
-    /* фильтр в каталоге */
     $('#price-slider').slider({ tooltip: false });
     $("#price-slider").on("slide slideStop", function(slideEvt) {
         var value = slideEvt.value;
@@ -103,4 +100,52 @@ $(document).ready(function () {
         $("#userpassport-rooms_min").val(value[0]);
         $("#userpassport-rooms_max").val(value[1]);
     });
+    /* !!! сделай плиз что бы при изменение филтра в input менялась полоса(slider) !!! */
+
+
+    /* в каталоге применяет все параметры из паспорта к фильтру */
+    $('#filter-passport').on('click', function () {
+        var value;
+
+        /* очищаем все лишник поля */
+        $('#objectsearch-title').val('');
+        $('#objectsearch-price_cadastral').val('');
+        $('#objectsearch-price_tian').val('');
+        $('#objectsearch-price_market').val('');
+        $('#objectsearch-price_liquidation').val('');
+
+        /* тип объекта */
+        $('#objectsearch-type_id').each(function(){
+            value = $(this).data('value');
+            $(this).val(value);
+            checkType(value);
+        });
+
+        /* 3 филтра с ползунками */
+        $('#filter-slider *').each(function(){
+            value = $(this).data('value');
+            $(this).val(value);
+        });
+        /* !!! обязательно настроить так же ползунки !!! */
+
+        /* четбоксы, названия идут: тип_объекта-атрибут-груп  */
+        $('.checkbox input').each(function(){
+            value = $(this).data('value');
+            if (value === 1){
+                $(this).prop('checked', true);
+            }else{
+                $(this).prop('checked', false);
+            }
+        });
+
+        /* четбоксы, названия идут: тип_объекта-атрибут-груп  */
+        $('.radio input').each(function(){
+            value = $(this).data('value');
+            if (value === 1){
+                $(this).prop('checked', true);
+            }else{
+                $(this).prop('checked', false);
+            }
+        });
+    })
 });
