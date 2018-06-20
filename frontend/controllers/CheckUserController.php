@@ -19,6 +19,7 @@ use yii\web\Controller;
 use common\models\UserModel;
 use frontend\models\RegEmailPhone;
 use common\models\passport\UserPassport;
+use common\models\object\Object;
 
 class CheckUserController extends Controller{
 
@@ -69,6 +70,10 @@ class CheckUserController extends Controller{
 
             $model = new UserPassport();
 
+            /* min и max фильтр */
+            $filter = $this->filter();
+            $model->load($filter);
+
             if ($model->load(Yii::$app->request->post())) {
                 if($model->validate()){
                     if($model->save()){
@@ -79,6 +84,7 @@ class CheckUserController extends Controller{
 
             return $this->render('passport', [
                 'model' => $model,
+                'filter' => $filter
             ]);
 
         }elseif (Yii::$app->user->can('no_pay') || Yii::$app->user->can('user')){
@@ -105,5 +111,29 @@ class CheckUserController extends Controller{
                 'text' => $text
             ]);
         }
+    }
+
+    private function filter(){
+        $objectPriceMin = Object::find()->select('amount')->orderBy('amount ASC')->one();
+        $objectPriceMax = Object::find()->select('amount')->orderBy('amount DESC')->one();
+
+        $objectAreaMin = Object::find()->select('area')->orderBy('area ASC')->one();
+        $objectAreaMax = Object::find()->select('area')->orderBy('area DESC')->one();
+
+        $objectRoomMins = Object::find()->select('rooms')->orderBy('rooms ASC')->one();
+        $objectRoomMaxs = Object::find()->select('rooms')->orderBy('rooms DESC')->one();
+
+        $filter = [
+            'UserPassport' => [
+                'amount_min' => (int)$objectPriceMin->amount,
+                'amount_max' => (int)$objectPriceMax->amount,
+                'area_min' => (int)$objectAreaMin->area,
+                'area_max' => (int)$objectAreaMax->area,
+                'rooms_min' => (int)$objectRoomMins->rooms,
+                'rooms_max' => (int)$objectRoomMaxs->rooms,
+            ]
+        ];
+
+        return $filter;
     }
 }

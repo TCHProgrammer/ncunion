@@ -141,6 +141,7 @@ function valueFilter($item, $filter){
     <div class="form-group">
         <?= Html::submitButton('Поиск', ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Сбросить фильтр', ['/catalog'], ['class' => 'btn btn-default']) ?>
+        <?= Html::button('Применить фильтр из паспорта', ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -47,12 +47,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'title',
 
-            [
+            /* на данный момент не требуется */
+            /*[
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{delete}',
                 'options' => ['style' => 'width:35px'],
                 'contentOptions' => ['class' => 'text-center'],
-            ],
+            ],*/
         ],
     ]); ?>
 </div>

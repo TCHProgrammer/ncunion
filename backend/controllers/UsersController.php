@@ -155,6 +155,7 @@ class UsersController extends DefaultBackendController
                 ->leftJoin('auth_assignment', 'auth_assignment.user_id = user.id')
                 ->where(['auth_assignment.item_name' => 'unknown'])
                 ->andWhere(['check_email' => 1, 'check_phone' => 1])
+                ->andWhere(['not', ['user_passport_id' => null]])
                 ->orderBy('created_at ASC'),
             'pagination' => [
                 'pageSize' => 20,

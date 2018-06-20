@@ -28,9 +28,6 @@ use common\models\UserModel as User;
  */
 class UserPassport extends \yii\db\ActiveRecord
 {
-    /**
-     * @inheritdoc
-     */
     public static function tableName()
     {
         return 'user_passport';
@@ -43,8 +40,7 @@ class UserPassport extends \yii\db\ActiveRecord
     {
         return [
             [['type_id', 'form_participation_id'], 'required'],
-            [['amount_min', 'amount_max'], 'number'],
-            [['type_id', 'form_participation_id', 'area_min', 'area_max', 'rooms_min', 'rooms_max'], 'integer'],
+            [['type_id', 'form_participation_id', 'area_min', 'area_max', 'rooms_min', 'rooms_max',  'amount_min', 'amount_max', 'area_min', 'area_max', 'rooms_min', 'rooms_max'], 'integer'],
             [['form_participation_id'], 'exist', 'skipOnError' => true, 'targetClass' => FormParticipation::className(), 'targetAttribute' => ['form_participation_id' => 'id']],
             [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ObjectType::className(), 'targetAttribute' => ['type_id' => 'id']],
         ];

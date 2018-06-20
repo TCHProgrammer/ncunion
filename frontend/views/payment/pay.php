@@ -7,19 +7,25 @@ $this->title = "Покупка тарифа";
 
 <div class="row">
 <?php foreach ($tariffs as $tariff){
-    switch ($tariff->discount->type){
-        case 1:
-            $price = $tariff->price * (1 - ($tariff->discount->number / 100));
-            break;
-        case 2:
-            $price = $tariff->price - $tariff->discount->number;
-            break;
-        default:
-            $price = (int)$tariff->price;
-            break;
-    } ?>
+    if (!isset($tariff->discount->type)){
+        $price = (int)$tariff->price;
+    }else{
+        switch ($tariff->discount->type){
+            case 1:
+                $price = $tariff->price * (1 - ($tariff->discount->number / 100));
+                break;
+            case 2:
+                $price = $tariff->price - $tariff->discount->number;
+                break;
+            default:
+                $price = (int)$tariff->price;
+                break;
+        }
+    }
 
-    <?php pay($price, $tariff) ?>
+    pay($price, $tariff)
+
+    ?>
 <?php } ?>
 </div>
 

@@ -17,10 +17,13 @@ $this->title = 'Настройки';
 
             <h2>общая информация:</h2>
 
-            <?= Html::label('Текущая картинка') ?>
-            <div class="form-update-pic">
-                <?= Html::img($avatar->avatar) ?>
-            </div>
+            <?php if (isset($avatar->avatar)){ ?>
+                <?= Html::label('Текущая картинка') ?>
+                <div class="form-update-pic">
+                    <?= Html::img($avatar->avatar) ?>
+                </div>
+            <?php } ?>
+
             <?= $form->field($model, 'imageFile')->fileInput()?>
 
             <?= $form->field($model, 'last_name', ['options' => ['class' => 'form-height']])->textInput() ?>
