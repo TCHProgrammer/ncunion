@@ -34,8 +34,24 @@ use common\models\object\ObjectType;
 
 class UserController extends DefaultFrontendController{
 
-
     const file_name_length = 8;
+
+    public function behaviors(){
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['unknown', 'no_pay', 'user', 'admin']
+                    ]
+                ],
+                'denyCallback' => function ($rule, $action) {
+                    return $this->redirect(['site/login']);
+                }
+            ],
+        ];
+    }
 
     public function actionProfile(){
 
@@ -100,7 +116,13 @@ class UserController extends DefaultFrontendController{
     public function actionPassport(){
 
         $user = UserModel::find()->where(['id' => Yii::$app->user->id])->select('user_passport_id')->one();
+
+        if (is_null($user->user_passport_id)){
+            return $this->redirect('create-password');
+        }
+
         $model = $this->findPassport($user->user_passport_id);
+
         $objectTypeList = ArrayHelper::map(ObjectType::find()->all(), 'id', 'title');
 
         /* min и max фильтр */
@@ -129,17 +151,7 @@ class UserController extends DefaultFrontendController{
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()){
             if ($model->save()){
-
-                if (isset(Yii::$app->request->post('GroupValue')[$model->type_id])) {
-                    $this->saveText(Yii::$app->request->post('GroupValue')[$model->type_id], $model);
-                }
-                if (isset(Yii::$app->request->post('GroupCheckboxes')[$model->type_id])){
-                    $this->saveCheckbox(Yii::$app->request->post('GroupCheckboxes')[$model->type_id], $model);
-                }
-                if (isset(Yii::$app->request->post('GroupRadios')[$model->type_id])) {
-                    $this->saveRadio(Yii::$app->request->post('GroupRadios')[$model->type_id], $model);
-                }
-
+                $this->saveCheckbosRadio($objectTypeList, $model);
                 return $this->redirect('passport');
             }
         }
@@ -155,6 +167,84 @@ class UserController extends DefaultFrontendController{
             'rezValue' => $rezValue,
             'filter' => $filter
         ]);
+    }
+
+    public function actionCreatePassword(){
+        $user = UserModel::find()->where(['id' => Yii::$app->user->id])->select('user_passport_id')->one();
+        $model = new UserPassport();
+
+        $objectTypeList = ArrayHelper::map(ObjectType::find()->all(), 'id', 'title');
+
+        /* min и max фильтр */
+        $filter = $this->filter();
+
+        $listValue = Attribute::find()->all();
+
+        $listCheckbox = AttributeCheckbox::find()->all();
+
+        $listRadio = AttributeRadio::find()->all();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()){
+            if ($model->save()){
+                $this->saveCheckbosRadio($objectTypeList, $model);
+                return $this->redirect('/check-user');
+            }
+        }
+        $rezCheckbox = [];
+        $rezRadio = [];
+        $rezValue = [];
+
+        return $this->render('passport', [
+            'model' => $model,
+            'objectTypeList' => $objectTypeList,
+            'listCheckbox' => $listCheckbox,
+            'rezCheckbox' => $rezCheckbox,
+            'listRadio' => $listRadio,
+            'rezRadio' => $rezRadio,
+            'listValue' => $listValue,
+            'rezValue' => $rezValue,
+            'filter' => $filter
+        ]);
+    }
+
+    /**
+     * Сохранение четбоксов и тд.
+     */
+    private function saveCheckbosRadio($objectTypeList, $model){
+
+        /* не обновлял */
+        /*$itmValue = Yii::$app->request->post('GroupValue');
+        if (isset($itmValue)) {
+            foreach ($itmValue as $typeId => $item){
+                $this->saveText($itmValue[$typeId], $model);
+            }
+        }*/
+
+        $itmCheckboxes = Yii::$app->request->post('GroupCheckboxes');
+        if (!isset($itmCheckboxes)){
+            $itmCheckboxes = [];
+        }
+        foreach ($objectTypeList as $typeId => $item) {
+            if (array_key_exists($typeId, $itmCheckboxes)){
+                $res = $itmCheckboxes[$typeId];
+            }else{
+                $res = [];
+            }
+            $this->saveCheckbox($res, $typeId, $model);
+        }
+
+        $itmRadios = Yii::$app->request->post('GroupRadios');
+        if (!isset($itmRadios)){
+            $itmRadios = [];
+        }
+        foreach ($objectTypeList as $typeId => $item) {
+            if (array_key_exists($typeId, $itmRadios)){
+                $res = $itmRadios[$typeId];
+            }else{
+                $res = [];
+            }
+            $this->saveRadio($res, $typeId, $model);
+        }
     }
 
     /**
@@ -194,7 +284,7 @@ class UserController extends DefaultFrontendController{
      * Сохраниение text
      */
     private function saveText($groups, $model){
-
+        /* не обновлял */
         $listModel = PassportAttribute::find()->where(['passport_id' => $model->id])->all();
 
         $arrListGroups = [];
@@ -237,9 +327,22 @@ class UserController extends DefaultFrontendController{
     /**
      * Сохраниение checkbox
      */
-    private function saveCheckbox($groups, $model){
+    private function saveCheckbox($groups, $typeId, $model){
 
-        $listModel = PassportAttributeCheckbox::find()->where(['passport_id' => $model->id])->all();
+        $listModel = PassportAttributeCheckbox::find()
+            ->where(['passport_id' => $model->id]);
+
+        $filter = ['or'];
+        $attributes = AttributeCheckbox::find()->where(['type_id' => $typeId])->all();
+        if (!empty($attributes)){
+            foreach ($attributes as $item){
+                $filter[] = ['attribute_id' => $item->id];
+            }
+        }else{
+            $filter[] = ['attribute_id' => 0];
+        }
+        $listModel->andFilterWhere($filter);
+        $listModel = $listModel->all();
 
         $arrListGroups = [];
         foreach ($listModel as $item){
@@ -280,11 +383,24 @@ class UserController extends DefaultFrontendController{
     /**
      * Сохраниение radio
      */
-    private function saveRadio($groups, $model){
+    private function saveRadio($groups, $typeId, $model){
 
-        $listModel = PassportAttributeRadio::find()->where(['passport_id' => $model->id])->all();
+        $listModel = PassportAttributeRadio::find()
+            ->where(['passport_id' => $model->id]);
 
+        $filter = ['or'];
+        $attributes = AttributeRadio::find()->where(['type_id' => $typeId])->all();
+        if (!empty($attributes)){
+            foreach ($attributes as $item){
+                $filter[] = ['attribute_id' => $item->id];
+            }
+        }else{
+            $filter[] = ['attribute_id' => 0];
+        }
+        $listModel->andFilterWhere($filter);
+        $listModel = $listModel->all();
         $arrListGroups = [];
+
         foreach ($listModel as $item) {
             $arrListGroups[] .= $item->group_id;
         }

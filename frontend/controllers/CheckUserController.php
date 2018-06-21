@@ -67,26 +67,7 @@ class CheckUserController extends Controller{
 
         //тут чекам профиль из паспорта, если есть то гуд
         }elseif (is_null($user->user_passport_id)){
-
-            $model = new UserPassport();
-
-            /* min и max фильтр */
-            $filter = $this->filter();
-            $model->load($filter);
-
-            if ($model->load(Yii::$app->request->post())) {
-                if($model->validate()){
-                    if($model->save()){
-                        return $this->redirect('/payment/pay');
-                    };
-                }
-            }
-
-            return $this->render('passport', [
-                'model' => $model,
-                'filter' => $filter
-            ]);
-
+            return $this->redirect('/user/create-password');
         }elseif (Yii::$app->user->can('no_pay') || Yii::$app->user->can('user')){
             return $this->redirect('/payment/pay');
         }

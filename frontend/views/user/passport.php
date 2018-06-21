@@ -29,12 +29,12 @@ function valuePassport($item, $filter, $model){
 
                 <div class="col-lg-12">
                     <input id="price-slider"
-                           data-slider-id='ex1Slider'
-                           type="text"
-                           data-slider-min="<?= $filter['ObjectSearch']['amount_min'] ?>"
-                           data-slider-max="<?= $filter['ObjectSearch']['amount_max'] ?>"
-                           data-slider-step="1"
-                           data-slider-value="[<?= valuePassport('amount_min', $filter, $model) ?>, <?= valuePassport('amount_max', $filter, $model) ?>]"
+                        data-slider-id='ex1Slider'
+                        type="text"
+                        data-slider-min="<?= $filter['ObjectSearch']['amount_min'] ?>"
+                        data-slider-max="<?= $filter['ObjectSearch']['amount_max'] ?>"
+                        data-slider-step="1"
+                        data-slider-value="[<?= valuePassport('amount_min', $filter, $model) ?>, <?= valuePassport('amount_max', $filter, $model) ?>]"
                     />
                 </div>
             </div>
@@ -46,12 +46,12 @@ function valuePassport($item, $filter, $model){
 
                 <div class="col-lg-12">
                     <input id="area-slider"
-                           data-slider-id='ex1Slider'
-                           type="text"
-                           data-slider-min="<?= $filter['ObjectSearch']['area_min'] ?>"
-                           data-slider-max="<?= $filter['ObjectSearch']['area_max'] ?>"
-                           data-slider-step="1"
-                           data-slider-value="[<?= valuePassport('area_min', $filter, $model) ?>, <?= valuePassport('area_max', $filter, $model)?>]"
+                        data-slider-id='ex1Slider'
+                        type="text"
+                        data-slider-min="<?= $filter['ObjectSearch']['area_min'] ?>"
+                        data-slider-max="<?= $filter['ObjectSearch']['area_max'] ?>"
+                        data-slider-step="1"
+                        data-slider-value="[<?= valuePassport('area_min', $filter, $model) ?>, <?= valuePassport('area_max', $filter, $model)?>]"
                     />
                 </div>
             </div>
@@ -63,12 +63,12 @@ function valuePassport($item, $filter, $model){
 
                 <div class="col-lg-12">
                     <input id="rooms-slider"
-                           data-slider-id='ex1Slider'
-                           type="text"
-                           data-slider-min="<?= $filter['ObjectSearch']['rooms_min'] ?>"
-                           data-slider-max="<?= $filter['ObjectSearch']['rooms_max'] ?>"
-                           data-slider-step="1"
-                           data-slider-value="[<?= valuePassport('rooms_min', $filter, $model) ?>, <?= valuePassport('rooms_max', $filter, $model) ?>]"
+                        data-slider-id='ex1Slider'
+                        type="text"
+                        data-slider-min="<?= $filter['ObjectSearch']['rooms_min'] ?>"
+                        data-slider-max="<?= $filter['ObjectSearch']['rooms_max'] ?>"
+                        data-slider-step="1"
+                        data-slider-value="[<?= valuePassport('rooms_min', $filter, $model) ?>, <?= valuePassport('rooms_max', $filter, $model) ?>]"
                     />
                 </div>
             </div>
@@ -76,12 +76,6 @@ function valuePassport($item, $filter, $model){
 
         <!-- типы объектов -->
         <div class="row">
-            <div class="col-lg-12">
-                <?= $form->field($model, 'type_id', ['options' => ['class' => 'form-height']])->dropDownList(
-                    ArrayHelper::map(ObjectType::find()->all(), 'id', 'title'),
-                    ['prompt' => 'Выберите тип объекта...']
-                ) ?>
-            </div>
 
             <ul class="nav nav-tabs" id="myTabEvents">
                 <?php foreach ($objectTypeList as $id => $title){?>
@@ -96,16 +90,16 @@ function valuePassport($item, $filter, $model){
                     <div id="panel-type-<?= $id ?>" class="tab-pane fade <?= ($id == 1) ? 'in active' : '' ?>">
                         <br>
                         <!-- группа строк -->
-                        <div>
-                            <?php foreach ($listValue as $itemValue){ ?>
-                                <?php if ($itemValue->type_id == $id){ ?>
-                                    <label><?= $itemValue->title ?></label>
+                        <!--<div>
+                            <php foreach ($listValue as $itemValue){ ?>
+                                <php if ($itemValue->type_id == $id){ ?>
+                                    <label><= $itemValue->title ?></label>
                                     <div>
-                                        <input type="text" class="form-control" name="GroupValue[<?= $itemValue->type_id ?>][<?= $itemValue->id ?>][]" value="<?= isset($rezValue[$itemValue->id])?$rezValue[$itemValue->id]:'' ?>">
+                                        <input type="text" class="form-control" name="GroupValue[<= $itemValue->type_id ?>][<= $itemValue->id ?>][]" value="<= isset($rezValue[$itemValue->id])?$rezValue[$itemValue->id]:'' ?>">
                                     </div>
-                                <?php }else{continue;} ?>
-                            <?php } ?>
-                        </div>
+                                <php }else{continue;} ?>
+                            <php } ?>
+                        </div>-->
 
                         <!-- группа четбоксов -->
                         <div>

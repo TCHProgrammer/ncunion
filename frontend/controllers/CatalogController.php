@@ -53,6 +53,7 @@ class CatalogController extends DefaultFrontendController{
             ->joinWith('radios')
             ->one();
 
+        $arrFilterPassport = [];
         foreach ($filterPassport->checkboxs as $item){
             if (isset($arrFilterPassport['checkboxs'][$item->attribute_id])){
                 array_push($arrFilterPassport['checkboxs'][$item->attribute_id], $item->group_id);

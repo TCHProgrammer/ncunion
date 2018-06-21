@@ -40,10 +40,9 @@ class UserPassport extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type_id', 'form_participation_id'], 'required'],
-            [['type_id', 'form_participation_id', 'area_min', 'area_max', 'rooms_min', 'rooms_max',  'amount_min', 'amount_max', 'area_min', 'area_max', 'rooms_min', 'rooms_max'], 'integer'],
+            [['form_participation_id'], 'required'],
+            [['form_participation_id', 'area_min', 'area_max', 'rooms_min', 'rooms_max',  'amount_min', 'amount_max', 'area_min', 'area_max', 'rooms_min', 'rooms_max'], 'integer'],
             [['form_participation_id'], 'exist', 'skipOnError' => true, 'targetClass' => FormParticipation::className(), 'targetAttribute' => ['form_participation_id' => 'id']],
-            [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ObjectType::className(), 'targetAttribute' => ['type_id' => 'id']],
         ];
     }
 
@@ -54,7 +53,6 @@ class UserPassport extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'type_id' => 'Тип объекта',
             'form_participation_id' => 'Форма участия',
             'amount_min' => 'Мин стоимость',
             'amount_max' => 'Макс стоимость',
@@ -103,10 +101,6 @@ class UserPassport extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getType()
-    {
-        return $this->hasOne(ObjectType::className(), ['id' => 'type_id']);
-    }
 
     public function getCheckboxs()
     {

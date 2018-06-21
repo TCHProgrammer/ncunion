@@ -136,7 +136,7 @@ class m180417_125048_create_FK_in_new_tables extends Migration
         );
 
         $this->dropForeignKey(
-            'fk-user_passport-form_participation',
+            'fk-user_passport-form_participation_id',
             'user_passport'
         );
 

@@ -31,7 +31,7 @@ function valueFilter($item, $filter){
         <?= $form->field($model, 'type_id',
             [
                 'options' => ['class' => 'input-adjustment col-lg-3 col-md-3'],
-                'inputOptions' => ['data-value' => $filterPassport->type_id, 'class' => 'form-control']
+                'inputOptions' => ['class' => 'form-control']
             ])->dropDownList(
                 ArrayHelper::map(ObjectType::find()->all(), 'id', 'title'),
                 ['prompt' => 'Выберите тип объекта...']

@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
 
-        <!-- вывод информации она подписку -->
+        <!-- вывод информации на подписку -->
         <?php if ($userFoll){ ?>
             <div class="col-lg-12 col-md-12">
                 <h2>Вы откликнулись на сделку</h2>
@@ -160,7 +160,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?= $model->amount; ?>
                     </div>
                 </div>
-<br>
+                <br>
                 <div>
                     <?= $formCheckbox->field($userRoom, 'object_id')->hiddenInput(['value'=> $model->id])->label(false);?>
 

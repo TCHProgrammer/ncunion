@@ -115,11 +115,11 @@ $(document).ready(function () {
         $('#objectsearch-price_liquidation').val('');
 
         /* тип объекта */
-        $('#objectsearch-type_id').each(function(){
+        /*$('#objectsearch-type_id').each(function(){
             value = $(this).data('value');
             $(this).val(value);
             checkType(value);
-        });
+        });*/
 
         /* 3 филтра с ползунками */
         $('#filter-slider *').each(function(){
