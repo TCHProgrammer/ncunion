@@ -63,4 +63,20 @@ class EmailComponent extends Component{
             ->send();
     }
 
+    /**
+     * Восстановление пароля
+     */
+    public function passwordResetToken($userTo, $user){
+        return Yii::$app
+            ->mailer
+            ->compose(
+                ['html' => 'passwordResetToken-html', 'text' => 'passwordResetToken-text'],
+                ['user' => $user]
+            )
+            ->setFrom($this->infoSite->letter_email)
+            ->setTo($userTo)
+            ->setSubject('Password reset for ' . Yii::$app->name)
+            ->send();
+    }
+
 }
