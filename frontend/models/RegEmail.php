@@ -6,10 +6,9 @@ use yii\helpers\Url;
 use yii\base\Model;
 use common\models\User;
 
-class RegEmailPhone extends Model{
+class RegEmail extends Model{
 
     public $tokenEmail;
-    public $tokenPhone;
 
     public function checkEmail(){
         $user = User::findOne(Yii::$app->user->id);

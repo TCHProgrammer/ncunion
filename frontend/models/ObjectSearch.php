@@ -107,13 +107,6 @@ class ObjectSearch extends Object
 
     public function search($params)
     {
-        //данные из паспорта
-        /*$user = UserModel::findOne(Yii::$app->user->id);
-        $passport = UserPassport::findOne($user->user_passport_id);
-        $this->type_id = $passport->type_id;
-        $this->area = $passport->area;
-        $this->rooms = $passport->rooms;*/
-
         $query = Object::find()
             ->alias('o')
             ->andWhere(['status' => 1])
@@ -137,8 +130,6 @@ class ObjectSearch extends Object
         $query->andFilterWhere([
             'type_id' => $this->type_id,
             'amount' => $this->amount,
-            //'area' => $this->area,
-            //'rooms' => $this->rooms,
             'price_cadastral' => $this->price_cadastral,
             'price_tian' => $this->price_tian,
             'price_market' => $this->price_market,

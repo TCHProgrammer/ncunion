@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use common\models\UserModel;
 use yii\widgets\ActiveForm;
+use yii\helpers\Url;
 
 $user = UserModel::findOne(Yii::$app->user->id);
 
@@ -41,15 +42,11 @@ if($user){
     <?php } ?>
 
     <?php if (!$user->check_phone){ ?>
-        <?php $form = ActiveForm::begin(); ?>
 
-            <?= $form->field($model, 'tokenPhone')->hiddenInput(['value' => 1])->label(false) ?>
+        <div class="form-group">
+            <?= Html::a('Подтвердить телефон', Url::toRoute('phone'), ['class' => 'btn btn-primary']) ?>
+        </div>
 
-            <div class="form-group">
-                <?= Html::submitButton('Подтвердить телефон', ['class' => 'btn btn-primary']) ?>
-            </div>
-
-        <?php ActiveForm::end() ?>
     <?php } ?>
 
 </div>

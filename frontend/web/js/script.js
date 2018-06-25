@@ -149,4 +149,73 @@ $(document).ready(function () {
         });
     });
 
+
+    /* Отправка смс */ /* можно будет переделать */
+    var second = 30;
+    $('#push-phone-cmc').on('click', function(){
+
+        $.ajax({
+            type: 'POST',
+            url: '/check-user/push-phone',
+            data: {},
+            cache: false,
+            dataType: 'json',
+            success: function(res) {
+                console.log(res);
+
+                $('#push-phone-cmc').attr('disabled','disable');
+
+                setTimeout(btnDisabled, (second * 1000));
+
+                function timer(_time, _call){
+                    timer.lastCall = _call;
+                    timer.lastTime = _time;
+                    timer.timerInterval = setInterval(function(){
+                        _call(_time[0],_time[1],_time[2]);
+                        _time[2]--;
+                        if(_time[0]==0 && _time[1]==0 && _time[2]==0){
+                            timer.pause();
+                            _call(0,0,0);
+                        }
+                        if(_time[2]==0){
+                            _time[2] = 59;
+                            _time[1]--;
+                            if(_time[1]==0){
+                                _time[1] = 59;
+                                _time[0]--;
+                            }
+                        }
+                        timer.lastTime = _time
+                    }, 1000)
+                }
+                timer.pause = function(){
+                    clearInterval(timer.timerInterval)
+                };
+                timer.start = function(){
+                    timer(timer.lastTime, timer.lastCall)
+                };
+
+                timer([0,0,second], function(h,m,s){
+                    $('#time-phone').html('Для повторной отправки осталось <span id="time-phone-cmc"></span> секунд');
+                    $('#res-phone-cmc').html('Код выслан, проверьте свой телефон');
+                    $('#time-phone-cmc').html(s);
+                    $('#time-phone').css("display", "block");
+                    if (s == 0){
+                        $('#time-phone').css("display", "none");
+                    }
+                })
+
+            },
+            error: function(XHR, textStatus, errorThrown) {
+                var text = "Произошла ошибка при отправке смс";
+                $('#time-phone').html(text);
+                $('#time-phone').css("display", "block");
+                console.log(text);
+            }
+        });
+
+    });
+    function btnDisabled() {
+        $('#push-phone-cmc').removeAttr('disabled');
+    }
 });

@@ -8,22 +8,16 @@
 
 namespace frontend\controllers;
 
-use common\models\UserAvatar;
 use yii\filters\AccessControl;
-use frontend\models\UserSettingsForm;
-use yii\helpers\FileHelper;
-use yii\web\NotFoundHttpException;
-use yii\web\UploadedFile;
 use Yii;
 use yii\web\Controller;
 use common\models\UserModel;
-use frontend\models\RegEmailPhone;
-use common\models\passport\UserPassport;
-use common\models\object\Object;
+use frontend\models\RegEmail;
+use frontend\models\RegPhone;
+use common\components\Smsc;
 
 class CheckUserController extends Controller{
 
-    ///ВАЖНО НАПИСАТЬ РОЛИ!!!!! ИХ ТУТ НЕТ !!!!
     public function behaviors(){
         return [
             'access' => [
@@ -49,7 +43,7 @@ class CheckUserController extends Controller{
 
         if (!($user->check_email && $user->check_phone)){
 
-            $model = new RegEmailPhone();
+            $model = new RegEmail();
 
             if(isset(Yii::$app->request->post()['RegEmailPhone']['tokenEmail'])){
 
@@ -94,27 +88,55 @@ class CheckUserController extends Controller{
         }
     }
 
-    private function filter(){
-        $objectPriceMin = Object::find()->select('amount')->orderBy('amount ASC')->one();
-        $objectPriceMax = Object::find()->select('amount')->orderBy('amount DESC')->one();
+    public function actionPhone()
+    {
+        $model = new RegPhone();
 
-        $objectAreaMin = Object::find()->select('area')->orderBy('area ASC')->one();
-        $objectAreaMax = Object::find()->select('area')->orderBy('area DESC')->one();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $user = UserModel::findOne(Yii::$app->user->id);
+            if ($user->phone_confirm_token == $model->code){
+                $user->phone_confirm_token = null;
+                $user->check_phone = 1;
+                if ($user->update()){
+                    Yii::$app->session->setFlash('success', 'Ваш телефон успешно подтвержден.');
+                    return $this->redirect('/check-user');
+                }else{
+                    Yii::$app->session->setFlash('error', 'Возникла внутренняя ошибка сервера. Пользователь не найден.');
+                    return $this->redirect('phone');
+                }
+            }
+            Yii::$app->session->setFlash('error', 'Вы ввели неверный код.');
+            return $this->redirect('phone');
+        };
 
-        $objectRoomMins = Object::find()->select('rooms')->orderBy('rooms ASC')->one();
-        $objectRoomMaxs = Object::find()->select('rooms')->orderBy('rooms DESC')->one();
+        return $this->render('phone', [
+            'model' => $model
+        ]);
+    }
 
-        $filter = [
-            'UserPassport' => [
-                'amount_min' => (int)$objectPriceMin->amount,
-                'amount_max' => (int)$objectPriceMax->amount,
-                'area_min' => (int)$objectAreaMin->area,
-                'area_max' => (int)$objectAreaMax->area,
-                'rooms_min' => (int)$objectRoomMins->rooms,
-                'rooms_max' => (int)$objectRoomMaxs->rooms,
-            ]
-        ];
+    public function actionPushPhone()
+    {
+        $model = new RegPhone();
 
-        return $filter;
+        /* генерируем code */
+        $code = $model->regCodePhone();
+        if (!isset($code)){ return false; };
+
+        /* находим пользователя и записываем code */
+        $user = UserModel::findOne(Yii::$app->user->id);
+        if (!isset($user)){ return false; };
+        $user->phone_confirm_token = $code;
+
+        if ($user->validate() && $user->update()){
+            /*отправляем письмо по смс*/
+            $sms = new Smsc();
+            if ($sms->pushSms($user->phone, $code)){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
     }
 }
