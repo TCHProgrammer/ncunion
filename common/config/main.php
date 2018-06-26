@@ -52,6 +52,9 @@ return [
         'date' => [
             'class' => 'common\components\DateComponent',
         ],
+        'cud' => [
+            'class' => 'common\components\CudComponent',
+        ],
     ],
 
 ];

@@ -97,35 +97,13 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
-    public function actionContact()
-    {
-        /* Покачто временно не нужен */
-        Yii::$app->session->setFlash('success', '1111111Thank you for contacting us. We will respond to you as soon as possible.');
-
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
-            } else {
-                Yii::$app->session->setFlash('error', 'There was an error sending your message.');
-            }
-
-            //return $this->refresh();
-        } else {
-            /*return $this->render('contact', [
-                'model' => $model,
-            ]);*/
-        }
-    }
-
     public function actionSignup()
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
-                    return $this->redirect('/');
-                    //return $this->goHome();
+                    return $this->redirect('/catalog');
                 }
             }
         }

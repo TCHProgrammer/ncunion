@@ -63,12 +63,11 @@ class SignupForm extends Model
 
         $user = new User();
         $user->email = $this->email;
-        $user->phone = $this->phone;
+        $user->phone = $this->phone($this->phone);
         $user->first_name = $this->first_name;
         $user->last_name = $this->last_name;
         $user->middle_name = $this->middle_name;
         $user->company_name = $this->company_name;
-        $user->phone = $this->phone;
         $user->setPassword($this->password);
         $user->generateAuthKey();
 
@@ -83,5 +82,11 @@ class SignupForm extends Model
         }else{
             return null;
         }
+    }
+
+    public function phone($phone){
+        $vowels = ['+', '(', ')', '-'];
+        $res = str_replace($vowels, "", $phone);
+        return $res;
     }
 }

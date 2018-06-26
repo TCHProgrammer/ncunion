@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use backend\components\controllers\DefaultBackendController;
 use yii\filters\AccessControl;
 use common\modules\tariff\models\TariffDiscount;
+use yii\web\ForbiddenHttpException;
 
 /**
  * TariffController implements the CRUD actions for Tariff model.
@@ -62,6 +63,10 @@ class DefaultController extends DefaultBackendController
      */
     public function actionCreate()
     {
+        if (!Yii::$app->user->can('update')){
+            throw new ForbiddenHttpException('The requested page does not exist.');
+        }
+
         $model = new Tariff();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -82,6 +87,8 @@ class DefaultController extends DefaultBackendController
      */
     public function actionUpdate($id)
     {
+        Yii::$app->cud->create();
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

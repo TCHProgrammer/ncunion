@@ -44,6 +44,13 @@ class UserModel extends \yii\db\ActiveRecord
         return 'user';
     }
 
+    public function afterDelete()
+    {
+        AuthAssignment::deleteAll(['user_id' => $this->id]);
+        return parent::afterDelete();
+
+    }
+
     /**
      * @inheritdoc
      */
@@ -169,5 +176,7 @@ class UserModel extends \yii\db\ActiveRecord
         }
         return false;
     }
+
+    /* формирования телефона */
 
 }

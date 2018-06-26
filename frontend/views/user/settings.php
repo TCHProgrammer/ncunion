@@ -34,7 +34,7 @@ $this->title = 'Настройки';
 
             <?= $form->field($model, 'email', ['options' => ['class' => 'form-height']])->textInput() ?>
 
-            <?= $form->field($model, 'phone', ['options' => ['class' => 'form-height']])->textInput(['placeholder' => '+7 (___) ___ __ __']) ?>
+            <?= $form->field($model, 'phone', ['options' => ['class' => 'form-height']])->textInput(['id' => 'mask-reg-phone', 'value' => '+7(___)___-____'])?>
 
             <?= $form->field($model, 'company_name', ['options' => ['class' => 'form-height']])->textInput() ?>
 
