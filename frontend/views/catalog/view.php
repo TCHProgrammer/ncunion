@@ -144,21 +144,17 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="modal-body modal-checkbox">
 
-                <div>
-                    <div style="float: left">
-                        <?= $formCheckbox->field($userRoom, 'sum')->widget(Slider::classname(), [
-                            'pluginOptions'=>[
-                                'min'  => 0,
-                                'max'  => $model->amount,
-                                'step' => 1
-                            ]
-                        ]);
-                        ?>
-                    </div>
+                <?= $formCheckbox->field($userRoom, 'sum')->textInput() ?>
 
-                    <div style="float: left; margin-left: 10px">
-                        <?= $model->amount; ?>
-                    </div>
+                <div>
+                    <input id="user-slider"
+                        data-slider-id='ex1Slider'
+                        type="text"
+                        data-slider-min="0"
+                        data-slider-max="<?= $model->amount ?>"
+                        data-slider-step="1"
+                        data-slider-value="0"
+                        />
                 </div>
                 <br>
                 <div>

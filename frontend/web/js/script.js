@@ -40,10 +40,6 @@ $(document).ready(function () {
         var value = slideEvt.value;
         $("#objectsearch-amount_min").val(value[0]);
         $("#objectsearch-amount_max").val(value[1]);
-    }).on("click", function (slideEvt) {
-        var value = slideEvt.value;
-        $("#objectsearch-amount_min").val(value[0]);
-        $("#objectsearch-amount_max").val(value[1]);
     });
 
     $('#area-slider').slider({ tooltip: false });
@@ -51,18 +47,10 @@ $(document).ready(function () {
         var value = slideEvt.value;
         $("#objectsearch-area_min").val(value[0]);
         $("#objectsearch-area_max").val(value[1]);
-    }).on("click", function (slideEvt) {
-        var value = slideEvt.value;
-        $("#objectsearch-area_min").val(value[0]);
-        $("#objectsearch-area_max").val(value[1]);
     });
 
     $('#rooms-slider').slider({ tooltip: false });
     $("#rooms-slider").on("slide slideStop", function(slideEvt) {
-        var value = slideEvt.value;
-        $("#objectsearch-rooms_min").val(value[0]);
-        $("#objectsearch-rooms_max").val(value[1]);
-    }).on("click", function (slideEvt) {
         var value = slideEvt.value;
         $("#objectsearch-rooms_min").val(value[0]);
         $("#objectsearch-rooms_max").val(value[1]);
@@ -73,18 +61,10 @@ $(document).ready(function () {
         var value = slideEvt.value;
         $("#userpassport-amount_min").val(value[0]);
         $("#userpassport-amount_max").val(value[1]);
-    }).on("click", function (slideEvt) {
-        var value = slideEvt.value;
-        $("#userpassport-amount_min").val(value[0]);
-        $("#userpassport-amount_max").val(value[1]);
     });
 
     $('#area-slider').slider({ tooltip: false });
     $("#area-slider").on("slide slideStop", function(slideEvt) {
-        var value = slideEvt.value;
-        $("#userpassport-area_min").val(value[0]);
-        $("#userpassport-area_max").val(value[1]);
-    }).on("click", function (slideEvt) {
         var value = slideEvt.value;
         $("#userpassport-area_min").val(value[0]);
         $("#userpassport-area_max").val(value[1]);
@@ -95,13 +75,41 @@ $(document).ready(function () {
         var value = slideEvt.value;
         $("#userpassport-rooms_min").val(value[0]);
         $("#userpassport-rooms_max").val(value[1]);
-    }).on("click", function (slideEvt) {
-        var value = slideEvt.value;
-        $("#userpassport-rooms_min").val(value[0]);
-        $("#userpassport-rooms_max").val(value[1]);
     });
+
+    /* при загрузке сохраняет сзнение со слайдера(ползунка) в input */
+    var resPriceSlide = $("#price-slider").data('slider-value');
+    if (!(resPriceSlide === undefined)){
+        $("#objectsearch-amount_min").val(resPriceSlide[0]);
+        $("#objectsearch-amount_max").val(resPriceSlide[1]);
+        $("#userpassport-amount_min").val(resPriceSlide[0]);
+        $("#userpassport-amount_max").val(resPriceSlide[1]);
+    }
+
+    var resAreaSlide = $("#area-slider").data('slider-value');
+    if (!(resAreaSlide === undefined)){
+        $("#objectsearch-area_min").val(resAreaSlide[0]);
+        $("#objectsearch-area_max").val(resAreaSlide[1]);
+        $("#userpassport-area_min").val(resAreaSlide[0]);
+        $("#userpassport-area_max").val(resAreaSlide[1]);
+    }
+
+    var resRoomsSlide = $("#rooms-slider").data('slider-value');
+    if (!(resRoomsSlide === undefined)){
+        $("#objectsearch-rooms_min").val(resRoomsSlide[0]);
+        $("#objectsearch-rooms_max").val(resRoomsSlide[1]);
+        $("#userpassport-rooms_min").val(resRoomsSlide[0]);
+        $("#userpassport-rooms_max").val(resRoomsSlide[1]);
+    }
+
     /* !!! сделай плиз что бы при изменение филтра в input менялась полоса(slider) !!! */
 
+    /* ползунок в подписке на объект */
+    $('#user-slider').slider({ tooltip: false });
+    $("#user-slider").on("slide slideStop", function(slideEvt) {
+        var value = slideEvt.value;
+        $("#roomobjectuser-sum").val(value);
+    });
 
     /* в каталоге применяет все параметры из паспорта к фильтру */
     $('#filter-passport').on('click', function () {
