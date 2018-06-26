@@ -45,7 +45,7 @@ class CheckUserController extends Controller{
 
             $model = new RegEmail();
 
-            if(isset(Yii::$app->request->post()['RegEmailPhone']['tokenEmail'])){
+            if(isset(Yii::$app->request->post()['RegEmail']['tokenEmail'])){
 
                 if($model->checkEmail()){
                     Yii::$app->session->setFlash('success', 'Проверьте свою электронную почту для для активации аккаунта.');
@@ -85,6 +85,9 @@ class CheckUserController extends Controller{
             return $this->render('email', [
                 'text' => $text
             ]);
+        }else{
+            Yii::$app->session->setFlash('success', 'Произошла ошибка. Неверный токен, потвердите вашу почту ещё раз.');
+            return $this->redirect('/check-user');
         }
     }
 
