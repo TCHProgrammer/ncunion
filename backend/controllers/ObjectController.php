@@ -290,13 +290,24 @@ class ObjectController extends DefaultBackendController
         ]);
     }
 
-    /**
-     * Deletes an existing Object model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+    public function actionClose($id)
+    {
+        $model = $this->findModel($id);
+        $model->status_object = 0;
+        $model->update();
+
+        return $this->redirect(['view', 'id' => $id]);
+    }
+
+    public function actionOpen($id)
+    {
+        $model = $this->findModel($id);
+        $model->status_object = 2;
+        $model->update();
+
+        return $this->redirect(['view', 'id' => $id]);
+    }
+
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
