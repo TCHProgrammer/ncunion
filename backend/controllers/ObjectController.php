@@ -659,10 +659,6 @@ class ObjectController extends DefaultBackendController
                     foreach ($modelObjUsers as $item){
                         $sum = $sum + $item->sum;
                     }
-                    if ($sum >= $object->amount){
-                        $object->status_object = 0;
-                        $object->update();
-                    }
                 }
             }
             return $this->redirect(['view', 'id' => $oId]);
