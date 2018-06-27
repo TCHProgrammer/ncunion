@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\components\Smsc;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;

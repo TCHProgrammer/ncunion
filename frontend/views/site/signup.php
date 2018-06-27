@@ -6,6 +6,7 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use common\components\maskedinput\MaskedInput;
 
 $this->title = 'Регистрация';
 $this->params['breadcrumbs'][] = $this->title;
@@ -30,7 +31,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="col-lg-6">
 
-            <?= $form->field($model, 'phone', ['options' => ['class' => 'form-height']])->textInput(['id' => 'mask-reg-phone', 'value' => '+7(___)___-____']) ?>
+            <?= $form->field($model, 'phone')->widget(MaskedInput::className(), [
+                'mask' => '+7(999)999-9999',
+            ]) ?>
 
             <?= $form->field($model, 'company_name', ['options' => ['class' => 'form-height']])->textInput() ?>
 
