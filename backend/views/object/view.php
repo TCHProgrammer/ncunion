@@ -22,10 +22,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(($model->status_object === 0)?'Открыть сделку':'Закрыть сделку', [($model->status_object === 0)?'open':'close', 'id' => $model->id], [
+            'class' => ($model->status_object === 0)?'btn btn-success':'btn btn-warning',
+            'data' => [
+                'confirm' => 'Вы уверанны, что хотите изменит статус сделки?',
+                'method' => 'post',
+            ],
+        ]) ?>
         <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы уверанны, что хотите удалить объект?',
                 'method' => 'post',
             ],
         ]) ?>

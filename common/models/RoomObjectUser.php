@@ -22,9 +22,8 @@ use common\models\object\Object;
  */
 class RoomObjectUser extends \yii\db\ActiveRecord
 {
-    /**
-     * @inheritdoc
-     */
+    public $slider_sum;
+
     public static function tableName()
     {
         return 'room_object_user';
@@ -59,7 +58,8 @@ class RoomObjectUser extends \yii\db\ActiveRecord
             'rate' => 'Ставка',
             'consumption' => 'Расход по сделке',
             'comment' => 'Пожелания ',
-            'created_at' => 'Дата создания'
+            'created_at' => 'Дата создания',
+            'slider_sum' => 'Сумма'
         ];
     }
 
