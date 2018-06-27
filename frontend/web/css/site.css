@@ -381,8 +381,22 @@ a.desc:after {
     box-shadow: 0 2px 2px #f1f0f0;
 }
 
+.object-item-img{
+    position: relative;
+}
+
 .object-item-img img{
     width: 100%;
+}
+
+.object-tag{
+    position: absolute;
+    right: 40px;
+    background: #de89b0;
+    border: 1px solid red;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    padding: 5px 10px;
 }
 
 

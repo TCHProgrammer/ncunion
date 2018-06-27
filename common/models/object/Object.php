@@ -292,7 +292,8 @@ class Object extends \yii\db\ActiveRecord
 
     public function getTag()
     {
-        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])->viaTable('{{%object_tag}}', ['object_id' => 'id']);
+        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
+            ->viaTable('{{%object_tag}}', ['object_id' => 'id']);
     }
 
     /* сохраниение тегов */
