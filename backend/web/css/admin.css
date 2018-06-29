@@ -403,8 +403,12 @@ a.desc:after {
 }
 
 .input-group{
-    width: calc(100% - 40px);
-    display: inline-block;
+    /*width: calc(100% - 40px);*/
+    /*display: inline-block;*/
+}
+
+.table-striped thead tr th{
+    color: #3c8dbc;
 }
 
 .btn-del-group{

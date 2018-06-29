@@ -1,0 +1,53 @@
+.skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side {
+    background-color: #2f4050 !important;
+}
+
+.skin-blue .sidebar-menu>li.active>a {
+    border-left-color: #19aa8d !important;
+}
+
+.skin-blue .sidebar-menu .treeview-menu>li>a {
+    color: #8aa4af !important;
+}
+
+.skin-blue .sidebar-menu>li>.treeview-menu {
+    background: #263340 !important;
+}
+
+.skin-blue .sidebar-menu>li:hover>a, .skin-blue .sidebar-menu>li.active>a, .skin-blue .sidebar-menu>li.menu-open>a {
+    background: #293846 !important;
+}
+
+.logo {
+    background-color: #119c80 !important;
+    border-bottom: 1px solid #119c80 !important;
+}
+
+.logo:hover {
+    background-color: #11947a !important;
+    border-bottom: 1px solid #11947a !important;
+}
+
+.skin-blue .main-header .navbar {
+    background-color: #1ab394 ;
+}
+
+.navbar {
+    background-color: #fff;
+    border-bottom: 1px solid #adadad !important;
+}
+
+.navbar-adm-top{
+    background-color: #fff !important;
+    border-bottom: 1px solid #adadad !important;
+}
+
+.sidebar-toggle-adm {
+    width: 41px;
+    height: 31px;
+    padding: 5px 14px !important;
+    margin: 9px 5px 5px 20px !important;
+    background: #19aa8d !important;
+    border: 1px solid #197d69;
+    border-radius: 3px;
+}

@@ -16,6 +16,7 @@ class AppAsset extends AssetBundle
         'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
         'https://itchief.ru/assets/demo/jasny-bootstrap/css/jasny-bootstrap.min.css',
         'css/admin.css',
+        'css/custom-admin-panel.css',
     ];
     public $js = [
         '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
