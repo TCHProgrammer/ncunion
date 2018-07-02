@@ -24,8 +24,6 @@ $list = [
 <!-- 'class' => 'form-height' -->
         <div class="col-lg-6">
 
-            <?//= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-
             <?= $form->field($model, 'last_name', ['options' => ['class' => 'form-height']])->textInput() ?>
 
             <?= $form->field($model, 'first_name', ['options' => ['class' => 'form-height']])->textInput() ?>

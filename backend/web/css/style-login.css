@@ -1,0 +1,43 @@
+.profile-img-card{
+    width: 100px;
+    height: 100px;
+    margin: 5px auto 20px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.custom-login-input input{
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    position: relative;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    height: 44px;
+    font-size: 16px;
+}
+
+.custom-login-input span{
+    width: 44px !important;
+    height: 44px !important;
+    line-height: 44px !important;
+}
+
+.btn-admin-login {
+    background: linear-gradient(#72c41f, #5c9e19);
+    border: 2px solid #467813;
+    border-radius: 5px;
+    color: #fff;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding: 6px 22px;
+}
+
+.login-box-body{
+    border-radius: 10px;
+}

@@ -1,8 +1,10 @@
 <?php
-/**
- * @dmstr\widgets\Menu
- */
+use \common\models\UserModel;
+use yii\helpers\Url;
+
+$user = UserModel::findOne(Yii::$app->user->id);
 ?>
+
 <aside class="main-sidebar">
 
     <section class="sidebar">
@@ -13,9 +15,8 @@
                 <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
             </div>
             <div class="pull-left info">
-                <p>Alexander Pierce</p>
-
-                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                <p><?= $user->email ?></p>
+                <a href="<?= Url::to('/') ?>" target="_blank" style="color: #d8d330"><?= 'http://' . $_SERVER['SERVER_NAME'] ?></a>
             </div>
         </div>
 
@@ -23,7 +24,7 @@
             [
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                 'items' => [
-                    /*['label' => 'Menu Yii2', 'options' => ['class' => 'header']],*/
+                    ['label' => 'Меню', 'options' => ['class' => 'header']],
 
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
 
@@ -76,9 +77,11 @@
                         ],
                     ],
 
-                    ['label' => 'Объекты', 'icon' => 'fw fa-institution', 'url' => ['/object']],
+                    Yii::$app->user->can('can_create_object') ?
+                        ['label' => 'Объекты', 'icon' => 'fw fa-institution', 'url' => ['/object']] : false,
 
-                    ['label' => 'Тарифф', 'icon' => 'fw fa-line-chart', 'url' => ['/tariff']],
+                    Yii::$app->user->can('can_module_tariff') ?
+                        ['label' => 'Тарифф', 'icon' => 'fw fa-line-chart', 'url' => ['/tariff']] : false,
 
                 ],
             ]
