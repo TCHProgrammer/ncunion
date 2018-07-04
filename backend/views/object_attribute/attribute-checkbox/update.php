@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = 'Изменить';
         <div class="row form-group">
             <?php foreach($groupList as $item){ ?>
                 <div class="form-group-input col-lg-3">
-                    <input type="text" class="form-control input-group" name="Group[<?= $item->id ?>][title]" value="<?= $item->title ?>">
+                    <input type="text" class="form-control input-group input-checkbox-radio" name="Group[<?= $item->id ?>][title]" value="<?= $item->title ?>">
                     <?= Html::a('', Url::to(['delete-item', 'id' => $item->id, 'attribute' => $model->id]), ['class' => 'glyphicon glyphicon-trash btn-del-group']) ?>
                 </div>
             <?php } ?>

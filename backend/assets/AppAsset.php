@@ -19,7 +19,7 @@ class AppAsset extends AssetBundle
         'css/custom-admin-panel.css',
     ];
     public $js = [
-        '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
+        //'//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
         'js/script.js'
     ];
     public $depends = [

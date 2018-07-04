@@ -15,8 +15,6 @@ use backend\modules\rbac\models\AuthItem;
 
     <?= $form->field($model, 'item_name')->dropDownList(AuthItem::getListRoles()) ?>
 
-    <?//= $form->field($model, 'user_id')->textInput(['maxlength' => true]) ?>
-
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>

@@ -402,9 +402,14 @@ a.desc:after {
     margin: 5px 0 5px 0;
 }
 
-.input-group{
-    /*width: calc(100% - 40px);*/
-    /*display: inline-block;*/
+.input-checkbox-radio{
+    width: calc(100% - 40px);
+    display: inline-block;
+}
+
+.breadcrumb{
+    background-color: #fff;
+    border: 1px solid #cccccc;
 }
 
 .table-striped thead tr th{

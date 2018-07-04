@@ -48,6 +48,10 @@ class ObjectSearch extends Object
             'query' => $query,
         ]);
 
+        $dataProvider->setSort([
+            'attributes' => ['']
+        ]);
+
         $this->load($params);
 
         if (!$this->validate()) {
