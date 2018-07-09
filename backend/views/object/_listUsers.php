@@ -45,7 +45,7 @@ if (($progress['amount-percent'] >= 0) && ($progress['amount-percent'] <= 29)){
     <div class="catalog-user-info col-lg-6">
         <div class="object-user-list-fio">
             <p>ФИО:
-                <a href="<?= Url::toRoute('/admin/users/view?id=' ).$model->user_id ?>" target="_blank">
+                <a href="<?= Url::toRoute('/users/view?id=' ).$model->user_id ?>" target="_blank">
                     <?= $model['user']->last_name . ' ' . $model['user']->first_name . ' ' . $model['user']->middle_name ?>
                 </a>
             </p>
@@ -69,16 +69,12 @@ if (($progress['amount-percent'] >= 0) && ($progress['amount-percent'] <= 29)){
             </div>
         </div>
 
-        <div class="object-user-list-sum">
-            <p><?= $model->sum ?> сумма</p>
-        </div>
-        <div class="object-user-list-rate">
-            <p><?= $model->rate ?> ставка</p>
-        </div class="object-user-list-consumption">
         <div>
-           <p><?= $model->consumption ?> расход по сделке</p>
-        </div>
-        <div>
+            <p>Cумма: <?= $model->sum ?></p>
+            <p>Ставка: <?= $model->rate ?></p>
+            <p>Срок: <?= $model->term ?></p>
+            <p>График платежей: <?= ($model->schedule_payments === 1)?'шаровый':'аннуитетный'; ?></p>
+            <p>НКС: <?= $model->nks ?></p>
             <?php if($model->comment){ ?>
                 <p>Пожелание: <?= $model->comment ?></p>
             <?php } ?>

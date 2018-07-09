@@ -5,6 +5,8 @@ use yii\widgets\DetailView;
 use yii\widgets\ActiveForm;
 use yii\widgets\ListView;
 use kartik\slider\Slider;
+use yii\helpers\ArrayHelper;
+use common\models\object\ObjectType;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\object\Object */
@@ -78,7 +80,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [
-                'type_id',
+                [
+                    'attribute' => 'type_id',
+                    'value' => function($model){
+                        $arr = ArrayHelper::map(ObjectType::find()->all(), 'id', 'title');
+                        return $arr[$model->type_id];
+                    }
+                ],
                 'title',
                 'descr:html',
                 'place_km',
@@ -92,7 +100,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'price_tian',
                 'price_market',
                 'price_liquidation',
-                'status_object',
+                'rate',
+                'term',
+                [
+                    'attribute' => 'schedule_payments',
+                    'value' => function($model){
+                        return ($model->schedule_payments === 1)?'шаровый':'аннуитетный';
+                    }
+                ],
+                'nks',
             ],
         ]) ?>
     </div>
@@ -153,7 +169,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         data-slider-min="0"
                         data-slider-max="<?= $model->amount ?>"
                         data-slider-step="1"
-                        data-slider-value="0"
+                        data-slider-value="<?= $model->amount ?>"
                         />
                 </div>
                 <br>
@@ -164,7 +180,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?= $formCheckbox->field($userRoom, 'rate')->textInput() ?>
 
-                    <?= $formCheckbox->field($userRoom, 'consumption')->textInput() ?>
+                    <?= $formCheckbox->field($userRoom, 'term')->textInput() ?>
+
+                    <?= $formCheckbox->field($userRoom, 'schedule_payments')->dropDownList(
+                        [1 => 'шаровый', 2 => 'аннуитетный']
+                    ) ?>
+
+                    <?= $formCheckbox->field($userRoom, 'nks')->textInput() ?>
 
                     <?= $formCheckbox->field($userRoom, 'comment')->textarea() ?>
                 </div>

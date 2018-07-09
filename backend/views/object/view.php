@@ -6,6 +6,8 @@ use yii\widgets\Breadcrumbs;
 use metalguardian\fotorama\Fotorama;
 use yii\helpers\Url;
 use yii\widgets\ListView;
+use yii\helpers\ArrayHelper;
+use common\models\object\ObjectType;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\object\Object */
@@ -59,7 +61,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'model' => $model,
                 'attributes' => [
                     'id',
-                    'type_id',
+                    [
+                        'attribute' => 'type_id',
+                        'value' => function($model){
+                            $arr = ArrayHelper::map(ObjectType::find()->all(), 'id', 'title');
+                            return $arr[$model->type_id];
+                        }
+                    ],
                     [
                         'attribute' => 'status',
                         'value' => function($model){
@@ -106,6 +114,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     'price_tian',
                     'price_market',
                     'price_liquidation',
+                    'rate',
+                    'term',
+                    [
+                        'attribute' => 'schedule_payments',
+                        'value' => function($model){
+                            return ($model->schedule_payments === 1)?'шаровый':'аннуитетный';
+                        }
+                    ],
+                    'nks',
                     [
                         'attribute' => 'created_at',
                         'value' => function($model){

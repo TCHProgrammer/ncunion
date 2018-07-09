@@ -127,9 +127,15 @@ class CatalogController extends DefaultFrontendController{
 
     public function actionView($id)
     {
-        $userRoom = new RoomObjectUser();
-        $commentNew = new CommentObject();
         $model = $this->findModel($id);
+        $commentNew = new CommentObject();
+
+        $userRoom = new RoomObjectUser();
+        $userRoom->sum = (int)$model->amount;
+        $userRoom->rate = $model->rate;
+        $userRoom->term = $model->term;
+        $userRoom->schedule_payments = $model->schedule_payments;
+        $userRoom->nks = $model->nks;
 
         $modelImgs = ObjectImg::find()->where(['object_id' => $id])->orderBy('sort ASC')->all();
         $modelFiles = ObjectFile::find()->where(['object_id' => $id])->all();

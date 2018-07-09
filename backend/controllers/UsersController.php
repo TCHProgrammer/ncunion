@@ -77,6 +77,8 @@ class UsersController extends DefaultBackendController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->updated_at = time();
+
         $role = AuthAssignment::find()->where(['user_id' => $id])->one();
 
         if ($model->load(Yii::$app->request->post()) && $model->save() && $role->load(Yii::$app->request->post()) && $role->save()) {

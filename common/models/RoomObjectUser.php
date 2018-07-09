@@ -14,7 +14,9 @@ use common\models\object\Object;
  * @property int $active
  * @property int $sum
  * @property int $rate
- * @property int $consumption
+ * @property int $term
+ * @property int $schedule_payments
+ * @property int $nks
  * @property string $comment
  *
  * @property User $user
@@ -35,8 +37,9 @@ class RoomObjectUser extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['object_id', 'user_id', 'sum', 'consumption', 'rate'], 'required'],
-            [['object_id', 'user_id', 'sum', 'rate', 'consumption', 'created_at', 'active'], 'integer'],
+            [['object_id', 'user_id', 'sum', 'rate', 'term', 'schedule_payments', 'nks'], 'required'],
+            [['object_id', 'user_id', 'rate', 'term', 'schedule_payments', 'nks', 'created_at', 'active'], 'integer'],
+            [['sum'], 'number'],
             [['created_at'], 'default', 'value' => time()],
             [['active'], 'default', 'value' => 0],
             [['comment'], 'string'],
@@ -56,10 +59,12 @@ class RoomObjectUser extends \yii\db\ActiveRecord
             'sum' => 'Сумма',
             'active' => 'Проверка инвестора',
             'rate' => 'Ставка',
-            'consumption' => 'Расход по сделке',
             'comment' => 'Пожелания ',
             'created_at' => 'Дата создания',
-            'slider_sum' => 'Сумма'
+            'slider_sum' => 'Сумма',
+            'term' => 'Срок',
+            'schedule_payments' => 'График палатежей',
+            'nks' => 'НКС'
         ];
     }
 

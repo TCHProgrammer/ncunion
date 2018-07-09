@@ -59,6 +59,8 @@ class UserModel extends \yii\db\ActiveRecord
         return [
             ['imageFile', 'image', 'extensions' => 'jpg, png'],
             [['tagsArray'], 'safe'],
+            [['created_at'], 'default', 'value'=> time()],
+            [['updated_at'], 'default', 'value'=> time()],
             [['auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
             [['status', 'created_at', 'updated_at', 'check_email', 'check_phone', 'user_passport_id', 'subscribe_dt'], 'integer'],
             [['auth_key'], 'string', 'max' => 32],

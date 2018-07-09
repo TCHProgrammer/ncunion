@@ -17,16 +17,12 @@ use yii\helpers\Html;
                 </a>
             </p>
         </div>
-        <div class="object-user-list-sum">
-            <p><?= $model->sum ?> сумма</p>
-        </div>
-        <div class="object-user-list-rate">
-            <p><?= $model->rate ?> ставка</p>
-        </div class="object-user-list-consumption">
         <div>
-           <p><?= $model->consumption ?> расход по сделке</p>
-        </div>
-        <div>
+            <p>Cумма: <?= $model->sum ?></p>
+            <p>Ставка: <?= $model->rate ?></p>
+            <p>Срок: <?= $model->term ?></p>
+            <p>График платежей: <?= ($model->schedule_payments === 1)?'шаровый':'аннуитетный'; ?></p>
+            <p>НКС: <?= $model->nks ?></p>
             <?php if($model->comment){ ?>
                 <p>Пожелание: <?= $model->comment ?></p>
             <?php } ?>

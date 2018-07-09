@@ -6,9 +6,6 @@ use yii\helpers\ArrayHelper;
 use common\models\object\ObjectType;
 use common\models\object\Attribute;
 use mihaildev\ckeditor\CKEditor;
-use kartik\file\FileInput;
-use yii\helpers\Url;
-use yii\web\JsExpression;
 use common\models\Tag;
 
 /* @var $this yii\web\View */
