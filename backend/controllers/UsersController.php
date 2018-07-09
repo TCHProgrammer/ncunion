@@ -20,21 +20,6 @@ use backend\models\SignupForm;
 class UsersController extends DefaultBackendController
 {
     /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
-
-    /**
      * Lists all UserModel models.
      * @return mixed
      */

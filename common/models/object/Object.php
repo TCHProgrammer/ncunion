@@ -3,14 +3,9 @@
 namespace common\models\object;
 
 use Yii;
-use common\models\Sticker;
-use common\models\object\Attribute;
-use common\models\object\Prescribed;
-use common\models\object\ObjectImg;
 use yii\web\UploadedFile;
 use yii\helpers\FileHelper;
 use yii\helpers\ArrayHelper;
-use common\models\object\ObjectFile;
 use common\models\Tag;
 use common\models\ObjectTag;
 
@@ -38,6 +33,10 @@ use common\models\ObjectTag;
  * @property int $close_at
  * @property int $status_object
  * @property int $order
+ * @property int $rate
+ * @property int $term
+ * @property int $schedule_payments
+ * @property int $nks
  *
  * @property ObjectType $type
  * @property ObjectAttribute[] $objectAttributes
@@ -70,10 +69,10 @@ class Object extends \yii\db\ActiveRecord
             [['created_at'], 'default', 'value'=> time()],
             [['updated_at'], 'default', 'value'=> time()],
             [['order'], 'default', 'value' => 0],
-            [['type_id', 'status', 'place_km', 'area', 'rooms', 'price_cadastral', 'price_tian', 'price_market', 'price_liquidation', 'status_object', 'created_at', 'updated_at', 'close_at'], 'integer'],
+            [['type_id', 'status', 'place_km', 'rooms', 'price_cadastral', 'price_tian', 'price_market', 'price_liquidation', 'status_object', 'created_at', 'updated_at', 'close_at', 'rate', 'term', 'schedule_payments', 'nks'], 'integer'],
             [['descr'], 'string'],
-            [['amount'], 'number'],
-            [['type_id', 'title', 'created_at', 'updated_at', 'order', 'descr', 'amount', 'place_km', 'area', 'rooms'], 'required'],
+            [['amount', 'area'], 'number'],
+            [['type_id', 'title', 'created_at', 'updated_at', 'order', 'descr', 'amount', 'place_km', 'area', 'rooms', 'rate', 'term', 'schedule_payments', 'nks'], 'required'],
             [['title', 'address', 'address_map', 'owner'], 'string', 'max' => 255],
             [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ObjectType::className(), 'targetAttribute' => ['type_id' => 'id']],
         ];
@@ -107,7 +106,11 @@ class Object extends \yii\db\ActiveRecord
             'close_at' => 'Дата закрытия сделки',
             'status_object' => 'Статус сделки',
             'amountRemained' => 'Нехватает до закрытия',
-            'order' => 'Сортировка'
+            'order' => 'Сортировка',
+            'rate' => 'Ставка',
+            'term' => 'Срок',
+            'schedule_payments' => 'График платежей',
+            'nks' => 'НКС'
         ];
     }
 
@@ -168,13 +171,6 @@ class Object extends \yii\db\ActiveRecord
 
                 $dir = Yii::getAlias('@uploads/objects/img/' . $this->id . '/');
 
-                /*if(file_exists($dir)){
-                    unlink(Yii::getAlias($dir . $img->name));
-                    if(!file_exists($dir)) {
-                        rmdir($dir);
-                    }
-                }*/
-
                 if (!is_dir($dir)){
                     FileHelper::createDirectory($dir, 0777);
                 }
@@ -192,12 +188,6 @@ class Object extends \yii\db\ActiveRecord
                 $img->saveAs($fileName);
 
                 $model->save();
-
-//                $imgs->save($dir . $this->imgFile);
-
-                //if (file)
-                    /*https://www.youtube.com/watch?v=0SC7up01NSA*/
-
             }
         }
 

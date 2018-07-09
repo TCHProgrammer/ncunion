@@ -19,19 +19,11 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            /*['username', 'trim'],
-            ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
-            ['username', 'string', 'min' => 2, 'max' => 255],*/
-
             [['first_name', 'last_name', 'middle_name', 'phone', 'email', 'password', 'password_repeat'], 'required'],
             [['first_name', 'last_name', 'middle_name', 'company_name', 'phone', 'password_repeat', 'email', 'first_name', 'last_name', 'middle_name', 'phone', 'company_name'], 'string', 'max' => 255],
-            //[['auth_key'], 'string', 'max' => 32],
-            //[['phone'], 'match', 'pattern' => '/\+7\s\([0-9]{3}\)\s[0-9]{3}\s[0-9]{2}\s[0-9]{2}$/i', 'message' => 'Неправильный формат контактного телефона.'],
             [['email'], 'email'],
-            //[['email'], 'checkUserName'],
             [['email'], 'unique', 'targetClass' => '\common\models\User', 'message' => 'Пользователь с таким email уже зарегистрирован.'],
-            [['password', 'password_repeat', 'company_name', 'phone'], 'string', 'min' => 6],
+            [['password', 'password_repeat'], 'string', 'min' => 6],
             [['password_repeat'], 'compare', 'compareAttribute' => 'password', 'message'=>'Введенные пароли не совпадают.'],
             [['password'], 'compare', 'compareAttribute' => 'password_repeat', 'message'=>'Введенные пароли не совпадают.']
 

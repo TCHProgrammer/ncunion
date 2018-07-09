@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
         <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
-<!-- 'class' => 'form-height' -->
+
         <div class="col-lg-6">
 
             <?= $form->field($model, 'last_name', ['options' => ['class' => 'form-height']])->textInput() ?>
@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="col-lg-6">
 
-            <?= $form->field($model, 'phone')->widget(MaskedInput::className(), [
+            <?= $form->field($model, 'phone', ['options' => ['class' => 'form-height']])->widget(MaskedInput::className(), [
                 'mask' => '+7(999)999-9999',
             ]) ?>
 

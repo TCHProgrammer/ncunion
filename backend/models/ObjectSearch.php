@@ -18,9 +18,9 @@ class ObjectSearch extends Object
     public function rules()
     {
         return [
-            [['id', 'type_id', 'status', 'place_km', 'area', 'rooms', 'price_cadastral', 'price_tian', 'price_market', 'price_liquidation', 'status_object'], 'integer'],
+            [['id', 'type_id', 'status', 'place_km', 'rooms', 'price_cadastral', 'price_tian', 'price_market', 'price_liquidation', 'status_object', 'rate', 'term', 'schedule_payments', 'nks'], 'integer'],
             [['title', 'descr', 'address', 'address_map', 'owner'], 'safe'],
-            [['amount'], 'number'],
+            [['amount', 'area'], 'number'],
         ];
     }
 

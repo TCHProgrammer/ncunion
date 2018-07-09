@@ -65,6 +65,19 @@ use common\models\Tag;
         <?= $form->field($model, 'rooms', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
     </div>
 
+    <div class="row">
+        <?= $form->field($model, 'rate', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'term', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'schedule_payments', ['options' => ['class' => 'col-lg-3 col-md-6']])->dropDownList(
+            [1 => 'шаровый', 2 => 'аннуитетный'],
+            ['prompt' => 'Выберите тип объекта...']
+        ) ?>
+
+        <?= $form->field($model, 'nks', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
+    </div>
+
     <div class="row col-lg-12">
         <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
