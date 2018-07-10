@@ -2,18 +2,18 @@
 
 namespace backend\controllers\object_settings;
 
-use Yii;
-use backend\components\controllers\DefaultBackendController;
-use common\models\Tag;
-use backend\models\object_settings\TagSearch;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
+    use Yii;
+    use backend\components\controllers\DefaultBackendController;
+    use yii\filters\AccessControl;
+    use common\models\object\Confidence;
+    use backend\models\object_settings\ConfidenceSearch;
+    use yii\web\NotFoundHttpException;
+    use yii\filters\VerbFilter;
 
 /**
- * TagController implements the CRUD actions for Tag model.
+ * ConfidenceController implements the CRUD actions for Confidence model.
  */
-class TagController extends DefaultBackendController
+class ConfidenceController extends DefaultBackendController
 {
     /**
      * {@inheritdoc}
@@ -40,12 +40,12 @@ class TagController extends DefaultBackendController
     }
 
     /**
-     * Lists all Tag models.
+     * Lists all Confidence models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new TagSearch();
+        $searchModel = new ConfidenceSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -55,16 +55,16 @@ class TagController extends DefaultBackendController
     }
 
     /**
-     * Creates a new Tag model.
+     * Creates a new Confidence model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Tag();
+        $model = new Confidence();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect('index');
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -73,7 +73,7 @@ class TagController extends DefaultBackendController
     }
 
     /**
-     * Updates an existing Tag model.
+     * Updates an existing Confidence model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -84,7 +84,7 @@ class TagController extends DefaultBackendController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect('index');
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
@@ -93,7 +93,7 @@ class TagController extends DefaultBackendController
     }
 
     /**
-     * Deletes an existing Tag model.
+     * Deletes an existing Confidence model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -107,18 +107,18 @@ class TagController extends DefaultBackendController
     }
 
     /**
-     * Finds the Tag model based on its primary key value.
+     * Finds the Confidence model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Tag the loaded model
+     * @return Confidence the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Tag::findOne($id)) !== null) {
+        if (($model = Confidence::findOne($id)) !== null) {
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 }

@@ -31,6 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 <li><a href="<?php echo Url::toRoute(['object_settings/object-type']) ?>">Типы объектов</a></li>
                 <li><a href="<?= Url::toRoute(['object_settings/tag']) ?>">Теги</a></li>
                 <li><a href="<?= Url::toRoute(['object_settings/form-participation']) ?>">Форма участия</a></li>
+                <li><a href="<?= Url::toRoute(['object_settings/confidence']) ?>">Доверие у объекта</a></li>
+
             </ul>
         </div>
         <div class="btn-group">
