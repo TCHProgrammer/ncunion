@@ -139,11 +139,11 @@ function valuePassport($item, $filter, $model){
 
         </div>
 
-
-
         <div class="row">
             <div class="col-lg-12">
-                <?= $form->field($model, 'form_participation_id', ['options' => ['class' => 'radio-form']])->radioList(ArrayHelper::map(FormParticipation::find()->all(), 'id', 'title')) ?>
+                <?= $form->field($model, 'tagsArray', ['options' => ['class' => 'radio-form']])->checkboxList(
+                    ArrayHelper::map(FormParticipation::find()->all(), 'id', 'title')
+                )?>
             </div>
         </div>
 

@@ -685,7 +685,7 @@ class ObjectController extends DefaultBackendController
         }
     }
 
-    /* отписавться */
+    /* отписаться */
     public function actionUnsubscribe($oId, $uId)
     {
         if(isset($oId) && isset($uId)) {
