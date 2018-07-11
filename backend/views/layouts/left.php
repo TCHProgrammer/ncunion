@@ -122,7 +122,7 @@ $menu = new Menu();
                         'label' => 'Объекты',
                         'icon' => 'fw fa-institution',
                         'url' => ['/object'],
-                        'visible' => $menu->menuUsers()
+                        'visible' => $menu->menuObject()
                     ],
 
                     [
