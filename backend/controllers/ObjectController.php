@@ -341,7 +341,7 @@ class ObjectController extends DefaultBackendController
 
         foreach ($addFile->docFile as $file) {
             $addFile = new ObjectFile();
-            
+
             $fileTitle = mb_substr($file->name, 0, -mb_strlen(strrchr($file->name, '.')));
 
             $docName = strtotime('now') . '_' . Yii::$app->security->generateRandomString(8) . '.' . substr(strrchr($file->name, '.'), 1);;
@@ -350,11 +350,11 @@ class ObjectController extends DefaultBackendController
             $addFile->title = $fileTitle;
             $addFile->doc = '/uploads/objects/doc/' . $id . '/' . $docName;
 
-            $file->saveAs($dir . $docName);
-
-            if ($addFile->validate() && $addFile->save()) {
-                //return $this->redirect(['update', 'id' => $model->id]);
-            }
+            if ($file->saveAs($dir . $docName)){
+                if ($addFile->validate()){
+                    $addFile->save();
+                }
+            };
         }
     }
 
