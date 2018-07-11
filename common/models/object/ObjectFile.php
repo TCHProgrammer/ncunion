@@ -3,7 +3,6 @@
 namespace common\models\object;
 
 use Yii;
-use yii\helpers\Url;
 
 /**
  * This is the model class for table "object_file".
@@ -78,12 +77,4 @@ class ObjectFile extends \yii\db\ActiveRecord
             return false;
         }
     }
-
-    /*public function getDocUrl(){
-        if ($this->doc){
-            $path = '<img style="height:160px;" src="' . str_replace('admin', '', Url::home(true)) . 'uploads/objects/doc/file.png' . '">';
-        }
-
-        return $path;
-    }*/
 }

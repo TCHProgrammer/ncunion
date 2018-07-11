@@ -18,6 +18,8 @@ use yii\filters\AccessControl;
 use yii\data\ActiveDataProvider;
 use common\models\object\AttributeRadio;
 use common\models\object\Attribute;
+use common\models\object\Confidence;
+use common\models\object\ConfidenceObject;
 
 class CatalogController extends DefaultFrontendController{
 
@@ -137,6 +139,9 @@ class CatalogController extends DefaultFrontendController{
         $userRoom->schedule_payments = $model->schedule_payments;
         $userRoom->nks = $model->nks;
 
+        /* доверие объекту */
+        $confObj = $this->confObj($id);
+
         $modelImgs = ObjectImg::find()->where(['object_id' => $id])->orderBy('sort ASC')->all();
         $modelFiles = ObjectFile::find()->where(['object_id' => $id])->all();
 
@@ -200,6 +205,7 @@ class CatalogController extends DefaultFrontendController{
             'modelImgs' => $modelImgs,
             'modelFiles' => $modelFiles,
             'progress' => $progress,
+            'confObj' => $confObj
         ]);
     }
 
@@ -297,5 +303,12 @@ class CatalogController extends DefaultFrontendController{
         ];
 
         return $filter;
+    }
+
+    /* доверие объекту */
+    private function confObj($obId){
+        $allListConf = count(Confidence::find()->all());
+        $listConf = count(ConfidenceObject::find()->where(['object_id' => $obId])->all());
+        return round($listConf * 100 / $allListConf, 2);
     }
 }

@@ -43,6 +43,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-lg-6 col-md-6">
 
+            <!-- доверие объекту -->
+            <h3>Доверие объекта:</h3>
+            <p>Доверие объекта составяент <?= $confObj ?>%</p>
+
             <!-- шкала -->
             <h3>Итоговая сумма инвесторов:</h3>
             <div class="object-progress-striped">

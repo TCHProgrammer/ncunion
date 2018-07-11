@@ -7,6 +7,7 @@ use common\models\object\ObjectType;
 use common\models\object\Attribute;
 use mihaildev\ckeditor\CKEditor;
 use common\models\Tag;
+use common\models\object\Confidence;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\object\Object */
@@ -82,6 +83,10 @@ use common\models\Tag;
 
         <?= $form->field($model, 'tagsArray')->checkboxList(
             ArrayHelper::map(Tag::find()->all(), 'id', 'title')
+        ) ?>
+
+        <?= $form->field($model, 'confArray')->checkboxList(
+            ArrayHelper::map(Confidence::find()->all(), 'id', 'title')
         ) ?>
 
         <?= $form->field($model, 'owner')->textInput(['maxlength' => true]) ?>

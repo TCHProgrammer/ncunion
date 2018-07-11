@@ -1,16 +1,27 @@
 <?php
-use yii\helpers\Html;
-use yii\helpers\HtmlPurifier;
 use yii\helpers\Url;
+use common\models\object\Confidence;
+use common\models\object\ConfidenceObject;
+
+/* доверие объекту */
+$allListConf = count(Confidence::find()->all());
+$listConf = count(ConfidenceObject::find()->where(['object_id' => $model->id])->all());
+$conf = round($listConf * 100 / $allListConf, 2);
 ?>
 
 <div class="row object-item">
     <div class="object-item-img col-lg-6 ">
+
+        <div class="object-conf" style="top:10px;">
+            Доверие <?= $conf ?>%
+        </div>
+
         <?php if(!is_null($model->nks)){ ?>
             <div class="object-ncs" style="top:10px;">
                 НКС: <?= $model->nks ?>
             </div>
         <?php } ?>
+
         <?php $styleTag = 10 ;?>
         <?php foreach ($model->tag as $tag){ ?>
             <div class="object-tag" style="top: <?= $styleTag ?>px;">
@@ -18,6 +29,7 @@ use yii\helpers\Url;
             </div>
             <?php $styleTag += 50; ?>
         <?php } ?>
+
         <a href="<?= Url::toRoute('/catalog/view?id='.$model->id) ?>">
             <?php if (isset($model->objectImgs[0]->img)){ ?>
                 <img src="<?= $model->objectImgs[0]->img ?>">

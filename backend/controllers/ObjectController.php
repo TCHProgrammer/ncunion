@@ -2,6 +2,8 @@
 
 namespace backend\controllers;
 
+use common\models\object\Confidence;
+use common\models\object\ConfidenceObject;
 use Yii;
 use common\models\object\Object;
 use backend\models\ObjectSearch;
@@ -28,7 +30,6 @@ use common\models\object\GroupRadio;
 use common\models\object\ObjectAttributeRadio;
 use yii\data\ActiveDataProvider;
 use common\models\RoomObjectUser;
-use common\models\RoomFinishObject;
 
 /**
  * ObjectController implements the CRUD actions for Object model.
@@ -98,6 +99,9 @@ class ObjectController extends DefaultBackendController
 
         $files = ObjectFile::find()->where(['object_id' => $id])->all();
 
+        /* доверие объекту */
+        $confObj = $this->confObj($id);
+
         /* шкала */
         $chekRoomUser = RoomObjectUser::find()->where(['object_id' => $id])->andWhere(['active' => 1])->all();
         if (isset($chekRoomUser)){
@@ -144,7 +148,8 @@ class ObjectController extends DefaultBackendController
             'files' => $files,
             'usersObjectlist' => $usersObjectlist,
             'finishObject' => $finishObject,
-            'progress' => $progress
+            'progress' => $progress,
+            'confObj' => $confObj
         ]);
     }
 
@@ -450,7 +455,6 @@ class ObjectController extends DefaultBackendController
             }
         }
 
-
         foreach ($arrListGroups as $arrListGroup) {
             $delModel = ObjectAttributeCheckbox::find()
                 ->where(['object_id' => $model->id])
@@ -461,7 +465,6 @@ class ObjectController extends DefaultBackendController
                 $delModel->delete(['object_id' => $model->id, 'group_id' => $arrListGroup]);
             }
         }
-
 
         /*foreach ($arrListGroups as $arrListGroup) {
             if (!in_array($arrListGroup, $delArr)) {
@@ -537,7 +540,6 @@ class ObjectController extends DefaultBackendController
                 $delModel->delete(['object_id' => $model->id, 'group_id' => $arrListGroup]);
             }
         }
-
 
         /*foreach ($arrListGroups as $arrListGroup) {
             if (!in_array($arrListGroup, $delArr)) {
@@ -723,5 +725,11 @@ class ObjectController extends DefaultBackendController
 
     }
 
+    /* доверие объекту */
+    private function confObj($obId){
+        $allListConf = count(Confidence::find()->all());
+        $listConf = count(ConfidenceObject::find()->where(['object_id' => $obId])->all());
+        return round($listConf * 100 / $allListConf, 2);
+    }
 
 }

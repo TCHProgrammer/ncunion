@@ -8,6 +8,7 @@ use yii\helpers\FileHelper;
 use yii\helpers\ArrayHelper;
 use common\models\Tag;
 use common\models\ObjectTag;
+use common\models\object\Confidence;
 
 /**
  * This is the model class for table "object".
@@ -46,10 +47,8 @@ use common\models\ObjectTag;
  */
 class Object extends \yii\db\ActiveRecord
 {
-
     public $amountRemained;
     public $imgFile;
-    //public $docFile;
     const file_name_length = 8;
 
     public static function tableName()
@@ -63,7 +62,7 @@ class Object extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tagsArray'], 'safe'],
+            [['tagsArray', 'confArray'], 'safe'],
             [['imgFile'], 'file', 'extensions' => 'png, jpg'],
             //[['docFile'], 'file', 'extensions' => 'png, txt, pdf, cvg, xlsx, ods, docx'],
             [['created_at'], 'default', 'value'=> time()],
@@ -160,6 +159,13 @@ class Object extends \yii\db\ActiveRecord
         }else{
             return false;
         }
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        $this->updateTags();
+        $this->updateConf();
+        parent::afterSave($insert, $changedAttributes);
     }
 
     public function beforeSave($insert)
@@ -286,6 +292,12 @@ class Object extends \yii\db\ActiveRecord
             ->viaTable('{{%object_tag}}', ['object_id' => 'id']);
     }
 
+    public function getConfidence()
+    {
+        return $this->hasMany(Confidence::className(), ['id' => 'confidence_id'])
+            ->viaTable('{{%confidence_object}}', ['object_id' => 'id']);
+    }
+
     /* сохраниение тегов */
     private $_tagsArray;
 
@@ -299,12 +311,6 @@ class Object extends \yii\db\ActiveRecord
 
     public function setTagsArray($value){
         return $this->_tagsArray = (array)$value;
-    }
-
-    public function afterSave($insert, $changedAttributes)
-    {
-        $this->updateTags();
-        parent::afterSave($insert, $changedAttributes);
     }
 
     private function updateTags()
@@ -321,6 +327,38 @@ class Object extends \yii\db\ActiveRecord
         foreach (array_filter(array_diff($currentNoticeIds, $newNoticeIds)) as $noticeId) {
             if ($notice = Tag::find()->where(['id' => $noticeId])->one()) {
                 $this->unlink('tag', $notice, true);
+            }
+        }
+    }
+
+    private $_confArray;
+
+    public function getConfArray()
+    {
+        if ($this->_confArray === null) {
+            $this->_confArray = $this->getConfidence()->select('id')->column();
+        }
+        return $this->_confArray;
+    }
+
+    public function setConfArray($value){
+        return $this->_confArray = (array)$value;
+    }
+
+    private function updateConf()
+    {
+        $allTagsIds = $this->getConfidence()->select('id')->column();
+        $newTagsIds = $this->getConfArray();
+
+        foreach (array_filter(array_diff($newTagsIds, $allTagsIds)) as $noticeId) {
+            if ($tag = Confidence::find()->where(['id' => $noticeId])->one()) {
+                $this->link('confidence', $tag);
+            }
+        }
+
+        foreach (array_filter(array_diff($allTagsIds, $newTagsIds)) as $noticeId) {
+            if ($tag = Confidence::find()->where(['id' => $noticeId])->one()) {
+                $this->unlink('confidence', $tag, true);
             }
         }
     }

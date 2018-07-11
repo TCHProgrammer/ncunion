@@ -50,6 +50,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <span class="<?= $classObject ?>"><?= $statusObject ?></span>
         </p>
 
+        <!-- доверие объекту -->
+        <p>Доверие объекта составяент <?= $confObj ?>%</p>
+
         <!-- шкала -->
         <div class="object-view col-lg-6 col-md-6">
             <div class="object-progress-striped">
