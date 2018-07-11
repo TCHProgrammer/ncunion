@@ -30,38 +30,6 @@ class Menu {
         return false;
     }
 
-    function linkSettingsSite($permission){
-        switch ($permission){
-            case 'admin_menu_rbac_roles':
-                $name['title'] = 'Роли пользователей';
-                $name['link'] = Url::toRoute('/rbac/roles');
-                return $name;
-
-            case 'admin_menu_rbac_permission':
-                $name['title'] = 'Расшифровка доступов';
-                $name['link'] = Url::toRoute('/rbac/permission');
-                return $name;
-
-            case 'admin_menu_rbac_users':
-                $name['title'] = 'Пользователи';
-                $name['link'] = Url::toRoute('/rbac/users');
-                return $name;
-
-            case 'info_site':
-                $name['title'] = 'Общая информация';
-                $name['link'] = Url::toRoute('/info-site/index');
-                return $name;
-
-            case 'settings_add_email_push':
-                $name['title'] = 'Почтовые уведомления';
-                $name['link'] = Url::toRoute('/notice/index');
-                return $name;
-
-            default:
-                return false;
-        }
-    }
-
     /* Пользователи */
     function menuUsers(){
         $permissions = [
@@ -76,24 +44,6 @@ class Menu {
         }
 
         return false;
-    }
-
-    function linkUsers($permission){
-        switch ($permission){
-
-            case 'admin_menu_rbac_permission':
-                $name['title'] = 'Ожидание модерации';
-                $name['link'] = Url::toRoute('/users/users-moder');
-                return $name;
-
-            case 'users_clients':
-                $name['title'] = 'Клиенты';
-                $name['link'] = Url::toRoute('/users');
-                return $name;
-
-            default:
-                return false;
-        }
     }
 
     /* Объекты */
@@ -111,20 +61,18 @@ class Menu {
         return false;
     }
 
-    function linkObject($permission){
-        switch ($permission){
+    /* Тариф */
+    function menuTariff(){
+        $permissions = [
+            'can_module_tariff',
+        ];
 
-            case 'can_create_object':
-                $name['title'] = 'Объекты';
-                $name['link'] = Url::toRoute('/object');
-                return $name;
-
-            default:
-                return false;
+        foreach ($permissions as $permission) {
+            if (Yii::$app->user->can($permission)) {
+                return true;
+            }
         }
-    }
 
-    /*
-     * можно создать 1 большой массив и по циклу выдирать переменные
-     */
+        return false;
+    }
 }
