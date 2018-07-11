@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\modules\tariff\models\Tariff */
 
-$this->title = 'Create Tariff';
+$this->title = Yii::t('app', 'Create Tariff');
 $this->params['breadcrumbs'][] = ['label' => 'Tariffs', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

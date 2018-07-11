@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use common\modules\tariff\models\TariffDiscount;
+use Yii;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\modules\tariff\models\TariffSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tariffs';
+$this->title = Yii::t('app', 'Tariffs');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tariff-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a('Создать тариф', ['create'], ['class' => 'btn btn-success']) ?>

@@ -16,7 +16,6 @@ use yii\helpers\Url;
  */
 class ObjectFile extends \yii\db\ActiveRecord
 {
-
     public $docFile;
 
     public static function tableName()

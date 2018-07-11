@@ -34,6 +34,13 @@ return [
         /* авто перевод */
         'i18n' => [
             'translations' => [
+                'app' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@common/translations',
+                    /*'fileMap' => [
+                        'app' => 'kek.php',
+                    ]*/
+                ],
                 'yii2mod.rbac' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@yii2mod/rbac/messages',
