@@ -337,18 +337,24 @@ class ObjectController extends DefaultBackendController
             FileHelper::createDirectory($dir);
         }
 
-        $addFile->docFile = UploadedFile::getInstance($addFile, 'doc');
+        $addFile->docFile = UploadedFile::getInstances($addFile, 'doc');
 
-        $docName = strtotime('now') . '_' . Yii::$app->security->generateRandomString(8) . '.' . $addFile->docFile->getExtension();
+        foreach ($addFile->docFile as $file) {
+            $addFile = new ObjectFile();
+            
+            $fileTitle = mb_substr($file->name, 0, -mb_strlen(strrchr($file->name, '.')));
 
-        $addFile->object_id = $id;
-        $addFile->title = $post['ObjectFile']['title'];
-        $addFile->doc = '/uploads/objects/doc/' . $id .'/' . $docName;
+            $docName = strtotime('now') . '_' . Yii::$app->security->generateRandomString(8) . '.' . substr(strrchr($file->name, '.'), 1);;
 
-        $addFile->docFile->saveAs($dir . $docName);
+            $addFile->object_id = $id;
+            $addFile->title = $fileTitle;
+            $addFile->doc = '/uploads/objects/doc/' . $id . '/' . $docName;
 
-        if($addFile->validate() && $addFile->save()) {
-            //return $this->redirect(['update', 'id' => $model->id]);
+            $file->saveAs($dir . $docName);
+
+            if ($addFile->validate() && $addFile->save()) {
+                //return $this->redirect(['update', 'id' => $model->id]);
+            }
         }
     }
 

@@ -9,9 +9,7 @@ use yii\widgets\Pjax;
         'options' => ['enctype' => 'multipart/form-data', 'data-pjax' => true],
     ]); ?>
 
-    <?= $formFile->field($addFile, 'title')->textInput() ?>
-
-    <?= $formFile->field($addFile, 'doc', ['options' => ['id' => 'object-dic-file']])->fileInput() ?>
+    <?= $formFile->field($addFile, 'doc[]', ['options' => ['id' => 'object-dic-file']])->fileInput(['multiple' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Загрузить файл', ['class' => 'btn btn-primary']) ?>
