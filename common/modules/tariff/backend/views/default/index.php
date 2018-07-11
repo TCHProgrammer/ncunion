@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use common\modules\tariff\models\TariffDiscount;
-use Yii;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\modules\tariff\models\TariffSearch */
