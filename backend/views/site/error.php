@@ -33,16 +33,6 @@ if (Yii::$app->user->isGuest){
                 form.
             </p>
 
-            <form class='search-form'>
-                <div class='input-group'>
-                    <input type="text" name="search" class='form-control' placeholder="Search"/>
-
-                    <div class="input-group-btn">
-                        <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
 

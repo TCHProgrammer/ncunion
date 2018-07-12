@@ -42,18 +42,32 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{update}',
             ],
+
             [
                 'attribute' => 'id',
+                'headerOptions' => ['class' => 'text-center'],
                 'contentOptions' => ['class' => 'text-center'],
+            ],
+
+            //'subscribe_dt',
+
+            [
+                'attribute' => 'last_name',
                 'headerOptions' => ['class' => 'text-center'],
                 'options' => [
-                    'style' => 'width:35px',
+                    'style' => 'width: 150px;'
                 ]
             ],
-            //'subscribe_dt',
-            'last_name',
-            'first_name',
-            'middle_name',
+
+            [
+                'attribute' => 'first_name',
+                'headerOptions' => ['class' => 'text-center'],
+            ],
+
+            [
+                'attribute' => 'middle_name',
+                'headerOptions' => ['class' => 'text-center'],
+            ],
 
             [
                 'attribute' => 'role',

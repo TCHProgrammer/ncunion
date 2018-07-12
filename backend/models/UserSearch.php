@@ -42,7 +42,7 @@ class UserSearch extends UserModel
     public function search($params)
     {
         $query = UserModel::find()
-            ->orderBy('id DESC')
+            //->orderBy('id DESC')
             ->joinWith('roles');
 
         // add conditions that should always apply here
