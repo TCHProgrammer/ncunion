@@ -21,11 +21,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::begin(); ?>
 
     <div class="btn-admin">
-        <div class="btn-group">
+        <div class="btn-group btn-indent-margin">
 
             <?= Html::a('Создать объект', ['create'], ['class' => 'btn btn-success']) ?>
         </div>
-        <div class="btn-group">
+        <div class="btn-group btn-indent-margin">
             <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Общие настройки<span class="caret"></span></button>
             <ul class="dropdown-menu">
                 <li><a href="<?php echo Url::toRoute(['object_settings/object-type']) ?>">Типы объектов</a></li>
@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             </ul>
         </div>
-        <div class="btn-group">
+        <div class="btn-group btn-indent-margin">
             <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Дополнительные атрибуты<span class="caret"></span></button>
             <ul class="dropdown-menu">
                 <li><a href="<?= Url::toRoute(['object_attribute/attribute']) ?>">Строка</a></li>
@@ -45,7 +45,8 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
-    <?= GridView::widget([
+    <div class="table-responsive">
+        <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'rowOptions' => function ($model, $key, $index, $grid) {
@@ -206,5 +207,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ]
         ],
     ]); ?>
+    </div>
+
     <?php Pjax::end(); ?>
 </div>

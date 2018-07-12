@@ -24,7 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Зарегистрировать нового клиента', ['create-user'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?= GridView::widget([
+    <div class="table-responsive">
+        <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'tableOptions' => [
@@ -87,5 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
+    </div>
+
     <?php Pjax::end(); ?>
 </div>

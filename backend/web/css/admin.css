@@ -292,8 +292,8 @@ a.desc:after {
     background-color: #fff;
 }
 
-.btn-indents-right{
-    margin: 0 4px 0 0;
+.btn-indent-margin{
+    margin: 2px;
 }
 
 .table-hover-gray tbody tr:hover{

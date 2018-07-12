@@ -8,6 +8,11 @@ use yii\helpers\Html;
 /* @var $exception Exception */
 
 $this->title = $name;
+
+if (Yii::$app->user->isGuest){
+    return Yii::$app->response->redirect(['site/login']);
+}
+
 ?>
 <section class="content">
 

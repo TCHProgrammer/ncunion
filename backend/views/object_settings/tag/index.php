@@ -25,7 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Tag', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?= GridView::widget([
+    <div class="table-responsive">
+        <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -53,4 +54,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
+    </div>
+
 </div>

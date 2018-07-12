@@ -18,8 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::begin(); ?>
 
     <p>
-        <?= Html::a('Создать тариф', ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Добавить скидку', ['discount'], ['class' => 'btn btn-success btn-indents-right']) ?>
+        <?= Html::a('Создать тариф', ['create'], ['class' => 'btn btn-success btn-indent-margin']) ?>
+        <?= Html::a('Добавить скидку', ['discount'], ['class' => 'btn btn-success btn-indent-margin']) ?>
     </p>
 
     <?= GridView::widget([
