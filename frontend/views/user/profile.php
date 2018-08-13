@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
+\frontend\assets\ProfileAsset::register($this);
 
 $this->title = 'Основная информация';
 ?>

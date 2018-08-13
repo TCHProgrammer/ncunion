@@ -36,6 +36,8 @@ class UserController extends DefaultFrontendController{
 
     const file_name_length = 8;
 
+    public $layout = "user_layout";
+
     public function behaviors(){
         return [
             'access' => [
