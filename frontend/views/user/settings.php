@@ -11,46 +11,69 @@ $this->title = 'Настройки';
 <h1><?= Html::encode($this->title) ?></h1>
 
 <div class="settings-block-1">
-    <div class="row">
+    <div class="row clearfix">
         <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 
         <div class="col-lg-12">
-
-            <h2>общая информация:</h2>
-
-            <?php if (isset($avatar->avatar)){ ?>
-                <?= Html::label('Текущая картинка') ?>
-                <div class="form-update-pic">
-                    <?= Html::img($avatar->avatar) ?>
+            <div class="card">
+                <div class="header">
+                    <h2>общая информация:</h2>
                 </div>
-            <?php } ?>
 
-            <?= $form->field($model, 'imageFile')->fileInput()?>
+                <div class="body">
 
-            <?= $form->field($model, 'last_name', ['options' => ['class' => 'form-height']])->textInput() ?>
+                    <h2 class="card-inside-title">общая информация:</h2>
+                    <div class="row clearfix">
+                        <div class="col-sm-6">
+                            <?php if (isset($avatar->avatar)){ ?>
+                                <?= Html::label('Текущая картинка') ?>
+                                <div class="form-update-pic">
+                                    <?= Html::img($avatar->avatar) ?>
+                                </div>
+                            <?php } ?>
+                        </div>
+                    </div>
 
-            <?= $form->field($model, 'first_name', ['options' => ['class' => 'form-height']])->textInput() ?>
+                    <div class="row clearfix">
+                        <div class="col-sm-6">
 
-            <?= $form->field($model, 'middle_name', ['options' => ['class' => 'form-height']])->textInput() ?>
+                            <?= $form->field($model, 'imageFile')->fileInput()?>
 
-            <?= $form->field($model, 'email', ['options' => ['class' => 'form-height']])->textInput() ?>
+                            <?= $form->field($model, 'last_name', ['options' => ['class' => 'form-height']])->textInput() ?>
 
-            <?= $form->field($model, 'phone')->widget(MaskedInput::className(), [
-                'mask' => '+7(999)999-9999',
-            ]) ?>
+                            <?= $form->field($model, 'first_name', ['options' => ['class' => 'form-height']])->textInput() ?>
 
-            <?= $form->field($model, 'company_name', ['options' => ['class' => 'form-height']])->textInput() ?>
+                            <?= $form->field($model, 'middle_name', ['options' => ['class' => 'form-height']])->textInput() ?>
 
-            <h2>Уведомления по почте:</h2>
+                            <?= $form->field($model, 'email', ['options' => ['class' => 'form-height']])->textInput() ?>
 
-            <?= $form->field($model, 'tagsArray')->checkboxList(
-                Notice::find()->select(['title', 'id'])->indexBy('id')->column()
-            )->label(false) ?>
+                            <?= $form->field($model, 'phone')->widget(MaskedInput::className(), [
+                                'mask' => '+7(999)999-9999',
+                            ]) ?>
 
-            <br>
+                            <?= $form->field($model, 'company_name', ['options' => ['class' => 'form-height']])->textInput() ?>
 
-            <div class="form-group">
-                <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+                        </div>
+                    </div>
+
+                    <h2 class="card-inside-title">Уведомления по почте:</h2>
+
+                    <div class="row clearfix">
+                        <div class="col-sm-6">
+
+                            <?= $form->field($model, 'tagsArray')->checkboxList(
+                                Notice::find()->select(['title', 'id'])->indexBy('id')->column()
+                            )->label(false) ?>
+
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="form-group">
+                        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+                    </div>
+                </div>
             </div>
         </div>
 
