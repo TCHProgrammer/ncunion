@@ -147,11 +147,11 @@ $(document).ready(function () {
     /* !!! сделай плиз что бы при изменение филтра в input менялась полоса(slider) !!! */
 
     /* ползунок в подписке на объект */
-    $('#user-slider').slider({ tooltip: false });
+    /* $('#user-slider').slider({ tooltip: false });
     $("#user-slider").on("slide slideStop", function(slideEvt) {
         var value = slideEvt.value;
         $("#roomobjectuser-sum").val(value);
-    });
+    }); */
 
     /* в каталоге применяет все параметры из паспорта к фильтру */
     $('#filter-passport').on('click', function () {

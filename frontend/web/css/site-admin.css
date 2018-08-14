@@ -21,6 +21,23 @@
 .theme-orange .navbar-nav .menu-app .menu li a {
     height: 100px;
 }
+.theme-orange [type="checkbox"]+label,
+.theme-orange [type="radio"]+label {
+    width: 100%;
+}
+.theme-orange #myTabEvents {
+    padding: 20px 0 0;
+}
+.theme-orange .nav-tabs+.tab-content {
+    padding: 15px 0 0;
+}
+.theme-orange label.control-label {
+    font-size: 14px;
+    line-height: 20px;
+    color: #000;
+    font-weight: 700;
+    margin: 0;
+}
 
 @media (min-width: 768px) {
     .float-md-right {

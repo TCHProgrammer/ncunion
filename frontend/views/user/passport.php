@@ -122,7 +122,6 @@ function valuePassport($item, $filter, $model){
                         <div class="tab-content" id="myTabContent">
                             <?php foreach ($objectTypeList as $id => $title){?>
                                 <div id="panel-type-<?= $id ?>" class="tab-pane fade <?= ($id == 1) ? 'in active' : '' ?>">
-                                    <br>
                                     <!-- группа строк -->
                                     <!--<div>
                                         <php foreach ($listValue as $itemValue){ ?>
@@ -139,11 +138,16 @@ function valuePassport($item, $filter, $model){
                                     <div>
                                         <?php foreach ($listCheckbox as $itemCheckbox){ ?>
                                             <?php if ($itemCheckbox->type_id == $id){ ?>
-                                                <label><?= $itemCheckbox->title ?></label>
+                                                <b><?= $itemCheckbox->title ?></b>
                                                 <div>
                                                     <?php foreach ($itemCheckbox->groupCheckboxes as $itemGroup){ ?>
-                                                        <label class="checkbox">
-                                                            <input type="checkbox" name="GroupCheckboxes[<?= $itemCheckbox->type_id ?>][<?= $itemCheckbox->id ?>][]" value="<?= $itemGroup->id ?>" <?= (in_array($itemGroup->id, $rezCheckbox))?'checked':'' ?>>
+                                                        <input
+                                                            type="checkbox"
+                                                            id="GroupCheckboxes[<?= $itemCheckbox->type_id ?>][<?= $itemCheckbox->id ?>]-<?= $itemGroup->id ?>"
+                                                            name="GroupCheckboxes[<?= $itemCheckbox->type_id ?>][<?= $itemCheckbox->id ?>][]"
+                                                            value="<?= $itemGroup->id ?>" <?= (in_array($itemGroup->id, $rezCheckbox))?'checked':'' ?>
+                                                        >
+                                                        <label class="checkbox" for="GroupCheckboxes[<?= $itemCheckbox->type_id ?>][<?= $itemCheckbox->id ?>]-<?= $itemGroup->id ?>">
                                                             <?= $itemGroup->title ?>
                                                         </label>
                                                     <?php } ?>
@@ -156,10 +160,15 @@ function valuePassport($item, $filter, $model){
                                     <div>
                                         <?php foreach ($listRadio as $itemRadio){ ?>
                                             <?php if ($itemRadio->type_id == $id){ ?>
-                                                <label><?= $itemRadio->title ?></label>
+                                                <b><?= $itemRadio->title ?></b>
                                                 <?php foreach ($itemRadio->groupRadios as $itemGroup){ ?>
-                                                    <label class="radio">
-                                                        <input type="radio" name="GroupRadios[<?= $itemRadio->type_id ?>][<?= $itemRadio->id ?>][]" value="<?= $itemGroup->id ?>" <?= (in_array($itemGroup->id, $rezRadio))?'checked':'' ?>>
+                                                    <input
+                                                        type="radio"
+                                                        id="GroupRadios[<?= $itemRadio->type_id ?>][<?= $itemRadio->id ?>]-<?= $itemGroup->id ?>"
+                                                        name="GroupRadios[<?= $itemRadio->type_id ?>][<?= $itemRadio->id ?>][]"
+                                                        value="<?= $itemGroup->id ?>" <?= (in_array($itemGroup->id, $rezRadio))?'checked':'' ?>
+                                                    >
+                                                    <label class="radio" for="GroupRadios[<?= $itemRadio->type_id ?>][<?= $itemRadio->id ?>]-<?= $itemGroup->id ?>">
                                                         <?= $itemGroup->title ?>
                                                     </label>
                                                 <?php } ?>
@@ -170,20 +179,23 @@ function valuePassport($item, $filter, $model){
                             <?php } ?>
                             <hr>
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <?= $form->field($model, 'tagsArray', ['options' => ['class' => 'radio-form']])->checkboxList(
-                                ArrayHelper::map(FormParticipation::find()->all(), 'id', 'title')
-                            )?>
-                        </div>
-                    </div>
+                        <div class="row clearfix">
+                            <div class="col-lg-12">
+                                <?=
+                                $form->field($model, 'tagsArray', ['options' => ['class' => 'radio-form']])->checkboxList(
+                                    ArrayHelper::map(FormParticipation::find()->all(), 'id', 'title'),
+                                    [
+                                        'item' => function($index, $label, $name, $checked, $value) {
+                                            $checkedLabel = $checked ? 'checked' : '';
+                                            $inputId = str_replace(['[', ']'], ['', ''], $name) . '_' . $index;
 
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary']) ?>
+                                            return "<input type='checkbox' name=$name value=$value id=$inputId $checkedLabel>"
+                                                . "<label class='checkbox' for=$inputId>$label</label>";
+                                        }
+                                    ]
+                                )?>
+                                <?= Html::submitButton('Сохранить', ['class' => 'btn btn-raised btn-primary m-t-15 waves-effect']) ?>
                             </div>
                         </div>
                     </div>
