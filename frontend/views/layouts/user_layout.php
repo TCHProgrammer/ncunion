@@ -52,6 +52,14 @@ ProfileAsset::register($this);
         <ul class="nav navbar-nav navbar-left">
             <li><a href="javascript:void(0);" class="ls-toggle-btn" data-close="true"><i class="zmdi zmdi-swap"></i></a></li>
         </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="javascript:void(0);" class="fullscreen hidden-sm-down" data-provide="fullscreen" data-close="true">
+                    <i class="zmdi zmdi-fullscreen"></i>
+                </a>
+            </li>
+
+        </ul>
     </div>
 </nav>
 <!-- Left Sidebar -->
@@ -77,6 +85,11 @@ ProfileAsset::register($this);
                         ['options'=> ['class'=>'divider'],],
                         ['label' => '<i class="material-icons">settings</i>Настройки', 'url' => ['/user/settings']],
                         ['label' => 'Паспорт', 'url' => ['/user/passport']],
+                        [
+                            'label'    => 'Выйти',
+                            'url'      => ['/site/logout'],
+                            'template' => '<a href="{url}" data-method="post" data-confirm="Вы уверены ?">{label}</a>'
+                        ]
 
                     ],
                     'options'=>[
@@ -119,7 +132,8 @@ ProfileAsset::register($this);
     <!-- #Menu -->
 </aside>
 
-<section class="content home">
+<?= $content ?>
+
     <!-- <?php
     NavBar::begin([
         'brandLabel' => Yii::$app->name,
@@ -159,24 +173,11 @@ ProfileAsset::register($this);
     NavBar::end();
     ?> -->
 
-    <div class="container-fluid">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
-        <div class="row clearfix">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="body">
-                        <p class="m-b-0">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?> </p>
-                        <p class="m-b-0">Разработанно и спроектированно компанией "РВБ-маркетинг"</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+
+    <!-- <?= Breadcrumbs::widget([
+        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+    ]) ?>
+        <?= Alert::widget() ?> -->
 
 <footer class="footer">
     <div class="container">

@@ -1,5 +1,18 @@
+.theme-orange .navbar-right {
+    margin-right: 0;
+}
+.theme-orange .navbar::before,
+.theme-orange .navbar::after {
+    display: none;
+}
 .theme-orange .navbar-brand {
     height: auto;
     font-size: 16px;
     line-height: 1.5;
+}
+
+@media (min-width: 768px) {
+    .float-md-right {
+        float: right!important;
+    }
 }
