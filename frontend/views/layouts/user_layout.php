@@ -86,7 +86,7 @@ ProfileAsset::register($this);
                         ['label' => '<i class="material-icons">settings</i>Настройки', 'url' => ['/user/settings']],
                         ['label' => 'Паспорт', 'url' => ['/user/passport']],
                         [
-                            'label'    => 'Выйти',
+                            'label'    => '<i class="material-icons">exit_to_app</i>Выйти',
                             'url'      => ['/site/logout'],
                             'template' => '<a href="{url}" data-method="post" data-confirm="Вы уверены ?">{label}</a>'
                         ]
