@@ -58,13 +58,14 @@ function valueFilter($item, $filter){
             <?= $form->field($model, 'amount_max', ['options' => ['class' => 'input-adjustment col-lg-6 col-md-6']])->textInput(['data-value' => $filterPassport->amount_max]) ?>
 
             <div class="col-lg-12">
-                <input id="price-slider"
+                <input id="price-slider-catalog"
                     data-slider-id='ex1Slider'
                     type="text"
-                    data-slider-min="<?= $filter['ObjectSearch']['amount_min'] ?>"
-                    data-slider-max="<?= $filter['ObjectSearch']['amount_max'] ?>"
-                    data-slider-step="1"
-                    data-slider-value="[<?= valueFilter('amount_min', $filter) ?>, <?= valueFilter('amount_max', $filter) ?>]"
+                    data-type="double"
+                    data-min="<?= $filter['ObjectSearch']['amount_min'] ?>"
+                    data-max="<?= $filter['ObjectSearch']['amount_max'] ?>"
+                    data-from="<?= valueFilter('amount_min', $filter, $model) ?>"
+                    data-to="<?= valueFilter('amount_max', $filter, $model) ?>"
                 />
             </div>
         </div>
@@ -76,13 +77,14 @@ function valueFilter($item, $filter){
             <?= $form->field($model, 'area_max', ['options' => ['class' => 'input-adjustment col-lg-6 col-md-6']])->textInput(['data-value' => $filterPassport->area_max]) ?>
 
             <div class="col-lg-12">
-                <input id="area-slider"
+                <input id="area-slider-catalog"
                     data-slider-id='ex1Slider'
                     type="text"
-                    data-slider-min="<?= $filter['ObjectSearch']['area_min'] ?>"
-                    data-slider-max="<?= $filter['ObjectSearch']['area_max'] ?>"
-                    data-slider-step="1"
-                    data-slider-value="[<?= valueFilter('area_min', $filter) ?>, <?= valueFilter('area_max', $filter)?>]"
+                    data-type="double"
+                    data-min="<?= $filter['ObjectSearch']['area_min'] ?>"
+                    data-max="<?= $filter['ObjectSearch']['area_max'] ?>"
+                    data-from="<?= valueFilter('area_min', $filter, $model) ?>"
+                    data-to="<?= valueFilter('area_max', $filter, $model) ?>"
                 />
             </div>
         </div>
@@ -94,13 +96,14 @@ function valueFilter($item, $filter){
             <?= $form->field($model, 'rooms_max', ['options' => ['class' => 'input-adjustment col-lg-6 col-md-6']])->textInput(['data-value' => $filterPassport->rooms_max]) ?>
 
             <div class="col-lg-12">
-                <input id="rooms-slider"
+                <input id="rooms-slider-catalog"
                     data-slider-id='ex1Slider'
                     type="text"
-                    data-slider-min="<?= $filter['ObjectSearch']['rooms_min'] ?>"
-                    data-slider-max="<?= $filter['ObjectSearch']['rooms_max'] ?>"
-                    data-slider-step="1"
-                    data-slider-value="[<?= valueFilter('rooms_min', $filter) ?>, <?= valueFilter('rooms_max', $filter) ?>]"
+                    data-type="double"
+                    data-min="<?= $filter['ObjectSearch']['rooms_min'] ?>"
+                    data-max="<?= $filter['ObjectSearch']['rooms_max'] ?>"
+                    data-from="<?= valueFilter('rooms_min', $filter, $model) ?>"
+                    data-to="<?= valueFilter('rooms_max', $filter, $model) ?>"
                 />
             </div>
         </div>

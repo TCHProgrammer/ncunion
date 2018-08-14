@@ -21,16 +21,19 @@ class ProfileAsset extends AssetBundle
         'js/mainscripts.bundle.js',
         'js/index.js',
         'js/jquery-knob.min.js',
-        '//cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/bootstrap-slider.min.js',
+        //'//cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/bootstrap-slider.min.js',
+        'js/ion.rangeSlider.min.js',
         'js/script.js'
     ];
     public $css = [
         '//fonts.googleapis.com/icon?family=Material+Icons',
         'css/jquery-jvectormap-2.0.3.css',
-        '//cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/css/bootstrap-slider.min.css',
+        //'//cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/css/bootstrap-slider.min.css',
         'css/morris.css',
         'css/main.css',
         'css/color_skins.css',
+        'css/ion.rangeSlider.css',
+        'css/ion.rangeSlider.skinFlat.css',
         'css/site-admin.css'
     ];
     public $cssOptions = [

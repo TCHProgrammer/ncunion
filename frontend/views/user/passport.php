@@ -48,10 +48,11 @@ function valuePassport($item, $filter, $model){
                                 <input id="price-slider"
                                        data-slider-id='ex1Slider'
                                        type="text"
-                                       data-slider-min="<?= $filter['ObjectSearch']['amount_min'] ?>"
-                                       data-slider-max="<?= $filter['ObjectSearch']['amount_max'] ?>"
-                                       data-slider-step="1"
-                                       data-slider-value="[<?= valuePassport('amount_min', $filter, $model) ?>, <?= valuePassport('amount_max', $filter, $model) ?>]"
+                                       data-type="double"
+                                       data-min="<?= $filter['ObjectSearch']['amount_min'] ?>"
+                                       data-max="<?= $filter['ObjectSearch']['amount_max'] ?>"
+                                       data-from="<?= valuePassport('amount_min', $filter, $model) ?>"
+                                       data-to="<?= valuePassport('amount_max', $filter, $model) ?>"
                                 />
                             </div>
 
@@ -71,10 +72,11 @@ function valuePassport($item, $filter, $model){
                                 <input id="area-slider"
                                        data-slider-id='ex1Slider'
                                        type="text"
-                                       data-slider-min="<?= $filter['ObjectSearch']['area_min'] ?>"
-                                       data-slider-max="<?= $filter['ObjectSearch']['area_max'] ?>"
-                                       data-slider-step="1"
-                                       data-slider-value="[<?= valuePassport('area_min', $filter, $model) ?>, <?= valuePassport('area_max', $filter, $model)?>]"
+                                       data-type="double"
+                                       data-min="<?= $filter['ObjectSearch']['area_min'] ?>"
+                                       data-max="<?= $filter['ObjectSearch']['area_max'] ?>"
+                                       data-from="<?= valuePassport('area_min', $filter, $model) ?>"
+                                       data-to="<?= valuePassport('area_max', $filter, $model) ?>"
                                 />
                             </div>
 
@@ -94,10 +96,11 @@ function valuePassport($item, $filter, $model){
                                 <input id="rooms-slider"
                                        data-slider-id='ex1Slider'
                                        type="text"
-                                       data-slider-min="<?= $filter['ObjectSearch']['rooms_min'] ?>"
-                                       data-slider-max="<?= $filter['ObjectSearch']['rooms_max'] ?>"
-                                       data-slider-step="1"
-                                       data-slider-value="[<?= valuePassport('rooms_min', $filter, $model) ?>, <?= valuePassport('rooms_max', $filter, $model) ?>]"
+                                       data-type="double"
+                                       data-min="<?= $filter['ObjectSearch']['rooms_min'] ?>"
+                                       data-max="<?= $filter['ObjectSearch']['rooms_max'] ?>"
+                                       data-from="<?= valuePassport('rooms_min', $filter, $model) ?>"
+                                       data-to="<?= valuePassport('rooms_max', $filter, $model) ?>"
                                 />
                             </div>
                         </div>
