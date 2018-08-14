@@ -51,6 +51,28 @@ ProfileAsset::register($this);
         </div>
         <ul class="nav navbar-nav navbar-left">
             <li><a href="javascript:void(0);" class="ls-toggle-btn" data-close="true"><i class="zmdi zmdi-swap"></i></a></li>
+            <li class="dropdown menu-app hidden-sm-down"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"> <i class="zmdi zmdi-apps"></i> </a>
+                <ul class="dropdown-menu slideDown">
+                    <li class="body">
+                        <?php
+                        echo Menu::widget([
+                            'items' => [
+                                // Important: you need to specify url as 'controller/action',
+                                // not just as 'controller' even if default action is used.
+                                ['label' => '<i class="zmdi zmdi-collection-bookmark"></i><span>Каталог объектов</span>', 'url' => ['/catalog']],
+                                ['label' => '<i class="zmdi zmdi-bookmark"></i><span>Мои объекты</span>', 'url' => ['/my-object']],
+                            ],
+                            'options'=>[
+                                'class' => 'menu'
+                            ],
+                            'encodeLabels' => false,
+                            'activateItems' => false,
+                        ]);
+                        ?>
+                    </li>
+                </ul>
+            </li>
+
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li>
@@ -84,7 +106,7 @@ ProfileAsset::register($this);
                         ],
                         ['options'=> ['class'=>'divider'],],
                         ['label' => '<i class="material-icons">settings</i>Настройки', 'url' => ['/user/settings']],
-                        ['label' => 'Паспорт', 'url' => ['/user/passport']],
+                        ['label' => '<i class="material-icons">account_box</i>Паспорт', 'url' => ['/user/passport']],
                         [
                             'label'    => '<i class="material-icons">exit_to_app</i>Выйти',
                             'url'      => ['/site/logout'],
@@ -109,17 +131,37 @@ ProfileAsset::register($this);
         <ul class="list">
             <li class="header">ОСНОВНАЯ НАВИГАЦИЯ</li>
             <li class="active open">
-                <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-home"></i><span>Dashboard</span></a>
+                <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-home"></i><span>Основные ссылки</span></a>
                 <?php
                 echo Menu::widget([
                     'items' => [
                         // Important: you need to specify url as 'controller/action',
                         // not just as 'controller' even if default action is used.
                         ['label' => 'Главная', 'url' => ['/site/index']],
+                        ['label' => 'Каталог объектов', 'url' => ['/catalog']],
+                        ['label' => 'Мои объекты', 'url' => ['/my-object']],
+                    ],
+                    'options'=>[
+                        'class' => 'ml-menu'
+                    ],
+                ]);
+                ?>
+            </li>
+            <li>
+                <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi zmdi-lock"></i><span>Личный кабинет</span></a>
+                <?php
+                echo Menu::widget([
+                    'items' => [
+                        // Important: you need to specify url as 'controller/action',
+                        // not just as 'controller' even if default action is used.
                         ['label' => 'Профиль', 'url' => ['/user/profile']],
                         ['label' => 'Настройки', 'url' => ['/user/settings']],
                         ['label' => 'Паспорт', 'url' => ['/user/passport']],
-                        ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
+                        [
+                            'label'    => 'Выйти',
+                            'url'      => ['/site/logout'],
+                            'template' => '<a href="{url}" data-method="post" data-confirm="Вы уверены ?">{label}</a>'
+                        ]
                     ],
                     'options'=>[
                         'class' => 'ml-menu'

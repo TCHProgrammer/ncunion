@@ -15,6 +15,12 @@
     color: #ffc100 !important;
     font-weight: 700;
 }
+.theme-orange .navbar-nav .menu-app .menu {
+    width: 205px;
+}
+.theme-orange .navbar-nav .menu-app .menu li a {
+    height: 100px;
+}
 
 @media (min-width: 768px) {
     .float-md-right {
