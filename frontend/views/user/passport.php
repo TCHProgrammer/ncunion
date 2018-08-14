@@ -28,6 +28,7 @@ function valuePassport($item, $filter, $model){
 
                     <div class="body">
                         <h2 class="card-inside-title"><?= Html::encode($this->title) ?></h2>
+
                         <!-- ползунки -->
                         <div class="row clearfix">
 
@@ -100,15 +101,17 @@ function valuePassport($item, $filter, $model){
                                 />
                             </div>
                         </div>
-                    </div>
 
-                    <!-- типы объектов -->
-                    <div class="row">
+                        <!-- типы объектов -->
 
                         <ul class="nav nav-tabs" id="myTabEvents">
+                            <?php
+                            $activeTab = 'class="nav-item active" aria-expanded="true"';
+                            $inactiveTab = 'class="nav-item" aria-expanded="false"';
+                            ?>
                             <?php foreach ($objectTypeList as $id => $title){?>
-                                <li <?= ($id == 1) ? 'class="active"' : '' ?>>
-                                    <a class="tabnav" data-toggle="tab" href="#panel-type-<?= $id ?>"><?= $title ?></a>
+                                <li <?= ($id == 1) ? $activeTab : $inactiveTab ?>>
+                                    <a class="tabnav nav-link" data-toggle="tab" href="#panel-type-<?= $id ?>"><?= $title ?></a>
                                 </li>
                             <?php } ?>
                         </ul>
@@ -164,7 +167,6 @@ function valuePassport($item, $filter, $model){
                             <?php } ?>
                             <hr>
                         </div>
-
                     </div>
 
                     <div class="row">

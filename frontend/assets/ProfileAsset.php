@@ -12,7 +12,7 @@ class ProfileAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $js = [
-        'js/libscripts.bundle.js',
+        //'js/libscripts.bundle.js',
         'js/vendorscripts.bundle.js',
         'js/jvectormap.bundle.js',
         'js/morrisscripts.bundle.js',
