@@ -74,7 +74,16 @@ $this->title = 'Настройки';
                                 <div class="col-sm-6">
 
                                     <?= $form->field($model, 'tagsArray')->checkboxList(
-                                        Notice::find()->select(['title', 'id'])->indexBy('id')->column()
+                                        Notice::find()->select(['title', 'id'])->indexBy('id')->column(),
+                                        [
+                                            'item' => function($index, $label, $name, $checked, $value) {
+                                                $checkedLabel = $checked ? 'checked' : '';
+                                                $inputId = str_replace(['[', ']'], ['', ''], $name) . '_' . $index;
+
+                                                return "<input type='checkbox' name=$name value=$value id=$inputId $checkedLabel>"
+                                                    . "<label class='checkbox' for=$inputId>$label</label>";
+                                            }
+                                        ]
                                     )->label(false) ?>
 
                                 </div>
