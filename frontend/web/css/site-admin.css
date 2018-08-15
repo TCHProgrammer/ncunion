@@ -38,6 +38,20 @@
     font-weight: 700;
     margin: 0;
 }
+/* .theme-orange .list-view .summary {
+    background: #fff;
+    min-height: 50px;
+    position: relative;
+    transition: .5s;
+    border-radius: 8px;
+    border: none;
+    margin-bottom: 30px;
+    padding: 20px;
+} */
+.theme-orange .img-fluid {
+    max-width: 100%;
+    height: auto;
+}
 
 @media (min-width: 768px) {
     .float-md-right {

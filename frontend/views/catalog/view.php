@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
 
         <!-- доверие объекту -->
-        <p>Доверие объекта составяент <?= $confObj ?>%</p>
+        <p>Доверие объекта составляет <?= $confObj ?>%</p>
 
         <!-- шкала -->
         <div class="object-view col-lg-6 col-md-6">
