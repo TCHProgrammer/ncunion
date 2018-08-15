@@ -29,37 +29,21 @@ $conf = round($listConf * 100 / $allListConf, 2);
                 <ul class="product_price list-unstyled">
                     <li class="price"><?= $model->amount ?> руб.</li>
                 </ul>
-            </div>
-
-            <div class="row clearfix hide">
-                <div class="object-item-img col-lg-6 ">
-                    <div class="object-conf" style="top:10px;">
-                        Доверие <?= $conf ?>%
-                    </div>
-
-                    <?php if(!is_null($model->nks)){ ?>
-                        <div class="object-ncs" style="top:10px;">
-                            НКС: <?= $model->nks ?>
-                        </div>
-                    <?php } ?>
-
-                    <?php $styleTag = 10 ;?>
-                    <?php foreach ($model->tag as $tag){ ?>
-                        <div class="object-tag" style="top: <?= $styleTag ?>px;">
-                            <?= $tag->title ?>
-                        </div>
-                        <?php $styleTag += 50; ?>
-                    <?php } ?>
-
-                    <a href="<?= Url::toRoute('/catalog/view?id='.$model->id) ?>">
-                        <?php if (isset($model->objectImgs[0]->img)){ ?>
-                            <img src="<?= $model->objectImgs[0]->img ?>">
-                        <?php }else{ ?>
-                            <img src="/img/object/no-photo.jpg">
-                        <?php } ?>
-                    </a>
-
+                <div class="object-conf" style="top:10px;">
+                    Доверие <?= $conf ?>%
                 </div>
+                <?php if(!is_null($model->nks)){ ?>
+                    <div class="object-ncs" style="top:10px;">
+                        НКС: <?= $model->nks ?>
+                    </div>
+                <?php } ?>
+                <?php $styleTag = 10 ;?>
+                <?php foreach ($model->tag as $tag){ ?>
+                    <div class="object-tag" style="top: <?= $styleTag ?>px;">
+                        <?= $tag->title ?>
+                    </div>
+                    <?php $styleTag += 50; ?>
+                <?php } ?>
             </div>
         </div>
     </div>
