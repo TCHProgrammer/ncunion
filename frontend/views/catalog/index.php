@@ -63,7 +63,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'options' => [
                     'class' => 'pagination'
                 ]
-            ]
+            ],
+            'emptyTextOptions' => [
+                'class' => 'col-sm-12'
+            ],
+            'emptyText' => '<div class="card"><div class="body"><div class="empty">Ничего не найдено</div></div></div>'
+            // TODO: Вот этот ужас надо бы потом исправить.
         ]); ?>
     </div>
 </section>
