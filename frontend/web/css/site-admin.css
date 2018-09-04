@@ -52,6 +52,23 @@
     max-width: 100%;
     height: auto;
 }
+.theme-orange .progress {
+    height: 20px;
+}
+.theme-orange .progress .progress-bar,
+.theme-orange .object-progress-striped .left-pr-striped,
+.theme-orange .object-progress-striped .right-pr-striped {
+    line-height: 20px;
+}
+/* TODO: префиксы */
+.theme-orange .object-progress-striped {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.theme-orange .object-progress-striped .center-pr-striped {
+    flex-basis: 75%;
+}
 
 @media (min-width: 768px) {
     .float-md-right {

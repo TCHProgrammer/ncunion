@@ -16,141 +16,170 @@ $this->params['breadcrumbs'][] = ['label' => 'Каталог объектов', 
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="row">
+<section class="content object-page">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-7 col-md-6 col-sm-12">
+                <h1><?= Html::encode($this->title) ?></h1>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <!-- полная информация об объекте  -->
+            <div class="col-lg-12 col-md-12 object-view">
+                <div class="card">
+                    <div class="body">
+                        <div class="row">
+                            <div class="preview col-lg-4 col-md-12">
+                                <?php if (!empty($modelImgs)){ ?>
+                                    <div class="preview-pic tab-content">
+                                        <?php $count = 1; ?>
+                                        <?php foreach ($modelImgs as $item){ ?>
+                                            <div class="tab-pane<?php if($count == 1) { echo ' active'; } ?>" id="product_<?= $count; ?>">
+                                                <img src="<?= $item->img ?>">
+                                            </div>
+                                            <?php $count++; ?>
+                                        <?php } ?>
+                                    </div>
+                                <?php } else { ?>
+                                    <img class="img-fluid" src="/img/object/no-photo.jpg">
+                                <?php } ?>
+                                <?php if (!empty($modelImgs)){ ?>
+                                    <ul class="preview-thumbnail nav nav-tabs">
+                                        <?php $count = 1; ?>
+                                        <?php foreach ($modelImgs as $item){ ?>
+                                            <li class="nav-item"><a class="nav-link<?php if($count == 1) { echo ' active'; } ?>" data-toggle="tab" href="#product_<?= $count; ?>"><img src="<?= $item->img ?>"></a></li>
+                                            <?php $count++; ?>
+                                        <?php } ?>
+                                    </ul>
+                                <?php } ?>
+                            </div>
+                            <div class="details col-lg-8 col-md-12">
+                                <h3 class="product-title"><?= Html::encode($this->title) ?></h3>
+                                <h4 class="price"><span class="col-amber"><?= $model->amount ?> руб.</span></h4>
+                                <hr>
+                                <p>
+                                    <b>Статус:</b>
+                                    <?php
+                                    switch ($model->status_object){
+                                        case 1:
+                                            $statusObject = 'сделка частично закрыта';
+                                            $classObject = 'label-warning';
+                                            break;
+                                        case 2:
+                                            $statusObject = 'сделка открыта';
+                                            $classObject = 'label-success';
+                                            break;
+                                        default:
+                                            $statusObject = 'сделка закрыта';
+                                            $classObject = 'label-danger';
+                                            break;
+                                    }
+                                    ?>
+                                    <label class="label <?= $classObject ?>"><?= $statusObject ?></label>
+                                </p>
 
-    <!-- полная информация об объекте  -->
-    <div class="col-lg-12 col-md-12 object-view">
+                                <!-- доверие объекту -->
+                                <p>Доверие объекта составляет <?= $confObj ?>%</p>
 
-        <h1><?= Html::encode($this->title) ?></h1>
+                                <!-- шкала -->
+                                <div class="object-view">
+                                    <div class="object-progress-striped">
+                                        <div class="left-pr-striped">0</div>
+                                        <div class="center-pr-striped">
+                                            <div class="progress progress-striped m-b-5 progress-bar-striped">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="<?= $progress['amount-percent'] ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $progress['amount-percent'] ?>%" style="">
+                                                    <span class="print-amount-striped"><?= $progress['print-amount'] ?>(<?= $progress['amount-percent'] ?>%)</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="right-pr-striped"><?= $model->amount ?></div>
+                                    </div>
+                                </div>
 
-        <?php if ($userFoll){ ?>
-            <p><?= Html::a('Отписаться', ['/catalog/unsubscribe?oId=' . $model->id], ['class' => 'btn btn-primary', 'data-confirm' => 'Вы уверены, что хотите отписаться?', 'disable' => true]) ?></p>
-        <?php }else{ ?>
-            <p><?= Html::button('Откликнуться', ['class' => 'btn btn-primary', 'data-toggle' => 'modal', 'data-target' => '.bs-example-modal-lg']) ?></p>
-        <?php } ?>
+                                <hr>
 
-        <p>
-            Статус:
-            <?php
-                switch ($model->status_object){
-                    case 1:
-                        $statusObject = 'сделка частично закрыта';
-                        $classObject = 'btn-warning';
-                        break;
-                    case 2:
-                        $statusObject = 'сделка открыта';
-                        $classObject = 'btn-success';
-                        break;
-                    default:
-                        $statusObject = 'сделка закрыта';
-                        $classObject = 'btn-danger';
-                        break;
-                }
-            ?>
-            <span class="<?= $classObject ?>"><?= $statusObject ?></span>
-        </p>
+                                <div class="action">
+                                    <?php if ($userFoll){ ?>
+                                        <?= Html::a('Отписаться', ['/catalog/unsubscribe?oId=' . $model->id], ['class' => 'btn btn-primary waves-effect', 'data-confirm' => 'Вы уверены, что хотите отписаться?', 'disable' => true]) ?>
+                                    <?php }else{ ?>
+                                        <?= Html::button('Откликнуться', ['class' => 'btn btn-default waves-effect', 'data-toggle' => 'modal', 'data-target' => '.bs-example-modal-lg']) ?>
+                                    <?php } ?>
+                                </div>
 
-        <!-- доверие объекту -->
-        <p>Доверие объекта составляет <?= $confObj ?>%</p>
-
-        <!-- шкала -->
-        <div class="object-view col-lg-6 col-md-6">
-            <div class="object-progress-striped">
-                <div class="left-pr-striped">0</div>
-                <div class="center-pr-striped">
-                    <div class="progress progress-striped active">
-                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?= $progress['amount-percent'] ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $progress['amount-percent'] ?>%">
-                            <span class="print-amount-striped"><?= $progress['print-amount'] ?>(<?= $progress['amount-percent'] ?>%)</span>
+                                <!-- вывод информации на подписку -->
+                                <?php if ($userFoll){ ?>
+                                    <div class="col-lg-12 col-md-12">
+                                        <h2>Вы откликнулись на сделку</h2>
+                                        <?= $this->render('_listUser', [
+                                            'model' => $userFoll
+                                        ]);
+                                        ?>
+                                    </div>
+                                <?php } ?>
+                            </div>
                         </div>
+
+                        <!-- инфо об объекте -->
+                        <?= DetailView::widget([
+                            'model' => $model,
+                            'attributes' => [
+                                [
+                                    'attribute' => 'type_id',
+                                    'value' => function($model){
+                                        $arr = ArrayHelper::map(ObjectType::find()->all(), 'id', 'title');
+                                        return $arr[$model->type_id];
+                                    }
+                                ],
+                                'title',
+                                'descr:html',
+                                'place_km',
+                                'amount',
+                                'address',
+                                'address_map',
+                                'area',
+                                'rooms',
+                                'owner',
+                                'price_cadastral',
+                                'price_tian',
+                                'price_market',
+                                'price_liquidation',
+                                'rate',
+                                'term',
+                                [
+                                    'attribute' => 'schedule_payments',
+                                    'value' => function($model){
+                                        return ($model->schedule_payments === 1)?'шаровый':'аннуитетный';
+                                    }
+                                ],
+                                'nks',
+                            ],
+                        ]) ?>
+
+                        <!-- файлы -->
+                        <?php if (!empty($modelFiles)){ ?>
+                            <h2 class="card-inside-title">Документы</h2>
+                            <?php foreach ($modelFiles as $item){ ?>
+                                <div>
+                                    <a href="<?= $item->doc ?>"><?= $item->title ?></a>
+                                </div>
+                            <?php } ?>
+                        <?php } ?>
+
+                        <!-- комментарии -->
+                        <h2 class="card-inside-title">Комментарии</h2>
+                        <?= $this->render('_comments', [
+                            'commentNew' => $commentNew,
+                            'oId' => $model->id,
+                            'commentList' => $commentList
+                        ]); ?>
                     </div>
                 </div>
-                <div class="right-pr-striped"><?= $model->amount ?></div>
             </div>
         </div>
-
-        <!-- вывод информации на подписку -->
-        <?php if ($userFoll){ ?>
-            <div class="col-lg-12 col-md-12">
-                <h2>Вы откликнулись на сделку</h2>
-                <?= $this->render('_listUser', [
-                    'model' => $userFoll
-                ]);
-                ?>
-            </div>
-        <?php } ?>
-
-        <!-- инфо об объекте -->
-        <?= DetailView::widget([
-            'model' => $model,
-            'attributes' => [
-                [
-                    'attribute' => 'type_id',
-                    'value' => function($model){
-                        $arr = ArrayHelper::map(ObjectType::find()->all(), 'id', 'title');
-                        return $arr[$model->type_id];
-                    }
-                ],
-                'title',
-                'descr:html',
-                'place_km',
-                'amount',
-                'address',
-                'address_map',
-                'area',
-                'rooms',
-                'owner',
-                'price_cadastral',
-                'price_tian',
-                'price_market',
-                'price_liquidation',
-                'rate',
-                'term',
-                [
-                    'attribute' => 'schedule_payments',
-                    'value' => function($model){
-                        return ($model->schedule_payments === 1)?'шаровый':'аннуитетный';
-                    }
-                ],
-                'nks',
-            ],
-        ]) ?>
     </div>
-
-    <!-- фото -->
-    <?php if (!empty($modelImgs)){ ?>
-        <div class="col-lg-12 col-md-12">
-            <h3>Фотогалерея</h3>
-            <hr>
-            <?php foreach ($modelImgs as $item){ ?>
-                <img src="<?= $item->img ?>" style="width: 200px">
-            <?php } ?>
-        </div>
-    <?php } ?>
-
-    <!-- файлы -->
-    <?php if (!empty($modelFiles)){ ?>
-        <div class="col-lg-12 col-md-12">
-            <h3>Документы</h3>
-            <hr>
-            <?php foreach ($modelFiles as $item){ ?>
-                <div>
-                    <a href="<?= $item->doc ?>"><?= $item->title ?></a>
-                </div>
-            <?php } ?>
-        </div>
-    <?php } ?>
-
-    <!-- комментарии -->
-    <div class="col-lg-12 col-md-12">
-        <h3>Комментарии</h3>
-        <?= $this->render('_comments', [
-            'commentNew' => $commentNew,
-            'oId' => $model->id,
-            'commentList' => $commentList
-        ]); ?>
-    </div>
-
-</div>
+</section>
 
 <!-- modal -->
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
