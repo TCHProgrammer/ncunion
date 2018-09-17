@@ -25,144 +25,213 @@ function valueFilter($item, $filter){
         'method' => 'get',
     ]); ?>
 
-    <div class="row">
-        <?= $form->field($model, 'title', ['options' => ['class' => 'input-adjustment col-lg-6 col-md-6']]) ?>
+    <div class="row clearfix">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="body">
+                    <div class="row clearfix">
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <?= $form->field($model, 'title', ['options' => ['class' => 'input-adjustment form-line']]) ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <?= $form->field($model, 'type_id',
+                                    [
+                                        'options' => ['class' => 'input-adjustment'],
+                                        'inputOptions' => ['class' => 'form-control']
+                                    ])->dropDownList(
+                                    ArrayHelper::map(ObjectType::find()->all(), 'id', 'title'),
+                                    ['prompt' => 'Выберите тип объекта...']
+                                ) ?>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <?= $form->field($model, 'place_km', ['options' => ['class' => 'input-adjustment']])->dropDownList(
+                                    [
+                                        0 => 'Москва',
+                                        10 => 'до 10 км от МКАД',
+                                        25 => 'до 25 км от МКАД',
+                                        50 => 'до 50 км от МКАД',
+                                        100 => 'до 100 км от МКАД',
+                                    ],
+                                    ['prompt' => 'Выберите удалённость от Москвы...']
+                                ) ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="filter-slider" class="row clearfix">
+                        <!-- цена -->
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="row clearfix">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <?= $form->field($model, 'amount_min', ['options' => ['class' => 'input-adjustment form-line']])->textInput(['data-value' => $filterPassport->amount_min]) ?>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <?= $form->field($model, 'amount_max', ['options' => ['class' => 'input-adjustment form-line']])->textInput(['data-value' => $filterPassport->amount_max]) ?>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <input id="price-slider-catalog"
+                                           data-slider-id='ex1Slider'
+                                           type="text"
+                                           data-type="double"
+                                           data-min="<?= $filter['ObjectSearch']['amount_min'] ?>"
+                                           data-max="<?= $filter['ObjectSearch']['amount_max'] ?>"
+                                           data-from="<?= valueFilter('amount_min', $filter, $model) ?>"
+                                           data-to="<?= valueFilter('amount_max', $filter, $model) ?>"
+                                    />
+                                </div>
+                            </div>
+                        </div>
 
-        <?= $form->field($model, 'type_id',
-            [
-                'options' => ['class' => 'input-adjustment col-lg-3 col-md-3'],
-                'inputOptions' => ['class' => 'form-control']
-            ])->dropDownList(
-                ArrayHelper::map(ObjectType::find()->all(), 'id', 'title'),
-                ['prompt' => 'Выберите тип объекта...']
-            ) ?>
+                        <!-- площадь -->
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="row clearfix">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <?= $form->field($model, 'area_min', ['options' => ['class' => 'input-adjustment form-line']])->textInput(['data-value' => $filterPassport->area_min]) ?>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <?= $form->field($model, 'area_max', ['options' => ['class' => 'input-adjustment form-line']])->textInput(['data-value' => $filterPassport->area_max]) ?>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <input id="area-slider-catalog"
+                                           data-slider-id='ex1Slider'
+                                           type="text"
+                                           data-type="double"
+                                           data-min="<?= $filter['ObjectSearch']['area_min'] ?>"
+                                           data-max="<?= $filter['ObjectSearch']['area_max'] ?>"
+                                           data-from="<?= valueFilter('area_min', $filter, $model) ?>"
+                                           data-to="<?= valueFilter('area_max', $filter, $model) ?>"
+                                    />
+                                </div>
+                            </div>
+                        </div>
 
-        <?= $form->field($model, 'place_km', ['options' => ['class' => 'input-adjustment col-lg-3 col-md-3']])->dropDownList(
-            [
-                0 => 'Москва',
-                10 => 'до 10 км от МКАД',
-                25 => 'до 25 км от МКАД',
-                50 => 'до 50 км от МКАД',
-                100 => 'до 100 км от МКАД',
-            ],
-            ['prompt' => 'Выберите удалённость от Москвы...']
-        ) ?>
+                        <!-- комнаты -->
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="row clearfix">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <?= $form->field($model, 'rooms_min', ['options' => ['class' => 'input-adjustment form-line']])->textInput(['data-value' => $filterPassport->rooms_min]) ?>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <?= $form->field($model, 'rooms_max', ['options' => ['class' => 'input-adjustment form-line']])->textInput(['data-value' => $filterPassport->rooms_max]) ?>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <input id="rooms-slider-catalog"
+                                           data-slider-id='ex1Slider'
+                                           type="text"
+                                           data-type="double"
+                                           data-min="<?= $filter['ObjectSearch']['rooms_min'] ?>"
+                                           data-max="<?= $filter['ObjectSearch']['rooms_max'] ?>"
+                                           data-from="<?= valueFilter('rooms_min', $filter, $model) ?>"
+                                           data-to="<?= valueFilter('rooms_max', $filter, $model) ?>"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <?= $form->field($model, 'price_cadastral', ['options' => ['class' => 'input-adjustment form-line']]) ?>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <?= $form->field($model, 'price_tian', ['options' => ['class' => 'input-adjustment form-line']]) ?>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <?= $form->field($model, 'price_market', ['options' => ['class' => 'input-adjustment form-line']]) ?>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <?= $form->field($model, 'price_liquidation', ['options' => ['class' => 'input-adjustment form-line']]) ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <?php //var_dump($_GET); ?>
 
-    </div>
-
-    <div id="filter-slider" class="row">
-        <!-- цена -->
-        <div class="col-lg-4">
-            <?= $form->field($model, 'amount_min', ['options' => ['class' => 'input-adjustment col-lg-6 col-md-6']])->textInput(['data-value' => $filterPassport->amount_min]) ?>
-
-            <?= $form->field($model, 'amount_max', ['options' => ['class' => 'input-adjustment col-lg-6 col-md-6']])->textInput(['data-value' => $filterPassport->amount_max]) ?>
-
-            <div class="col-lg-12">
-                <input id="price-slider"
-                    data-slider-id='ex1Slider'
-                    type="text"
-                    data-slider-min="<?= $filter['ObjectSearch']['amount_min'] ?>"
-                    data-slider-max="<?= $filter['ObjectSearch']['amount_max'] ?>"
-                    data-slider-step="1"
-                    data-slider-value="[<?= valueFilter('amount_min', $filter) ?>, <?= valueFilter('amount_max', $filter) ?>]"
-                />
+                        <div class="col-sm-12">
+                            <?php foreach ($listCheckboxes as $itemCheckbox){ ?>
+                                <div class="form-attribute form-attribute-<?= $itemCheckbox->type_id ?>" style="<?= ($itemCheckbox->type_id == $model->type_id)?'display: block':'display: none' ?>">
+                                    <b><?= $itemCheckbox->title ?></b>
+                                    <div>
+                                        <?php foreach ($itemCheckbox->groupCheckboxes as $itemGroup){ ?>
+                                            <input
+                                                type="checkbox"
+                                                id="filter-checkboxes-GroupCheckboxes[<?= $itemCheckbox->type_id ?>][<?= $itemCheckbox->id ?>]-<?= $itemGroup->id ?>"
+                                                name="GroupCheckboxes[<?= $itemCheckbox->type_id ?>][<?= $itemCheckbox->id ?>][]"
+                                                value="<?= $itemGroup->id ?>"
+                                                <?= (in_array($itemGroup->id, $rezCheckboxes))?'checked':'' ?>
+                                                <?php if (isset($arrFilterPassport['checkboxs'][$itemCheckbox->id])){ ?>
+                                                    <?= (in_array($itemGroup->id, $arrFilterPassport['checkboxs'][$itemCheckbox->id]))?'data-value=1':'' ?>
+                                                <?php } ?>
+                                            >
+                                            <label class="checkbox" for="filter-checkboxes-GroupCheckboxes[<?= $itemCheckbox->type_id ?>][<?= $itemCheckbox->id ?>]-<?= $itemGroup->id ?>">
+                                                <?= $itemGroup->title ?>
+                                            </label>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-sm-12">
+                            <?php foreach ($listRadios as $itemRadio){ ?>
+                                <div class="form-attribute form-attribute-<?= $itemRadio->type_id ?>"  style="<?= ($itemRadio->type_id == $model->type_id)?'display: block':'display: none' ?>">
+                                    <b><?= $itemRadio->title ?></b>
+                                    <?php foreach ($itemRadio->groupRadios as $itemGroup){ ?>
+                                        <input
+                                                type="radio"
+                                                id="filter-radios-GroupRadios[<?= $itemRadio->type_id ?>][<?= $itemRadio->id ?>]-<?= $itemGroup->id ?>"
+                                                name="GroupRadios[<?= $itemRadio->type_id ?>][<?= $itemRadio->id ?>][]"
+                                                value="<?= $itemGroup->id ?>"
+                                            <?= (in_array($itemGroup->id, $rezRadios))?'checked':'' ?>
+                                            <?php if (isset($arrFilterPassport['radios'][$itemRadio->id])){ ?>
+                                                <?= (in_array($itemGroup->id, $arrFilterPassport['radios'][$itemRadio->id]))?'data-value=1':'' ?>
+                                            <?php } ?>
+                                        >
+                                        <label class="radio" for="filter-radios-GroupRadios[<?= $itemRadio->type_id ?>][<?= $itemRadio->id ?>]-<?= $itemGroup->id ?>">
+                                            <?= $itemGroup->title ?>
+                                        </label>
+                                    <?php } ?>
+                                </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <?= Html::submitButton('Поиск', ['class' => 'btn btn-primary']) ?>
+                                <?= Html::a('Сбросить фильтр', ['/catalog'], ['class' => 'btn btn-default']) ?>
+                                <?= Html::button('Применить фильтр из паспорта', ['class' => 'btn btn-default', 'id' => 'filter-passport']) ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <!-- площадь -->
-        <div class="col-lg-4">
-            <?= $form->field($model, 'area_min', ['options' => ['class' => 'input-adjustment col-lg-6 col-md-6']])->textInput(['data-value' => $filterPassport->area_min]) ?>
-
-            <?= $form->field($model, 'area_max', ['options' => ['class' => 'input-adjustment col-lg-6 col-md-6']])->textInput(['data-value' => $filterPassport->area_max]) ?>
-
-            <div class="col-lg-12">
-                <input id="area-slider"
-                    data-slider-id='ex1Slider'
-                    type="text"
-                    data-slider-min="<?= $filter['ObjectSearch']['area_min'] ?>"
-                    data-slider-max="<?= $filter['ObjectSearch']['area_max'] ?>"
-                    data-slider-step="1"
-                    data-slider-value="[<?= valueFilter('area_min', $filter) ?>, <?= valueFilter('area_max', $filter)?>]"
-                />
-            </div>
-        </div>
-
-        <!-- комнаты -->
-        <div class="col-lg-4">
-            <?= $form->field($model, 'rooms_min', ['options' => ['class' => 'input-adjustment col-lg-6 col-md-6']])->textInput(['data-value' => $filterPassport->rooms_min]) ?>
-
-            <?= $form->field($model, 'rooms_max', ['options' => ['class' => 'input-adjustment col-lg-6 col-md-6']])->textInput(['data-value' => $filterPassport->rooms_max]) ?>
-
-            <div class="col-lg-12">
-                <input id="rooms-slider"
-                    data-slider-id='ex1Slider'
-                    type="text"
-                    data-slider-min="<?= $filter['ObjectSearch']['rooms_min'] ?>"
-                    data-slider-max="<?= $filter['ObjectSearch']['rooms_max'] ?>"
-                    data-slider-step="1"
-                    data-slider-value="[<?= valueFilter('rooms_min', $filter) ?>, <?= valueFilter('rooms_max', $filter) ?>]"
-                />
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <?= $form->field($model, 'price_cadastral', ['options' => ['class' => 'input-adjustment col-lg-3 col-md-3']]) ?>
-
-        <?= $form->field($model, 'price_tian', ['options' => ['class' => 'input-adjustment col-lg-3 col-md-3']]) ?>
-
-        <?= $form->field($model, 'price_market', ['options' => ['class' => 'input-adjustment col-lg-3 col-md-3']]) ?>
-
-        <?= $form->field($model, 'price_liquidation', ['options' => ['class' => 'input-adjustment col-lg-3 col-md-3']]) ?>
-    </div>
-
-    <?php //var_dump($_GET); ?>
-
-    <?php foreach ($listCheckboxes as $itemCheckbox){ ?>
-        <div class="form-attribute form-attribute-<?= $itemCheckbox->type_id ?>" style="<?= ($itemCheckbox->type_id == $model->type_id)?'display: block':'display: none' ?>">
-            <label><?= $itemCheckbox->title ?></label>
-            <div>
-                <?php foreach ($itemCheckbox->groupCheckboxes as $itemGroup){ ?>
-                    <label class="checkbox">
-                        <input type="checkbox"
-                               id="filter-checkbox"
-                               name="GroupCheckboxes[<?= $itemCheckbox->type_id ?>][<?= $itemCheckbox->id ?>][]"
-                               value="<?= $itemGroup->id ?>"
-                               <?= (in_array($itemGroup->id, $rezCheckboxes))?'checked':'' ?>
-                               <?php if (isset($arrFilterPassport['checkboxs'][$itemCheckbox->id])){ ?>
-                                   <?= (in_array($itemGroup->id, $arrFilterPassport['checkboxs'][$itemCheckbox->id]))?'data-value=1':'' ?>
-                               <?php } ?>>
-                        <?= $itemGroup->title ?>
-                    </label>
-                <?php } ?>
-            </div>
-        </div>
-    <?php } ?>
-
-    <div class="row">
-        <?php foreach ($listRadios as $itemRadio){ ?>
-            <div class="form-attribute form-attribute-<?= $itemRadio->type_id ?>"  style="<?= ($itemRadio->type_id == $model->type_id)?'display: block':'display: none' ?>">
-                <label><?= $itemRadio->title ?></label>
-                <?php foreach ($itemRadio->groupRadios as $itemGroup){ ?>
-                    <label class="radio">
-                        <input type="radio"
-                               name="GroupRadios[<?= $itemRadio->type_id ?>][<?= $itemRadio->id ?>][]"
-                               value="<?= $itemGroup->id ?>"
-                               <?= (in_array($itemGroup->id, $rezRadios))?'checked':'' ?>
-                               <?php if (isset($arrFilterPassport['radios'][$itemRadio->id])){ ?>
-                                   <?= (in_array($itemGroup->id, $arrFilterPassport['radios'][$itemRadio->id]))?'data-value=1':'' ?>
-                               <?php } ?>>
-                        <?= $itemGroup->title ?>
-                    </label>
-                <?php } ?>
-            </div>
-        <?php } ?>
-    </div>
-
-    <div class="form-group">
-        <?= Html::submitButton('Поиск', ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Сбросить фильтр', ['/catalog'], ['class' => 'btn btn-default']) ?>
-        <?= Html::button('Применить фильтр из паспорта', ['class' => 'btn btn-default', 'id' => 'filter-passport']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

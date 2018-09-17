@@ -35,7 +35,7 @@ $(document).ready(function () {
 
 
     /* фильтр в каталоге */
-    $('#price-slider').slider({ tooltip: false });
+    /* $('#price-slider').slider({ tooltip: false });
     $("#price-slider").on("slide slideStop", function(slideEvt) {
         var value = slideEvt.value;
         $("#objectsearch-amount_min").val(value[0]);
@@ -75,6 +75,48 @@ $(document).ready(function () {
         var value = slideEvt.value;
         $("#userpassport-rooms_min").val(value[0]);
         $("#userpassport-rooms_max").val(value[1]);
+    }); */
+
+    $("#price-slider").ionRangeSlider({
+        onChange: function(data) {
+            $("#userpassport-amount_min").val(data['from']);
+            $("#userpassport-amount_max").val(data['to']);
+        },
+    });
+
+    $("#price-slider-catalog").ionRangeSlider({
+        onChange: function(data) {
+            $("#objectsearch-amount_min").val(data['from']);
+            $("#objectsearch-amount_max").val(data['to']);
+        },
+    });
+
+    $("#area-slider").ionRangeSlider({
+        onChange: function(data) {
+            $("#userpassport-area_min").val(data['from']);
+            $("#userpassport-area_max").val(data['to']);
+        },
+    });
+
+    $("#area-slider-catalog").ionRangeSlider({
+        onChange: function(data) {
+            $("#objectsearch-area_min").val(data['from']);
+            $("#objectsearch-area_max").val(data['to']);
+        },
+    });
+
+    $("#rooms-slider").ionRangeSlider({
+        onChange: function(data) {
+            $("#userpassport-rooms_min").val(data['from']);
+            $("#userpassport-rooms_max").val(data['to']);
+        },
+    });
+
+    $("#rooms-slider-catalog").ionRangeSlider({
+        onChange: function(data) {
+            $("#objectsearch-rooms_min").val(data['from']);
+            $("#objectsearch-rooms_max").val(data['to']);
+        },
     });
 
     /* при загрузке сохраняет сзнение со слайдера(ползунка) в input */
@@ -105,11 +147,11 @@ $(document).ready(function () {
     /* !!! сделай плиз что бы при изменение филтра в input менялась полоса(slider) !!! */
 
     /* ползунок в подписке на объект */
-    $('#user-slider').slider({ tooltip: false });
+    /* $('#user-slider').slider({ tooltip: false });
     $("#user-slider").on("slide slideStop", function(slideEvt) {
         var value = slideEvt.value;
         $("#roomobjectuser-sum").val(value);
-    });
+    }); */
 
     /* в каталоге применяет все параметры из паспорта к фильтру */
     $('#filter-passport').on('click', function () {

@@ -23,6 +23,8 @@ use common\models\object\ConfidenceObject;
 
 class CatalogController extends DefaultFrontendController{
 
+    public $layout = "user_layout";
+
     public function behaviors(){
         return [
             'access' => [

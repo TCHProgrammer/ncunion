@@ -1,0 +1,77 @@
+.theme-orange .navbar-right {
+    margin-right: 0;
+}
+.theme-orange .navbar::before,
+.theme-orange .navbar::after {
+    display: none;
+}
+.theme-orange .navbar-brand {
+    height: auto;
+    font-size: 16px;
+    line-height: 1.5;
+}
+.theme-orange .nav-tabs .nav-item.active .nav-link {
+    border-bottom: 1px solid #ffc100 !important;
+    color: #ffc100 !important;
+    font-weight: 700;
+}
+.theme-orange .navbar-nav .menu-app .menu {
+    width: 205px;
+}
+.theme-orange .navbar-nav .menu-app .menu li a {
+    height: 100px;
+}
+.theme-orange [type="checkbox"]+label,
+.theme-orange [type="radio"]+label {
+    width: 100%;
+}
+.theme-orange #myTabEvents {
+    padding: 20px 0 0;
+}
+.theme-orange .nav-tabs+.tab-content {
+    padding: 15px 0 0;
+}
+.theme-orange label.control-label {
+    font-size: 14px;
+    line-height: 20px;
+    color: #000;
+    font-weight: 700;
+    margin: 0;
+}
+/* .theme-orange .list-view .summary {
+    background: #fff;
+    min-height: 50px;
+    position: relative;
+    transition: .5s;
+    border-radius: 8px;
+    border: none;
+    margin-bottom: 30px;
+    padding: 20px;
+} */
+.theme-orange .img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+.theme-orange .progress {
+    height: 20px;
+}
+.theme-orange .progress .progress-bar,
+.theme-orange .object-progress-striped .left-pr-striped,
+.theme-orange .object-progress-striped .right-pr-striped {
+    line-height: 20px;
+}
+/* TODO: префиксы */
+.theme-orange .object-progress-striped {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.theme-orange .object-progress-striped .center-pr-striped {
+    flex-basis: 75%;
+}
+
+@media (min-width: 768px) {
+    .float-md-right {
+        float: right!important;
+    }
+}
