@@ -75,3 +75,17 @@
         float: right!important;
     }
 }
+
+.form-group.form-group-comment {
+    margin: 0 0 10px;
+}
+
+.answer-form-comment {
+    float: none;
+    clear: both;
+    padding: 20px 0 10px;
+}
+
+textarea.form-control {
+    height: 36px;
+}

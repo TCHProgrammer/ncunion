@@ -5,11 +5,18 @@ use yii\widgets\ListView;
 ?>
 
 <div class="comments comments-fon">
-    <div class="comments-field">
+    <div class="comments-field col-sm-12">
         <?= ListView::widget([
             'dataProvider' => $commentList,
             'itemView' => '_commentList',
-             'viewParams' => [
+            'options' => [
+                'tag' => 'ul',
+                'class' => 'row list-unstyled c_review'
+            ],
+            'itemOptions' => [
+                'tag' => false
+            ],
+            'viewParams' => [
                 'commentNew' => $commentNew,
                 'oId' => $oId
             ],
@@ -28,7 +35,9 @@ use yii\widgets\ListView;
 
             <?= $form->field($commentNew,'level',  ['options' => ['id' => 'answer-firm-level']])->textInput(['class' => 'answer-firm-level'])->hiddenInput(['value' => 0])->label(false) ?>
 
-            <?= $form->field($commentNew,'text',  ['options' => ['id' => 'answer-firm-text']])->textInput(['class' => 'answer-firm-text'])->textarea()->label(false) ?>
+            <div class="form-group form-group-comment">
+                <?= $form->field($commentNew,'text',  ['options' => ['id' => 'answer-firm-text', 'class' => 'form-line']])->textInput(['class' => 'answer-firm-text'])->textarea()->label(false) ?>
+            </div>
         </div>
         <div class="comments-form-btn">
             <?= Html::submitButton('Отправить', ['class' => 'btn btn-success']) ?>
@@ -46,7 +55,7 @@ use yii\widgets\ListView;
 
                 <?= $form->field($commentNew,'level')->hiddenInput(['value' => 0])->label(false) ?>
 
-                <?= $form->field($commentNew,'text',  ['options' => ['class' => 'comments-textarea']])->textarea()->label(false) ?>
+                        <?= $form->field($commentNew,'text',  ['options' => ['class' => 'comments-textarea']])->textarea()->label(false) ?>
             </div>
             <div class="comments-form-btn">
                     <?= Html::submitButton('Отправить', ['class' => 'btn btn-success']) ?>
