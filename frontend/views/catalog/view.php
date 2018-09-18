@@ -58,7 +58,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="details col-lg-8 col-md-12">
                                 <h3 class="product-title"><?= Html::encode($this->title) ?></h3>
                                 <h4 class="price"><span class="col-amber"><?= $model->amount ?> руб.</span></h4>
-                                <hr>
                                 <p>
                                     <b>Статус:</b>
                                     <?php

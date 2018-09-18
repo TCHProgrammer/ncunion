@@ -6,11 +6,11 @@ use yii\widgets\ActiveForm;
 
 <li class="col-12 news-comment" style="padding-left:<?= (($model->level) * 40) ?>px">
     <div class="avatar">
-        <img src="/img/object/no-photo.jpg">
+        <img class="rounded" src="/img/object/no-photo.jpg" alt="user" width="60">
     </div>
     <div class="comment-action">
         <!-- <label>#<?= $model->id ?></label> | -->
-        <h5><?= Html::encode($model->user_name) ?><!-- | <?= $model->datetime ?>--></h5><!--  |
+        <h5 class="c_name"><?= Html::encode($model->user_name) ?><!-- | <?= $model->datetime ?>--></h5><!--  |
         <?php if ($model->comment_id){ ?>
             <label>комм к <?= $model->comment_id ?> посту</label>
         <?php } ?> -->
@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
         <div class="badge badge-primary"><?= $model->id ?></div>
         <small class="comment-date float-sm-right"><?= $model->datetime ?></small>
     </div>
-    <div class="answer-form-<?= $model->id ?>">
-        <button class="btn btn-link" onclick="openAnswer(<?= $model->id . ', ' . $model->level ?>)">Ответить</button>
+    <div class="answer-form-comment answer-form-<?= $model->id ?>">
+        <button class="btn btn-raised btn-success waves-effect" onclick="openAnswer(<?= $model->id . ', ' . $model->level ?>)">Ответить</button>
     </div>
 </li>
