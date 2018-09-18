@@ -78,6 +78,7 @@
 
 .form-group.form-group-comment {
     margin: 0 0 10px;
+    clear: both;
 }
 
 .answer-form-comment {

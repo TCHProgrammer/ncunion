@@ -54,8 +54,9 @@ use yii\widgets\ListView;
                 <?= $form->field($commentNew,'object_id')->hiddenInput(['value' => $oId])->label(false) ?>
 
                 <?= $form->field($commentNew,'level')->hiddenInput(['value' => 0])->label(false) ?>
-
-                        <?= $form->field($commentNew,'text',  ['options' => ['class' => 'comments-textarea']])->textarea()->label(false) ?>
+                <div class="form-group form-group-comment">
+                        <?= $form->field($commentNew,'text',  ['options' => ['class' => 'comments-textarea form-line']])->textarea()->label(false) ?>
+                </div>
             </div>
             <div class="comments-form-btn">
                     <?= Html::submitButton('Отправить', ['class' => 'btn btn-success']) ?>
