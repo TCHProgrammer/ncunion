@@ -191,33 +191,39 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="modal-body modal-checkbox">
 
-                <?= $formCheckbox->field($userRoom, 'sum')->textInput() ?>
+                <div class="form-group">
+                    <?= $formCheckbox->field($userRoom, 'sum', ['options' => ['class' => 'form-line']])->textInput(['value' => '']) ?>
+                </div>
 
                 <div>
                     <input id="user-slider"
                         data-slider-id='ex1Slider'
                         type="text"
-                        data-slider-min="0"
-                        data-slider-max="<?= $model->amount ?>"
-                        data-slider-step="1"
-                        data-slider-value="<?= $model->amount ?>"
+                        data-min="0"
+                        data-max="<?= $model->amount ?>"
+                        data-step="1"
                         />
                 </div>
                 <br>
                 <div>
-                    <?= $formCheckbox->field($userRoom, 'object_id')->hiddenInput(['value'=> $model->id])->label(false);?>
+                    <?= $formCheckbox->field($userRoom, 'object_id', ['options' => ['class' => 'form-block']])->hiddenInput(['value'=> $model->id])->label(false);?>
 
-                    <?= $formCheckbox->field($userRoom, 'user_id')->hiddenInput(['value'=> Yii::$app->user->id])->label(false); ?>
+                    <?= $formCheckbox->field($userRoom, 'user_id', ['options' => ['class' => 'form-block']])->hiddenInput(['value'=> Yii::$app->user->id])->label(false); ?>
 
-                    <?= $formCheckbox->field($userRoom, 'rate')->textInput() ?>
+                    <div class="form-group">
+                        <?= $formCheckbox->field($userRoom, 'rate', ['options' => ['class' => 'form-line']])->textInput() ?>
+                    </div>
 
-                    <?= $formCheckbox->field($userRoom, 'term')->textInput() ?>
+                    <div class="form-group">
+                        <?= $formCheckbox->field($userRoom, 'term', ['options' => ['class' => 'form-line']])->textInput() ?>
+                    </div>
 
                     <?= $formCheckbox->field($userRoom, 'schedule_payments')->dropDownList(
                         [1 => 'шаровый', 2 => 'аннуитетный']
                     ) ?>
-
-                    <?= $formCheckbox->field($userRoom, 'comment')->textarea() ?>
+                    <div class="form-group">
+                        <?= $formCheckbox->field($userRoom, 'comment', ['options' => ['class' => 'form-line']])->textarea() ?>
+                    </div>
                 </div>
 
             </div>

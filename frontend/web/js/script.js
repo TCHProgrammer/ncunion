@@ -119,6 +119,12 @@ $(document).ready(function () {
         },
     });
 
+    $("#user-slider").ionRangeSlider({
+        onChange: function(data) {
+            $("#roomobjectuser-sum").val(data['from']);
+        },
+    });
+
     /* при загрузке сохраняет сзнение со слайдера(ползунка) в input */
     var resPriceSlide = $("#price-slider").data('slider-value');
     if (!(resPriceSlide === undefined)){
