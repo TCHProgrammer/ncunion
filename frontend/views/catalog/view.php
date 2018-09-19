@@ -106,19 +106,25 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <?= Html::button('Откликнуться', ['class' => 'btn btn-default waves-effect', 'data-toggle' => 'modal', 'data-target' => '.bs-example-modal-lg']) ?>
                                     <?php } ?>
                                 </div>
-
-                                <!-- вывод информации на подписку -->
-                                <?php if ($userFoll){ ?>
-                                    <div class="col-lg-12 col-md-12">
-                                        <h2>Вы откликнулись на сделку</h2>
-                                        <?= $this->render('_listUser', [
-                                            'model' => $userFoll
-                                        ]);
-                                        ?>
-                                    </div>
-                                <?php } ?>
                             </div>
                         </div>
+
+                        <!-- вывод информации на подписку -->
+                        <?php if ($userFoll){ ?>
+                        <div class="profile-page row clearfix">
+                            <div class="col-sm-12">
+                                <h2 class="card-inside-title">Вы откликнулись на сделку</h2>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="card overflowhidden m-t-20">
+                                    <?= $this->render('_listUser', [
+                                        'model' => $userFoll
+                                    ]);
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php } ?>
 
                         <!-- инфо об объекте -->
                         <?= DetailView::widget([
