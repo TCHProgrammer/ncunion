@@ -9,6 +9,8 @@ use frontend\models\MyObjectSearch;
 
 class MyObjectController extends DefaultFrontendController{
 
+    public $layout = "user_layout";
+
     public function behaviors(){
         return [
             'access' => [
