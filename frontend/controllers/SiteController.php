@@ -15,7 +15,7 @@ use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 
 class SiteController extends Controller
-
+{
     public function behaviors()
     {
         return [
