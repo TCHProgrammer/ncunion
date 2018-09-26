@@ -16,6 +16,7 @@ use frontend\models\ContactForm;
 
 class SiteController extends Controller
 {
+    public $layout = "page_layout";
 
     public function behaviors()
     {

@@ -23,7 +23,7 @@ class ProfileAsset extends AssetBundle
         'js/jquery-knob.min.js',
         //'//cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/bootstrap-slider.min.js',
         'js/ion.rangeSlider.min.js',
-        'js/script.js'
+        'js/script-user.js'
     ];
     public $css = [
         '//fonts.googleapis.com/icon?family=Material+Icons',

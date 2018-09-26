@@ -626,15 +626,15 @@ AppAsset::register($this);
         <img src="" alt="" class="img-responsive">
     </section>
 
-<footer class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <p class="pull-left">Выплата дохода в конце срока действия договора дополнительные 1,5% </p>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <p class="pull-left">Выплата дохода в конце срока действия договора дополнительные 1,5% </p>
+                </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
 
 <?php }else{ ?>
 
