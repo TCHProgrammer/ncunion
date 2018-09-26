@@ -19,6 +19,24 @@ function openAnswer(id, lvl) {
 /* по хорошему их можно бы по другому реализовать, так сказать более разумнее */
 
 $(document).ready(function () {
+    /* слайдер на главной */
+    $('.flexslider').flexslider({
+        animation: "slide",
+        directionNav: false
+    });
+
+    /* калькулятор на главной */
+    $("#input-calc").ionRangeSlider({
+        onChange: function(data){
+            // console.log(data['from']);
+            var value, percent;
+            $('.calculator .item').each(function(){
+                value = data['from'] * parseFloat(jQuery(this).find('.price').data('percent'));
+                jQuery(this).find('.price span').text(value);
+            });
+        }
+    });
+
     /* паспорт */
     $('#userpassport-type_id').change(function(){
         console.log('kk');
@@ -26,7 +44,7 @@ $(document).ready(function () {
         checkType(Number($(this).val()));
     });
 
-    /* фильтрв в каталоге */
+    /* фильтр в каталоге */
     $('#objectsearch-type_id').change(function(){
         checkType(Number($(this).val()));
     });
