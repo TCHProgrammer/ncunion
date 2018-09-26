@@ -15,6 +15,7 @@ class AppAsset extends AssetBundle
         //'//cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/bootstrap-slider.min.js',
         'js/ion.rangeSlider.min.js',
         'js/jquery.flexslider-min.js',
+        'js/owl.carousel.min.js',
         'js/script.js'
     ];
     public $css = [
@@ -23,6 +24,7 @@ class AppAsset extends AssetBundle
         'css/ion.rangeSlider.skinFlat.css',
         'https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=cyrillic',
         'css/flexslider.css',
+        'css/owl.carousel/owl.carousel.min.css',
         'css/site.css',
     ];
     public $depends = [

@@ -271,7 +271,7 @@ AppAsset::register($this);
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row calculator-row">
                 <div class="col-sm-3">
                     <label for="input-calc">Сумма инвестиций</label>
                 </div>
@@ -378,51 +378,113 @@ AppAsset::register($this);
                 </div>
             </div>
         </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="item">
-                        <div class="image">
-                            <img src="<?php echo Url::to('@web/img/main/item-1.jpg'); ?>" alt="Высокая безопасность" class="img-responsive">
-                        </div>
-                        <div class="info">
-                            <h3>Высокая безопасность</h3>
-                            <p>Выплата дохода в конце срока действия договора дополнительные 1,5% годовых, на новые договоры, при предъявлении пенсионного удостоверения</p>
-                        </div>
-                    </div>
+        <div class="why-we-carousel owl-carousel">
+            <div class="item">
+                <div class="image">
+                    <img src="<?php echo Url::to('@web/img/main/item-1.jpg'); ?>" alt="Высокая безопасность" class="img-responsive">
                 </div>
-                <div class="col-sm-3">
-                    <div class="item">
-                        <div class="image">
-                            <img src="<?php echo Url::to('@web/img/main/item-2.jpg'); ?>" alt="Высокая безопасность" class="img-responsive">
-                        </div>
-                        <div class="info">
-                            <h3>Высокая безопасность</h3>
-                            <p>Выплата дохода в конце срока действия договора дополнительные 1,5% годовых, на новые договоры, при предъявлении пенсионного удостоверения</p>
-                        </div>
-                    </div>
+                <div class="info">
+                    <h3>Высокая безопасность</h3>
+                    <p>Выплата дохода в конце срока действия договора дополнительные 1,5% годовых, на новые договоры, при предъявлении пенсионного удостоверения</p>
                 </div>
-                <div class="col-sm-3">
-                    <div class="item">
-                        <div class="image">
-                            <img src="<?php echo Url::to('@web/img/main/item-3.jpg'); ?>" alt="Высокая безопасность" class="img-responsive">
-                        </div>
-                        <div class="info">
-                            <h3>Высокая безопасность</h3>
-                            <p>Выплата дохода в конце срока действия договора дополнительные 1,5% годовых, на новые договоры, при предъявлении пенсионного удостоверения</p>
-                        </div>
-                    </div>
+            </div>
+            <div class="item">
+                <div class="image">
+                    <img src="<?php echo Url::to('@web/img/main/item-2.jpg'); ?>" alt="Высокая безопасность" class="img-responsive">
                 </div>
-                <div class="col-sm-3">
-                    <div class="item">
-                        <div class="image">
-                            <img src="<?php echo Url::to('@web/img/main/item-4.jpg'); ?>" alt="Высокая безопасность" class="img-responsive">
-                        </div>
-                        <div class="info">
-                            <h3>Высокая безопасность</h3>
-                            <p>Выплата дохода в конце срока действия договора дополнительные 1,5% годовых, на новые договоры, при предъявлении пенсионного удостоверения</p>
-                        </div>
-                    </div>
+                <div class="info">
+                    <h3>Высокая безопасность</h3>
+                    <p>Выплата дохода в конце срока действия договора дополнительные 1,5% годовых, на новые договоры, при предъявлении пенсионного удостоверения</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="image">
+                    <img src="<?php echo Url::to('@web/img/main/item-3.jpg'); ?>" alt="Высокая безопасность" class="img-responsive">
+                </div>
+                <div class="info">
+                    <h3>Высокая безопасность</h3>
+                    <p>Выплата дохода в конце срока действия договора дополнительные 1,5% годовых, на новые договоры, при предъявлении пенсионного удостоверения</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="image">
+                    <img src="<?php echo Url::to('@web/img/main/item-4.jpg'); ?>" alt="Высокая безопасность" class="img-responsive">
+                </div>
+                <div class="info">
+                    <h3>Высокая безопасность</h3>
+                    <p>Выплата дохода в конце срока действия договора дополнительные 1,5% годовых, на новые договоры, при предъявлении пенсионного удостоверения</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="image">
+                    <img src="<?php echo Url::to('@web/img/main/item-1.jpg'); ?>" alt="Высокая безопасность" class="img-responsive">
+                </div>
+                <div class="info">
+                    <h3>Высокая безопасность</h3>
+                    <p>Выплата дохода в конце срока действия договора дополнительные 1,5% годовых, на новые договоры, при предъявлении пенсионного удостоверения</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="image">
+                    <img src="<?php echo Url::to('@web/img/main/item-2.jpg'); ?>" alt="Высокая безопасность" class="img-responsive">
+                </div>
+                <div class="info">
+                    <h3>Высокая безопасность</h3>
+                    <p>Выплата дохода в конце срока действия договора дополнительные 1,5% годовых, на новые договоры, при предъявлении пенсионного удостоверения</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="image">
+                    <img src="<?php echo Url::to('@web/img/main/item-3.jpg'); ?>" alt="Высокая безопасность" class="img-responsive">
+                </div>
+                <div class="info">
+                    <h3>Высокая безопасность</h3>
+                    <p>Выплата дохода в конце срока действия договора дополнительные 1,5% годовых, на новые договоры, при предъявлении пенсионного удостоверения</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="image">
+                    <img src="<?php echo Url::to('@web/img/main/item-4.jpg'); ?>" alt="Высокая безопасность" class="img-responsive">
+                </div>
+                <div class="info">
+                    <h3>Высокая безопасность</h3>
+                    <p>Выплата дохода в конце срока действия договора дополнительные 1,5% годовых, на новые договоры, при предъявлении пенсионного удостоверения</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="image">
+                    <img src="<?php echo Url::to('@web/img/main/item-1.jpg'); ?>" alt="Высокая безопасность" class="img-responsive">
+                </div>
+                <div class="info">
+                    <h3>Высокая безопасность</h3>
+                    <p>Выплата дохода в конце срока действия договора дополнительные 1,5% годовых, на новые договоры, при предъявлении пенсионного удостоверения</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="image">
+                    <img src="<?php echo Url::to('@web/img/main/item-2.jpg'); ?>" alt="Высокая безопасность" class="img-responsive">
+                </div>
+                <div class="info">
+                    <h3>Высокая безопасность</h3>
+                    <p>Выплата дохода в конце срока действия договора дополнительные 1,5% годовых, на новые договоры, при предъявлении пенсионного удостоверения</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="image">
+                    <img src="<?php echo Url::to('@web/img/main/item-3.jpg'); ?>" alt="Высокая безопасность" class="img-responsive">
+                </div>
+                <div class="info">
+                    <h3>Высокая безопасность</h3>
+                    <p>Выплата дохода в конце срока действия договора дополнительные 1,5% годовых, на новые договоры, при предъявлении пенсионного удостоверения</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="image">
+                    <img src="<?php echo Url::to('@web/img/main/item-4.jpg'); ?>" alt="Высокая безопасность" class="img-responsive">
+                </div>
+                <div class="info">
+                    <h3>Высокая безопасность</h3>
+                    <p>Выплата дохода в конце срока действия договора дополнительные 1,5% годовых, на новые договоры, при предъявлении пенсионного удостоверения</p>
                 </div>
             </div>
         </div>
@@ -430,7 +492,7 @@ AppAsset::register($this);
             <div class="row">
                 <div class="col-sm-12">
                     <div class="order-button">
-                        <button class="btn btn-default">Звоните + 7 495-294-30-20</button>
+                        <button class="btn btn-order">Звоните <br><span>+ 7 495-294-30-20</span></button>
                     </div>
                 </div>
             </div>
@@ -441,12 +503,12 @@ AppAsset::register($this);
                     <div class="grid">
                         <div class="item item-image"><img src="<?php echo Url::to('@web/img/main/why-1.jpg'); ?>" class="img-responsive"></div>
                         <div class="item">
-                            <span>Сайт рыбатекст поможет дизайнеру</span>
+                            <span class="subheading">Сайт рыбатекст поможет дизайнеру</span>
                             <h3>Почему нам уже доверились более 2500 инвесторов</h3>
                             <p>Выплата дохода в конце срока действия договора дополнительные 1,5% годовых, на новые договоры, при предъявлении пенсионного удостоверения. Выплата дохода в конце срока действия договора дополнительные 1,5% годовых, на новые договоры, при предъявлении пенсионного удостоверения. Выплата дохода в конце срока действия договора дополнительные 1,5% годовых, на новые договоры, при предъявлении пенсионного удостоверения.</p>
                             <a href="#" class="btn btn-default">Подробнее</a>
                         </div>
-                        <div class="item">
+                        <div class="item item-blue">
                             <h3>Мы эксперты в этих направлениях</h3>
                             <p>Выплата дохода в конце срока действия договора дополнительные 1,5% годовых, на новые договоры,</p>
                             <ul>

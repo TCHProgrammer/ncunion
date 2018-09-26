@@ -20,10 +20,26 @@ function openAnswer(id, lvl) {
 
 $(document).ready(function () {
     /* слайдер на главной */
-    $('.flexslider').flexslider({
+    $('.slider').flexslider({
         animation: "slide",
         directionNav: false
     });
+
+    $('.why-we-carousel').owlCarousel({
+        loop: true,
+        pagination: true,
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:3
+            },
+            1200:{
+                items:4
+            }
+        }
+    })
 
     /* калькулятор на главной */
     $("#input-calc").ionRangeSlider({

@@ -537,6 +537,24 @@ h3 {
     font-weight: 700;
 }
 
+.btn-order,
+.btn-order:active,
+.btn-order:focus,
+.btn-order:hover,
+.btn-order:active:focus,
+.btn-order:active:hover {
+    background-color: #3B34A6;
+    padding: 10px 70px;
+    color: #FFFFFF;
+    border-radius: 30px;
+    font-size: 25px;
+}
+
+.btn-order span {
+    font-size: 42px;
+    font-weight: 700;
+}
+
 .heading {
     text-align: center;
     padding-bottom: 40px;
@@ -755,6 +773,17 @@ header .top {
     margin-top: 30px;
 }
 
+.calculator-row {
+    padding: 0 0 20px;
+}
+
+.calculator-row label {
+    font-size: 24px;
+    font-weight: 400;
+    color: #3B34A6;
+    margin-top: 12px;
+}
+
 .calculator .container {
     background: url(../img/main/calculator-bg.png) no-repeat center top / auto;
 }
@@ -858,11 +887,71 @@ header .top {
     transform: translate(-50%, -50%);
 }
 
+.calculator .irs-from,
+.calculator .irs-to,
+.calculator .irs-single,
+.calculator .irs-line,
+.calculator .irs-slider.single {
+    background-color: #3B34A6;
+}
+
+.calculator .irs-from::after,
+.calculator .irs-to::after,
+.calculator .irs-single::after {
+    display: none;
+}
+
 .calculator .irs-line {
-    // background-color: #3B34A6;
     height: 3px;
     top: 30px;
 }
+
+.calculator .irs-line > *,
+.calculator .irs-slider.single,
+.calculator .irs-bar,
+.calculator .irs-bar-edge {
+    background-image: none;
+}
+
+.calculator .irs-slider.single {
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+}
+
+.why-we .container:first-child {
+    background: url(../img/main/why-we-bg.jpg) no-repeat center 30px / 100% auto;
+    padding: 45px 0;
+}
+
+.why-we .why-we-carousel .item .info {
+    padding: 0 45px;
+}
+
+.why-we .why-we-carousel .owl-dots {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.why-we .why-we-carousel .owl-dots .owl-dot {
+    display: inline-block;
+    width: 45px;
+    height: 12px;
+    border: 3px solid #D8D8D8;
+    background-color: transparent;
+    margin-right: 5px;
+}
+
+.why-we .why-we-carousel .owl-dots .owl-dot.active {
+    background-color: #403BAA;
+    border-color: #403BAA;
+}
+
+.why-we .order-button {
+    padding: 30px 0 40px;
+    text-align: center;
+}
+
 .why-we .grid {
     display: flex;
     flex-wrap: wrap;
@@ -876,4 +965,38 @@ header .top {
 
 .why-we .grid .item-image {
     padding: 0;
+}
+
+.why-we .grid .item .subheading {
+    display: inline-block;
+    color: #3B34A6;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.why-we .grid .item h3 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.why-we .grid .item .btn {
+    margin-top: 20px;
+}
+
+.why-we .grid .item-blue {
+    background-color: #3B34A6;
+    color: #FFFFFF;
+    padding: 40px 70px;
+}
+
+.why-we .grid .item-blue h3 {
+    color: #FFFFFF;
+}
+
+.why-we .grid .item-blue .btn {
+    background-color: #3B34A6;
+    color: #FFFFFF;
+    border-color: #FFFFFF;
 }
