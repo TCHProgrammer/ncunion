@@ -109,6 +109,41 @@ textarea.form-control {
     font-family: Calibri, sans-serif;
 }
 
+.catalog-page .input-adjustment-dropdown {
+    display: inline-block;
+    width: 115px;
+}
+
+.catalog-page .input-adjustment-dropdown .bootstrap-select {
+    border-bottom: 0 !important;
+}
+
+.catalog-page .input-adjustment-dropdown label {
+    display: none;
+}
+
+.select-group {
+    display: inline-block;
+    width: auto;
+    border: 1px solid #00B034;
+    padding-bottom: 0;
+}
+
+.select-group .btn-group {
+    margin: 0;
+}
+
+.select-group .btn,
+.select-group .dropdown-menu > li > a,
+.select-group .bootstrap-select .dropdown-menu li.selected a {
+    color: #00B034 !important;
+}
+
+.select-group .btn,
+.select-group .btn:not(.btn-link):not(.btn-circle) {
+    font-size: 14px;
+    text-transform: none;
+}
 
 .breadcrumb li,
 .breadcrumb li a,

@@ -30,37 +30,34 @@ function valueFilter($item, $filter){
             <div class="card">
                 <div class="body">
                     <div class="row clearfix">
-                        <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="col-lg-4 col-md-6 col-sm-12 hide">
                             <div class="form-group">
                                 <div class="form-line">
                                     <?= $form->field($model, 'title', ['options' => ['class' => 'input-adjustment form-line']]) ?>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-12">
-                            <div class="form-group">
-                                <?= $form->field($model, 'type_id',
-                                    [
-                                        'options' => ['class' => 'input-adjustment'],
-                                        'inputOptions' => ['class' => 'form-control']
-                                    ])->dropDownList(
-                                    ArrayHelper::map(ObjectType::find()->all(), 'id', 'title'),
-                                    ['prompt' => 'Выберите тип объекта...']
-                                ) ?>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-12">
-                            <div class="form-group">
-                                <?= $form->field($model, 'place_km', ['options' => ['class' => 'input-adjustment']])->dropDownList(
-                                    [
-                                        0 => 'Москва',
-                                        10 => 'до 10 км от МКАД',
-                                        25 => 'до 25 км от МКАД',
-                                        50 => 'до 50 км от МКАД',
-                                        100 => 'до 100 км от МКАД',
-                                    ],
-                                    ['prompt' => 'Выберите удалённость от Москвы...']
-                                ) ?>
+                        <div class="col-lg-8 col-md-8 col-sm-12">
+                            <div class="form-group select-group">
+                                    <?= $form->field($model, 'type_id',
+                                        [
+                                            'options' => ['class' => 'input-adjustment input-adjustment-dropdown'],
+                                            'inputOptions' => ['class' => 'form-control']
+                                        ])->dropDownList(
+                                        ArrayHelper::map(ObjectType::find()->all(), 'id', 'title'),
+                                        ['prompt' => 'Тип объекта...']
+                                    ) ?>
+
+                                    <?= $form->field($model, 'place_km', ['options' => ['class' => 'input-adjustment input-adjustment-dropdown']])->dropDownList(
+                                        [
+                                            0 => 'Москва',
+                                            10 => 'до 10 км от МКАД',
+                                            25 => 'до 25 км от МКАД',
+                                            50 => 'до 50 км от МКАД',
+                                            100 => 'до 100 км от МКАД',
+                                        ],
+                                        ['prompt' => 'Место...']
+                                    ) ?>
                             </div>
                         </div>
                     </div>
