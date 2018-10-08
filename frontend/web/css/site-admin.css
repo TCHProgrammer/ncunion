@@ -176,8 +176,26 @@ textarea.form-control {
     box-shadow: 0 19px 38px rgba(0,0,0,0.3),0 15px 12px rgba(0,0,0,0.22);
 }
 
+.product_item .cp_img .hover .btn {
+    min-width: 41px;
+    min-height: 41px;
+}
+
+.product_item .cp_img .hover > * {
+    border-radius: 5px;
+}
+
 .product_item .cp_img.open .hover {
     display: block;
+}
+
+.product_item .btn.product_favorite i {
+    color: #FF1601;
+}
+
+.product_item .btn.product_link i {
+    color: #00B034;
+    font-size: 25px;
 }
 
 .product_item .product_details {

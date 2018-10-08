@@ -24,7 +24,12 @@ $conf = round($listConf * 100 / $allListConf, 2);
                     <img class="img-fluid" src="/img/object/no-photo.jpg">
                 <?php } ?>
                 <div class="hover">
-                    <a href="<?= Url::toRoute('/catalog/view?id='.$model->id) ?>" class="btn btn-default waves-effect waves-float"><i class="zmdi zmdi-plus"></i></a>
+                    <?php if ($userFoll){ ?>
+                        <?= Html::a('<i class="zmdi zmdi-favorite"></i>', ['/catalog/unsubscribe?oId=' . $model->id], ['class' => 'btn btn-primary waves-effect product_favorite', 'data-confirm' => 'Вы уверены, что хотите отписаться?', 'disable' => true]) ?>
+                    <?php }else{ ?>
+                        <?= Html::button('<i class="zmdi zmdi-favorite-outline"></i>', ['class' => 'btn btn-default waves-effect product_favorite', 'data-toggle' => 'modal', 'data-target' => '.bs-example-modal-lg']) ?>
+                    <?php } ?>
+                    <a href="<?= Url::toRoute('/catalog/view?id='.$model->id) ?>" class="btn btn-default waves-effect waves-float product_link"><i class="zmdi zmdi-chevron-right"></i></a>
                 </div>
             </div>
 
