@@ -102,3 +102,17 @@ textarea.form-control {
 .object-page .profile-page .profile-header .m-b-0 {
     margin-bottom: 10px;
 }
+
+/* catalog */
+
+.catalog-page {
+    font-family: Calibri, sans-serif;
+}
+
+
+.breadcrumb li,
+.breadcrumb li a,
+.breadcrumb > .active,
+.breadcrumb > li + li::before {
+    color: #29353A;
+}

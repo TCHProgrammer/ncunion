@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\ListView;
+use yii\widgets\Breadcrumbs;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\ObjectSearch */
@@ -16,14 +17,17 @@ use yii\widgets\ListView;
 /* @var $arrFilterPassport frontend\controllers\CatalogController */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Каталог';
+$this->title = 'Каталог объектов';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <section class="content catalog-page">
     <div class="block-header">
         <div class="row">
             <div class="col-lg-7 col-md-6 col-sm-12">
-                <h1><?= Html::encode($this->title) ?></h1>
+                <?= Breadcrumbs::widget([
+                    'itemTemplate' => "<li class='breadcrumb-item'>{link}</li>\n",
+                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                ]) ?>
             </div>
         </div>
     </div>
