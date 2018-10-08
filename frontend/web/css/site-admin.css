@@ -151,3 +151,113 @@ textarea.form-control {
 .breadcrumb > li + li::before {
     color: #29353A;
 }
+
+.product_item {
+    border-radius: 10px;
+}
+
+.product_item:hover .cp_img {
+    top: 5px;
+}
+
+.product_item:hover .cp_img img {
+    box-shadow: none;
+}
+
+.product_item:hover .cp_img .hover {
+    display: none;
+}
+
+.product_item .cp_img.open {
+    top: -40px;
+}
+
+.product_item .cp_img.open img {
+    box-shadow: 0 19px 38px rgba(0,0,0,0.3),0 15px 12px rgba(0,0,0,0.22);
+}
+
+.product_item .cp_img.open .hover {
+    display: block;
+}
+
+.product_item .product_details {
+    text-align: left;
+}
+
+.product_item .product_details > * {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.product_item .product_details h5 {
+    width: 50%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.product_item .product_details h5,
+.product_item .product_details h5 a,
+.product_item .product_details .product_city {
+    font-size: 18px;
+}
+
+.product_item .product_details .product_city {
+    font-weight: 700;
+    width: 48%; /* TODO: Исправить */
+    text-align: right;
+}
+
+.product_item .product_price {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.product_item .product_price > *,
+.product_item .product_cian > *,
+.product_item .product_market_price > * {
+    display: inline-block;
+}
+
+.product_item .product_price > *,
+.product_item .product_cian > *,
+.product_item .product_market_price > * {
+    width: 100%;
+}
+/* TODO: Префиксы */
+.product_item .product_bottom {
+    display: flex;
+    justify-content: space-between;
+}
+
+.product_item .product_bottom > * {
+    flex-basis: 33%;
+}
+
+.product_item .product_market_price {
+    flex-basis: 45%;
+}
+
+.product_item .product_cian > *,
+.product_item .product_market_price > * {
+    text-align: center;
+    font-size: 16px;
+}
+
+.product_item .product_price .value {
+    font-size: 23px;
+    padding: 10px 0 0;
+}
+
+.product_item .product_help {
+    text-align: center;
+    font-size: 16px;
+    color: #6E6E6E;
+}
+
+.product_item .product_price .product_help {
+    font-size: 12px;
+}

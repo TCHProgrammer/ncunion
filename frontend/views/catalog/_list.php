@@ -3,6 +3,10 @@ use yii\helpers\Url;
 use common\models\object\Confidence;
 use common\models\object\ConfidenceObject;
 
+/* @var $this  yii\web\View */
+/* @var $model common\models\object\Object */
+
+
 /* доверие объекту */
 $allListConf = count(Confidence::find()->all());
 $listConf = count(ConfidenceObject::find()->where(['object_id' => $model->id])->all());
@@ -25,18 +29,38 @@ $conf = round($listConf * 100 / $allListConf, 2);
             </div>
 
             <div class="product_details">
-                <h5><a href="<?= Url::toRoute('/catalog/view?id='.$model->id) ?>"><?= $model->title ?></a></h5>
-                <ul class="product_price list-unstyled">
-                    <li class="price"><?= $model->amount ?> руб.</li>
-                </ul>
-                <div class="object-conf" style="top:10px;">
-                    Доверие <?= $conf ?>%
-                </div>
-                <?php if(!is_null($model->nks)){ ?>
-                    <div class="object-ncs" style="top:10px;">
-                        НКС: <?= $model->nks ?>
-                    </div>
+                <h5 title="<?= $model->title ?>"><a href="<?= Url::toRoute('/catalog/view?id='.$model->id) ?>"><?= $model->title ?></a></h5>
+                <?php if(!is_null($model->address)) { ?>
+                <span class="product_city"><?= $model->address ?></span>
                 <?php } ?>
+                <span class="product_info">
+                    <?php // TODO: Пофиксить запятые. ?>
+                    <?= $model->typeTitle . ', '?>
+                    <?php if(!is_null($model->rooms)) { ?>
+                    <?= $model->rooms . ' комн.,' ?>
+                    <?php } ?>
+                    <?php if(!is_null($model->area)) { ?>
+                    <?= $model->area . ' м²' ?>
+                    <?php } ?>
+                </span>
+                <div class="product_price price">
+                    <span class="value"><?= $model->amount ?> &#8381;</span>
+                    <span class="product_help">Требуемая сумма</span>
+                </div>
+                <div class="product_bottom">
+                    <?php if(!is_null($model->price_tian)) { ?>
+                    <div class="product_cian">
+                        <span class="product_help">ЦИАН</span>
+                        <span class="value"><?= $model->price_tian ?> &#8381;</span>
+                    </div>
+                    <?php } ?>
+                    <?php if(!is_null($model->price_market)) { ?>
+                    <div class="product_market_price">
+                        <span class="product_help">Рыночная стоимость</span>
+                        <span class="value"><?= $model->price_market ?> &#8381;</span>
+                    </div>
+                    <?php } ?>
+                </div>
                 <?php $styleTag = 10 ;?>
                 <?php foreach ($model->tag as $tag){ ?>
                     <div class="object-tag" style="top: <?= $styleTag ?>px;">

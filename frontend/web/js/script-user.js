@@ -275,4 +275,9 @@ $(document).ready(function () {
     function btnDisabled() {
         $('#push-phone-cmc').removeAttr('disabled');
     }
+
+    /* Анимация при клике по изображению объекта в каталоге */
+    $('.product_item .cp_img').on('click', function(){
+        $(this).toggleClass('open');
+    })
 });

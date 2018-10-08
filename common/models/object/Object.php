@@ -38,6 +38,8 @@ use common\models\object\Confidence;
  * @property int $term
  * @property int $schedule_payments
  * @property int $nks
+ * @property string $typeTitle
+ * @property string $saleSchedule
  *
  * @property ObjectType $type
  * @property ObjectAttribute[] $objectAttributes
@@ -203,6 +205,26 @@ class Object extends \yii\db\ActiveRecord
     public function updateDate(){
         return $this->updated_at = time();
     }
+
+    /**
+     * @return null|string
+     */
+    public function getTypeTitle()
+    {
+       if ($this->type) {
+           return  $this->type->title;
+       }
+       return null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSaleSchedule()
+    {
+        return $this->schedule_payments === 1 ? 'шаровый':'аннуитетный';
+    }
+
 
     /**
      * @return \yii\db\ActiveQuery
