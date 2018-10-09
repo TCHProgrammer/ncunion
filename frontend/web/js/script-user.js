@@ -277,7 +277,16 @@ $(document).ready(function () {
     }
 
     /* Анимация при клике по изображению объекта в каталоге */
-    $('.product_item .cp_img').on('click', function(){
+    /* $('.product_item .cp_img').on('click', function(){
         $(this).toggleClass('open');
-    })
+    }); */
+
+    /* Карусели на продуктах, к которым прикреплено больше одного изображения */
+    $('.product_carousel').owlCarousel({
+        items: 1,
+        nav: true,
+        loop: true,
+        autoHeight: true,
+        navText: ['<i class="zmdi zmdi-chevron-left"></i>','<i class="zmdi zmdi-chevron-right"></i>']
+    });
 });

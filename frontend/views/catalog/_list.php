@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Url;
+use yii\helpers\Html;
 use common\models\object\Confidence;
 use common\models\object\ConfidenceObject;
 
@@ -11,6 +12,7 @@ use common\models\object\ConfidenceObject;
 $allListConf = count(Confidence::find()->all());
 $listConf = count(ConfidenceObject::find()->where(['object_id' => $model->id])->all());
 $conf = round($listConf * 100 / $allListConf, 2);
+$productImageCount = count($model->objectImgs);
 ?>
 
 <div class="col-lg-3 col-md-4 col-sm-12" data-key="<?= $model->id; ?>">
@@ -18,11 +20,36 @@ $conf = round($listConf * 100 / $allListConf, 2);
         <div class="body">
 
             <div class="cp_img">
-                <?php if (isset($model->objectImgs[0]->img)){ ?>
-                    <img class="img-fluid" src="<?= $model->objectImgs[0]->img ?>">
-                <?php }else{ ?>
-                    <img class="img-fluid" src="/img/object/no-photo.jpg">
+                <?php if ($productImageCount > 1) {
+                    $imageWrapperClass = " owl-carousel product_carousel";
+                } else {
+                    $imageWrapperClass = "";
+                } ?>
+                <?php if (!empty($modelImgs)){ ?>
+                    <ul class="preview-thumbnail nav nav-tabs">
+                        <?php $count = 1; ?>
+                        <?php foreach ($modelImgs as $item){ ?>
+                            <li class="nav-item"><a class="nav-link<?php if($count == 1) { echo ' active'; } ?>" data-toggle="tab" href="#product_<?= $count; ?>"><img src="<?= $item->img ?>"></a></li>
+                            <?php $count++; ?>
+                        <?php } ?>
+                    </ul>
                 <?php } ?>
+                <div class="cp_img_wrapper<?php echo $imageWrapperClass; ?>">
+                    <a href="<?= Url::toRoute('/catalog/view?id='.$model->id) ?>">
+                        <?php if (isset($model->objectImgs[0]->img)){ ?>
+                            <img class="img-fluid" src="<?= $model->objectImgs[0]->img ?>">
+                        <?php }else{ ?>
+                            <img class="img-fluid" src="/img/object/no-photo.jpg">
+                        <?php } ?>
+                    </a>
+                    <?php if ($productImageCount > 1){ ?>
+                        <?php foreach ($model->objectImgs as $item){ ?>
+                        <a href="<?= Url::toRoute('/catalog/view?id='.$model->id) ?>">
+                            <img class="img-fluid" src="<?= $item->img ?>">
+                        </a>
+                        <?php } ?>
+                    <?php } ?>
+                </div>
                 <div class="hover">
                     <?php if ($userFoll){ ?>
                         <?= Html::a('<i class="zmdi zmdi-favorite"></i>', ['/catalog/unsubscribe?oId=' . $model->id], ['class' => 'btn btn-primary waves-effect product_favorite', 'data-confirm' => 'Вы уверены, что хотите отписаться?', 'disable' => true]) ?>

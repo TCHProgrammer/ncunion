@@ -23,6 +23,7 @@ class ProfileAsset extends AssetBundle
         'js/jquery-knob.min.js',
         //'//cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/bootstrap-slider.min.js',
         'js/ion.rangeSlider.min.js',
+        'js/owl.carousel.min.js',
         'js/script-user.js'
     ];
     public $css = [
@@ -36,6 +37,7 @@ class ProfileAsset extends AssetBundle
         'css/color_skins.css',
         'css/ion.rangeSlider.css',
         'css/ion.rangeSlider.skinFlat.css',
+        'css/owl.carousel/owl.carousel.min.css',
         'css/site-admin.css'
     ];
     public $cssOptions = [

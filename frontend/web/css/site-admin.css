@@ -200,6 +200,7 @@ textarea.form-control {
 
 .product_item .product_details {
     text-align: left;
+    padding-top: 85%;
 }
 
 .product_item .product_details > * {
@@ -278,4 +279,30 @@ textarea.form-control {
 
 .product_item .product_price .product_help {
     font-size: 12px;
+}
+
+.owl-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    color: #FFFFFF;
+}
+
+.owl-nav > * {
+    position: absolute;
+    top: -24px;
+}
+
+.owl-carousel .owl-nav button.owl-next i,
+.owl-carousel .owl-nav button.owl-prev i {
+    font-size: 48px;
+}
+
+.owl-nav .owl-prev {
+    left: 18px;
+}
+
+.owl-nav .owl-next {
+    right: 18px;
 }
