@@ -29,7 +29,7 @@ function valueFilter($item, $filter){
         <div class="col-sm-12">
             <div class="card">
                 <div class="body">
-                    <div class="row clearfix">
+                    <div id="filter-slider" class="row clearfix search-filters">
                         <div class="col-lg-4 col-md-6 col-sm-12 hide">
                             <div class="form-group">
                                 <div class="form-line">
@@ -59,62 +59,21 @@ function valueFilter($item, $filter){
                                         ['prompt' => 'Место...']
                                     ) ?>
                             </div>
+                            <div class="form-group inputs-group">
+                                <span class="inputs-group-label">Метраж:</span>
+                                <div class="inputs-group-stack">
+                                    <?= $form->field($model, 'area_min', ['options' => ['class' => 'input-adjustment form-line']])->textInput(['data-value' => $filterPassport->area_min, 'placeholder' => 'от']) ?><?= $form->field($model, 'area_max', ['options' => ['class' => 'input-adjustment form-line']])->textInput(['data-value' => $filterPassport->area_max, 'placeholder' => 'до']) ?>
+                                </div>
+                            </div>
+                            <div class="form-group inputs-group search-filters-price">
+                                <span class="inputs-group-label">Цена:</span>
+                                <div class="inputs-group-stack">
+                                    <?= $form->field($model, 'amount_min', ['options' => ['class' => 'input-adjustment form-line']])->textInput(['data-value' => $filterPassport->amount_min, 'placeholder' => 'от']) ?><?= $form->field($model, 'amount_max', ['options' => ['class' => 'input-adjustment form-line']])->textInput(['data-value' => $filterPassport->amount_max, 'placeholder' => 'до']) ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div id="filter-slider" class="row clearfix">
-                        <!-- цена -->
-                        <div class="col-lg-4 col-md-6 col-sm-12">
-                            <div class="row clearfix">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <?= $form->field($model, 'amount_min', ['options' => ['class' => 'input-adjustment form-line']])->textInput(['data-value' => $filterPassport->amount_min]) ?>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <?= $form->field($model, 'amount_max', ['options' => ['class' => 'input-adjustment form-line']])->textInput(['data-value' => $filterPassport->amount_max]) ?>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <input id="price-slider-catalog"
-                                           data-slider-id='ex1Slider'
-                                           type="text"
-                                           data-type="double"
-                                           data-min="<?= $filter['ObjectSearch']['amount_min'] ?>"
-                                           data-max="<?= $filter['ObjectSearch']['amount_max'] ?>"
-                                           data-from="<?= valueFilter('amount_min', $filter, $model) ?>"
-                                           data-to="<?= valueFilter('amount_max', $filter, $model) ?>"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- площадь -->
-                        <div class="col-lg-4 col-md-6 col-sm-12">
-                            <div class="row clearfix">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <?= $form->field($model, 'area_min', ['options' => ['class' => 'input-adjustment form-line']])->textInput(['data-value' => $filterPassport->area_min]) ?>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <?= $form->field($model, 'area_max', ['options' => ['class' => 'input-adjustment form-line']])->textInput(['data-value' => $filterPassport->area_max]) ?>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <input id="area-slider-catalog"
-                                           data-slider-id='ex1Slider'
-                                           type="text"
-                                           data-type="double"
-                                           data-min="<?= $filter['ObjectSearch']['area_min'] ?>"
-                                           data-max="<?= $filter['ObjectSearch']['area_max'] ?>"
-                                           data-from="<?= valueFilter('area_min', $filter, $model) ?>"
-                                           data-to="<?= valueFilter('area_max', $filter, $model) ?>"
-                                    />
-                                </div>
-                            </div>
-                        </div>
+                    <div class="row clearfix">
 
                         <!-- комнаты -->
                         <div class="col-lg-4 col-md-6 col-sm-12">
