@@ -285,6 +285,7 @@ $(document).ready(function () {
     $('.product_carousel').owlCarousel({
         items: 1,
         nav: true,
+        dots: false,
         loop: true,
         autoHeight: true,
         navText: ['<i class="zmdi zmdi-chevron-left"></i>','<i class="zmdi zmdi-chevron-right"></i>']

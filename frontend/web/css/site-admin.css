@@ -307,7 +307,7 @@ textarea.form-control {
     right: 18px;
 }
 
-.product_trust {
+.product_item .product_trust {
     position: absolute;
     top: 20px;
     right: 20px;
@@ -316,4 +316,43 @@ textarea.form-control {
     background: #FFFFFF;
     border-radius: 50%;
     height: 50px;
+}
+
+.product_item .product_tags {
+    position: absolute;
+    top: 25px;
+    left: 30px;
+    display: inline-block;
+    z-index: 50;
+}
+
+.product_item .product_tags .object-tag {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 15px;
+    min-width: 52px;
+    min-height: 35px;
+    padding: 8px 12px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    background-color: #009F3C;
+}
+
+.product_item .product_tags .object-tag-nks {
+    background: #246B98 url(../img/object/nks.png) no-repeat center center / auto;
+}
+
+.product_item .product_action {
+    position: absolute;
+    bottom: 25px;
+    left: 0;
+    transform: rotate(45deg);
+    text-transform: lowercase;
+    font-weight: 700;
+    color: #FFFFFF;
+    background-color: #EC3D40;
+    border-radius: 5px;
+    text-align: center;
+    padding: 2px 22px;
+    z-index: 50;
 }

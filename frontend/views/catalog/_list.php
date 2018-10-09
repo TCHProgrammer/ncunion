@@ -20,6 +20,19 @@ $productImageCount = count($model->objectImgs);
         <div class="body">
 
             <div class="cp_img">
+                <div class="product_tags">
+                    <?php if(!is_null($model->nks)){ ?>
+                        <div class="object-tag object-tag-nks"></div>
+                    <?php } ?>
+
+                    <?php foreach ($model->tag as $tag){ ?>
+                        <?php if ($tag->id === 1) { ?>
+                        <div class="object-tag object-tag-<?= $tag->id ?>">
+                            <?= $tag->title ?>
+                        </div>
+                        <?php } ?>
+                    <?php } ?>
+                </div>
                 <div class="product_trust">
                     <input type="text" class="trust_o_meter" readonly="readonly" value="<?= $conf ?>" data-width="50" data-height="50" data-thickness="0.2" data-fgColor="#FF1601" data-bgColor="#B9B9B9" disabled>
                 </div>
@@ -28,15 +41,6 @@ $productImageCount = count($model->objectImgs);
                 } else {
                     $imageWrapperClass = "";
                 } ?>
-                <?php if (!empty($modelImgs)){ ?>
-                    <ul class="preview-thumbnail nav nav-tabs">
-                        <?php $count = 1; ?>
-                        <?php foreach ($modelImgs as $item){ ?>
-                            <li class="nav-item"><a class="nav-link<?php if($count == 1) { echo ' active'; } ?>" data-toggle="tab" href="#product_<?= $count; ?>"><img src="<?= $item->img ?>"></a></li>
-                            <?php $count++; ?>
-                        <?php } ?>
-                    </ul>
-                <?php } ?>
                 <div class="cp_img_wrapper<?php echo $imageWrapperClass; ?>">
                     <a href="<?= Url::toRoute('/catalog/view?id='.$model->id) ?>">
                         <?php if (isset($model->objectImgs[0]->img)){ ?>
@@ -53,6 +57,15 @@ $productImageCount = count($model->objectImgs);
                         <?php } ?>
                     <?php } ?>
                 </div>
+
+                <?php // TODO: Избавиться от еще одного цикла тегов. ?>
+                <?php foreach ($model->tag as $tag){ ?>
+                    <?php if ($tag->id === 2) { ?>
+                <div class="product_action">
+                    <?= $tag->title ?>
+                </div>
+                    <?php } ?>
+                <?php } ?>
                 <div class="hover">
                     <?php if ($userFoll){ ?>
                         <?= Html::a('<i class="zmdi zmdi-favorite"></i>', ['/catalog/unsubscribe?oId=' . $model->id], ['class' => 'btn btn-primary waves-effect product_favorite', 'data-confirm' => 'Вы уверены, что хотите отписаться?', 'disable' => true]) ?>
@@ -96,13 +109,6 @@ $productImageCount = count($model->objectImgs);
                     </div>
                     <?php } ?>
                 </div>
-                <?php $styleTag = 10 ;?>
-                <?php foreach ($model->tag as $tag){ ?>
-                    <div class="object-tag" style="top: <?= $styleTag ?>px;">
-                        <?= $tag->title ?>
-                    </div>
-                    <?php $styleTag += 50; ?>
-                <?php } ?>
             </div>
         </div>
     </div>
