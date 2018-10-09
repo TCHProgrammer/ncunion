@@ -21,7 +21,7 @@ $productImageCount = count($model->objectImgs);
 
             <div class="cp_img">
                 <div class="product_trust">
-                    <input type="text" class="trust_o_meter" readonly="readonly" value="<?= $conf ?>" data-width="50" data-height="50" data-thickness="0.2" data-fgColor="#FF1601" disabled>
+                    <input type="text" class="trust_o_meter" readonly="readonly" value="<?= $conf ?>" data-width="50" data-height="50" data-thickness="0.2" data-fgColor="#FF1601" data-bgColor="#B9B9B9" disabled>
                 </div>
                 <?php if ($productImageCount > 1) {
                     $imageWrapperClass = " owl-carousel product_carousel";
