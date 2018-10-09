@@ -289,4 +289,12 @@ $(document).ready(function () {
         autoHeight: true,
         navText: ['<i class="zmdi zmdi-chevron-left"></i>','<i class="zmdi zmdi-chevron-right"></i>']
     });
+
+    /* Блок "Доверие" на каждом объекте страницы каталога */
+    $('.trust_o_meter').knob({
+        'draw' : function() {
+            var value = $(this.i).val() + '%';
+            $(this.i).val(value).css('font-size', '14px');
+        }
+    });
 });
