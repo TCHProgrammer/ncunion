@@ -42,19 +42,20 @@ $productImageCount = count($model->objectImgs);
                     $imageWrapperClass = "";
                 } ?>
                 <div class="cp_img_wrapper<?php echo $imageWrapperClass; ?>">
-                    <a href="<?= Url::toRoute('/catalog/view?id='.$model->id) ?>">
-                        <?php if (isset($model->objectImgs[0]->img)){ ?>
-                            <img class="img-fluid" src="<?= $model->objectImgs[0]->img ?>">
-                        <?php }else{ ?>
-                            <img class="img-fluid" src="/img/object/no-photo.jpg">
-                        <?php } ?>
-                    </a>
                     <?php if ($productImageCount > 1){ ?>
                         <?php foreach ($model->objectImgs as $item){ ?>
                         <a href="<?= Url::toRoute('/catalog/view?id='.$model->id) ?>">
                             <img class="img-fluid" src="<?= $item->img ?>">
                         </a>
                         <?php } ?>
+                    <?php } else if ($productImageCount == 1) { ?>
+                    <a href="<?= Url::toRoute('/catalog/view?id='.$model->id) ?>">
+                        <img class="img-fluid" src="<?= $model->objectImgs[0]->img ?>">
+                    </a>
+                    <?php } else { ?>
+                    <a href="<?= Url::toRoute('/catalog/view?id='.$model->id) ?>">
+                        <img class="img-fluid" src="/img/object/no-photo.jpg">
+                    </a>
                     <?php } ?>
                 </div>
 
