@@ -1,3 +1,30 @@
+.btn,
+.btn:not(.btn-link):not(.btn-circle) {
+    border-radius: 15px;
+    padding: 6px 12px;
+    text-align: center;
+    min-width: 105px;
+    font-size: 14px;
+    text-transform: none;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    -o-box-shadow: none;
+}
+
+.btn-filter,
+.btn.btn-filter:not(.btn-link):not(.btn-circle){
+    border: 1px solid #00B034;
+    color: #00B034;
+}
+
+.btn-primary,
+.btn.btn-primary:not(.btn-link):not(.btn-circle) {
+    background-color: #00B034 !important;
+    color: #FFFFFF;
+    border: 1px solid #00B034;
+}
+
 .theme-orange .navbar-right {
     margin-right: 0;
 }
@@ -118,19 +145,27 @@ textarea.form-control {
     border-bottom: 0 !important;
 }
 
-.catalog-page .search-filters label {
+.catalog-page .search-filters .control-label {
     display: none;
 }
 
-.select-group,
-.inputs-group {
-    margin-right: 20px;
+.catalog-page .search-filters .form-group {
+    margin: 10px 20px 0 0;
+    margin-bottom: 10px;
+}
+
+.catalog-page .search-filters .buttons > * {
+    margin-right: 15px;
 }
 
 .inputs-group {
     display: inline-block;
     width: auto;
     padding-bottom: 0;
+}
+
+.modal .inputs-group {
+    width: 100%;
 }
 
 .inputs-group-stack {
@@ -151,12 +186,20 @@ textarea.form-control {
     border-bottom: 0;
 }
 
+.modal .inputs-group .form-line {
+    width: 120px;
+}
+
 .inputs-group.search-filters-price .form-line {
     width: 95px;
 }
 
 .inputs-group .form-line:first-child {
     border-right: 1px solid #9D9D9D;
+}
+
+.inputs-group.input-individual .form-line:first-child {
+    border-right: 0;
 }
 
 .inputs-group .form-line::after {
@@ -412,4 +455,29 @@ textarea.form-control {
     text-align: center;
     padding: 2px 22px;
     z-index: 50;
+}
+
+.modal-md .modal-dialog {
+    width: 500px;
+}
+
+.modal .close {
+    color: #000;
+    opacity: 0.2;
+    font-size: 21px;
+}
+
+.theme-orange .modal [type="checkbox"] + label,
+.theme-orange .modal [type="radio"] + label {
+    width: auto;
+    padding-right: 5px;
+}
+
+.modal .inputs-group {
+    margin-right: 0;
+}
+
+.modal .modal-footer .form-group {
+    margin: 5px 0 0;
+    margin-bottom: 5px;
 }
