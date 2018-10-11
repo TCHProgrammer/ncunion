@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <li><a href="<?= Url::toRoute(['object_settings/tag']) ?>">Теги</a></li>
                 <li><a href="<?= Url::toRoute(['object_settings/form-participation']) ?>">Форма участия</a></li>
                 <li><a href="<?= Url::toRoute(['object_settings/confidence']) ?>">Доверие у объекта</a></li>
+                <li><a href="<?= Url::toRoute(['object_settings/city']) ?>">Список городов</a></li>
 
             </ul>
         </div>
