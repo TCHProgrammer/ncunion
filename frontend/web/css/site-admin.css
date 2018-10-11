@@ -504,9 +504,15 @@ textarea.form-control {
     justify-content: space-between;
 }
 
+.object-page .preview .preview-thumbnail.nav-tabs::before,
+.object-page .preview .preview-thumbnail.nav-tabs::after {
+    display: none;
+}
+
 .object-page .preview .preview-thumbnail.nav-tabs li {
     flex-basis: 30%;
     margin-bottom: 20px;
+    margin-right: 0;
 }
 
 .object-page h4 {
