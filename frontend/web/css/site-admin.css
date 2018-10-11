@@ -498,9 +498,15 @@ textarea.form-control {
 }
 
 /* object */
+.object-page .preview .preview-thumbnail.nav-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
 
 .object-page .preview .preview-thumbnail.nav-tabs li {
-    width: 33.3333%;
+    flex-basis: 30%;
+    margin-bottom: 20px;
 }
 
 .object-page h4 {
