@@ -365,10 +365,12 @@ textarea.form-control {
     justify-content: space-between;
 }
 
+/* TODO: префиксы. */
 .product_item .product_bottom > * {
     flex-basis: 33%;
 }
 
+/* TODO: префиксы. */
 .product_item .product_market_price {
     flex-basis: 45%;
 }
@@ -498,6 +500,7 @@ textarea.form-control {
 }
 
 /* object */
+/* TODO: префиксы. */
 .object-page .preview .preview-thumbnail.nav-tabs {
     display: flex;
     flex-wrap: wrap;
@@ -509,6 +512,7 @@ textarea.form-control {
     display: none;
 }
 
+/* TODO: префиксы. */
 .object-page .preview .preview-thumbnail.nav-tabs li {
     flex-basis: 30%;
     margin-bottom: 20px;
@@ -598,6 +602,7 @@ textarea.form-control {
     align-content: center;
 }
 
+/* TODO: префиксы. */
 .object-page .object-trust-docs .item {
     flex-basis: 20%;
     text-align: center;

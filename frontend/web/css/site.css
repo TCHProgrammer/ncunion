@@ -1004,3 +1004,49 @@ header .top {
     color: #FFFFFF;
     border-color: #FFFFFF;
 }
+
+/* how-to */
+
+/* TODO: префиксы. */
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+/* TODO: префиксы. */
+.how-to .item {
+    text-align: center;
+    flex-basis: 20%;
+}
+
+.how-to .item .image {
+    position: relative;
+}
+
+.how-to .item .image::after {
+    content: '';
+    position: absolute;
+    right: -85px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 95px;
+    height: 35px;
+    background: url(../img/main/arrow-right.png) no-repeat center center / auto;
+}
+
+.how-to .item:last-child .image::after {
+    display: none;
+}
+
+.how-to .item img {
+    display: block;
+    float: none;
+    margin: 0 auto;
+}
+
+.how-to .item .info {
+    padding: 15px 0;
+}
+
+.how-to .item
