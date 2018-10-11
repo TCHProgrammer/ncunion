@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\widgets\ActiveForm;
+use yii\widgets\Breadcrumbs;
 use yii\widgets\ListView;
 use kartik\slider\Slider;
 use yii\helpers\ArrayHelper;
@@ -20,6 +21,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="block-header">
         <div class="row">
             <div class="col-lg-7 col-md-6 col-sm-12">
+                <?= Breadcrumbs::widget([
+                    'itemTemplate' => "<li class='breadcrumb-item'>{link}</li>\n",
+                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                ]) ?>
                 <h1><?= Html::encode($this->title) ?></h1>
             </div>
         </div>
@@ -27,11 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="container-fluid">
         <div class="row clearfix">
             <!-- полная информация об объекте  -->
-            <div class="col-lg-12 col-md-12 object-view">
+            <div class="col-lg-8 col-md-8 object-center">
                 <div class="card">
                     <div class="body">
                         <div class="row">
-                            <div class="preview col-lg-4 col-md-12">
+                            <div class="preview col-lg-7 col-md-12">
                                 <?php if (!empty($modelImgs)){ ?>
                                     <div class="preview-pic tab-content">
                                         <?php $count = 1; ?>
@@ -54,58 +59,161 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <?php } ?>
                                     </ul>
                                 <?php } ?>
+
+                                <!-- файлы -->
+                                <?php if (!empty($modelFiles)){ ?>
+                                    <h4>Документы</h4>
+                                    <?php foreach ($modelFiles as $item){ ?>
+                                        <div>
+                                            <a href="<?= $item->doc ?>"><?= $item->title ?></a>
+                                        </div>
+                                    <?php } ?>
+                                <?php } ?>
+
+                                <div class="row clearfix">
+                                    <div class="col-sm-6">
+                                        <?php // TODO: Это просто заготовка, надо добавить динамику. ?>
+                                        <h4>Коммуникации</h4>
+                                        <table class="table table-bordered detail-view">
+                                            <tbody>
+                                            <tr>
+                                                <th>Газ</th>
+                                                <td class="true">Да</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Свет</th>
+                                                <td class="true">Да</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Вода</th>
+                                                <td class="false">Нет</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <h4>Прописанные</h4>
+                                        <table class="table table-bordered detail-view">
+                                            <tbody>
+                                            <tr>
+                                                <th>Дети</th>
+                                                <td class="true">Да</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Иждивенцы</th>
+                                                <td class="false">Нет</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Отказники</th>
+                                                <td class="false">Нет</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Взрослые</th>
+                                                <td class="true">Да</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="details col-lg-8 col-md-12">
-                                <h3 class="product-title"><?= Html::encode($this->title) ?></h3>
-                                <h4 class="price"><span class="col-amber"><?= $model->amount ?> руб.</span></h4>
-                                <p>
-                                    <b>Статус:</b>
+                            <div class="details col-lg-5 col-md-12">
+                                <h3 class="product-title">
+                                    <?php // TODO: Пофиксить запятые. ?>
+                                    <?= $model->typeTitle . ', '?>
+                                    <?php if(!is_null($model->rooms)) { ?>
+                                        <?= $model->rooms . ' комн.,' ?>
+                                    <?php } ?>
+                                    <?php if(!is_null($model->area)) { ?>
+                                        <?= $model->area . ' м²' ?>
+                                    <?php } ?>
+                                </h3>
+                                <div class="object-info-inline">
+                                    <h4>Статус</h4>
                                     <?php
                                     switch ($model->status_object){
                                         case 1:
-                                            $statusObject = 'сделка частично закрыта';
+                                            $statusObject = 'Сделка частично закрыта';
                                             $classObject = 'label-warning';
                                             break;
                                         case 2:
-                                            $statusObject = 'сделка открыта';
+                                            $statusObject = 'Сделка открыта';
                                             $classObject = 'label-success';
                                             break;
                                         default:
-                                            $statusObject = 'сделка закрыта';
+                                            $statusObject = 'Сделка закрыта';
                                             $classObject = 'label-danger';
                                             break;
                                     }
                                     ?>
                                     <label class="label <?= $classObject ?>"><?= $statusObject ?></label>
-                                </p>
+                                </div>
 
                                 <!-- доверие объекту -->
-                                <p>Доверие объекта составляет <?= $confObj ?>%</p>
-
-                                <!-- шкала -->
-                                <div class="object-view">
-                                    <div class="object-progress-striped">
-                                        <div class="left-pr-striped">0</div>
-                                        <div class="center-pr-striped">
-                                            <div class="progress progress-striped m-b-5 progress-bar-striped">
-                                                <div class="progress-bar" role="progressbar" aria-valuenow="<?= $progress['amount-percent'] ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $progress['amount-percent'] ?>%" style="">
-                                                    <span class="print-amount-striped"><?= $progress['print-amount'] ?>(<?= $progress['amount-percent'] ?>%)</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="right-pr-striped"><?= $model->amount ?></div>
+                                <div class="object-info-inline object-trust">
+                                    <h4>Индекс доверия<span class="mini-info" data-toggle="tooltip" data-placement="top" title="Индекс доверия">?</span></h4>
+                                    <input type="text" class="trust_o_meter" readonly="readonly" value="<?= $confObj ?>" data-width="36" data-height="36" data-thickness="0.2" data-fgColor="#FF1601" data-bgColor="#B9B9B9" disabled>
+                                </div>
+                                <?php // TODO: Это просто заготовка, надо добавить динамику. ?>
+                                <div class="object-info-inline object-trust-docs">
+                                    <div class="item">
+                                        <span class="zmdi-hc-stack zmdi-hc-lg">
+                                            <i class="zmdi zmdi-square-o zmdi-hc-stack-2x"></i>
+                                            <i class="zmdi zmdi-check zmdi-hc-stack-1x"></i>
+                                        </span>
+                                        <span class="value">МБКИ</span>
+                                    </div>
+                                    <div class="item checked">
+                                        <span class="zmdi-hc-stack zmdi-hc-lg">
+                                            <i class="zmdi zmdi-square-o zmdi-hc-stack-2x"></i>
+                                            <i class="zmdi zmdi-check zmdi-hc-stack-1x"></i>
+                                        </span>
+                                        <span class="value">Судебная справка</span>
+                                    </div>
+                                    <div class="item checked">
+                                        <span class="zmdi-hc-stack zmdi-hc-lg">
+                                            <i class="zmdi zmdi-square-o zmdi-hc-stack-2x"></i>
+                                            <i class="zmdi zmdi-check zmdi-hc-stack-1x"></i>
+                                        </span>
+                                        <span class="value">ФССП</span>
+                                    </div>
+                                    <div class="item checked">
+                                        <span class="zmdi-hc-stack zmdi-hc-lg">
+                                            <i class="zmdi zmdi-square-o zmdi-hc-stack-2x"></i>
+                                            <i class="zmdi zmdi-check zmdi-hc-stack-1x"></i>
+                                        </span>
+                                        <span class="value">Ф1 кадастр</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="zmdi-hc-stack zmdi-hc-lg">
+                                            <i class="zmdi zmdi-square-o zmdi-hc-stack-2x"></i>
+                                            <i class="zmdi zmdi-check zmdi-hc-stack-1x"></i>
+                                        </span>
+                                        <span class="value">Оценочный лист</span>
                                     </div>
                                 </div>
+                                <h4>Общая информация</h4>
 
-                                <hr>
-
-                                <div class="action">
-                                    <?php if ($userFoll){ ?>
-                                        <?= Html::a('Отписаться', ['/catalog/unsubscribe?oId=' . $model->id], ['class' => 'btn btn-primary waves-effect', 'data-confirm' => 'Вы уверены, что хотите отписаться?', 'disable' => true]) ?>
-                                    <?php }else{ ?>
-                                        <?= Html::button('Откликнуться', ['class' => 'btn btn-default waves-effect', 'data-toggle' => 'modal', 'data-target' => '.bs-example-modal-lg']) ?>
-                                    <?php } ?>
-                                </div>
+                                <!-- инфо об объекте -->
+                                <?= DetailView::widget([
+                                    'model' => $model,
+                                    'attributes' => [
+                                        [
+                                            'attribute' => 'type_id',
+                                            'value' => function($model){
+                                                $arr = ArrayHelper::map(ObjectType::find()->all(), 'id', 'title');
+                                                return $arr[$model->type_id];
+                                            }
+                                        ],
+                                        'rooms',
+                                        'area',
+                                        'place_km',
+                                        'descr:html',
+                                    ],
+                                    'options' => [
+                                        'class' => 'table table-bordered detail-view'
+                                    ]
+                                ]) ?>
                             </div>
                         </div>
 
@@ -125,55 +233,116 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
                         </div>
                         <?php } ?>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 object-side">
+                <div class="card">
+                    <div class="body">
+                        <div class="row">
+                            <div class="details col-sm-12">
+                                <h4 class="price"><?= $model->amount ?> &#8381;</h4>
+                                <span class="product_help">Требуемая сумма</span>
 
-                        <!-- инфо об объекте -->
-                        <?= DetailView::widget([
-                            'model' => $model,
-                            'attributes' => [
-                                [
-                                    'attribute' => 'type_id',
-                                    'value' => function($model){
-                                        $arr = ArrayHelper::map(ObjectType::find()->all(), 'id', 'title');
-                                        return $arr[$model->type_id];
-                                    }
-                                ],
-                                'title',
-                                'descr:html',
-                                'place_km',
-                                'amount',
-                                'address',
-                                'address_map',
-                                'area',
-                                'rooms',
-                                'owner',
-                                'price_cadastral',
-                                'price_tian',
-                                'price_market',
-                                'price_liquidation',
-                                'rate',
-                                'term',
-                                [
-                                    'attribute' => 'schedule_payments',
-                                    'value' => function($model){
-                                        return ($model->schedule_payments === 1)?'шаровый':'аннуитетный';
-                                    }
-                                ],
-                                'nks',
-                            ],
-                        ]) ?>
-
-                        <!-- файлы -->
-                        <?php if (!empty($modelFiles)){ ?>
-                            <h2 class="card-inside-title">Документы</h2>
-                            <?php foreach ($modelFiles as $item){ ?>
-                                <div>
-                                    <a href="<?= $item->doc ?>"><?= $item->title ?></a>
+                                <!-- шкала -->
+                                <h4>Собранные средства</h4>
+                                <div class="object-view">
+                                    <div class="object-progress-striped">
+                                        <div class="left-pr-striped">0 &#8381;</div>
+                                        <div class="center-pr-striped">
+                                            <div class="progress progress-striped m-b-5 progress-bar-striped">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="<?= $progress['amount-percent'] ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $progress['amount-percent'] ?>%" style="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="right-pr-striped"><?= $model->amount ?> &#8381;</div>
+                                    </div>
                                 </div>
-                            <?php } ?>
-                        <?php } ?>
+
+                                <!-- инфо об объекте -->
+                                <?= DetailView::widget([
+                                    'model' => $model,
+                                    'attributes' => [
+                                        'price_cadastral',
+                                        'price_tian',
+                                        'price_market',
+                                        'price_liquidation',
+                                        'nks',
+                                    ],
+                                    'options' => [
+                                        'class' => 'table table-bordered detail-view'
+                                    ]
+                                ]) ?>
+
+                                <h4>Пожелания к кредиту</h4>
+                                <!-- инфо об объекте -->
+                                <?= DetailView::widget([
+                                    'model' => $model,
+                                    'attributes' => [
+                                        [
+                                            'attribute' => 'schedule_payments',
+                                            'value' => function($model){
+                                                return ($model->schedule_payments === 1)?'шаровый':'аннуитетный';
+                                            }
+                                        ],
+                                        'rate',
+                                        'term',
+                                    ],
+                                    'options' => [
+                                        'class' => 'table table-bordered detail-view credit-wishes'
+                                    ]
+                                ]) ?>
+
+                                <div class="action">
+                                    <?php if ($userFoll){ ?>
+                                        <?= Html::a('Отписаться', ['/catalog/unsubscribe?oId=' . $model->id], ['class' => 'btn btn-primary btn-respond waves-effect', 'data-confirm' => 'Вы уверены, что хотите отписаться?', 'disable' => true]) ?>
+                                    <?php }else{ ?>
+                                        <?= Html::button('Откликнуться', ['class' => 'btn btn-primary btn-respond waves-effect', 'data-toggle' => 'modal', 'data-target' => '.bs-example-modal-lg']) ?>
+                                    <?php } ?>
+                                </div>
+                                <div class="scroll-to-comment">
+                                    <?= Html::button('Оставить комментарий', ['class' => 'btn btn-scrollto waves-effect', 'id' => 'scroll-to-comment-button']) ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8 object-map">
+                <div class="card">
+                    <div class="body">
+                        <div class="row">
+                            <div class="object-map col-sm-12">
+                                <div class="row clearfix">
+                                    <div class="col-sm-6">
+                                        <div class="address">
+                                            <!-- инфо об объекте -->
+                                            <?= DetailView::widget([
+                                                'model' => $model,
+                                                'attributes' => [
+                                                    'address',
+                                                ],
+                                                'options' => [
+                                                    'class' => 'table table-bordered detail-view object-address'
+                                                ]
+                                            ]) ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d834.0627836242512!2d87.1120109877622!3d53.752355267470826!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x42d0c0fa0b6ec60b%3A0xcb4c0588da4e255c!2z0KDQsNC00LjQvtGC0LXRhdC90LjQutCw!5e0!3m2!1sru!2sru!4v1539262302918" frameborder="0" style="width: 100%; height: 600px; border:0"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8 object-comments">
+                <div class="card">
+                    <div class="body">
 
                         <!-- комментарии -->
-                        <h2 class="card-inside-title">Комментарии</h2>
+                        <h4>Комментарии</h4>
                         <?= $this->render('_comments', [
                             'commentNew' => $commentNew,
                             'oId' => $model->id,

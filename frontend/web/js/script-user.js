@@ -298,4 +298,19 @@ $(document).ready(function () {
             $(this.i).val(value).css('font-size', '14px');
         }
     });
+
+    /* Инициализация тултипов */
+    $('[data-toggle="tooltip"]').tooltip();
+
+    /* Скроллинг к форме отправки комментария на странице объекта */
+    $('#scroll-to-comment-button').click(function() {
+        $('html, body').animate({
+            scrollTop: $("#comment-input-send").offset().top
+        }, 2000);
+        $("#comment-input-send").find('textarea').focus();
+    });
+
+    /* Фиксирование боковой панели на странице объекта */
+    // $('html, body')
+
 });
