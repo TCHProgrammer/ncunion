@@ -54,6 +54,22 @@ use common\models\object\Confidence;
     </div>
 
     <div class="row">
+
+        <?php $citiesCollection = \common\models\object\City::find()->all();
+        $cities = ArrayHelper::map($citiesCollection,'id','name');
+        $mKad = ArrayHelper::map($citiesCollection,'id','mkad');
+        $mkadParams = [];
+        if (!empty($mKad)) {
+          foreach ($mKad as $id => $val) {
+            $mkadParams[$id]['data-mkad'] = $val;
+          }
+        }
+        $params = [
+            'prompt' => 'Выберите город',
+            'options' => $mkadParams
+        ]; ?>
+        <?= $form->field($model, 'city_id', ['options' => ['class' => 'col-lg-3 col-md-6']])->dropDownList($cities, $params) ?>
+
         <?= $form->field($model, 'place_km', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput(['maxlength' => true]) ?>
 
         <?= $form->field($model, 'amount', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput(['maxlength' => true]) ?>
