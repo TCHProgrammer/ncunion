@@ -94,10 +94,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     'title',
                     'descr:html',
                     [
+                        'attribute' => 'city_id',
+                        'value' => function($model) {
+                        $city = \backend\models\object_settings\CitySearch::findOne(['id' => $model->city_id]);
+                        return isset($city) ? $city->name : null;
+                        }
+                    ],
+                    [
                         'attribute' => 'place_km',
                         'value' => function($model){
                             if ($model->place_km === 0){
-                                return 'Москва';
+                                $city = \backend\models\object_settings\CitySearch::findOne(['id' => $model->city_id]);
+                                return $city->name;
                             }else{
                                 return $model->place_km . ' км. от МКАД';
                             }
