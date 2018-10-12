@@ -1102,3 +1102,32 @@ textarea {
 .consultation-form .form-buttons {
     text-align: center;
 }
+
+/* map */
+
+.map {
+    position: relative;
+}
+
+.contacts-card {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    padding: 20px 30px;
+    width: 420px;
+    background-color: #FFFFFF;
+}
+
+.contacts-card h2 {
+    margin-top: 0;
+    color: #3B34A6;
+}
+
+.contacts-card img {
+    margin-bottom: 20px;
+}
+
+.contacts-card .buttons {
+    text-align: center;
+}

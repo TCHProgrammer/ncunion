@@ -575,7 +575,7 @@ AppAsset::register($this);
         </div>
     </section>
 
-    <section class="consultation-form">
+    <section class="consultation-form" id="consultation-form">
         <div class="container">
             <div class="row">
                 <div class="col-sm-5">
@@ -617,7 +617,18 @@ AppAsset::register($this);
     </section>
 
     <section class="map">
-        <img src="" alt="" class="img-responsive">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2245.3919969563412!2d37.530455816243816!3d55.751692380553074!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54bdf26955a8f%3A0x27582effbd2d7a96!2z0KHQtdCy0LXRgNC90LDRjyDQkdCw0YjQvdGP!5e0!3m2!1sru!2sru!4v1539330204523" frameborder="0" style="border:0; width: 100%; height: 550px;"></iframe>
+        <div class="contacts-card">
+            <h2>Офис Москва-Сити</h2>
+            <img src="<?php echo Url::to('@web/img/main/contacts-img.jpg'); ?>" alt="Офис Москва-Сити" class="img-responsive">
+            <p>г. Москва</p>
+            <p>ул. Тестовская, 10, 2 этаж, офис 203/1, ММДЦ “Москва-Сити” БЦ "Северная Башня"</p>
+            <p>+ 7 495-294-30-20</p>
+            <p>+ 7 495-294-30-20</p>
+            <div class="buttons">
+                <button class="btn btn-primary btn-consult">Отправить</button>
+            </div>
+        </div>
     </section>
 
     <footer class="footer">
