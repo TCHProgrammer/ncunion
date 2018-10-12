@@ -936,7 +936,7 @@ header .top {
 }
 
 .why-we .container:first-child {
-    background: url(../img/main/why-we-bg.jpg) no-repeat center 30px / 100% auto;
+    background: url(../img/main/why-we-bg.png) no-repeat center 30px / 100% auto;
     padding: 45px 0;
 }
 
@@ -1019,11 +1019,20 @@ header .top {
 
 /* how-to */
 
+.how-to .container {
+    background: url(../img/main/how-to-bg.png) no-repeat center top / 100% auto;
+    padding: 45px 0;
+}
+
 /* TODO: префиксы. */
 .flex {
     display: flex;
     justify-content: space-between;
     align-content: center;
+}
+
+.how-to .how-to-grid {
+    padding: 30px 0;
 }
 
 /* TODO: префиксы. */
@@ -1065,6 +1074,15 @@ header .top {
 
 .consultation-form {
     padding-bottom: 20px;
+}
+
+.consultation-form .heading h2 {
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.consultation-form .heading span {
+    text-transform: none;
 }
 
 .form-control,

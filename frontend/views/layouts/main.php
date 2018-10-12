@@ -536,7 +536,7 @@ AppAsset::register($this);
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row how-to-grid">
                 <div class="col-sm-12 flex">
                     <div class="item">
                         <div class="image">
