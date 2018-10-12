@@ -19,6 +19,47 @@ function openAnswer(id, lvl) {
 /* по хорошему их можно бы по другому реализовать, так сказать более разумнее */
 
 $(document).ready(function () {
+    /* Слайдер на главной */
+    $('.slider').flexslider({
+        animation: "slide",
+        directionNav: false
+    });
+
+    /* Карусель в блоке "Почему мы?" на главной */
+    $('.why-we-carousel').owlCarousel({
+        loop: true,
+        pagination: true,
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:3
+            },
+            1200:{
+                items:4
+            }
+        }
+    });
+
+    $('.btn-consult').on('click', function(){
+        $('html, body').animate({
+            scrollTop: $("#consultation-form").offset().top
+        }, 2000);
+    });
+
+    /* калькулятор на главной */
+    $("#input-calc").ionRangeSlider({
+        onChange: function(data){
+            // console.log(data['from']);
+            var value, percent;
+            $('.calculator .item').each(function(){
+                value = data['from'] * parseFloat(jQuery(this).find('.price').data('percent'));
+                jQuery(this).find('.price span').text(value);
+            });
+        }
+    });
+
     /* паспорт */
     $('#userpassport-type_id').change(function(){
         console.log('kk');
@@ -26,7 +67,7 @@ $(document).ready(function () {
         checkType(Number($(this).val()));
     });
 
-    /* фильтрв в каталоге */
+    /* фильтр в каталоге */
     $('#objectsearch-type_id').change(function(){
         checkType(Number($(this).val()));
     });
@@ -35,7 +76,7 @@ $(document).ready(function () {
 
 
     /* фильтр в каталоге */
-    $('#price-slider').slider({ tooltip: false });
+    /* $('#price-slider').slider({ tooltip: false });
     $("#price-slider").on("slide slideStop", function(slideEvt) {
         var value = slideEvt.value;
         $("#objectsearch-amount_min").val(value[0]);
@@ -75,6 +116,54 @@ $(document).ready(function () {
         var value = slideEvt.value;
         $("#userpassport-rooms_min").val(value[0]);
         $("#userpassport-rooms_max").val(value[1]);
+    }); */
+
+    $("#price-slider").ionRangeSlider({
+        onChange: function(data) {
+            $("#userpassport-amount_min").val(data['from']);
+            $("#userpassport-amount_max").val(data['to']);
+        },
+    });
+
+    $("#price-slider-catalog").ionRangeSlider({
+        onChange: function(data) {
+            $("#objectsearch-amount_min").val(data['from']);
+            $("#objectsearch-amount_max").val(data['to']);
+        },
+    });
+
+    $("#area-slider").ionRangeSlider({
+        onChange: function(data) {
+            $("#userpassport-area_min").val(data['from']);
+            $("#userpassport-area_max").val(data['to']);
+        },
+    });
+
+    $("#area-slider-catalog").ionRangeSlider({
+        onChange: function(data) {
+            $("#objectsearch-area_min").val(data['from']);
+            $("#objectsearch-area_max").val(data['to']);
+        },
+    });
+
+    $("#rooms-slider").ionRangeSlider({
+        onChange: function(data) {
+            $("#userpassport-rooms_min").val(data['from']);
+            $("#userpassport-rooms_max").val(data['to']);
+        },
+    });
+
+    $("#rooms-slider-catalog").ionRangeSlider({
+        onChange: function(data) {
+            $("#objectsearch-rooms_min").val(data['from']);
+            $("#objectsearch-rooms_max").val(data['to']);
+        },
+    });
+
+    $("#user-slider").ionRangeSlider({
+        onChange: function(data) {
+            $("#roomobjectuser-sum").val(data['from']);
+        },
     });
 
     /* при загрузке сохраняет сзнение со слайдера(ползунка) в input */
@@ -105,11 +194,11 @@ $(document).ready(function () {
     /* !!! сделай плиз что бы при изменение филтра в input менялась полоса(slider) !!! */
 
     /* ползунок в подписке на объект */
-    $('#user-slider').slider({ tooltip: false });
+    /* $('#user-slider').slider({ tooltip: false });
     $("#user-slider").on("slide slideStop", function(slideEvt) {
         var value = slideEvt.value;
         $("#roomobjectuser-sum").val(value);
-    });
+    }); */
 
     /* в каталоге применяет все параметры из паспорта к фильтру */
     $('#filter-passport').on('click', function () {

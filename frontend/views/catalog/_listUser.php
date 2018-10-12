@@ -3,21 +3,18 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 ?>
 
-<div class="row catalog-user-profil">
-
-    <div class="catalog-user-avatar col-lg-3">
-        <img src="<?= isset($model['userAvatar']->avatar) ? $model['userAvatar']->avatar : '/img/other/default-avatar.png' ?>">
-    </div>
-
-    <div class="catalog-user-info col-lg-9">
-        <div class="object-user-list-fio">
-            <p>ФИО:
+<div class="profile-header catalog-user-profil">
+    <div class="profile_info row">
+        <div class="col-lg-3 col-md-4 col-12">
+            <div class="profile-image catalog-user-avatar float-md-right"> <img src="<?= isset($model['userAvatar']->avatar) ? $model['userAvatar']->avatar : '/img/other/default-avatar.png' ?>"> </div>
+        </div>
+        <div class="col-lg-6 col-md-8 col-12">
+            <h4 class="m-t-5 m-b-0">
+                ФИО:
                 <a href="<?= Url::toRoute('/admin/users/view?id=' ) . $model->user_id ?>" target="_blank">
                     <?= $model['user']->last_name . ' ' . $model['user']->first_name . ' ' . $model['user']->middle_name ?>
                 </a>
-            </p>
-        </div>
-        <div>
+            </h4>
             <p>Cумма: <?= $model->sum ?></p>
             <p>Ставка: <?= $model->rate ?></p>
             <p>Срок: <?= $model->term ?></p>

@@ -16,7 +16,6 @@ use frontend\models\ContactForm;
 
 class SiteController extends Controller
 {
-
     public function behaviors()
     {
         return [
@@ -74,6 +73,8 @@ class SiteController extends Controller
 
     public function actionLogin()
     {
+        $this->layout = "page_layout";
+
         if (!Yii::$app->user->isGuest) {
             return $this->redirect('/');
         }
@@ -93,6 +94,8 @@ class SiteController extends Controller
 
     public function actionLogout()
     {
+        $this->layout = "page_layout";
+
         Yii::$app->user->logout();
 
         return $this->goHome();
@@ -100,6 +103,8 @@ class SiteController extends Controller
 
     public function actionSignup()
     {
+        $this->layout = "page_layout";
+
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
@@ -116,6 +121,8 @@ class SiteController extends Controller
 
     public function actionRequestPasswordReset()
     {
+        $this->layout = "page_layout";
+
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
