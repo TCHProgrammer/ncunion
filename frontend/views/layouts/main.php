@@ -254,7 +254,7 @@ AppAsset::register($this);
                 </div>
                 <div class="col-sm-4">
                     <div class="buttons">
-                        <button class="btn btn-default btn-consult">Получить консультацию</button>
+                        <button class="btn btn-default btn-get-consultation btn-consult">Получить консультацию</button>
                     </div>
                 </div>
             </div>
