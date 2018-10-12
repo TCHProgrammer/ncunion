@@ -14,3 +14,18 @@ function checkType(j) {
         }
     }
 }
+
+$(document).ready(function () {
+    $("#object-place_km").val(0);
+    $("#object-place_km").parent().hide();
+
+    $(document).on('change', '#object-city_id', function () {
+        var mkad = $("#object-city_id option:selected").data("mkad");
+        if (mkad) {
+          $("#object-place_km").parent().show();
+        } else {
+          $("#object-place_km").parent().hide();
+          $("#object-place_km").val(0);
+        }
+    })
+})
