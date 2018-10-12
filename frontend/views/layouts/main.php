@@ -126,10 +126,10 @@ AppAsset::register($this);
                                         <h2><span>Безопасное</span> инвестирование в недвижимость</h2>
                                     </div>
                                     <div class="item item-small">
-                                        <p>Всего от <span>500 000</span> руб.</p>
+                                        <p>Всего от<br><span>500 000</span> руб.</p>
                                     </div>
                                     <div class="item item-small">
-                                        <p>Доходность: <span>10-24 %</span> руб. годовых</p>
+                                        <p>Доходность:<br><span>10-24 %</span> руб. годовых</p>
                                     </div>
                                 </div>
                                 <div class="slide-text">
@@ -154,10 +154,10 @@ AppAsset::register($this);
                                         <h2><span>Безопасное</span> инвестирование в недвижимость</h2>
                                     </div>
                                     <div class="item item-small">
-                                        <p>Всего от <span>500 000</span> руб.</p>
+                                        <p>Всего от<br><span>500 000</span> руб.</p>
                                     </div>
                                     <div class="item item-small">
-                                        <p>Доходность: <span>10-24 %</span> руб. годовых</p>
+                                        <p>Доходность:<br><span>10-24 %</span> руб. годовых</p>
                                     </div>
                                 </div>
                                 <div class="slide-text">

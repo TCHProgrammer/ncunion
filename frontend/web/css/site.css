@@ -705,14 +705,53 @@ header .top {
     color: #ffffff;
 }
 
+/* TODO: Префиксы. */
+.slider .flex-caption .slide-row {
+    align-items: inherit;
+    align-content: center;
+}
+
 .slider .flex-caption .slide-row .item {
     flex-basis: 50%;
     padding: 0 35px;
     border-right: 1px solid #ffffff;
 }
 
+.slider .flex-caption .slide-row .item:last-child {
+    border-right: 0;
+}
+
+.slider .flex-caption .slide-row .item h2 {
+    font-size: 48px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.slider .flex-caption .slide-row .item h2 span {
+    font-size: 36px;
+    color: #8AA3ED;
+    font-weight: 400;
+}
+
+/* TODO: Префиксы. */
 .slider .flex-caption .slide-row .item.item-small {
     flex-basis: 25%;
+    display: flex;
+    align-items: center;
+}
+
+.slider .flex-caption .slide-row .item.item-small p {
+    font-size: 30px;
+}
+
+.slider .flex-caption .slide-row .item.item-small p span {
+    font-weight: 700;
+}
+
+.slider .flex-caption .slide-text {
+    padding: 20px 35px;
 }
 
 .slider .slides li {
@@ -1056,7 +1095,7 @@ header .top {
 .flex {
     display: flex;
     justify-content: space-between;
-    align-content: center;
+    align-items: center;
 }
 
 .how-to .how-to-grid {
