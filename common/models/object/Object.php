@@ -38,6 +38,7 @@ use common\models\object\Confidence;
  * @property int $term
  * @property int $schedule_payments
  * @property int $nks
+ * @property int $city_id
  *
  * @property ObjectType $type
  * @property ObjectAttribute[] $objectAttributes
@@ -88,7 +89,7 @@ class Object extends \yii\db\ActiveRecord
             'status' => 'Активность',
             'title' => 'Название',
             'descr' => 'Описание',
-            'place_km' => 'Удалённость (0 - Москва, больше 1 км от МКАД)',
+            'place_km' => 'Удалённость',
             'amount' => 'Требуемая сумма',
             'address' => 'Адресс',
             'address_map' => 'Адрес на карте',
@@ -109,7 +110,8 @@ class Object extends \yii\db\ActiveRecord
             'rate' => 'Ставка',
             'term' => 'Срок',
             'schedule_payments' => 'График платежей',
-            'nks' => 'НКС'
+            'nks' => 'НКС',
+            'city_id' => 'Город'
         ];
     }
 
