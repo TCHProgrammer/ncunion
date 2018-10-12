@@ -68,7 +68,7 @@ AppAsset::register($this);
                 'class' => 'navbar-default',
             ],
         ]);
-        $menuItems = [
+        $menuItemsLeft = [
             ['label' => 'О сервисе', 'url' => ['#about-service']],
             ['label' => 'Программы доходности', 'url' => ['#programs']],
             ['label' => 'Калькуляторы доходности', 'url' => ['#calc']],
@@ -76,29 +76,36 @@ AppAsset::register($this);
             ['label' => 'О компании', 'url' => ['#about-service']],
         ];
         if (Yii::$app->user->isGuest) {
-            $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
-            $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
+            $menuItemsRight[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
+            $menuItemsRight[] = ['label' => 'Войти', 'url' => ['/site/login']];
         } else {
             //$menuItems[] = ['label' => Yii::$app->authManager->getRolesByUser(Yii::$app->user->id)['user']->name, 'url' => ['/user/profile']];
             // $menuItems[] = ['label' => 'Каталог объектов', 'url' => ['/catalog']];
             // $menuItems[] = ['label' => 'Мои объекты', 'url' => ['/my-object']];
-            $menuItems[] = ['label' => Yii::$app->user->identity->email, 'items' => [
-                ['label' => 'Профиль', 'url' => ['/user/profile']],
-                ['label' => 'Настройки', 'url' => ['/user/settings']],
-                ['label' => 'Паспорт', 'url' => ['/user/passport']],
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Выйти',
-                    ['class' => 'menu-exit']
-                )
-                . Html::endForm()
-                . '</li>'
-            ]];
+            $menuItemsRight[] = [
+                    'label' => Yii::$app->user->identity->email,
+                    'items' => [
+                        ['label' => 'Профиль', 'url' => ['/user/profile']],
+                        ['label' => 'Настройки', 'url' => ['/user/settings']],
+                        ['label' => 'Паспорт', 'url' => ['/user/passport']],
+                        '<li>'
+                        . Html::beginForm(['/site/logout'], 'post')
+                        . Html::submitButton(
+                            'Выйти',
+                            ['class' => 'menu-exit']
+                        )
+                        . Html::endForm()
+                        . '</li>'
+                    ]
+                ];
         }
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav navbar-left'],
-            'items' => $menuItems,
+            'items' => $menuItemsLeft,
+        ]);
+        echo Nav::widget([
+            'options' => ['class' => 'navbar-nav navbar-right'],
+            'items' => $menuItemsRight
         ]);
         NavBar::end();
         ?>

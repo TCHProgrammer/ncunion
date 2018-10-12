@@ -659,6 +659,13 @@ header .top {
     color: #FFFFFF;
 }
 
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+    color: #FFFFFF;
+    background-color: transparent;
+}
+
 .slider.flexslider {
     position: relative;
     border: 0;
