@@ -15,7 +15,8 @@ class m181011_021055_city extends Migration
     {
       $this->createTable($this->tableName, [
         'id' => $this->primaryKey(),
-        'name' => $this->char(50)->notNull()
+        'name' => $this->char(50)->notNull(),
+        'mkad' => $this->boolean()->defaultValue(false)
       ]);
       $this->createIndex('city_unique', $this->tableName, 'name', true);
     }
