@@ -254,7 +254,7 @@ AppAsset::register($this);
                 </div>
                 <div class="col-sm-4">
                     <div class="buttons">
-                        <button class="btn btn-default">Получить консультацию</button>
+                        <button class="btn btn-default btn-consult">Получить консультацию</button>
                     </div>
                 </div>
             </div>
@@ -302,7 +302,7 @@ AppAsset::register($this);
                             </ul>
                         </div>
                         <div class="buttons">
-                            <button class="btn btn-default message-button">Оставить заявку</button>
+                            <button class="btn btn-default message-button btn-consult">Оставить заявку</button>
                         </div>
                     </div>
                 </div>
@@ -321,7 +321,7 @@ AppAsset::register($this);
                             </ul>
                         </div>
                         <div class="buttons">
-                            <button class="btn btn-default message-button">Оставить заявку</button>
+                            <button class="btn btn-default message-button btn-consult">Оставить заявку</button>
                         </div>
                     </div>
                 </div>
@@ -340,7 +340,7 @@ AppAsset::register($this);
                             </ul>
                         </div>
                         <div class="buttons">
-                            <button class="btn btn-default message-button">Оставить заявку</button>
+                            <button class="btn btn-default message-button btn-consult">Оставить заявку</button>
                         </div>
                     </div>
                 </div>
@@ -359,7 +359,7 @@ AppAsset::register($this);
                             </ul>
                         </div>
                         <div class="buttons">
-                            <button class="btn btn-default message-button">Оставить заявку</button>
+                            <button class="btn btn-default message-button btn-consult">Оставить заявку</button>
                         </div>
                     </div>
                 </div>
@@ -492,7 +492,7 @@ AppAsset::register($this);
             <div class="row">
                 <div class="col-sm-12">
                     <div class="order-button">
-                        <button class="btn btn-primary btn-order">Звоните <br><span>+ 7 495-294-30-20</span></button>
+                        <button class="btn btn-primary btn-order btn-consult">Звоните <br><span>+ 7 495-294-30-20</span></button>
                     </div>
                 </div>
             </div>

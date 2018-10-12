@@ -19,12 +19,13 @@ function openAnswer(id, lvl) {
 /* по хорошему их можно бы по другому реализовать, так сказать более разумнее */
 
 $(document).ready(function () {
-    /* слайдер на главной */
+    /* Слайдер на главной */
     $('.slider').flexslider({
         animation: "slide",
         directionNav: false
     });
 
+    /* Карусель в блоке "Почему мы?" на главной */
     $('.why-we-carousel').owlCarousel({
         loop: true,
         pagination: true,
@@ -39,7 +40,13 @@ $(document).ready(function () {
                 items:4
             }
         }
-    })
+    });
+
+    $('.btn-consult').on('click', function(){
+        $('html, body').animate({
+            scrollTop: $("#consultation-form").offset().top
+        }, 2000);
+    });
 
     /* калькулятор на главной */
     $("#input-calc").ionRangeSlider({
