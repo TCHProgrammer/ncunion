@@ -9,6 +9,7 @@ use yii\db\ActiveRecord;
  *
  * @property int $id
  * @property string $name
+ * @property boolean $mkad
  *
  */
 class City extends ActiveRecord
@@ -30,6 +31,7 @@ class City extends ActiveRecord
             [['name'], 'required'],
             [['name'], 'string', 'max' => 50],
             [['name'], 'unique'],
+            [['mkad'], 'required'],
         ];
     }
 
@@ -41,6 +43,7 @@ class City extends ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Название',
+            'mkad' => 'Удаленность от МКАД',
         ];
     }
 }
