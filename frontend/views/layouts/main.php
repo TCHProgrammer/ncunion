@@ -117,11 +117,59 @@ AppAsset::register($this);
         <ul class="slides">
             <li>
                 <img src="<?php echo Url::to('@web/img/main/slide-1.jpg'); ?>" alt="Слайд 1">
-                <div class="flex-caption"></div>
+                <div class="flex-caption">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="slide-row flex">
+                                    <div class="item">
+                                        <h2><span>Безопасное</span> инвестирование в недвижимость</h2>
+                                    </div>
+                                    <div class="item item-small">
+                                        <p>Всего от <span>500 000</span> руб.</p>
+                                    </div>
+                                    <div class="item item-small">
+                                        <p>Доходность: <span>10-24 %</span> руб. годовых</p>
+                                    </div>
+                                </div>
+                                <div class="slide-text">
+                                    <p>Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмысленного текста рыбы на русском языке.</p>
+                                </div>
+                                <div class="slide-button">
+                                    <button class="btn btn-default btn-slide">Узнать больше</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </li>
             <li>
                 <img src="<?php echo Url::to('@web/img/main/slide-2.jpg'); ?>" alt="Слайд 2">
-                <div class="flex-caption"></div>
+                <div class="flex-caption">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="slide-row flex">
+                                    <div class="item">
+                                        <h2><span>Безопасное</span> инвестирование в недвижимость</h2>
+                                    </div>
+                                    <div class="item item-small">
+                                        <p>Всего от <span>500 000</span> руб.</p>
+                                    </div>
+                                    <div class="item item-small">
+                                        <p>Доходность: <span>10-24 %</span> руб. годовых</p>
+                                    </div>
+                                </div>
+                                <div class="slide-text">
+                                    <p>Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмысленного текста рыбы на русском языке.</p>
+                                </div>
+                                <div class="slide-button">
+                                    <button class="btn btn-default btn-slide">Узнать больше</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </li>
         </ul>
     </section>
