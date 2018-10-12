@@ -54,7 +54,7 @@ AppAsset::register($this);
                     </div>
                     <div class="col-sm-2">
                         <div class="call-order">
-                            <button class="btn btn-phone">Обратный звонок</button>
+                            <button class="btn btn-primary btn-phone">Обратный звонок</button>
                         </div>
                     </div>
                 </div>
@@ -492,7 +492,7 @@ AppAsset::register($this);
             <div class="row">
                 <div class="col-sm-12">
                     <div class="order-button">
-                        <button class="btn btn-order">Звоните <br><span>+ 7 495-294-30-20</span></button>
+                        <button class="btn btn-primary btn-order">Звоните <br><span>+ 7 495-294-30-20</span></button>
                     </div>
                 </div>
             </div>
@@ -601,7 +601,7 @@ AppAsset::register($this);
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <textarea name="" id="" cols="30" rows="10"></textarea>
+                                    <textarea name="" id="" cols="30" rows="10" placeholder="Сообщение"></textarea>
                                 </div>
                             </div>
                             <div class="col-sm-12">
