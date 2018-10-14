@@ -17,6 +17,7 @@ class m181013_165550_city_fill extends Migration
   {
     $data = \yii\helpers\Json::decode($this->json);
     $names = [];
+    $this->truncateTable($this->tableName);
     foreach ($data as $record) {
       if (!in_array(mb_strtolower($record['name']), $names)) {
         $this->insert($this->tableName, $record);
