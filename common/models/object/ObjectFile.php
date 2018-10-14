@@ -30,7 +30,7 @@ class ObjectFile extends \yii\db\ActiveRecord
         return [
             [['title', 'doc'], 'required'],
             [['object_id'], 'integer'],
-            [['doc'], 'file', 'maxFiles' => 4, 'extensions' => 'txt, pdf, cvg, doc, docx, ods, xls, xlsx, jpeg, jpg'],
+            [['doc'], 'file', 'maxFiles' => 0, 'extensions' => 'txt, pdf, cvg, doc, docx, ods, xls, xlsx, jpeg, jpg'],
             [['doc', 'title'], 'string', 'max' => 255],
             [['object_id'], 'exist', 'skipOnError' => true, 'targetClass' => Object::className(), 'targetAttribute' => ['object_id' => 'id']],
         ];
