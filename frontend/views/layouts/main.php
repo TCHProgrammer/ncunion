@@ -32,27 +32,27 @@ AppAsset::register($this);
     <header>
         <div class="top">
             <div class="container">
-                <div class="row">
-                    <div class="col-sm-3">
+                <div class="row top-wrapper">
+                    <div class="col-xs-6 col-sm-3">
                         <div class="logo">
                             <a href="/">
                                 <img src="<?php echo Url::to('@web/img/main/logo.png'); ?>" class="img-responsive">
                             </a>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-xs-6 col-sm-4">
                         <div class="header-address">
                             <p>
                                 г. Москва, ул. Тестовская, 10, 2 этаж, офис 203/1,ММДЦ<br>“Москва-Сити” БЦ "Северная Башня"
                             </p>
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-xs-6 col-sm-3">
                         <div class="header-phone">
                             <p>+ 7 495-294-30-20</p>
                         </div>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-xs-6 col-sm-2">
                         <div class="call-order">
                             <button class="btn btn-primary btn-phone">Обратный звонок</button>
                         </div>
@@ -122,8 +122,7 @@ AppAsset::register($this);
 
     <section class="slider flexslider">
         <ul class="slides">
-            <li>
-                <img src="<?php echo Url::to('@web/img/main/slide-1.jpg'); ?>" alt="Слайд 1">
+            <li style="background-image: url(<?php echo Url::to('@web/img/main/slide-1.jpg'); ?>)">
                 <div class="flex-caption">
                     <div class="container">
                         <div class="row">
@@ -150,8 +149,7 @@ AppAsset::register($this);
                     </div>
                 </div>
             </li>
-            <li>
-                <img src="<?php echo Url::to('@web/img/main/slide-2.jpg'); ?>" alt="Слайд 2">
+            <li style="background-image: url(<?php echo Url::to('@web/img/main/slide-2.jpg'); ?>)">
                 <div class="flex-caption">
                     <div class="container">
                         <div class="row">
@@ -184,15 +182,15 @@ AppAsset::register($this);
     <section class="advantages">
         <div class="container">
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-4 item-wrapper">
                     <div class="item">
                         <div class="row">
-                            <div class="col-sm-3">
+                            <div class="col-sm-12 col-md-3 image-wrapper">
                                 <div class="image">
                                     <img class="img-responsive" src="<?php echo Url::to('@web/img/main/shield.png'); ?>" alt="Безопасно">
                                 </div>
                             </div>
-                            <div class="col-sm-9">
+                            <div class="col-sm-12 col-md-9">
                                 <div class="info">
                                     <h3>Безопасно</h3>
                                     <p>Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев.</p>
@@ -201,15 +199,15 @@ AppAsset::register($this);
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-4 item-wrapper">
                     <div class="item">
                         <div class="row">
-                            <div class="col-sm-3">
+                            <div class="col-sm-12 col-md-3 image-wrapper">
                                 <div class="image">
                                     <img class="img-responsive" src="<?php echo Url::to('@web/img/main/thumb-up.png'); ?>" alt="Выгодно">
                                 </div>
                             </div>
-                            <div class="col-sm-9">
+                            <div class="col-sm-12 col-md-9">
                                 <div class="info">
                                     <h3>Выгодно</h3>
                                     <p>Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев.</p>
@@ -218,15 +216,15 @@ AppAsset::register($this);
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-4 item-wrapper">
                     <div class="item">
                         <div class="row">
-                            <div class="col-sm-3">
+                            <div class="col-sm-12 col-md-3 image-wrapper">
                                 <div class="image">
                                     <img class="img-responsive" src="<?php echo Url::to('@web/img/main/pocket.png'); ?>" alt="Доступно каждому">
                                 </div>
                             </div>
-                            <div class="col-sm-9">
+                            <div class="col-sm-12 col-md-9">
                                 <div class="info">
                                     <h3>Доступно каждому</h3>
                                     <p>Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев.</p>
@@ -249,7 +247,7 @@ AppAsset::register($this);
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row programs-wrapper">
                 <div class="col-sm-6">
                     <div class="item">
                         <div class="image">

@@ -669,10 +669,17 @@ header .top {
 .slider.flexslider {
     position: relative;
     border: 0;
+    border-radius: 0;
     z-index: 10;
     width: 100%;
     overflow: hidden;
     margin: 0;
+}
+
+.slider .slides li {
+    min-height: 777px;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .slider .flex-control-nav {
@@ -1203,4 +1210,136 @@ textarea {
 
 .contacts-card .buttons {
     text-align: center;
+}
+
+@media all and (max-width: 1199px) {
+    .nav > li > a {
+        padding: 20px 10px;
+    }
+    /* TODO: Префиксы. */
+    .slider .flex-caption .slide-row .item {
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+    }
+    /* TODO: Префиксы. */
+    .slider .flex-caption .slide-row .item,
+    .slider .flex-caption .slide-row .item.item-small {
+        flex-basis: 33.3333%;
+    }
+    .slider .flex-caption .slide-row .item h2 {
+        font-size: 24px;
+    }
+    .slider .flex-caption .slide-row .item h2 span {
+        display: inline-block;
+        width: 100%;
+        font-size: 18px;
+    }
+    .slider .flex-caption .slide-row .item.item-small p {
+        font-size: 18px;
+        margin: 0;
+    }
+    /* TODO: Префиксы. */
+    .programs .programs-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+}
+
+@media all and (max-width: 991px) {
+    .slider .flex-caption .slide-row .item h2 {
+        font-size: 20px;
+    }
+    .slider .flex-caption .slide-row .item h2 span {
+        font-size: 16px;
+    }
+    .advantages .item .image {
+        display: inline-block;
+        padding-bottom: 20px;
+    }
+    .advantages .item .image-wrapper,
+    .advantages .item .info {
+        text-align: center;
+    }
+}
+
+@media all and (min-width: 768px) and (max-width: 991px) {
+    .header-phone {
+        font-size: 18px;
+    }
+    .navbar-collapse {
+        text-align: center;
+    }
+    .navbar-nav {
+        display: inline-block;
+        float: none !important;
+    }
+    .nav > li > a {
+        font-size: 13px;
+    }
+    .slider .flex-caption {
+        top: 65%;
+    }
+}
+
+@media all and (max-width: 767px) {
+    header {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        background-color: #1b2746;
+    }
+    /* TODO: Префиксы. */
+    header .top-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .logo,
+    .header-address,
+    .call-order {
+        text-align: center;
+    }
+    .logo a {
+        display: inline-block;
+    }
+    .navbar-collapse {
+        border: 0;
+    }
+    .slider .flex-caption {
+        top: 45%;
+        left: 0;
+        transform: translate(0%, -50%);
+    }
+    /* TODO: Префиксы. */
+    .slider .flex-caption .slide-row {
+        flex-wrap: wrap;
+    }
+    .slider .flex-caption .slide-row .item,
+    .slider .flex-caption .slide-row .item.item-small {
+        flex-basis: 100%;
+        border-right: 0;
+        border-bottom: 1px solid #ffffff;
+        padding: 20px;
+    }
+    .slider .flex-caption .slide-text {
+        padding: 20px;
+    }
+    .advantages .item-wrapper {
+        text-align: center;
+    }
+    .advantages .item {
+        display: inline-block;
+        max-width: 250px;
+        margin-bottom: 20px;
+    }
+}
+
+@media all and (max-width: 480px) {
+    header .top-wrapper > * {
+        width: 100%;
+    }
 }
