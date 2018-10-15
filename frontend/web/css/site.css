@@ -713,7 +713,7 @@ header .top {
 
 .slider .flex-caption {
     position: absolute;
-    top: 65%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: #ffffff;
@@ -1244,6 +1244,9 @@ textarea {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
+    }
+    .slider .flex-caption {
+        top: 65%;
     }
 }
 

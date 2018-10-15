@@ -48,11 +48,11 @@ AppAsset::register($this);
                         </div>
                     </div>
                     <div class="col-xs-6 col-sm-3">
-
-                    </div>
-                    <div class="col-xs-6 col-sm-2"><div class="header-phone">
+                        <div class="header-phone">
                             <p>+ 7 495-294-30-20</p>
                         </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-2">
                         <div class="call-order">
                             <button class="btn btn-primary btn-phone">Обратный звонок</button>
                         </div>
