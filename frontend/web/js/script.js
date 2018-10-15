@@ -22,7 +22,8 @@ $(document).ready(function () {
     /* Слайдер на главной */
     $('.slider').flexslider({
         animation: "slide",
-        directionNav: false
+        directionNav: false,
+        slideshow: false,
     });
 
     /* Карусель в блоке "Почему мы?" на главной */
