@@ -470,7 +470,7 @@ AppAsset::register($this);
             </div>
             <div class="item">
                 <div class="image">
-                    <img src="<?php echo Url::to('@web/img/main/item-1.jpg'); ?>" alt="Возможности для получения увеличенных процентов доходности" class="img-responsive">
+                    <img src="<?php echo Url::to('@web/img/main/item-5.jpg'); ?>" alt="Возможности для получения увеличенных процентов доходности" class="img-responsive">
                 </div>
                 <div class="info">
                     <h3>Возможности для получения увеличенных процентов доходности</h3>
@@ -479,7 +479,7 @@ AppAsset::register($this);
             </div>
             <div class="item">
                 <div class="image">
-                    <img src="<?php echo Url::to('@web/img/main/item-2.jpg'); ?>" alt="Различные сроки размещения вложений" class="img-responsive">
+                    <img src="<?php echo Url::to('@web/img/main/item-6.jpg'); ?>" alt="Различные сроки размещения вложений" class="img-responsive">
                 </div>
                 <div class="info">
                     <h3>Различные сроки размещения вложений</h3>
@@ -488,7 +488,7 @@ AppAsset::register($this);
             </div>
             <div class="item">
                 <div class="image">
-                    <img src="<?php echo Url::to('@web/img/main/item-3.jpg'); ?>" alt="Высокий профессионализм команды" class="img-responsive">
+                    <img src="<?php echo Url::to('@web/img/main/item-7.jpg'); ?>" alt="Высокий профессионализм команды" class="img-responsive">
                 </div>
                 <div class="info">
                     <h3>Высокий профессионализм команды</h3>
@@ -497,7 +497,7 @@ AppAsset::register($this);
             </div>
             <div class="item">
                 <div class="image">
-                    <img src="<?php echo Url::to('@web/img/main/item-4.jpg'); ?>" alt="Работа с надежными активами высокой ликвидности" class="img-responsive">
+                    <img src="<?php echo Url::to('@web/img/main/item-8.jpg'); ?>" alt="Работа с надежными активами высокой ликвидности" class="img-responsive">
                 </div>
                 <div class="info">
                     <h3>Работа с надежными активами высокой ликвидности</h3>
@@ -506,7 +506,7 @@ AppAsset::register($this);
             </div>
             <div class="item">
                 <div class="image">
-                    <img src="<?php echo Url::to('@web/img/main/item-1.jpg'); ?>" alt="17 лет на финансовом рынке" class="img-responsive">
+                    <img src="<?php echo Url::to('@web/img/main/item-9.jpg'); ?>" alt="17 лет на финансовом рынке" class="img-responsive">
                 </div>
                 <div class="info">
                     <h3>17 лет на финансовом рынке</h3>
@@ -515,7 +515,7 @@ AppAsset::register($this);
             </div>
             <div class="item">
                 <div class="image">
-                    <img src="<?php echo Url::to('@web/img/main/item-2.jpg'); ?>" alt="Офис в Москва-Сити" class="img-responsive">
+                    <img src="<?php echo Url::to('@web/img/main/item-10.jpg'); ?>" alt="Офис в Москва-Сити" class="img-responsive">
                 </div>
                 <div class="info">
                     <h3>Офис в Москва-Сити</h3>
@@ -524,7 +524,7 @@ AppAsset::register($this);
             </div>
             <div class="item">
                 <div class="image">
-                    <img src="<?php echo Url::to('@web/img/main/item-3.jpg'); ?>" alt="Персональный менеджер для каждого клиента" class="img-responsive">
+                    <img src="<?php echo Url::to('@web/img/main/item-11.jpg'); ?>" alt="Персональный менеджер для каждого клиента" class="img-responsive">
                 </div>
                 <div class="info">
                     <h3>Персональный менеджер для каждого клиента</h3>
@@ -533,7 +533,7 @@ AppAsset::register($this);
             </div>
             <div class="item">
                 <div class="image">
-                    <img src="<?php echo Url::to('@web/img/main/item-4.jpg'); ?>" alt="Полная прозрачность и отчет по всем операциям" class="img-responsive">
+                    <img src="<?php echo Url::to('@web/img/main/item-12.jpg'); ?>" alt="Полная прозрачность и отчет по всем операциям" class="img-responsive">
                 </div>
                 <div class="info">
                     <h3>Полная прозрачность и отчет по всем операциям</h3>
