@@ -1349,6 +1349,10 @@ textarea {
         max-width: 250px;
         margin-bottom: 20px;
     }
+    .get-consultation .heading,
+    .get-consultation .buttons {
+        text-align: center;
+    }
 }
 
 @media all and (max-width: 600px) {
