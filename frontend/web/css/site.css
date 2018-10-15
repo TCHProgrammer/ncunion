@@ -1330,12 +1330,18 @@ textarea {
     .navbar-collapse {
         border: 0;
     }
+    .slider {
+        display: none;
+    }
+    /*
     .slider .flex-caption {
         top: 45%;
         left: 0;
         transform: translate(0%, -50%);
     }
+    */
     /* TODO: Префиксы. */
+    /*
     .slider .flex-caption .slide-row {
         flex-wrap: wrap;
     }
@@ -1349,6 +1355,7 @@ textarea {
     .slider .flex-caption .slide-text {
         padding: 20px;
     }
+    */
     .advantages .item-wrapper {
         text-align: center;
     }
