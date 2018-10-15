@@ -1219,6 +1219,9 @@ textarea {
     .nav > li > a {
         padding: 20px 10px;
     }
+    .slider .flex-caption {
+        top: 65%;
+    }
     /* TODO: Префиксы. */
     .slider .flex-caption .slide-row .item {
         display: flex;
@@ -1249,8 +1252,13 @@ textarea {
     .programs .item {
         max-height: 280px;
     }
-    .slider .flex-caption {
-        top: 65%;
+    .calculator .item-wrapper {
+        text-align: center;
+    }
+    .calculator .item {
+        display: inline-block;
+        max-width: 300px;
+        margin-bottom: 20px;
     }
 }
 
@@ -1353,6 +1361,10 @@ textarea {
     .get-consultation .buttons {
         text-align: center;
     }
+    .calculator-row label {
+        text-align: center;
+        width: 100%;
+    }
 }
 
 @media all and (max-width: 600px) {
@@ -1362,6 +1374,9 @@ textarea {
     .programs .item .image img {
         float: none;
         margin: 0 auto;
+    }
+    .calculator .item-wrapper {
+        width: 100%;
     }
 }
 

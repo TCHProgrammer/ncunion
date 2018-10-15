@@ -325,10 +325,10 @@ AppAsset::register($this);
                 </div>
             </div>
             <div class="row calculator-row">
-                <div class="col-sm-3">
+                <div class="col-sm-6 col-md-4 col-lg-3">
                     <label for="input-calc">Сумма инвестиций</label>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 col-md-8 col-lg-6">
                     <input id="input-calc"
                            data-slider-id='input-calc-slider'
                            type="text"
@@ -339,8 +339,8 @@ AppAsset::register($this);
                     />
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-3">
+            <div class="row items-row">
+                <div class="col-xs-6 col-lg-3 item-wrapper">
                     <div class="item item-1">
                         <div class="info">
                             <span class="price-name">Доход</span>
@@ -359,7 +359,7 @@ AppAsset::register($this);
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-xs-6 col-lg-3 item-wrapper">
                     <div class="item item-2">
                         <div class="info">
                             <span class="price-name">Доход</span>
@@ -378,7 +378,7 @@ AppAsset::register($this);
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-xs-6 col-lg-3 item-wrapper">
                     <div class="item item-3">
                         <div class="info">
                             <span class="price-name">Доход</span>
@@ -397,7 +397,7 @@ AppAsset::register($this);
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-xs-6 col-lg-3 item-wrapper">
                     <div class="item item-4">
                         <div class="info">
                             <span class="price-name">Доход</span>
