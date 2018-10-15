@@ -713,7 +713,7 @@ header .top {
 
 .slider .flex-caption {
     position: absolute;
-    top: 50%;
+    top: 65%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: #ffffff;
@@ -744,6 +744,8 @@ header .top {
 }
 
 .slider .flex-caption .slide-row .item h2 span {
+    display: inline-block;
+    width: 100%;
     font-size: 36px;
     color: #8AA3ED;
     font-weight: 400;
@@ -1231,8 +1233,6 @@ textarea {
         font-size: 24px;
     }
     .slider .flex-caption .slide-row .item h2 span {
-        display: inline-block;
-        width: 100%;
         font-size: 18px;
     }
     .slider .flex-caption .slide-row .item.item-small p {
@@ -1277,9 +1277,6 @@ textarea {
     }
     .nav > li > a {
         font-size: 13px;
-    }
-    .slider .flex-caption {
-        top: 65%;
     }
 }
 
