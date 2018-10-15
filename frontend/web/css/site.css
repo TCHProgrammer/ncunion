@@ -1246,6 +1246,9 @@ textarea {
         flex-wrap: wrap;
         justify-content: space-between;
     }
+    .programs .item {
+        max-height: 280px;
+    }
     .slider .flex-caption {
         top: 65%;
     }
@@ -1265,6 +1268,15 @@ textarea {
     .advantages .item .image-wrapper,
     .advantages .item .info {
         text-align: center;
+    }
+    /* TODO: Префиксы. */
+    .programs .item {
+        max-height: none;
+        flex-wrap: wrap;
+    }
+    .programs .item .image,
+    .programs .item .text {
+        flex-basis: 100%;
     }
 }
 
@@ -1336,6 +1348,16 @@ textarea {
         display: inline-block;
         max-width: 250px;
         margin-bottom: 20px;
+    }
+}
+
+@media all and (max-width: 600px) {
+    .programs .programs-wrapper > * {
+        width: 100%;
+    }
+    .programs .item .image img {
+        float: none;
+        margin: 0 auto;
     }
 }
 

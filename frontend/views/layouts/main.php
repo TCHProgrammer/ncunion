@@ -248,7 +248,7 @@ AppAsset::register($this);
                 </div>
             </div>
             <div class="row programs-wrapper">
-                <div class="col-sm-6">
+                <div class="col-xs-6 col-sm-6">
                     <div class="item">
                         <div class="image">
                             <img src="<?php echo Url::to('@web/img/main/program-1.png'); ?>" alt="Доходная" class="img-responsive">
@@ -259,7 +259,7 @@ AppAsset::register($this);
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-xs-6 col-sm-6">
                     <div class="item small-padding">
                         <div class="image">
                             <img src="<?php echo Url::to('@web/img/main/program-2.png'); ?>" alt="Доходная" class="img-responsive">
@@ -270,7 +270,7 @@ AppAsset::register($this);
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-xs-6 col-sm-6">
                     <div class="item">
                         <div class="image">
                             <img src="<?php echo Url::to('@web/img/main/program-3.png'); ?>" alt="Доходная" class="img-responsive">
@@ -281,7 +281,7 @@ AppAsset::register($this);
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-xs-6 col-sm-6">
                     <div class="item">
                         <div class="image">
                             <img src="<?php echo Url::to('@web/img/main/program-4.png'); ?>" alt="Доходная" class="img-responsive">
