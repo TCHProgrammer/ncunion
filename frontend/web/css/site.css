@@ -811,7 +811,7 @@ header .top {
 }
 
 .programs .container {
-    background: url(../img/main/programs-bg.png) no-repeat center top / auto;
+    background: url(../img/main/programs-bg.png) no-repeat center top / 100% auto;
 }
 
 .programs h2 {
@@ -885,7 +885,7 @@ header .top {
 }
 
 .calculator .container {
-    background: url(../img/main/calculator-bg.png) no-repeat center top / auto;
+    background: url(../img/main/calculator-bg.png) no-repeat center top / 100% auto;
 }
 
 .calculator h2 {
