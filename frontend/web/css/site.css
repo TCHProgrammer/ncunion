@@ -709,7 +709,7 @@ header .top {
 }
 
 .slider .slides li {
-    min-height: 777px;
+    min-height: 600px;
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -745,7 +745,7 @@ header .top {
 
 .slider .flex-caption {
     position: absolute;
-    top: 55%;
+    top: 65%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: #ffffff;
@@ -1259,7 +1259,7 @@ textarea {
         padding: 20px 10px;
     }
     .slider .flex-caption {
-        top: 65%;
+        top: 70%;
     }
     /* TODO: Префиксы. */
     .slider .flex-caption .slide-row .item {
