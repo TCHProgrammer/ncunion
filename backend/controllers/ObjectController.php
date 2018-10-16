@@ -4,9 +4,12 @@ namespace backend\controllers;
 
 use common\models\object\Confidence;
 use common\models\object\ConfidenceObject;
+use common\models\object\LocalityType;
 use Yii;
 use common\models\object\Object;
 use backend\models\ObjectSearch;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -142,6 +145,8 @@ class ObjectController extends DefaultBackendController
             $finishObject = true;
         }
 
+        $cityLocalityTypeId = LocalityType::find()->where(['name' => 'Город'])->one();
+
         return $this->render('view', [
             'model' => $model,
             'imgs' => $imgs,
@@ -149,7 +154,8 @@ class ObjectController extends DefaultBackendController
             'usersObjectlist' => $usersObjectlist,
             'finishObject' => $finishObject,
             'progress' => $progress,
-            'confObj' => $confObj
+            'confObj' => $confObj,
+            'cityLocalityTypeId' => $cityLocalityTypeId
         ]);
     }
 
@@ -185,13 +191,24 @@ class ObjectController extends DefaultBackendController
             return $this->redirect(['create-img', 'id' => $model->id]);
         }
 
+        $regionCollection = \common\models\object\Region::find()->all();
+        $region = ArrayHelper::map($regionCollection,'id','name');
+
+        $cities = [];
+
+        $localityTypeCollection = LocalityType::find()->all();
+        $localityType = ArrayHelper::map($localityTypeCollection, 'id', 'name');
+
         return $this->render('create', [
             'model' => $model,
             'values' => $values,
             'listCheckbox' => $listCheckbox,
             'rezCheckbox' => $rezCheckbox,
             'listRadio' => $listRadio,
-            'rezRadio' => $rezRadio
+            'rezRadio' => $rezRadio,
+            'region' => $region,
+            'cities' => $cities,
+            'localityType' => $localityType
 
         ]);
     }
@@ -252,6 +269,15 @@ class ObjectController extends DefaultBackendController
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+
+        $regionCollection = \common\models\object\Region::find()->all();
+        $region = ArrayHelper::map($regionCollection,'id','name');
+
+        $cities = [];
+
+        $localityTypeCollection = LocalityType::find()->all();
+        $localityType = ArrayHelper::map($localityTypeCollection, 'id', 'name');
+
         return $this->render('update', [
             'model' => $model,
             'values' => $values,
@@ -260,7 +286,10 @@ class ObjectController extends DefaultBackendController
             'listCheckbox' => $listCheckbox,
             'rezCheckbox' => $rezCheckbox,
             'listRadio' => $listRadio,
-            'rezRadio' => $rezRadio
+            'rezRadio' => $rezRadio,
+            'region' => $region,
+            'cities' => $cities,
+            'localityType' => $localityType
         ]);
     }
 
@@ -738,4 +767,18 @@ class ObjectController extends DefaultBackendController
         return round($listConf * 100 / $allListConf, 2);
     }
 
+    public function actionGetCities($id)
+    {
+        $citiesCollection = \common\models\object\City::find()->where(['region_id' => $id])->all();
+        $cities = ArrayHelper::map($citiesCollection,'id','name');
+        $mKad = ArrayHelper::map($citiesCollection,'id','mkad');
+        $mkadParams = [];
+        if (!empty($mKad)) {
+          foreach ($mKad as $id => $val) {
+            $mkadParams[$id]['data-mkad'] = $val;
+          }
+        }
+        $options = ['options' => $mkadParams];
+        return Html::renderSelectOptions(null, $cities, $options);
+    }
 }
