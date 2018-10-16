@@ -1346,6 +1346,22 @@ textarea {
     .nav > li > a {
         font-size: 13px;
     }
+    /* TODO: Префиксы. */
+    .map {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    .map iframe,
+    .contacts-card {
+        flex-basis: 50%;
+    }
+    .contacts-card {
+        position: relative;
+        transform: none;
+        width: 100%;
+        top: auto;
+    }
 }
 
 @media all and (max-width: 767px) {
@@ -1467,6 +1483,24 @@ textarea {
 
     .how-to .item:last-child .info::after {
         display: none;
+    }
+
+    .contacts-card {
+        position: relative;
+        transform: none;
+        top: auto;
+        width: 100%;
+        text-align: center;
+    }
+
+    .contacts-card .text {
+        max-width: 420px;
+        display: inline-block;
+    }
+
+    .contacts-card img {
+        float: none;
+        margin: 0 auto 20px;
     }
 }
 
