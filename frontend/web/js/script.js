@@ -330,12 +330,14 @@ $(window).on('load resize', function(){
 });
 
 /* Анимирование отдельных частей главной */
-$(document).on('scroll load', function(){
-    $('.heading').each(function(){
-        if ( $(this).visible()) {
-            $(this)
-                .addClass('animated fadeInUpBig')
-                .css('visibility', 'visible');
-        }
-    });
+$(window).on('scroll load', function(){
+    if (window.matchMedia('(min-width: 992px)').matches) {
+        $('.heading').each(function(){
+            if ( $(this).visible()) {
+                $(this)
+                    .addClass('animated fadeInUpBig')
+                    .css('visibility', 'visible');
+            }
+        });
+    }
 });

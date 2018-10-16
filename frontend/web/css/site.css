@@ -593,12 +593,6 @@ h3 {
     font-weight: 700;
 }
 
-.heading {
-    text-align: center;
-    padding-bottom: 40px;
-    visibility: hidden;
-}
-
 .heading h2 {
     font-weight: 700;
     color: #3B34A6;
@@ -1332,6 +1326,12 @@ textarea {
     }
     .how-to .item .image::after {
         right: -60px;
+    }
+}
+
+@media all and (min-width: 992px) {
+    .heading {
+        visibility: hidden;
     }
 }
 
