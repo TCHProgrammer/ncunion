@@ -41,6 +41,9 @@ use common\models\object\Confidence;
  * @property int $city_id
  * @property string $typeTitle
  * @property string $saleSchedule
+ * @property int locality_type_id
+ * @property int region_id
+ *
  *
  * @property ObjectType $type
  * @property ObjectAttribute[] $objectAttributes
@@ -68,13 +71,20 @@ class Object extends \yii\db\ActiveRecord
             [['tagsArray', 'confArray'], 'safe'],
             [['imgFile'], 'file', 'extensions' => 'png, jpg'],
             //[['docFile'], 'file', 'extensions' => 'png, txt, pdf, cvg, xlsx, ods, docx'],
-            [['created_at'], 'default', 'value'=> time()],
-            [['updated_at'], 'default', 'value'=> time()],
+            [['created_at'], 'default', 'value' => time()],
+            [['updated_at'], 'default', 'value' => time()],
             [['order'], 'default', 'value' => 0],
-            [['city_id', 'type_id', 'status', 'place_km', 'rooms', 'price_cadastral', 'price_tian', 'price_market', 'price_liquidation', 'status_object', 'created_at', 'updated_at', 'close_at', 'rate', 'term', 'schedule_payments', 'nks'], 'integer'],
+            [['locality_type_id', 'region_id', 'city_id', 'type_id', 'status', 'place_km', 'rooms', 'price_cadastral', 'price_tian', 'price_market', 'price_liquidation', 'status_object', 'created_at', 'updated_at', 'close_at', 'rate', 'term', 'schedule_payments', 'nks'], 'integer'],
             [['descr'], 'string'],
             [['amount', 'area'], 'number'],
-            [['type_id', 'title', 'created_at', 'updated_at', 'order', 'descr', 'amount', 'place_km', 'area', 'rooms', 'rate', 'term', 'schedule_payments'], 'required'],
+            [['locality_type_id', 'region_id', 'type_id', 'title', 'created_at', 'updated_at', 'order', 'descr', 'amount', 'place_km', 'area', 'rooms', 'rate', 'term', 'schedule_payments'], 'required'],
+            ['city_id', 'required',
+                'when' => function ($model) {
+                    $region = Region::find()->where(['name' => 'Город'])->one();
+                    return $model->locality_type_id == $region->id;
+                },
+                'whenClient' => "checkCityId"
+            ],
             [['title', 'address', 'address_map', 'owner'], 'string', 'max' => 255],
             [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ObjectType::className(), 'targetAttribute' => ['type_id' => 'id']],
         ];
@@ -113,21 +123,23 @@ class Object extends \yii\db\ActiveRecord
             'term' => 'Срок',
             'schedule_payments' => 'График платежей',
             'nks' => 'НКС',
-            'city_id' => 'Город'
+            'city_id' => 'Город',
+            'locality_type_id' => 'Населенный пункт',
+            'region_id' => 'Регион'
         ];
     }
 
     public function beforeDelete()
     {
-        if (parent::beforeDelete()){
+        if (parent::beforeDelete()) {
 
             /* удаление файлов у объекта */
             $listFiles = ObjectFile::find()->where(['object_id' => $this->id])->all();
 
-            if ($listFiles){
-                foreach ($listFiles as $file){
+            if ($listFiles) {
+                foreach ($listFiles as $file) {
                     $dir = Yii::getAlias('@frontend') . '/web/' . $file->doc;
-                    if (file_exists($dir)){
+                    if (file_exists($dir)) {
                         unlink($dir);
                     }
                 }
@@ -135,7 +147,7 @@ class Object extends \yii\db\ActiveRecord
                 $delDirFile = Yii::getAlias('@frontend') . '/web/uploads/objects/doc/' . $this->id . '/';
 
                 $arrFiles = scandir($delDirFile);
-                if (!isset($arrFiles[2])){
+                if (!isset($arrFiles[2])) {
                     rmdir($delDirFile);
                 }
             }
@@ -143,10 +155,10 @@ class Object extends \yii\db\ActiveRecord
             /* удаление изображений у объекта */
             $listImg = ObjectImg::find()->where(['object_id' => $this->id])->all();
 
-            if ($listImg){
-                foreach ($listImg as $img){
+            if ($listImg) {
+                foreach ($listImg as $img) {
                     $dir = Yii::getAlias('@frontend') . '/web/' . $img->img;
-                    if (file_exists($dir)){
+                    if (file_exists($dir)) {
                         unlink($dir);
                     }
                 }
@@ -154,13 +166,13 @@ class Object extends \yii\db\ActiveRecord
                 $delDirImg = Yii::getAlias('@frontend') . '/web/uploads/objects/img/' . $this->id . '/';
 
                 $arrImg = scandir($delDirImg);
-                if (!isset($arrImg[2])){
+                if (!isset($arrImg[2])) {
                     rmdir($delDirImg);
                 }
             }
 
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -175,13 +187,13 @@ class Object extends \yii\db\ActiveRecord
     public function beforeSave($insert)
     {
 
-        if($filesImg = UploadedFile::getInstances($this, 'imgFile')){
+        if ($filesImg = UploadedFile::getInstances($this, 'imgFile')) {
 
-            foreach ($filesImg as $img){
+            foreach ($filesImg as $img) {
 
                 $dir = Yii::getAlias('@uploads/objects/img/' . $this->id . '/');
 
-                if (!is_dir($dir)){
+                if (!is_dir($dir)) {
                     FileHelper::createDirectory($dir, 0777);
                 }
 
@@ -204,7 +216,8 @@ class Object extends \yii\db\ActiveRecord
         return parent::beforeSave($insert);
     }
 
-    public function updateDate(){
+    public function updateDate()
+    {
         return $this->updated_at = time();
     }
 
@@ -213,10 +226,10 @@ class Object extends \yii\db\ActiveRecord
      */
     public function getTypeTitle()
     {
-       if ($this->type) {
-           return  $this->type->title;
-       }
-       return null;
+        if ($this->type) {
+            return $this->type->title;
+        }
+        return null;
     }
 
     /**
@@ -224,7 +237,7 @@ class Object extends \yii\db\ActiveRecord
      */
     public function getSaleSchedule()
     {
-        return $this->schedule_payments === 1 ? 'шаровый':'аннуитетный';
+        return $this->schedule_payments === 1 ? 'шаровый' : 'аннуитетный';
     }
 
 
@@ -275,11 +288,13 @@ class Object extends \yii\db\ActiveRecord
         return $this->hasMany(ObjectAttributeRadio::className(), ['object_id' => 'id']);
     }
 
-    public function getImgLists(){
+    public function getImgLists()
+    {
         return ArrayHelper::getColumn($this->objectImgs, 'imageUrl');
     }
 
-    public function getImgLinkData(){
+    public function getImgLinkData()
+    {
 
         $arr = ArrayHelper::toArray($this->objectImgs, [
             ObjectImg::className() => [
@@ -289,7 +304,7 @@ class Object extends \yii\db\ActiveRecord
         ]);
 
         $i = 0;
-        foreach ($arr as $item){
+        foreach ($arr as $item) {
 
             $arr[$i]['caption'] = substr(strrchr($item['caption'], "/"), 1);
             $i++;
@@ -333,7 +348,8 @@ class Object extends \yii\db\ActiveRecord
         return $this->_tagsArray;
     }
 
-    public function setTagsArray($value){
+    public function setTagsArray($value)
+    {
         return $this->_tagsArray = (array)$value;
     }
 
@@ -365,7 +381,8 @@ class Object extends \yii\db\ActiveRecord
         return $this->_confArray;
     }
 
-    public function setConfArray($value){
+    public function setConfArray($value)
+    {
         return $this->_confArray = (array)$value;
     }
 
