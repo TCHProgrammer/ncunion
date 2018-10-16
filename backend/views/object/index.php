@@ -146,7 +146,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'options' => ['style' => 'width:140px;'],
                 'value' => function($model){
                     if ($model->place_km === 0) {
-                        return 'Москва';
+                        $city = \backend\models\object_settings\CitySearch::findOne(['id' => $model->city_id]);
+                        return $city->name;
                     }else{
                         return $model->place_km . ' км от МКАД';
                     }

@@ -20,12 +20,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [], ]); ?>
+    <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]); ?>
 
     <p>
         <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(($model->status_object === 0)?'Открыть сделку':'Закрыть сделку', [($model->status_object === 0)?'open':'close', 'id' => $model->id], [
-            'class' => ($model->status_object === 0)?'btn btn-success':'btn btn-warning',
+        <?= Html::a(($model->status_object === 0) ? 'Открыть сделку' : 'Закрыть сделку', [($model->status_object === 0) ? 'open' : 'close', 'id' => $model->id], [
+            'class' => ($model->status_object === 0) ? 'btn btn-success' : 'btn btn-warning',
             'data' => [
                 'confirm' => 'Вы уверанны, что хотите изменит статус сделки?',
                 'method' => 'post',
@@ -53,9 +53,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="left-pr-striped">0</div>
                 <div class="center-pr-striped">
                     <div class="progress progress-striped active">
-                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?= $progress['amount-percent'] ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $progress['amount-percent'] ?>%">
-                            <span class="print-amount-striped"><?= $progress['print-amount'] ?>(<?= $progress['amount-percent'] ?>%)</span>
-                            </div>
+                        <div class="progress-bar progress-bar-success" role="progressbar"
+                             aria-valuenow="<?= $progress['amount-percent'] ?>" aria-valuemin="0" aria-valuemax="100"
+                             style="width: <?= $progress['amount-percent'] ?>%">
+                            <span class="print-amount-striped"><?= $progress['print-amount'] ?>
+                                (<?= $progress['amount-percent'] ?>%)</span>
+                        </div>
                     </div>
                 </div>
                 <div class="right-pr-striped"><?= $model->amount ?></div>
@@ -67,21 +70,21 @@ $this->params['breadcrumbs'][] = $this->title;
                     'id',
                     [
                         'attribute' => 'type_id',
-                        'value' => function($model){
+                        'value' => function ($model) {
                             $arr = ArrayHelper::map(ObjectType::find()->all(), 'id', 'title');
                             return $arr[$model->type_id];
                         }
                     ],
                     [
                         'attribute' => 'status',
-                        'value' => function($model){
+                        'value' => function ($model) {
                             return $model->status ? 'Да' : 'Нет';
                         }
                     ],
                     [
                         'attribute' => 'status_object',
-                        'value' => function($model){
-                            switch ($model->status_object){
+                        'value' => function ($model) {
+                            switch ($model->status_object) {
                                 case 2:
                                     return 'Сделка открыта';
                                 case 1:
@@ -95,18 +98,27 @@ $this->params['breadcrumbs'][] = $this->title;
                     'descr:html',
                     [
                         'attribute' => 'city_id',
-                        'value' => function($model) {
-                        $city = \backend\models\object_settings\CitySearch::findOne(['id' => $model->city_id]);
-                        return isset($city) ? $city->name : null;
+                        'value' => function ($model, $cityLocalityTypeId) {
+                            $city = \backend\models\object_settings\CitySearch::findOne(['id' => $model->city_id]);
+                            if (!isset($city)) {
+                                $cityName = null;
+                                if ($model->locality_type_id != $cityLocalityTypeId) {
+                                    $localityType = \common\models\object\LocalityType::find()->where(['id' => $model->locality_type_id])->one();
+                                    $cityName = $localityType->name;
+                                }
+                            } else {
+                                $cityName = $city->name;
+                            }
+                            return $cityName;
                         }
                     ],
                     [
                         'attribute' => 'place_km',
-                        'value' => function($model){
-                            if ($model->place_km === 0){
+                        'value' => function ($model) {
+                            if ($model->place_km === 0) {
                                 $city = \backend\models\object_settings\CitySearch::findOne(['id' => $model->city_id]);
                                 return $city->name;
-                            }else{
+                            } else {
                                 return $model->place_km . ' км. от МКАД';
                             }
                         }
@@ -116,7 +128,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'address_map',
                     [
                         'attribute' => 'area',
-                        'value' => function($model){
+                        'value' => function ($model) {
                             return $model->area . ' кв.м';
                         }
                     ],
@@ -130,20 +142,20 @@ $this->params['breadcrumbs'][] = $this->title;
                     'term',
                     [
                         'attribute' => 'schedule_payments',
-                        'value' => function($model){
-                            return ($model->schedule_payments === 1)?'шаровый':'аннуитетный';
+                        'value' => function ($model) {
+                            return ($model->schedule_payments === 1) ? 'шаровый' : 'аннуитетный';
                         }
                     ],
                     'nks',
                     [
                         'attribute' => 'created_at',
-                        'value' => function($model){
+                        'value' => function ($model) {
                             return Yii::$app->date->month($model->created_at);
                         }
                     ],
                     [
                         'attribute' => 'updated_at',
-                        'value' => function($model){
+                        'value' => function ($model) {
                             return Yii::$app->date->month($model->updated_at);
                         }
                     ],
@@ -198,12 +210,12 @@ $this->params['breadcrumbs'][] = $this->title;
     }
     ?>
 
-    <?php if (!empty($files)){ ?>
+    <?php if (!empty($files)) { ?>
         <h3>Документы</h3>
         <hr>
-        <?php foreach ($files as $file){ ?>
+        <?php foreach ($files as $file) { ?>
             <div>
-                <?= Html::a($file->title, $file->doc, ['class' => 'form-a-del','download' => true]) . '</p>'; ?>
+                <?= Html::a($file->title, $file->doc, ['class' => 'form-a-del', 'download' => true]) . '</p>'; ?>
             </div>
         <?php } ?>
     <?php } ?>

@@ -14,154 +14,199 @@ use common\models\object\Confidence;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-    <?php $form = ActiveForm::begin([
-        'options' => ['enctype' => 'multipart/form-data']
+<?php $form = ActiveForm::begin([
+    'options' => ['enctype' => 'multipart/form-data']
+]); ?>
+
+<div class="row col-lg-12">
+    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'status')->checkbox() ?>
+</div>
+
+<div class="row">
+    <?= $form->field($model, 'type_id', ['options' => ['class' => 'col-lg-6 col-md-6']])->dropDownList(
+        ArrayHelper::map(ObjectType::find()->all(), 'id', 'title'),
+        ['prompt' => 'Выберите тип объекта...']
+    ) ?>
+
+    <?= $form->field($model, 'status_object', ['options' => ['class' => 'col-lg-6 col-md-6']])->dropDownList([
+        2 => 'Сделка открыта',
+        1 => 'Сделка частично закрыта',
+        0 => 'Сделка закрыта'
+    ]) ?>
+
+</div>
+
+<div class="row col-lg-12">
+    <?= $form->field($model, 'descr')->widget(CKEditor::className(), [
+        'editorOptions' => [
+            'preset' => 'full', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+            'inline' => false, //по умолчанию false
+        ],
     ]); ?>
 
-    <div class="row col-lg-12">
-        <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'status')->checkbox() ?>
-    </div>
-
-    <div class="row">
-        <?= $form->field($model, 'type_id', ['options' => ['class' => 'col-lg-6 col-md-6']])->dropDownList(
-            ArrayHelper::map(ObjectType::find()->all(), 'id', 'title'),
-            ['prompt' => 'Выберите тип объекта...']
-        ) ?>
-
-        <?= $form->field($model, 'status_object', ['options' => ['class' => 'col-lg-6 col-md-6']])->dropDownList([
-            2 => 'Сделка открыта',
-            1 => 'Сделка частично закрыта',
-            0 => 'Сделка закрыта'
-        ]) ?>
-
-    </div>
-
-    <div class="row col-lg-12">
-        <?= $form->field($model, 'descr')->widget(CKEditor::className(),[
-            'editorOptions' => [
-                'preset' => 'full', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
-                'inline' => false, //по умолчанию false
-            ],
+    <?php if (!$model->isNewRecord) { ?>
+        <?= $this->render('_formImgs', [
+            'model' => $model
         ]); ?>
+    <?php } ?>
+</div>
 
-        <?php if (!$model->isNewRecord){ ?>
-            <?= $this->render('_formImgs', [
-                'model' => $model
-            ]); ?>
-        <?php } ?>
-    </div>
+<div class="row">
+    <?= $form->field($model, 'region_id', ['options' => ['class' => 'col-lg-3 col-md-6']])->dropDownList($region, ['prompt' => 'Выберите регион']) ?>
 
-    <div class="row">
-
-        <?php $citiesCollection = \common\models\object\City::find()->all();
-        $cities = ArrayHelper::map($citiesCollection,'id','name');
-        $mKad = ArrayHelper::map($citiesCollection,'id','mkad');
-        $mkadParams = [];
-        if (!empty($mKad)) {
-          foreach ($mKad as $id => $val) {
-            $mkadParams[$id]['data-mkad'] = $val;
-          }
+    <?php
+    $cityTypeId = 0;
+    foreach ($localityType as $id => $localityTyp) {
+        if ($localityTyp == 'Город') {
+            $cityTypeId = $id;
         }
-        $params = [
-            'prompt' => 'Выберите город',
-            'options' => $mkadParams
-        ]; ?>
-        <?= $form->field($model, 'city_id', ['options' => ['class' => 'col-lg-3 col-md-6']])->dropDownList($cities, $params) ?>
+    }
+    $localityFieldId = Html::getInputId($model, 'locality_type_id');
+    $cityFieldId = Html::getInputId($model, 'city_id');
+    $regionFieldId = Html::getInputId($model, 'region_id');
+    $placeKmFieldId = Html::getInputId($model, 'place_km');
+    $this->registerJs("
+    $(document).ready(function () {
+        $(\"#{$placeKmFieldId}\").val(0);
+        $(\"#{$placeKmFieldId}\").parent().hide();
+        $(\"#{$localityFieldId}\").parent().hide();
+        $(\"#{$cityFieldId}\").parent().hide();
+    
+        $(document).on('change', '#{$cityFieldId}', function () {
+            var mkad = $(\"#{$cityFieldId} option:selected\").data(\"mkad\");
+            if (mkad) {
+              $(\"#{$placeKmFieldId}\").parent().show();
+            } else {
+              $(\"#{$placeKmFieldId}\").parent().hide();
+              $(\"#{$placeKmFieldId}\").val(0);
+            }
+        });
+    
+        $(document).on('change', '#{$regionFieldId}', function () {
+            $(\"#{$localityFieldId}\").parent().show();
+        });
+        
+        $(document).on('change', '#{$localityFieldId}', function () {
+            if ($(\"#{$localityFieldId}\").val() == {$cityTypeId}) {
+                $(\"#{$placeKmFieldId}\").val(0);
+                $(\"#{$placeKmFieldId}\").parent().hide();
+                var region = $(\"#{$regionFieldId} option:selected\").val();
+                $.post(\"/admin/object/get-cities?id=\"+region, function(response) {
+                    $(\"#{$cityFieldId}\").append(response);
+                })
+                $(\"#{$cityFieldId}\").parent().show();
+            } else {
+                $(\"#{$cityFieldId}\").parent().hide();
+                $(\"#{$placeKmFieldId}\").parent().show();
+            }
+        });
+    });
+    function checkCityId(attribute, value) {
+        return $('#{$localityFieldId} option:selected').val() == {$cityTypeId};
+    }
+    ") ?>
 
-        <?= $form->field($model, 'place_km', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'locality_type_id', ['options' => ['class' => 'col-lg-3 col-md-6']])->dropDownList($localityType, ['prompt' => 'Выберите населенный пункт']) ?>
 
-        <?= $form->field($model, 'amount', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'city_id', ['options' => ['class' => 'col-lg-3 col-md-6']])->dropDownList($cities, ['prompt' => 'Выберите город']) ?>
 
-        <?= $form->field($model, 'area', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
+    <?= $form->field($model, 'place_km', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'rooms', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
-    </div>
+    <?= $form->field($model, 'amount', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput(['maxlength' => true]) ?>
 
-    <div class="row">
-        <?= $form->field($model, 'rate', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'area', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
 
-        <?= $form->field($model, 'term', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'rooms', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
+</div>
 
-        <?= $form->field($model, 'schedule_payments', ['options' => ['class' => 'col-lg-3 col-md-6']])->dropDownList(
-            [1 => 'шаровый', 2 => 'аннуитетный'],
-            ['prompt' => 'Выберите тип объекта...']
-        ) ?>
+<div class="row">
+    <?= $form->field($model, 'rate', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'nks', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
-    </div>
+    <?= $form->field($model, 'term', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput(['maxlength' => true]) ?>
 
-    <div class="row col-lg-12">
-        <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'schedule_payments', ['options' => ['class' => 'col-lg-3 col-md-6']])->dropDownList(
+        [1 => 'шаровый', 2 => 'аннуитетный'],
+        ['prompt' => 'Выберите тип объекта...']
+    ) ?>
 
-        <?= $form->field($model, 'address_map')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'nks', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
+</div>
 
-        <?= $form->field($model, 'tagsArray')->checkboxList(
-            ArrayHelper::map(Tag::find()->all(), 'id', 'title')
-        ) ?>
+<div class="row col-lg-12">
+    <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'confArray')->checkboxList(
-            ArrayHelper::map(Confidence::find()->all(), 'id', 'title')
-        ) ?>
+    <?= $form->field($model, 'address_map')->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'owner')->textInput(['maxlength' => true]) ?>
-    </div>
+    <?= $form->field($model, 'tagsArray')->checkboxList(
+        ArrayHelper::map(Tag::find()->all(), 'id', 'title')
+    ) ?>
 
-    <div class="row">
-        <?= $form->field($model, 'price_cadastral', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
+    <?= $form->field($model, 'confArray')->checkboxList(
+        ArrayHelper::map(Confidence::find()->all(), 'id', 'title')
+    ) ?>
 
-        <?= $form->field($model, 'price_tian', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
+    <?= $form->field($model, 'owner')->textInput(['maxlength' => true]) ?>
+</div>
 
-        <?= $form->field($model, 'price_market', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
+<div class="row">
+    <?= $form->field($model, 'price_cadastral', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
 
-        <?= $form->field($model, 'price_liquidation', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
-    </div>
+    <?= $form->field($model, 'price_tian', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
 
-    <div class="row">
-        <?php foreach ($values as $value): ?>
-            <?php $attribute = Attribute::findOne($value->attribute_id) ?>
-            <div class="form-attribute-<?= $attribute->type_id ?>">
-                <?= $form->field($value, '[' . $value->attribute0->id . ']value', ['options' => ['class' => 'col-lg-6 col-md-6']])->label($value->attribute0->title); ?>
+    <?= $form->field($model, 'price_market', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
+
+    <?= $form->field($model, 'price_liquidation', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
+</div>
+
+<div class="row">
+    <?php foreach ($values as $value): ?>
+        <?php $attribute = Attribute::findOne($value->attribute_id) ?>
+        <div class="form-attribute-<?= $attribute->type_id ?>">
+            <?= $form->field($value, '[' . $value->attribute0->id . ']value', ['options' => ['class' => 'col-lg-6 col-md-6']])->label($value->attribute0->title); ?>
+        </div>
+    <?php endforeach; ?>
+</div>
+
+<div class="row row-padding">
+    <?php foreach ($listCheckbox as $itemCheckbox) { ?>
+        <div class="form-attribute form-attribute-<?= $itemCheckbox->type_id ?>">
+            <label><?= $itemCheckbox->title ?></label>
+            <div>
+                <?php foreach ($itemCheckbox->groupCheckboxes as $itemGroup) { ?>
+                    <label class="checkbox">
+                        <input type="checkbox"
+                               name="GroupCheckboxes[<?= $itemCheckbox->type_id ?>][<?= $itemCheckbox->id ?>][]"
+                               value="<?= $itemGroup->id ?>" <?= (in_array($itemGroup->id, $rezCheckbox)) ? 'checked' : '' ?>>
+                        <?= $itemGroup->title ?>
+                    </label>
+                <?php } ?>
             </div>
-        <?php endforeach; ?>
-    </div>
+        </div>
+    <?php } ?>
+</div>
 
-    <div class="row row-padding">
-        <?php foreach ($listCheckbox as $itemCheckbox){ ?>
-            <div class="form-attribute form-attribute-<?= $itemCheckbox->type_id ?>">
-                <label><?= $itemCheckbox->title ?></label>
-                <div>
-                    <?php foreach ($itemCheckbox->groupCheckboxes as $itemGroup){ ?>
-                        <label class="checkbox">
-                            <input type="checkbox" name="GroupCheckboxes[<?= $itemCheckbox->type_id ?>][<?= $itemCheckbox->id ?>][]" value="<?= $itemGroup->id ?>" <?= (in_array($itemGroup->id, $rezCheckbox))?'checked':'' ?>>
-                            <?= $itemGroup->title ?>
-                        </label>
-                    <?php } ?>
-                </div>
-            </div>
-        <?php } ?>
-    </div>
+<div class="row row-padding">
+    <?php foreach ($listRadio as $itemRadio) { ?>
+        <div class="form-attribute form-attribute-<?= $itemRadio->type_id ?>">
+            <label><?= $itemRadio->title ?></label>
+            <?php foreach ($itemRadio->groupRadios as $itemGroup) { ?>
+                <label class="radio">
+                    <input type="radio" name="GroupRadios[<?= $itemRadio->type_id ?>][<?= $itemRadio->id ?>][]"
+                           value="<?= $itemGroup->id ?>" <?= (in_array($itemGroup->id, $rezRadio)) ? 'checked' : '' ?>>
+                    <?= $itemGroup->title ?>
+                </label>
+            <?php } ?>
+        </div>
+    <?php } ?>
+</div>
 
-    <div class="row row-padding">
-        <?php foreach ($listRadio as $itemRadio){ ?>
-            <div class="form-attribute form-attribute-<?= $itemRadio->type_id ?>">
-                <label><?= $itemRadio->title ?></label>
-                    <?php foreach ($itemRadio->groupRadios as $itemGroup){ ?>
-                        <label class="radio">
-                            <input type="radio" name="GroupRadios[<?= $itemRadio->type_id ?>][<?= $itemRadio->id ?>][]" value="<?= $itemGroup->id ?>" <?= (in_array($itemGroup->id, $rezRadio))?'checked':'' ?>>
-                            <?= $itemGroup->title ?>
-                        </label>
-                    <?php } ?>
-            </div>
-        <?php } ?>
-    </div>
+<br>
 
-    <br>
+<div class="form-group">
+    <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+</div>
 
-    <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
+<?php ActiveForm::end(); ?>
 

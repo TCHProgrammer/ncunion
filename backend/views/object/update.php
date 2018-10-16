@@ -31,7 +31,10 @@ $this->params['breadcrumbs'][] = 'Изменить';
             'listCheckbox' => $listCheckbox,
             'rezCheckbox' => $rezCheckbox,
             'listRadio' => $listRadio,
-            'rezRadio' => $rezRadio
+            'rezRadio' => $rezRadio,
+            'region' => $region,
+            'cities' => $cities,
+            'localityType' => $localityType,
         ]) ?>
     </div>
 

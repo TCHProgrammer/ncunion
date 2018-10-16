@@ -22,7 +22,10 @@ $this->params['breadcrumbs'][] = $this->title . ' (этап 1 из 3)';
         'listCheckbox' => $listCheckbox,
         'rezCheckbox' => $rezCheckbox,
         'listRadio' => $listRadio,
-        'rezRadio' => $rezRadio
+        'rezRadio' => $rezRadio,
+        'region' => $region,
+        'cities' => $cities,
+        'localityType' => $localityType,
     ]) ?>
 
 </div>
