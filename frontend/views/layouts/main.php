@@ -104,7 +104,7 @@ AppAsset::register($this);
             'items' => $menuItemsLeft,
         ]);
         echo Nav::widget([
-            'options' => ['class' => 'navbar-nav navbar-right'],
+            'options' => ['class' => 'navbar-nav navbar-right user-account'],
             'items' => $menuItemsRight
         ]);
         NavBar::end();

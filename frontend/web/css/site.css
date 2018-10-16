@@ -667,6 +667,21 @@ header .top {
     background-color: transparent;
 }
 
+.user-account .dropdown-toggle {
+    position: relative;
+}
+
+.user-account .dropdown-toggle::before {
+    content: '';
+    position: absolute;
+    width: 29px;
+    height: 29px;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -30px;
+    background: url(../img/main/user.png) no-repeat center center / 100% auto;
+}
+
 .slider.flexslider {
     position: relative;
     border: 0;
