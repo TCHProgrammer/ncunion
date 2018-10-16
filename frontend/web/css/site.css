@@ -1330,6 +1330,9 @@ textarea {
         height: 15px;
         background-size: 100% auto;
     }
+    .footer {
+        height: auto;
+    }
 }
 
 @media all and (min-width: 768px) and (max-width: 991px) {
