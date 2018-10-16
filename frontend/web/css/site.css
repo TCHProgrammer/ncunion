@@ -128,19 +128,6 @@ a.desc:after {
     height: 95px;
 }
 
-/* меню */
-.menu-exit{
-    background-color: #fff;
-    border: 0px;
-    padding: 2px 20px;
-    width: 100%;
-    text-align: left;
-}
-
-.menu-exit:hover{
-    background-color: #f5f5f5;
-}
-
 
 /* Страница профиля (user/profile) */
 .user-avatar{
@@ -665,6 +652,33 @@ header .top {
 .navbar-default .navbar-nav > .open > a:focus {
     color: #FFFFFF;
     background-color: transparent;
+}
+
+.dropdown-menu,
+.menu-exit {
+    background-color: #1b2746;
+}
+
+.dropdown-menu > li > a,
+.menu-exit {
+    color: #788AB5;
+    font-weight: 700;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus,
+.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+.navbar-default .navbar-nav .open .dropdown-menu > li > a:focus,
+.menu-exit:hover {
+    background-color: transparent;
+    color: #FFFFFF;
+}
+
+.menu-exit {
+    border: 0px;
+    padding: 2px 20px;
+    width: 100%;
+    text-align: left;
 }
 
 .nav.user-account > li > a.dropdown-toggle {
@@ -1408,6 +1422,15 @@ textarea {
     }
     .navbar-collapse {
         border: 0;
+    }
+    .nav.user-account > li > a.dropdown-toggle {
+        padding-left: 50px;
+    }
+    .nav.user-account > li > a.dropdown-toggle::before {
+        left: 10px;
+    }
+    .menu-exit {
+        padding: 5px 15px 5px 25px;
     }
     .slider .flex-caption {
         top: 45%;
