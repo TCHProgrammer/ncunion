@@ -320,3 +320,11 @@ $(document).ready(function () {
         $('#push-phone-cmc').removeAttr('disabled');
     }
 });
+
+/* Сохранение одинаковых значений ширины и высоты элементов why-we-grid-блока в мобильной версии */
+$(window).on('load resize', function(){
+    $('.why-we .item-image').each(function(){
+        var width = $(this).outerWidth();
+        $(this).outerHeight(width);
+    });
+});

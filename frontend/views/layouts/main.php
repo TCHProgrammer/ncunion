@@ -554,7 +554,7 @@ AppAsset::register($this);
             <div class="row">
                 <div class="col-sm-12">
                     <div class="grid">
-                        <div class="item item-image"><img src="<?php echo Url::to('@web/img/main/why-1.jpg'); ?>" class="img-responsive"></div>
+                        <div class="item item-image" style="background-image: url(<?php echo Url::to('@web/img/main/why-1.jpg'); ?>);"></div>
                         <div class="item">
                             <span class="subheading hidden">Сайт рыбатекст поможет дизайнеру</span>
                             <h3>Почему нам уже доверилось более 2 500 инвесторов?</h3>
@@ -573,7 +573,7 @@ AppAsset::register($this);
                             <p>инвестировании в недвижимость</p>
                             <a href="#" class="btn btn-default">Подробнее</a>
                         </div>
-                        <div class="item item-image"><img src="<?php echo Url::to('@web/img/main/why-2.jpg'); ?>" class="img-responsive"></div>
+                        <div class="item item-image" style="background-image: url(<?php echo Url::to('@web/img/main/why-2.jpg'); ?>);"></div>
                     </div>
                 </div>
             </div>
