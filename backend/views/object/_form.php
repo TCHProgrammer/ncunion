@@ -67,12 +67,16 @@ use common\models\object\Confidence;
     $cityFieldId = Html::getInputId($model, 'city_id');
     $regionFieldId = Html::getInputId($model, 'region_id');
     $placeKmFieldId = Html::getInputId($model, 'place_km');
+    $placeKmFieldHideShow = empty($model->place_km) ? 'hide' : 'show';
+    $localityFieldHideShow = empty($model->locality_type_id) ? 'hide' : 'show';
+    $cityFieldHideShow = empty($model->city_id) ? 'hide' : 'show';
     $this->registerJs("
     $(document).ready(function () {
-        $(\"#{$placeKmFieldId}\").val(0);
-        $(\"#{$placeKmFieldId}\").parent().hide();
-        $(\"#{$localityFieldId}\").parent().hide();
-        $(\"#{$cityFieldId}\").parent().hide();
+        $(\"#{$placeKmFieldId}\").parent().{$placeKmFieldHideShow}();
+        $(\"#{$localityFieldId}\").parent().{$localityFieldHideShow}();
+        $(\"#{$cityFieldId}\").parent().{$cityFieldHideShow}();
+        
+        getCities();
     
         $(document).on('change', '#{$cityFieldId}', function () {
             var mkad = $(\"#{$cityFieldId} option:selected\").data(\"mkad\");
@@ -89,20 +93,27 @@ use common\models\object\Confidence;
         });
         
         $(document).on('change', '#{$localityFieldId}', function () {
+            $(\"#{$placeKmFieldId}\").val(0);
             if ($(\"#{$localityFieldId}\").val() == {$cityTypeId}) {
-                $(\"#{$placeKmFieldId}\").val(0);
                 $(\"#{$placeKmFieldId}\").parent().hide();
-                var region = $(\"#{$regionFieldId} option:selected\").val();
-                $.post(\"/admin/object/get-cities?id=\"+region, function(response) {
-                    $(\"#{$cityFieldId}\").append(response);
-                })
-                $(\"#{$cityFieldId}\").parent().show();
+                getCities();
             } else {
                 $(\"#{$cityFieldId}\").parent().hide();
                 $(\"#{$placeKmFieldId}\").parent().show();
             }
         });
     });
+    
+    function getCities () {
+        var region = $(\"#{$regionFieldId} option:selected\").val();
+        if (region) {
+            $.post(\"/admin/object/get-cities?id=\"+region, function(response) {
+                $(\"#{$cityFieldId}\").append(response);
+                $(\"#{$cityFieldId}\").val('{$model->city_id}');
+            })
+            $(\"#{$cityFieldId}\").parent().show();
+        }
+    }
     function checkCityId(attribute, value) {
         return $('#{$localityFieldId} option:selected').val() == {$cityTypeId};
     }
