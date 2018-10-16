@@ -591,37 +591,39 @@ AppAsset::register($this);
                 </div>
             </div>
             <div class="row how-to-grid">
-                <div class="col-sm-12 flex">
-                    <div class="item">
-                        <div class="image">
-                            <img src="<?php echo Url::to('@web/img/main/how-to-1.png'); ?>" class="img-responsive">
+                <div class="col-sm-12">
+                    <div class="items-wrapper flex">
+                        <div class="item">
+                            <div class="image">
+                                <img src="<?php echo Url::to('@web/img/main/how-to-1.png'); ?>" class="img-responsive">
+                            </div>
+                            <div class="info">
+                                <p>Выплата дохода в конце срока действия договора дополнительные 1,5%</p>
+                            </div>
                         </div>
-                        <div class="info">
-                            <p>Выплата дохода в конце срока действия договора дополнительные 1,5%</p>
+                        <div class="item">
+                            <div class="image">
+                                <img src="<?php echo Url::to('@web/img/main/how-to-2.png'); ?>" alt="" class="img-responsive">
+                            </div>
+                            <div class="info">
+                                <p>Выплата дохода в конце срока действия договора дополнительные 1,5%</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="item">
-                        <div class="image">
-                            <img src="<?php echo Url::to('@web/img/main/how-to-2.png'); ?>" alt="" class="img-responsive">
+                        <div class="item">
+                            <div class="image">
+                                <img src="<?php echo Url::to('@web/img/main/how-to-3.png'); ?>" alt="" class="img-responsive">
+                            </div>
+                            <div class="info">
+                                <p>Выплата дохода в конце срока действия договора дополнительные 1,5%</p>
+                            </div>
                         </div>
-                        <div class="info">
-                            <p>Выплата дохода в конце срока действия договора дополнительные 1,5%</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="image">
-                            <img src="<?php echo Url::to('@web/img/main/how-to-3.png'); ?>" alt="" class="img-responsive">
-                        </div>
-                        <div class="info">
-                            <p>Выплата дохода в конце срока действия договора дополнительные 1,5%</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="image">
-                            <img src="<?php echo Url::to('@web/img/main/how-to-4.png'); ?>" alt="" class="img-responsive">
-                        </div>
-                        <div class="info">
-                            <p>Выплата дохода в конце срока действия договора дополнительные 1,5%</p>
+                        <div class="item">
+                            <div class="image">
+                                <img src="<?php echo Url::to('@web/img/main/how-to-4.png'); ?>" alt="" class="img-responsive">
+                            </div>
+                            <div class="info">
+                                <p>Выплата дохода в конце срока действия договора дополнительные 1,5%</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -632,13 +634,13 @@ AppAsset::register($this);
     <section class="consultation-form" id="consultation-form">
         <div class="container">
             <div class="row">
-                <div class="col-sm-5">
+                <div class="col-sm-12 col-md-5">
                     <div class="heading">
                         <h2>Заинтересовались?</h2>
                         <span>Выплата дохода в конце срока действия договора дополнительные 1,5%</span>
                     </div>
                 </div>
-                <div class="col-sm-7">
+                <div class="col-sm-12 col-md-7">
                     <form action="#">
                         <div class="row">
                             <div class="col-sm-6">

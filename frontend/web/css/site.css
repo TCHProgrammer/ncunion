@@ -1019,6 +1019,10 @@ header .top {
     height: 16px;
 }
 
+.why-we {
+    overflow: hidden;
+}
+
 .why-we .container:first-child {
     background: url(../img/main/why-we-bg.png) no-repeat center 30px / 100% auto;
     padding: 45px 0;
@@ -1108,7 +1112,8 @@ header .top {
 
 .how-to .container {
     background: url(../img/main/how-to-bg.png) no-repeat center top / 100% auto;
-    padding: 45px 0;
+    padding-top: 45px;
+    padding-bottom: 45px;
 }
 
 /* TODO: префиксы. */
