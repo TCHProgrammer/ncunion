@@ -16,6 +16,7 @@ class AppAsset extends AssetBundle
         'js/ion.rangeSlider.min.js',
         'js/jquery.flexslider-min.js',
         'js/owl.carousel.min.js',
+        'js/jquery.visible.min.js',
         'js/script.js'
     ];
     public $css = [
@@ -25,6 +26,7 @@ class AppAsset extends AssetBundle
         'https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=cyrillic',
         'css/flexslider.css',
         'css/owl.carousel/owl.carousel.min.css',
+        'css/animate.css',
         'css/site.css',
     ];
     public $depends = [

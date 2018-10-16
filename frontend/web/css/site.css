@@ -596,6 +596,7 @@ h3 {
 .heading {
     text-align: center;
     padding-bottom: 40px;
+    visibility: hidden;
 }
 
 .heading h2 {

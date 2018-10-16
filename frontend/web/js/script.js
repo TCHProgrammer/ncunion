@@ -328,3 +328,14 @@ $(window).on('load resize', function(){
         $(this).outerHeight(width);
     });
 });
+
+/* Анимирование отдельных частей главной */
+$(document).on('scroll load', function(){
+    $('.heading').each(function(){
+        if ( $(this).visible()) {
+            $(this)
+                .addClass('animated fadeInUpBig')
+                .css('visibility', 'visible');
+        }
+    });
+});

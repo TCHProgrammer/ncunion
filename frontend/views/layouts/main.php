@@ -29,7 +29,7 @@ AppAsset::register($this);
 <?php if (!Yii::$app->user->can('ban')){ ?>
 <?php $this->beginBody() ?>
 <?= AdminPanel::widget(); ?>
-    <header>
+    <header class="no-animate">
         <div class="top">
             <div class="container">
                 <div class="row top-wrapper">
@@ -120,7 +120,7 @@ AppAsset::register($this);
         -->
     </header>
 
-    <section class="slider flexslider">
+    <section class="slider flexslider no-animate">
         <ul class="slides">
             <li style="background-image: url(<?php echo Url::to('@web/img/main/slide-1.jpg'); ?>)">
                 <div class="flex-caption">
@@ -179,7 +179,7 @@ AppAsset::register($this);
         </ul>
     </section>
 
-    <section class="advantages">
+    <section class="advantages no-animate">
         <div class="container">
             <div class="row">
                 <div class="col-sm-4 item-wrapper">
