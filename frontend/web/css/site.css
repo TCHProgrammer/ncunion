@@ -655,6 +655,12 @@ header .top {
     background-color: transparent;
 }
 
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+    background-color: #FFFFFF;
+    border-color: #FFFFFF;
+}
+
 .dropdown-menu,
 .menu-exit {
     background-color: #1b2746;
