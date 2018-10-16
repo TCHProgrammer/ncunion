@@ -667,11 +667,12 @@ header .top {
     background-color: transparent;
 }
 
-.user-account .dropdown-toggle {
+.nav.user-account > li > a.dropdown-toggle {
     position: relative;
+    color: #FFFFFF;
 }
 
-.user-account .dropdown-toggle::before {
+.nav.user-account > li > a.dropdown-toggle::before {
     content: '';
     position: absolute;
     width: 29px;
