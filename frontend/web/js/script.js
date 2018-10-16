@@ -34,7 +34,7 @@ $(document).ready(function () {
             0:{
                 items: 1
             },
-            480: {
+            600: {
                 items: 2
             },
             992:{
