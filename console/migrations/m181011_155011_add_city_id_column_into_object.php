@@ -13,7 +13,9 @@ class m181011_155011_add_city_id_column_into_object extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn($this->tableName, 'city_id', $this->integer());
+      $this->addColumn($this->tableName, 'city_id', $this->integer());
+      $this->addColumn($this->tableName, 'locality_type_id', $this->integer());
+      $this->addColumn($this->tableName, 'region_id', $this->integer());
     }
 
     /**
@@ -22,5 +24,7 @@ class m181011_155011_add_city_id_column_into_object extends Migration
     public function safeDown()
     {
       $this->dropColumn($this->tableName, 'city_id');
+      $this->dropColumn($this->tableName, 'locality_type_id');
+      $this->dropColumn($this->tableName, 'region_id');
     }
 }
