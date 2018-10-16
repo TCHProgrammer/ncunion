@@ -571,7 +571,7 @@ AppAsset::register($this);
                         <div class="item item-blue">
                             <h3>Мы эксперты в:</h3>
                             <p>инвестировании в недвижимость</p>
-                            <a href="#" class="btn btn-default">Подробнее</a>
+                            <a href="#" class="btn btn-primary btn-blue">Подробнее</a>
                         </div>
                         <div class="item item-image" style="background-image: url(<?php echo Url::to('@web/img/main/why-2.jpg'); ?>);"></div>
                     </div>

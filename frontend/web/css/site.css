@@ -497,14 +497,13 @@ h3 {
     color: #3B34A6;
 }
 
-.btn-primary,
-.btn-primary:active,
-.btn-primary:focus,
-.btn-primary:hover,
-.btn-primary:active:focus,
-.btn-primary:active:hover {
+.btn {
+    transition: all 0.25s ease-out;
+}
+
+.btn-primary {
     background-color: #3B34A6;
-    border: 0;
+    border: 2px solid #3B34A6;
     border-radius: 24px;
     padding: 15px 10px;
     min-width: 155px;
@@ -513,35 +512,52 @@ h3 {
     font-weight: 700;
 }
 
-.btn-primary.btn-phone,
-.btn-primary.btn-phone:active,
-.btn-primary.btn-phone:focus,
-.btn-primary.btn-phone:hover,
-.btn-primary.btn-phone:active:focus,
-.btn-primary.btn-phone:active:hover {
+.btn-primary.btn-phone {
     border-radius: 5px;
     color: #FFFFFF;
     min-width: auto;
 }
 
-.btn-primary.btn-order,
-.btn-primary.btn-order:active,
-.btn-primary.btn-order:focus,
-.btn-primary.btn-order:hover,
-.btn-primary.btn-order:active:focus,
-.btn-primary.btn-order:active:hover {
+.btn-primary.btn-order {
     padding: 10px 70px;
     color: #FFFFFF;
     border-radius: 30px;
     font-size: 25px;
 }
 
-.btn-default,
-.btn-default:active,
-.btn-default:focus,
-.btn-default:hover,
-.btn-default:active:focus,
-.btn-default:active:hover {
+.btn-primary.btn-blue {
+    border-color: #FFFFFF;
+}
+
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:hover,
+.btn-primary:active:focus,
+.btn-primary:active:hover,
+.btn-primary.btn-phone:active,
+.btn-primary.btn-phone:focus,
+.btn-primary.btn-phone:hover,
+.btn-primary.btn-phone:active:focus,
+.btn-primary.btn-phone:active:hover,
+.btn-primary.btn-order:active,
+.btn-primary.btn-order:focus,
+.btn-primary.btn-order:hover,
+.btn-primary.btn-order:active:focus,
+.btn-primary.btn-order:active:hover {
+    color: #3B34A6;
+    background-color: #FFFFFF;
+    border-color: #3B34A6;
+}
+
+.btn-primary.btn-blue:active,
+.btn-primary.btn-blue:focus,
+.btn-primary.btn-blue:hover,
+.btn-primary.btn-blue:active:focus,
+.btn-primary.btn-blue:active:hover {
+    border-color: #FFFFFF;
+}
+
+.btn-default {
     border: 2px solid #3B34A6;
     background-color: #FFFFFF;
     padding: 15px 40px;
@@ -551,15 +567,25 @@ h3 {
     font-weight: 700;
 }
 
-.btn-default.btn-get-consultation,
+.btn-default.btn-get-consultation {
+    text-transform: uppercase;
+    font-size: 16px;
+    white-space: normal;
+}
+
+.btn-default:active,
+.btn-default:focus,
+.btn-default:hover,
+.btn-default:active:focus,
+.btn-default:active:hover,
 .btn-default.btn-get-consultation:active,
 .btn-default.btn-get-consultation:focus,
 .btn-default.btn-get-consultation:hover,
 .btn-default.btn-get-consultation:active:focus,
 .btn-default.btn-get-consultation:active:hover {
-    text-transform: uppercase;
-    font-size: 16px;
-    white-space: normal;
+    background-color: #3B34A6;
+    border-color: #3B34A6;
+    color: #FFFFFF;
 }
 
 .btn-primary.btn-order span {
@@ -1137,12 +1163,6 @@ header .top {
 
 .why-we .grid .item-blue h3 {
     color: #FFFFFF;
-}
-
-.why-we .grid .item-blue .btn {
-    background-color: #3B34A6;
-    color: #FFFFFF;
-    border-color: #FFFFFF;
 }
 
 /* how-to */
