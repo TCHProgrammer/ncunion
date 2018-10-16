@@ -1267,6 +1267,9 @@ textarea {
         width: 470px;
         height: 470px;
     }
+    .how-to .item .image::after {
+        right: -60px;
+    }
 }
 
 @media all and (max-width: 991px) {
@@ -1315,6 +1318,12 @@ textarea {
 
     .why-we .grid .item:nth-child(3) {
         order: 4;
+    }
+    .how-to .item .image::after {
+        right: -35px;
+        width: 50px;
+        height: 15px;
+        background-size: 100% auto;
     }
 }
 
@@ -1415,6 +1424,44 @@ textarea {
     }
     .why-we .grid .item {
         background-size: 100% auto;
+    }
+    /* TODO: Префиксы. */
+    .how-to .how-to-grid .flex {
+        flex-wrap: wrap;
+    }
+    .how-to .item {
+        flex-basis: 100%;
+        margin-bottom: 80px;
+    }
+    .how-to .item:last-child {
+        margin-bottom: 0;
+    }
+    .how-to .item .image,
+    .how-to .item .info {
+        float: none;
+        margin: 0 auto;
+        max-width: 300px;
+    }
+    .how-to .item .info {
+        position: relative;
+    }
+    .how-to .item .image::after {
+        display: none;
+    }
+    .how-to .item .info::after {
+        content: '';
+        position: absolute;
+        bottom: -75px;
+        top: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 35px;
+        height: 95px;
+        background: url(../img/main/arrow-right-rotate.png) no-repeat center center / auto;
+    }
+
+    .how-to .item:last-child .info::after {
+        display: none;
     }
 }
 
