@@ -77,11 +77,11 @@ $productImageCount = count($model->objectImgs);
             <div class="product_details">
                 <h5 title="<?= $model->title ?>"><a href="<?= Url::toRoute('/catalog/view?id='.$model->id) ?>"><?= $model->title ?></a></h5>
                 <?php
-                $city_array = City::find()->where(['id' => $model->city_id])->one();
+                $cityArray = City::find()->where(['id' => $model->city_id])->one();
                 ?>
-                <?php if(!is_null($city_array->name)) { ?>
+                <?php if(!is_null($cityArray->name)) { ?>
                 <div class="product_city">
-                    <p><?= $city_array->name ?></p>
+                    <p><?= $cityArray->name ?></p>
                 </div>
                 <?php } ?>
                 <div class="product_info">

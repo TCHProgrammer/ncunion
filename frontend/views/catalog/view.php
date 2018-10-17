@@ -8,6 +8,7 @@ use yii\widgets\ListView;
 use kartik\slider\Slider;
 use yii\helpers\ArrayHelper;
 use common\models\object\ObjectType;
+use common\models\object\Confidence;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\object\Object */
@@ -154,44 +155,27 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <h4>Индекс доверия<span class="mini-info" data-toggle="tooltip" data-placement="top" title="Индекс доверия">?</span></h4>
                                     <input type="text" class="trust_o_meter" readonly="readonly" value="<?= $confObj ?>" data-width="36" data-height="36" data-thickness="0.2" data-fgColor="#FF1601" data-bgColor="#B9B9B9" disabled>
                                 </div>
-                                <?php // TODO: Это просто заготовка, надо добавить динамику. ?>
+                                <?php $confidenceArray = Confidence::find()->all(); ?>
+                                <?php if (!is_null($confidenceArray)) { ?>
                                 <div class="object-info-inline object-trust-docs">
-                                    <div class="item">
+                                    <?php
+                                    foreach ($confidenceArray as $confidenceItem) {
+                                        if (in_array($confidenceItem->id, $model->confArray)) {
+                                            $confidenceItemClass = ' checked';
+                                        } else {
+                                            $confidenceItemClass = '';
+                                        }
+                                    ?>
+                                    <div class="item<?= $confidenceItemClass; ?>">
                                         <span class="zmdi-hc-stack zmdi-hc-lg">
                                             <i class="zmdi zmdi-square-o zmdi-hc-stack-2x"></i>
                                             <i class="zmdi zmdi-check zmdi-hc-stack-1x"></i>
                                         </span>
-                                        <span class="value">МБКИ</span>
+                                        <span class="value"><?= $confidenceItem->title; ?></span>
                                     </div>
-                                    <div class="item checked">
-                                        <span class="zmdi-hc-stack zmdi-hc-lg">
-                                            <i class="zmdi zmdi-square-o zmdi-hc-stack-2x"></i>
-                                            <i class="zmdi zmdi-check zmdi-hc-stack-1x"></i>
-                                        </span>
-                                        <span class="value">Судебная справка</span>
-                                    </div>
-                                    <div class="item checked">
-                                        <span class="zmdi-hc-stack zmdi-hc-lg">
-                                            <i class="zmdi zmdi-square-o zmdi-hc-stack-2x"></i>
-                                            <i class="zmdi zmdi-check zmdi-hc-stack-1x"></i>
-                                        </span>
-                                        <span class="value">ФССП</span>
-                                    </div>
-                                    <div class="item checked">
-                                        <span class="zmdi-hc-stack zmdi-hc-lg">
-                                            <i class="zmdi zmdi-square-o zmdi-hc-stack-2x"></i>
-                                            <i class="zmdi zmdi-check zmdi-hc-stack-1x"></i>
-                                        </span>
-                                        <span class="value">Ф1 кадастр</span>
-                                    </div>
-                                    <div class="item">
-                                        <span class="zmdi-hc-stack zmdi-hc-lg">
-                                            <i class="zmdi zmdi-square-o zmdi-hc-stack-2x"></i>
-                                            <i class="zmdi zmdi-check zmdi-hc-stack-1x"></i>
-                                        </span>
-                                        <span class="value">Оценочный лист</span>
-                                    </div>
+                                    <?php } ?>
                                 </div>
+                                <?php } ?>
                                 <h4>Общая информация</h4>
 
                                 <!-- инфо об объекте -->
