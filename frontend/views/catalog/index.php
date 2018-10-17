@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'options' => [
                 'class' => 'list-view row clearfix'
             ],
-            'summary' => '<div class="col-sm-12"><div class="card summary"><div class="body">Показаны записи <b>{begin}-{end}</b> из <b>{totalCount}</b>.</div></div></div>',
+            'summary' => '<div class="col-xs-12"><div class="card summary"><div class="body">Показаны записи <b>{begin}-{end}</b> из <b>{totalCount}</b>.</div></div></div>',
             'pager' => [
                 'linkContainerOptions' => [
                     'class' => 'page-item'
