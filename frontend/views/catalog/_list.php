@@ -15,7 +15,7 @@ $conf = round($listConf * 100 / $allListConf, 2);
 $productImageCount = count($model->objectImgs);
 ?>
 
-<div class="col-lg-3 col-md-4 col-sm-12" data-key="<?= $model->id; ?>">
+<div class="col-xlg-3 col-lg-4 col-md-4 col-sm-6 col-xs-12" data-key="<?= $model->id; ?>">
     <div class="card product_item">
         <div class="body">
 

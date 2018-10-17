@@ -38,7 +38,7 @@ function valueFilter($item, $filter){
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-8 col-md-8 col-sm-12">
+                            <div class="col-sm-12">
                                 <div class="form-group select-group">
                                     <?= $form->field($model, 'type_id',
                                         [
