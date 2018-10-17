@@ -416,18 +416,23 @@ textarea.form-control {
 }
 
 .product_item .product_details {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
     text-align: left;
     padding-top: 85%;
 }
 
-.product_item .product_details > * {
-    display: inline-block;
-    vertical-align: top;
-}
-
 .product_item .product_details h5 {
-    width: 50%;
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%;
     white-space: nowrap;
+    -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
     overflow: hidden;
     margin-bottom: 0;
@@ -436,18 +441,38 @@ textarea.form-control {
 
 .product_item .product_details h5,
 .product_item .product_details h5 a,
-.product_item .product_details .product_city {
+.product_item .product_city {
     font-size: 18px;
 }
 
-.product_item .product_details .product_city {
+.product_item .product_details h5,
+.product_item .product_city,
+.product_item .product_info {
+    text-align: center;
+}
+
+.product_item .product_city {
     font-weight: 700;
-    width: 48%; /* TODO: Исправить */
-    text-align: right;
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%;
+    margin: 0;
+}
+
+.product_item .product_city p,
+.product_item .product_info p {
+    margin: 0;
+}
+
+.product_item .product_info {
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%;
+    padding: 10px 0;
+    text-align: center;
 }
 
 .product_item .product_price {
-    width: 100%;
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%;
     text-align: center;
     padding-bottom: 20px;
 }
@@ -464,23 +489,14 @@ textarea.form-control {
     width: 100%;
 }
 
-.product_item .product_bottom {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-}
-
-.product_item .product_bottom > * {
-    -ms-flex-preferred-size: 33%;
-    flex-basis: 33%;
+.product_item .product_cian {
+    -ms-flex-preferred-size: 35%;
+    flex-basis: 35%;
 }
 
 .product_item .product_market_price {
-    -ms-flex-preferred-size: 45%;
-    flex-basis: 45%;
+    -ms-flex-preferred-size: 55%;
+    flex-basis: 55%;
 }
 
 .product_item .product_cian > *,

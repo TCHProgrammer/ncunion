@@ -3,6 +3,7 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use common\models\object\Confidence;
 use common\models\object\ConfidenceObject;
+use common\models\object\City;
 
 /* @var $this  yii\web\View */
 /* @var $model common\models\object\Object */
@@ -75,37 +76,42 @@ $productImageCount = count($model->objectImgs);
 
             <div class="product_details">
                 <h5 title="<?= $model->title ?>"><a href="<?= Url::toRoute('/catalog/view?id='.$model->id) ?>"><?= $model->title ?></a></h5>
-                <?php if(!is_null($model->address)) { ?>
-                <span class="product_city"><?= $model->address ?></span>
+                <?php
+                $city_array = City::find()->where(['id' => $model->city_id])->one();
+                ?>
+                <?php if(!is_null($city_array->name)) { ?>
+                <div class="product_city">
+                    <p><?= $city_array->name ?></p>
+                </div>
                 <?php } ?>
-                <span class="product_info">
-                    <?php // TODO: Пофиксить запятые. ?>
-                    <?= $model->typeTitle . ', '?>
-                    <?php if(!is_null($model->rooms)) { ?>
-                    <?= $model->rooms . ' комн.,' ?>
-                    <?php } ?>
-                    <?php if(!is_null($model->area)) { ?>
-                    <?= $model->area . ' м²' ?>
-                    <?php } ?>
-                </span>
+                <div class="product_info">
+                    <p>
+                        <?php // TODO: Пофиксить запятые. ?>
+                        <?= $model->typeTitle . ', '?>
+                        <?php if(!is_null($model->rooms)) { ?>
+                            <?= $model->rooms . ' комн.,' ?>
+                        <?php } ?>
+                        <?php if(!is_null($model->area)) { ?>
+                            <?= $model->area . ' м²' ?>
+                        <?php } ?>
+                    </p>
+                </div>
                 <div class="product_price price">
                     <span class="value"><?= $model->amount ?> &#8381;</span>
                     <span class="product_help">Требуемая сумма</span>
                 </div>
-                <div class="product_bottom">
-                    <?php if(!is_null($model->price_tian)) { ?>
+                <?php if(!is_null($model->price_tian)) { ?>
                     <div class="product_cian">
                         <span class="product_help">ЦИАН</span>
                         <span class="value"><?= $model->price_tian ?> &#8381;</span>
                     </div>
-                    <?php } ?>
-                    <?php if(!is_null($model->price_market)) { ?>
+                <?php } ?>
+                <?php if(!is_null($model->price_market)) { ?>
                     <div class="product_market_price">
                         <span class="product_help">Рыночная стоимость</span>
                         <span class="value"><?= $model->price_market ?> &#8381;</span>
                     </div>
-                    <?php } ?>
-                </div>
+                <?php } ?>
             </div>
         </div>
     </div>
