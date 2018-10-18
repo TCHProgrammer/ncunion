@@ -311,6 +311,18 @@ $(document).ready(function () {
     });
 
     /* Фиксирование боковой панели на странице объекта */
-    // $('html, body')
+    var $objectSide = $('.object-side');
+    var sideScrollTop = $objectSide.offset();
 
+    $(window).on('load scroll', function(){
+        var scrollTop = $(this).scrollTop();
+        // console.log(scrollTop, sideScrollTop.top);
+        if (scrollTop > sideScrollTop.top - 75) {
+            $objectSide
+                .css('width', $objectSide.outerWidth())
+                .addClass('fixed');
+        } else {
+            $objectSide.removeClass('fixed');
+        }
+    });
 });

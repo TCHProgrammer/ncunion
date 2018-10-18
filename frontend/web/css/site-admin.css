@@ -856,6 +856,12 @@ textarea.form-control {
     width: 70%;
 }
 
+.object-side.fixed {
+    position: fixed;
+    right: 10px;
+    top: 75px;
+}
+
 @media all and (max-width: 991px) {
     .catalog-page .search-filters .buttons > * {
         margin-bottom: 10px;
