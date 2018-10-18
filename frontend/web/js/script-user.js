@@ -315,7 +315,7 @@ $(document).ready(function () {
     var sideScrollTop = $objectSide.offset();
 
     $(window).on('load scroll', function(){
-        if (window.matchMedia('(max-width: 1199px)').matches) {
+        if (window.matchMedia('(min-width: 1199px)').matches) {
             var scrollTop = $(this).scrollTop();
             // console.log(scrollTop, sideScrollTop.top);
             if (scrollTop > sideScrollTop.top - 75) {
