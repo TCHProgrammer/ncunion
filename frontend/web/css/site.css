@@ -783,13 +783,16 @@ header .top {
     color: #ffffff;
 }
 
-/* TODO: Префиксы. */
 .slider .flex-caption .slide-row {
+    -webkit-box-align: inherit;
+    -ms-flex-align: inherit;
     align-items: inherit;
+    -ms-flex-line-pack: center;
     align-content: center;
 }
 
 .slider .flex-caption .slide-row .item {
+    -ms-flex-preferred-size: 50%;
     flex-basis: 50%;
     padding: 0 35px;
     border-right: 1px solid #ffffff;
@@ -815,10 +818,14 @@ header .top {
     font-weight: 400;
 }
 
-/* TODO: Префиксы. */
 .slider .flex-caption .slide-row .item.item-small {
+    -ms-flex-preferred-size: 25%;
     flex-basis: 25%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
@@ -1173,10 +1180,15 @@ header .top {
     padding-bottom: 45px;
 }
 
-/* TODO: префиксы. */
 .flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
@@ -1184,9 +1196,9 @@ header .top {
     padding: 30px 0;
 }
 
-/* TODO: префиксы. */
 .how-to .item {
     text-align: center;
+    -ms-flex-preferred-size: 20%;
     flex-basis: 20%;
 }
 
@@ -1287,15 +1299,18 @@ textarea {
     .slider .flex-caption {
         top: 70%;
     }
-    /* TODO: Префиксы. */
     .slider .flex-caption .slide-row .item {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
         align-items: center;
         padding: 0 20px;
     }
-    /* TODO: Префиксы. */
     .slider .flex-caption .slide-row .item,
     .slider .flex-caption .slide-row .item.item-small {
+        -ms-flex-preferred-size: 33.3333%;
         flex-basis: 33.3333%;
     }
     .slider .flex-caption .slide-row .item h2 {
@@ -1308,10 +1323,14 @@ textarea {
         font-size: 18px;
         margin: 0;
     }
-    /* TODO: Префиксы. */
     .programs .programs-wrapper {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
+        -ms-flex-wrap: wrap;
         flex-wrap: wrap;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
         justify-content: space-between;
     }
     .programs .item {
@@ -1355,16 +1374,18 @@ textarea {
     .advantages .item .info {
         text-align: center;
     }
-    /* TODO: Префиксы. */
     .programs .item {
         max-height: none;
+        -ms-flex-wrap: wrap;
         flex-wrap: wrap;
     }
     .programs .item .image,
     .programs .item .text {
+        -ms-flex-preferred-size: 100%;
         flex-basis: 100%;
     }
     .why-we .grid .item {
+        -ms-flex-preferred-size: 100%;
         flex-basis: 100%;
     }
     .why-we .grid .item-image {
@@ -1412,14 +1433,19 @@ textarea {
     .nav > li > a {
         font-size: 13px;
     }
-    /* TODO: Префиксы. */
     .map {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
         justify-content: space-between;
+        -ms-flex-wrap: wrap;
         flex-wrap: wrap;
     }
     .map iframe,
     .contacts-card {
+        -ms-flex-preferred-size: 50%;
         flex-basis: 50%;
     }
     .contacts-card {
@@ -1442,11 +1468,17 @@ textarea {
         right: auto;
         background-color: #1b2746;
     }
-    /* TODO: Префиксы. */
     header .top-wrapper {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
+        -ms-flex-wrap: wrap;
         flex-wrap: wrap;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
         justify-content: space-between;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
         align-items: center;
     }
     .logo,
@@ -1472,14 +1504,17 @@ textarea {
     .slider .flex-caption {
         top: 45%;
         left: 0;
+        -webkit-transform: translate(0%, -50%);
+        -ms-transform: translate(0%, -50%);
         transform: translate(0%, -50%);
     }
-    /* TODO: Префиксы. */
     .slider .flex-caption .slide-row {
+        -ms-flex-wrap: wrap;
         flex-wrap: wrap;
     }
     .slider .flex-caption .slide-row .item,
     .slider .flex-caption .slide-row .item.item-small {
+        -ms-flex-preferred-size: 100%;
         flex-basis: 100%;
         border-right: 0;
         border-bottom: 1px solid #ffffff;
@@ -1529,11 +1564,12 @@ textarea {
     .why-we .grid .item h3 {
         font-size: 30px;
     }
-    /* TODO: Префиксы. */
     .how-to .how-to-grid .flex {
+        -ms-flex-wrap: wrap;
         flex-wrap: wrap;
     }
     .how-to .item {
+        -ms-flex-preferred-size: 100%;
         flex-basis: 100%;
         margin-bottom: 80px;
     }
