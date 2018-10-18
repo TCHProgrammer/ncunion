@@ -74,9 +74,9 @@ class Object extends \yii\db\ActiveRecord
             [['created_at'], 'default', 'value' => time()],
             [['updated_at'], 'default', 'value' => time()],
             [['order'], 'default', 'value' => 0],
-            [['locality_type_id', 'region_id', 'city_id', 'type_id', 'status', 'place_km', 'rooms', 'status_object', 'created_at', 'updated_at', 'close_at', 'term', 'schedule_payments'], 'integer'],
+            [['locality_type_id', 'region_id', 'city_id', 'type_id', 'status', 'rooms', 'status_object', 'created_at', 'updated_at', 'close_at', 'term', 'schedule_payments'], 'integer'],
             [['descr'], 'string'],
-            [['price_liquidation', 'price_market', 'price_cadastral', 'rate', 'amount', 'area', 'nks', 'price_tian'], 'number'],
+            [['price_liquidation', 'price_market', 'price_cadastral', 'rate', 'amount', 'area', 'nks', 'price_tian', 'place_km'], 'number'],
             [['locality_type_id', 'region_id', 'type_id', 'title', 'created_at', 'updated_at', 'order', 'descr', 'amount', 'place_km', 'area', 'rooms', 'rate', 'term', 'schedule_payments'], 'required'],
             ['city_id', 'required',
                 'when' => function ($model) {
