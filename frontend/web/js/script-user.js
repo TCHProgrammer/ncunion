@@ -315,14 +315,16 @@ $(document).ready(function () {
     var sideScrollTop = $objectSide.offset();
 
     $(window).on('load scroll', function(){
-        var scrollTop = $(this).scrollTop();
-        // console.log(scrollTop, sideScrollTop.top);
-        if (scrollTop > sideScrollTop.top - 75) {
-            $objectSide
-                .css('width', $objectSide.outerWidth())
-                .addClass('fixed');
-        } else {
-            $objectSide.removeClass('fixed');
+        if (window.matchMedia('(max-width: 1199px)').matches) {
+            var scrollTop = $(this).scrollTop();
+            // console.log(scrollTop, sideScrollTop.top);
+            if (scrollTop > sideScrollTop.top - 75) {
+                $objectSide
+                    .css('width', $objectSide.outerWidth())
+                    .addClass('fixed');
+            } else {
+                $objectSide.removeClass('fixed');
+            }
         }
     });
 });
