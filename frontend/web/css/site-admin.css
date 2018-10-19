@@ -862,6 +862,32 @@ textarea.form-control {
     top: 75px;
 }
 
+@media all and (min-width: 1200px) and (max-width: 1400px) {
+    .object-page .preview,
+    .object-page .details {
+        width: 100%
+    }
+}
+
+@media all and (min-width: 992px) and (max-width: 1600px) {
+    .object-page table.detail-view.credit-wishes > tbody > tr > th,
+    .object-page table.detail-view.credit-wishes > tbody > tr > td {
+        margin-right: 30px;
+    }
+}
+
+@media all and (min-width: 992px) and (max-width: 1375px) {
+    .object-page .credit-wishes > tbody > tr {
+        width: 100%;
+    }
+}
+
+@media all and (max-width: 450px) {
+    .object-page .credit-wishes > tbody > tr {
+        width: 100%;
+    }
+}
+
 @media all and (min-width: 1200px) and (max-width: 1600px) {
     /* TODO: Префиксы. */
     .object-page .object-trust-docs {

@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="col-lg-8 col-md-8 object-center" id="object-center">
                 <div class="card">
                     <div class="body">
-                        <div class="row">
+                        <div class="row" id="object-wrapper-top">
                             <div class="preview col-lg-7 col-md-12">
                                 <?php if (!empty($modelImgs)){ ?>
                                     <div class="preview-pic tab-content">
@@ -60,62 +60,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <?php } ?>
                                     </ul>
                                 <?php } ?>
-
-                                <!-- файлы -->
-                                <?php if (!empty($modelFiles)){ ?>
-                                    <h4>Документы</h4>
-                                    <?php foreach ($modelFiles as $item){ ?>
-                                        <div>
-                                            <a href="<?= $item->doc ?>"><?= $item->title ?></a>
-                                        </div>
-                                    <?php } ?>
-                                <?php } ?>
-
-                                <div class="row clearfix">
-                                    <div class="col-sm-6">
-                                        <?php // TODO: Это просто заготовка, надо добавить динамику. ?>
-                                        <h4>Коммуникации</h4>
-                                        <table class="table table-bordered detail-view">
-                                            <tbody>
-                                            <tr>
-                                                <th>Газ</th>
-                                                <td class="true">Да</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Свет</th>
-                                                <td class="true">Да</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Вода</th>
-                                                <td class="false">Нет</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <h4>Прописанные</h4>
-                                        <table class="table table-bordered detail-view">
-                                            <tbody>
-                                            <tr>
-                                                <th>Дети</th>
-                                                <td class="true">Да</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Иждивенцы</th>
-                                                <td class="false">Нет</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Отказники</th>
-                                                <td class="false">Нет</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Взрослые</th>
-                                                <td class="true">Да</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
 
                             </div>
                             <div class="details col-lg-5 col-md-12">
@@ -198,6 +142,65 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'class' => 'table table-bordered detail-view'
                                     ]
                                 ]) ?>
+                            </div>
+                        </div>
+                        <div class="row" id="object-wrapper-bottom">
+                            <div class="docs-other col-lg-7 col-md-12">
+                                <!-- файлы -->
+                                <?php if (!empty($modelFiles)){ ?>
+                                    <h4>Документы</h4>
+                                    <?php foreach ($modelFiles as $item){ ?>
+                                        <div>
+                                            <a href="<?= $item->doc ?>"><?= $item->title ?></a>
+                                        </div>
+                                    <?php } ?>
+                                <?php } ?>
+
+                                <div class="row clearfix">
+                                    <div class="col-sm-6">
+                                        <?php // TODO: Это просто заготовка, надо добавить динамику. ?>
+                                        <h4>Коммуникации</h4>
+                                        <table class="table table-bordered detail-view">
+                                            <tbody>
+                                            <tr>
+                                                <th>Газ</th>
+                                                <td class="true">Да</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Свет</th>
+                                                <td class="true">Да</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Вода</th>
+                                                <td class="false">Нет</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <h4>Прописанные</h4>
+                                        <table class="table table-bordered detail-view">
+                                            <tbody>
+                                            <tr>
+                                                <th>Дети</th>
+                                                <td class="true">Да</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Иждивенцы</th>
+                                                <td class="false">Нет</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Отказники</th>
+                                                <td class="false">Нет</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Взрослые</th>
+                                                <td class="true">Да</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
