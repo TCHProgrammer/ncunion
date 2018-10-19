@@ -327,7 +327,8 @@ $(document).ready(function () {
                 $objectSide.removeClass('fixed');
             }
         } else {
-            $objectSide.css('width', '100%')
+            $objectSide.css('width', '100%');
+            $objectSide.removeClass('fixed');
         }
     });
 });

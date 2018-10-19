@@ -862,6 +862,16 @@ textarea.form-control {
     top: 75px;
 }
 
+@media all and (min-width: 1200px) and (max-width: 1600px) {
+    /* TODO: Префиксы. */
+    .object-page .object-trust-docs {
+        flex-wrap: wrap;
+    }
+    .object-page .object-trust-docs .item {
+        flex-basis: 33.3333%;
+    }
+}
+
 @media all and (max-width: 991px) {
     .catalog-page .search-filters .buttons > * {
         margin-bottom: 10px;
