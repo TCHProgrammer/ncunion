@@ -311,20 +311,23 @@ $(document).ready(function () {
     });
 
     /* Фиксирование боковой панели на странице объекта */
-    var $objectSide = $('.object-side');
+    var $objectSide = $('#object-side');
     var sideScrollTop = $objectSide.offset();
 
-    $(window).on('load scroll', function(){
-        if (window.matchMedia('(min-width: 1199px)').matches) {
+    $(window).on('load scroll resize', function(){
+        if (window.matchMedia('(min-width: 991px)').matches) {
             var scrollTop = $(this).scrollTop();
+            var $objectWrapperWidth = $('#object-wrapper').outerWidth() * 0.333333;
             // console.log(scrollTop, sideScrollTop.top);
+            $objectSide.css('width', $objectWrapperWidth)
             if (scrollTop > sideScrollTop.top - 75) {
                 $objectSide
-                    .css('width', $objectSide.outerWidth())
                     .addClass('fixed');
             } else {
                 $objectSide.removeClass('fixed');
             }
+        } else {
+            $objectSide.css('width', '100%')
         }
     });
 });

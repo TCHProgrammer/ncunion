@@ -31,9 +31,9 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
     <div class="container-fluid">
-        <div class="row clearfix">
+        <div class="row clearfix" id="object-wrapper">
             <!-- полная информация об объекте  -->
-            <div class="col-lg-8 col-md-8 object-center">
+            <div class="col-lg-8 col-md-8 object-center" id="object-center">
                 <div class="card">
                     <div class="body">
                         <div class="row">
@@ -220,7 +220,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-4 object-side">
+            <div class="col-lg-4 col-md-4 object-side" id="object-side">
                 <div class="card">
                     <div class="body">
                         <div class="row">
