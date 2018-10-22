@@ -246,6 +246,12 @@ textarea.form-control {
     margin-bottom: 10px;
 }
 
+/* sidebar */
+
+.sidebar .user-info .info-container .user-helper-dropdown {
+    right: -25px;
+}
+
 /* catalog */
 
 .catalog-page,
