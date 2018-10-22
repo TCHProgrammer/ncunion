@@ -146,11 +146,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ]) ?>
                             </div>
                         </div>
-                        <div class="row clearfix">
-                            <div class="col-sm-12">
-                                <?php echo '<pre>', print_r($objectGroupCheckboxes), '</pre>'; ?>
-                            </div>
-                        </div>
                         <div class="row" id="object-wrapper-bottom">
                             <div class="docs-other col-lg-7 col-md-12">
                                 <!-- файлы -->
