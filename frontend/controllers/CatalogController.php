@@ -204,9 +204,9 @@ class CatalogController extends DefaultFrontendController{
             ->joinWith('groupCheckboxes')
             ->all();
 
-        $object = Object::findOne($id);
+        $objectValue = Object::findOne($id);
 
-        $objectChecked = $object->objectCheckboxes;
+        $objectChecked = $objectValue->objectCheckboxes;
 
         $objectGroupCheckboxes = ArrayHelper::getColumn($objectChecked, 'group_id');
 
