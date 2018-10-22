@@ -882,12 +882,6 @@ textarea.form-control {
     }
 }
 
-@media all and (max-width: 450px) {
-    .object-page .credit-wishes > tbody > tr {
-        width: 100%;
-    }
-}
-
 @media all and (min-width: 1200px) and (max-width: 1600px) {
     /* TODO: Префиксы. */
     .object-page .object-trust-docs {
@@ -901,5 +895,18 @@ textarea.form-control {
 @media all and (max-width: 991px) {
     .catalog-page .search-filters .buttons > * {
         margin-bottom: 10px;
+    }
+}
+
+@media all and (max-width: 767px) {
+    .block-header h1,
+    .block-header .h1 {
+        font-size: 2.8em;
+    }
+}
+
+@media all and (max-width: 450px) {
+    .object-page .credit-wishes > tbody > tr {
+        width: 100%;
     }
 }
