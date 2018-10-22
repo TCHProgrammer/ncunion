@@ -12,6 +12,8 @@ use common\models\object\Confidence;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\object\Object */
+/* @var $listViewCheckboxes frontend\controllers\CatalogController */
+/* @var $objectGroupCheckboxes frontend\controllers\CatalogController */
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Каталог объектов', 'url' => ['index']];
@@ -144,6 +146,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ]) ?>
                             </div>
                         </div>
+                        <div class="row clearfix">
+                            <div class="col-sm-12">
+                                <?php echo '<pre>', print_r($objectGroupCheckboxes), '</pre>'; ?>
+                            </div>
+                        </div>
                         <div class="row" id="object-wrapper-bottom">
                             <div class="docs-other col-lg-7 col-md-12">
                                 <!-- файлы -->
@@ -157,49 +164,47 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?php } ?>
 
                                 <div class="row clearfix">
+                                <?php
+                                foreach ($listViewCheckboxes as $listViewCheckbox) {
+                                    $item = ArrayHelper::toArray($listViewCheckbox, [
+                                        'common\models\object\AttributeCheckbox' => [
+                                            'attributes',
+                                            'groupCheckboxes'
+                                        ],
+                                    ]);
+                                    $itemAttributes = $item['attributes'];
+                                    $itemGroupCheckboxes = $item['groupCheckboxes'];
+                                ?>
                                     <div class="col-sm-6">
-                                        <?php // TODO: Это просто заготовка, надо добавить динамику. ?>
-                                        <h4>Коммуникации</h4>
+                                        <h4><?= $itemAttributes['title']; ?></h4>
                                         <table class="table table-bordered detail-view">
                                             <tbody>
-                                            <tr>
-                                                <th>Газ</th>
-                                                <td class="true">Да</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Свет</th>
-                                                <td class="true">Да</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Вода</th>
-                                                <td class="false">Нет</td>
-                                            </tr>
+                                            <?php
+                                            foreach ($itemGroupCheckboxes as $itemGroupCheckbox) {
+                                            ?>
+                                                <tr>
+                                                    <th><?= $itemGroupCheckbox['title']; ?></th>
+                                                    <?php
+                                                    if(ArrayHelper::isIn($itemGroupCheckbox['id'], $objectGroupCheckboxes)) {
+                                                    ?>
+                                                        <td class="true">Да</td>
+                                                    <?php
+                                                    } else {
+                                                    ?>
+                                                        <td class="false">Нет</td>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </tr>
+                                            <?php
+                                            }
+                                            ?>
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <h4>Прописанные</h4>
-                                        <table class="table table-bordered detail-view">
-                                            <tbody>
-                                            <tr>
-                                                <th>Дети</th>
-                                                <td class="true">Да</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Иждивенцы</th>
-                                                <td class="false">Нет</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Отказники</th>
-                                                <td class="false">Нет</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Взрослые</th>
-                                                <td class="true">Да</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                <?php
+                                }
+                                ?>
                                 </div>
                             </div>
                         </div>

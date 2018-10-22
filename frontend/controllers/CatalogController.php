@@ -4,6 +4,8 @@ namespace frontend\controllers;
 
 use common\models\CommentObject;
 use common\models\object\AttributeCheckbox;
+use common\models\object\GroupCheckbox;
+use common\models\object\ObjectAttributeCheckbox;
 use common\models\object\ObjectFile;
 use common\models\object\ObjectImg;
 use common\models\passport\UserPassport;
@@ -12,6 +14,7 @@ use common\models\UserModel;
 use Yii;
 use common\models\object\Object;
 use frontend\models\ObjectSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use frontend\components\controllers\DefaultFrontendController;
 use yii\filters\AccessControl;
@@ -197,6 +200,15 @@ class CatalogController extends DefaultFrontendController{
             }
         }
 
+        $listViewCheckboxes = AttributeCheckbox::find()
+            ->joinWith('groupCheckboxes')
+            ->all();
+
+        $object = Object::findOne($id);
+
+        $objectChecked = $object->objectCheckboxes;
+
+        $objectGroupCheckboxes = ArrayHelper::getColumn($objectChecked, 'group_id');
 
         return $this->render('view', [
             'model' => $model,
@@ -207,7 +219,9 @@ class CatalogController extends DefaultFrontendController{
             'modelImgs' => $modelImgs,
             'modelFiles' => $modelFiles,
             'progress' => $progress,
-            'confObj' => $confObj
+            'confObj' => $confObj,
+            'listViewCheckboxes' => $listViewCheckboxes,
+            'objectGroupCheckboxes' => $objectGroupCheckboxes
         ]);
     }
 
