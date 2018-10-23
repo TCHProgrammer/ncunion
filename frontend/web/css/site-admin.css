@@ -248,6 +248,10 @@ textarea.form-control {
 
 /* sidebar */
 
+.sidebar .user-info .info-container .email {
+    max-width: 140px;
+}
+
 .sidebar .user-info .info-container .user-helper-dropdown {
     right: -25px;
 }
