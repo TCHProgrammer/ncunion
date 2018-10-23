@@ -24,6 +24,7 @@ class ProfileAsset extends AssetBundle
         //'//cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/bootstrap-slider.min.js',
         'js/ion.rangeSlider.min.js',
         'js/owl.carousel.min.js',
+        'js/lightbox/lightbox.min.js',
         'js/script-user.js'
     ];
     public $css = [
@@ -38,6 +39,7 @@ class ProfileAsset extends AssetBundle
         'css/ion.rangeSlider.css',
         'css/ion.rangeSlider.skinFlat.css',
         'css/owl.carousel/owl.carousel.min.css',
+        'css/lightbox.min.css',
         'css/site-admin.css'
     ];
     public $cssOptions = [

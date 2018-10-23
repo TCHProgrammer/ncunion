@@ -45,7 +45,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <?php $count = 1; ?>
                                         <?php foreach ($modelImgs as $item){ ?>
                                             <div class="tab-pane<?php if($count == 1) { echo ' active'; } ?>" id="product_<?= $count; ?>">
-                                                <img src="<?= $item->img ?>">
+                                                <a href="<?= $item->img ?>" data-lightbox="object-gallery">
+                                                    <img src="<?= $item->img ?>">
+                                                </a>
                                             </div>
                                             <?php $count++; ?>
                                         <?php } ?>
@@ -57,7 +59,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <ul class="preview-thumbnail nav nav-tabs">
                                         <?php $count = 1; ?>
                                         <?php foreach ($modelImgs as $item){ ?>
-                                            <li class="nav-item"><a class="nav-link<?php if($count == 1) { echo ' active'; } ?>" data-toggle="tab" href="#product_<?= $count; ?>"><img src="<?= $item->img ?>"></a></li>
+                                            <?php if($count != 1) { ?>
+                                            <li class="nav-item"><a class="nav-link" data-lightbox="object-gallery" href="<?= $item->img ?>"><img src="<?= $item->img ?>"></a></li>
+                                            <?php } ?>
                                             <?php $count++; ?>
                                         <?php } ?>
                                     </ul>
