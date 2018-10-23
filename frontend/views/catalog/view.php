@@ -296,7 +296,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 return ($model->schedule_payments === 1)?'шаровый':'аннуитетный';
                                             }
                                         ],
-                                        'rate',
+                                        [
+                                            'attribute' => 'rate',
+                                            'value' => function($model){
+                                                return $model->rate . '%';
+                                            }
+                                        ],
                                         [
                                             'attribute' => 'term',
                                             'value' => function($model){
