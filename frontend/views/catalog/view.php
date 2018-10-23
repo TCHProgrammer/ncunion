@@ -169,35 +169,37 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ]);
                                     $itemAttributes = $item['attributes'];
                                     $itemGroupCheckboxes = $item['groupCheckboxes'];
-                                ?>
-                                    <div class="col-sm-6">
-                                        <h4><?= $itemAttributes['title']; ?></h4>
-                                        <table class="table table-bordered detail-view">
-                                            <tbody>
-                                            <?php
-                                            foreach ($itemGroupCheckboxes as $itemGroupCheckbox) {
-                                            ?>
-                                                <tr>
-                                                    <th><?= $itemGroupCheckbox['title']; ?></th>
-                                                    <?php
-                                                    if(ArrayHelper::isIn($itemGroupCheckbox['id'], $objectGroupCheckboxes)) {
+                                    if ($itemAttributes['type_id'] == $model->type_id) {
+                                        ?>
+                                        <div class="col-sm-6">
+                                            <h4><?= $itemAttributes['title']; ?></h4>
+                                            <table class="table table-bordered detail-view">
+                                                <tbody>
+                                                <?php
+                                                foreach ($itemGroupCheckboxes as $itemGroupCheckbox) {
                                                     ?>
-                                                        <td class="true">Да</td>
+                                                    <tr>
+                                                        <th><?= $itemGroupCheckbox['title']; ?></th>
+                                                        <?php
+                                                        if (ArrayHelper::isIn($itemGroupCheckbox['id'], $objectGroupCheckboxes)) {
+                                                            ?>
+                                                            <td class="true">Да</td>
+                                                            <?php
+                                                        } else {
+                                                            ?>
+                                                            <td class="false">Нет</td>
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </tr>
                                                     <?php
-                                                    } else {
-                                                    ?>
-                                                        <td class="false">Нет</td>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                </tr>
-                                            <?php
-                                            }
-                                            ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                                }
+                                                ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                 <?php
+                                    }
                                 }
                                 ?>
                                 </div>
