@@ -297,7 +297,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                             }
                                         ],
                                         'rate',
-                                        'term',
+                                        [
+                                            'attribute' => 'term',
+                                            'value' => function($model){
+                                                return $model->term . ' мес.';
+                                            }
+                                        ],
                                     ],
                                     'options' => [
                                         'class' => 'table table-bordered detail-view credit-wishes'
