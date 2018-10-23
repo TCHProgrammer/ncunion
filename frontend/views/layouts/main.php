@@ -86,6 +86,7 @@ AppAsset::register($this);
                     'label' => Yii::$app->user->identity->email,
                     'items' => [
                         ['label' => 'Профиль', 'url' => ['/user/profile']],
+                        ['label' => 'Каталог', 'url' => ['/catalog']],
                         ['label' => 'Настройки', 'url' => ['/user/settings']],
                         ['label' => 'Паспорт', 'url' => ['/user/passport']],
                         '<li>'
