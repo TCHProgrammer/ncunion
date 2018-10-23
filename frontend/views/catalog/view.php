@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <?php $count = 1; ?>
                                         <?php foreach ($modelImgs as $item){ ?>
                                             <?php if($count != 1) { ?>
-                                            <li class="nav-item"><a class="nav-link" data-lightbox="object-gallery" href="<?= $item->img ?>"><img src="<?= $item->img ?>"></a></li>
+                                            <li class="nav-item"><a class="nav-link" data-lightbox="object-gallery" href="<?= $item->img ?>"><img src="<?=  isset($item->img_min) ? $item->img_min : $item->img ?>"></a></li>
                                             <?php } ?>
                                             <?php $count++; ?>
                                         <?php } ?>
