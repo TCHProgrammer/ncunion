@@ -44,17 +44,20 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="preview-pic tab-content">
                                         <?php $count = 1; ?>
                                         <?php foreach ($modelImgs as $item){ ?>
-                                            <div class="tab-pane<?php if($count == 1) { echo ' active'; } ?>" id="product_<?= $count; ?>">
-                                                <a href="<?= $item->img ?>" data-lightbox="object-gallery">
+                                            <?php if ($count == 1) { ?>
+                                            <div id="product_<?= $count; ?>">
+                                                <a class="nav-link" href="<?= $item->img ?>" data-lightbox="object-gallery">
                                                     <img src="<?= $item->img ?>">
                                                 </a>
                                             </div>
+                                            <?php } ?>
                                             <?php $count++; ?>
                                         <?php } ?>
                                     </div>
                                 <?php } else { ?>
                                     <img class="img-fluid" src="/img/object/no-photo.jpg">
                                 <?php } ?>
+
                                 <?php if (!empty($modelImgs)){ ?>
                                     <ul class="preview-thumbnail nav nav-tabs">
                                         <?php $count = 1; ?>
