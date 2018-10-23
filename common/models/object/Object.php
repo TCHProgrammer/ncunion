@@ -103,7 +103,7 @@ class Object extends \yii\db\ActiveRecord
             'descr' => 'Описание',
             'place_km' => 'Удалённость',
             'amount' => 'Требуемая сумма',
-            'address' => 'Адресс',
+            'address' => 'Адрес',
             'address_map' => 'Адрес на карте',
             'area' => 'Метраж',
             'rooms' => 'Комнаты',
