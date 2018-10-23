@@ -318,7 +318,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="row">
                             <div class="object-map col-sm-12">
                                 <div class="row clearfix">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-12">
                                         <div class="address">
                                             <!-- инфо об объекте -->
                                             <?= DetailView::widget([
@@ -332,9 +332,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                             ]) ?>
                                         </div>
                                     </div>
+                                    <?php if(is_null($model->address_map)) { ?>
                                     <div class="col-sm-12">
-                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d834.0627836242512!2d87.1120109877622!3d53.752355267470826!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x42d0c0fa0b6ec60b%3A0xcb4c0588da4e255c!2z0KDQsNC00LjQvtGC0LXRhdC90LjQutCw!5e0!3m2!1sru!2sru!4v1539262302918" frameborder="0" style="width: 100%; height: 600px; border:0"></iframe>
+                                        <iframe src="https://www.google.com/maps?&q=<?= $model->address_map; ?>&output=embed" frameborder="0" style="width: 100%; height: 600px; border:0"></iframe>
                                     </div>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
