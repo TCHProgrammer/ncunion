@@ -2,9 +2,12 @@
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\widgets\ActiveForm;
+
+/* @var $model common\models\object\Object */
 ?>
 
-<li class="col-12 news-comment" style="padding-left:<?= (($model->level) * 40) ?>px">
+<li class="col-12 news-comment news-comment-level-<?= $model->level ?>" style="padding-left:<?= (($model->level) * 20) ?>px">
+    <div class="comment-padding comment-padding-level-<?= $model->level ?>" style="width:<?= (($model->level) * 20) ?>px"></div>
     <div class="avatar">
         <img class="rounded" src="/img/object/no-photo.jpg" alt="user" width="60">
     </div>

@@ -868,6 +868,28 @@ textarea.form-control {
     top: 75px;
 }
 
+.object-page .comments .c_review .comment-action p {
+    text-overflow: inherit;
+    white-space: inherit;
+}
+
+.object-page .comments .news-comment {
+    position: relative;
+}
+
+.object-page .comments .comment-padding {
+    background: url(../img/object/comment-padding.png) repeat-x 0 0;
+    position: absolute;
+    left: 0;
+    top: 9px;
+    height: 5px;
+}
+
+.object-page .comments .news-comment .answer-form-comment .btn {
+    padding: 3px 12px;
+    min-width: 85px;
+}
+
 @media all and (min-width: 1200px) and (max-width: 1400px) {
     .object-page .preview,
     .object-page .details {
