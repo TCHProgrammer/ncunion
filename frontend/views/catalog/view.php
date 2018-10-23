@@ -332,9 +332,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                             ]) ?>
                                         </div>
                                     </div>
-                                    <?php if(is_null($model->address_map)) { ?>
+                                    <?php if(!is_null($model->address)) { ?>
                                     <div class="col-sm-12">
-                                        <iframe src="https://www.google.com/maps?&q=<?= $model->address_map; ?>&output=embed" frameborder="0" style="width: 100%; height: 600px; border:0"></iframe>
+                                        <iframe src="https://www.google.com/maps?&q=<?= $model->address; ?>&output=embed" frameborder="0" style="width: 100%; height: 600px; border:0"></iframe>
                                     </div>
                                     <?php } ?>
                                 </div>
