@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\helpers\ImageHelper;
 use common\models\object\Confidence;
 use common\models\object\ConfidenceObject;
 use common\models\object\LocalityType;
@@ -609,17 +610,24 @@ class ObjectController extends DefaultBackendController
             if (is_null($file)){
                 return 'Файлы уже загруженны';
             }
-
-            $imgName = strtotime('now') . '_' . Yii::$app->security->generateRandomString(8). '.' . $file->getExtension();
+            $secret = Yii::$app->security->generateRandomString(8);
+            $imgName = strtotime('now') . '_' . $secret . '.' . $file->getExtension();
+            $imgMinName = strtotime('now') . '_' . $secret . '_min.' . $file->getExtension();
 
             $fullName = $dir . $imgName;
+            $fullMinName = $dir . $imgMinName;
 
             $model = new ObjectImg();
             $model->object_id = $post['object_id'];
             $model->img = '/uploads/objects/img/' . $post['object_id'] .'/' . $imgName;
+            $model->img_min = '/uploads/objects/img/' . $post['object_id'] .'/' . $imgMinName;
 
             if ($model->validate()){
-                if($file->saveAs($fullName)){
+                if($file->saveAs($fullName, false)){
+                    if (ImageHelper::crop(300, 300, $file->type, $file->tempName, $fullMinName) === false) {
+                        $model->img_min = null;
+                    }
+
                     if($model->save()){
                         $resilt = [
                             'filelink' => $result_link . $fullName
