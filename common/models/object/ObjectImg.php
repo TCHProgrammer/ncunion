@@ -10,6 +10,7 @@ use yii\helpers\Url;
  *
  * @property int $object_id
  * @property string $img
+ * @property string $img_min
  * @property string $sort
  *
  * @property Object $object
@@ -36,7 +37,7 @@ class ObjectImg extends \yii\db\ActiveRecord
                 return ($count > 0 ) ? $count++ : 0;
             }],
             [['imgFile'], 'image', 'extensions' => 'jpg, png'],
-            [['img'], 'string', 'max' => 255],
+            [['img', 'img_min'], 'string', 'max' => 255],
             [['object_id'], 'exist', 'skipOnError' => true, 'targetClass' => Object::className(), 'targetAttribute' => ['object_id' => 'id']],
         ];
     }
@@ -49,6 +50,7 @@ class ObjectImg extends \yii\db\ActiveRecord
         return [
             'object_id' => 'Object ID',
             'img' => 'Изображение',
+            'img_min' => 'Миниатюра',
         ];
     }
 
@@ -88,6 +90,16 @@ class ObjectImg extends \yii\db\ActiveRecord
     public function getImageUrl(){
         if ($this->img){
             $path = str_replace('admin', '', Url::home(true)) . $this->img;
+        }else{
+            $path = str_replace('admin', '', Url::home(true)) . 'uploads/objects/img/no_photo.png';
+        }
+
+        return $path;
+    }
+
+    public function getImageMinUrl(){
+        if ($this->img_min){
+            $path = str_replace('admin', '', Url::home(true)) . $this->img_min;
         }else{
             $path = str_replace('admin', '', Url::home(true)) . 'uploads/objects/img/no_photo.png';
         }
