@@ -138,7 +138,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'rooms',
                                         'area',
                                         'place_km',
-                                        'descr:html',
                                     ],
                                     'options' => [
                                         'class' => 'table table-bordered detail-view'
@@ -146,17 +145,33 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ]) ?>
                             </div>
                         </div>
+                        <!-- описание объекта -->
+                        <div class="row clearfix" id="object-wrapper-center">
+                            <div class="col-sm-12">
+                                <h4>Описание</h4>
+                                <div class="object-description">
+                                    <?= $model->descr; ?>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row" id="object-wrapper-bottom">
-                            <div class="docs-other col-lg-7 col-md-12">
+                            <div class="col-lg-7 col-md-12">
+
                                 <!-- файлы -->
-                                <?php if (!empty($modelFiles)){ ?>
-                                    <h4>Документы</h4>
-                                    <?php foreach ($modelFiles as $item){ ?>
-                                        <div>
-                                            <a href="<?= $item->doc ?>"><?= $item->title ?></a>
+                                <div class="row clearfix">
+                                    <div class="col-sm-12">
+                                        <div class="docs-other">
+                                            <?php if (!empty($modelFiles)){ ?>
+                                                <h4>Документы</h4>
+                                                <?php foreach ($modelFiles as $item){ ?>
+                                                    <div>
+                                                        <a href="<?= $item->doc ?>"><?= $item->title ?></a>
+                                                    </div>
+                                                <?php } ?>
+                                            <?php } ?>
                                         </div>
-                                    <?php } ?>
-                                <?php } ?>
+                                    </div>
+                                </div>
 
                                 <div class="row clearfix">
                                 <?php
