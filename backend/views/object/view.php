@@ -202,7 +202,7 @@ $this->params['breadcrumbs'][] = $this->title;
         );
 
         foreach ($imgs as $img) {
-            $link = str_replace('admin', '', Url::home(true) . $img->img);
+            $link = str_replace('admin', '', Url::home(true) . $img->img_min);
             echo Html::img($link);
         }
 
