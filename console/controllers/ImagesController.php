@@ -46,15 +46,18 @@ class ImagesController extends Controller
      */
     public function actionCropMin()
     {
-        $models = ObjectImg::find()->all();
+        $models  = ObjectImg::find()->all();
+        $webroot = \Yii::getAlias('@webroot');
 
         /* @var $model ObjectImg */
         foreach ($models as $model) {
             $file = $model->img;
             $pi   = pathinfo($file);
-            $min  = $pi['dirname'] . '/' . $pi['filename'] . '_min' . $pi['extension'];
+            $min  = $pi['dirname'] . '/' . $pi['filename'] . '_min.' . $pi['extension'];
 
-            if (ImageHelper::crop((int)$this->width, (int)$this->height, $pi['extension'], $file, $min)) {
+            if (!file_exists($webroot . $file)) continue;
+
+            if (ImageHelper::crop((int)$this->width, (int)$this->height, mime_content_type($webroot . $file), $webroot . $file, $webroot . $min)) {
                 $model->img_min = $min;
                 $model->save();
             }
