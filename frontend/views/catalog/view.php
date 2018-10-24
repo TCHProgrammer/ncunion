@@ -9,6 +9,7 @@ use kartik\slider\Slider;
 use yii\helpers\ArrayHelper;
 use common\models\object\ObjectType;
 use common\models\object\Confidence;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\object\Object */
@@ -175,6 +176,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         <a href="<?= $item->doc ?>"><?= $item->title ?></a>
                                                     </div>
                                                 <?php } ?>
+                                                <?=Html::a('Скачать всё',
+                                                    Url::toRoute(['catalog/upload-documents-zip', 'id' => $model->id]),
+                                                    ['data-method' => 'post', 'data-params' => 'myParam=anyValue']) ?>
                                             <?php } ?>
                                         </div>
                                     </div>

@@ -46,6 +46,10 @@ return [
         'cud' => [
             'class' => 'common\components\CudComponent',
         ],
+        'zipper' => [
+            'class' => 'Victor78\Zipper\Zipper',
+            'type' => 'zip', //or 'zip' (default), 'tar', 'tar.gz', 'tar.bz2'
+        ],
     ],
 
 ];

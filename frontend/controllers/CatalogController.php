@@ -11,10 +11,12 @@ use common\models\object\ObjectImg;
 use common\models\passport\UserPassport;
 use common\models\RoomObjectUser;
 use common\models\UserModel;
+use Victor78\Zipper\Zipper;
 use Yii;
 use common\models\object\Object;
 use frontend\models\ObjectSearch;
 use yii\helpers\ArrayHelper;
+use yii\helpers\VarDumper;
 use yii\web\NotFoundHttpException;
 use frontend\components\controllers\DefaultFrontendController;
 use yii\filters\AccessControl;
@@ -23,12 +25,15 @@ use common\models\object\AttributeRadio;
 use common\models\object\Attribute;
 use common\models\object\Confidence;
 use common\models\object\ConfidenceObject;
+use yii\web\Request;
 
-class CatalogController extends DefaultFrontendController{
+class CatalogController extends DefaultFrontendController
+{
 
     public $layout = "user_layout";
 
-    public function behaviors(){
+    public function behaviors()
+    {
         return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -61,33 +66,33 @@ class CatalogController extends DefaultFrontendController{
             ->one();
 
         $arrFilterPassport = [];
-        foreach ($filterPassport->checkboxs as $item){
-            if (isset($arrFilterPassport['checkboxs'][$item->attribute_id])){
+        foreach ($filterPassport->checkboxs as $item) {
+            if (isset($arrFilterPassport['checkboxs'][$item->attribute_id])) {
                 array_push($arrFilterPassport['checkboxs'][$item->attribute_id], $item->group_id);
-            }else{
+            } else {
                 $arrFilterPassport['checkboxs'][$item->attribute_id] = [$item->group_id];
             }
         }
 
-        foreach ($filterPassport->radios as $item){
-            if (isset($arrFilterPassport['radios'][$item->attribute_id])){
+        foreach ($filterPassport->radios as $item) {
+            if (isset($arrFilterPassport['radios'][$item->attribute_id])) {
                 array_push($arrFilterPassport['radios'][$item->attribute_id], $item->group_id);
-            }else{
+            } else {
                 $arrFilterPassport['radios'][$item->attribute_id] = [$item->group_id];
             }
         }
 
 
-        if (isset($_GET['ObjectSearch']['type_id'])){
+        if (isset($_GET['ObjectSearch']['type_id'])) {
             $type_id = $_GET['ObjectSearch']['type_id'];
         }
 
         $listValues = Attribute::find()->all();
         $rezValues = [];
-        if (isset($type_id)){
+        if (isset($type_id)) {
             if (isset($_GET['GroupValues'][$type_id])) {
                 foreach ($_GET['GroupValues'][$type_id] as $items) {
-                    foreach ($items as $item){
+                    foreach ($items as $item) {
                         $rezValues[] = $item;
                     }
                 }
@@ -119,13 +124,13 @@ class CatalogController extends DefaultFrontendController{
         }
 
         return $this->render('index', [
-            'searchModel'   => $searchModel,
-            'dataProvider'  => $dataProvider,
-            'listValues'    => $listValues,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'listValues' => $listValues,
             'listCheckboxes' => $listCheckboxes,
-            'listRadios'    => $listRadios,
-            'rezCheckboxes'  => $rezCheckboxes,
-            'rezRadios'     => $rezRadios,
+            'listRadios' => $listRadios,
+            'rezCheckboxes' => $rezCheckboxes,
+            'rezRadios' => $rezRadios,
             'filter' => $filter,
             'filterPassport' => $filterPassport,
             'arrFilterPassport' => $arrFilterPassport
@@ -164,36 +169,36 @@ class CatalogController extends DefaultFrontendController{
             ->andWhere(['user_id' => Yii::$app->user->id])
             ->one();
 
-        if (isset($chekRoomUser)){
+        if (isset($chekRoomUser)) {
             $sumAmount = 0;
-            foreach ($chekRoomUser as $item){
+            foreach ($chekRoomUser as $item) {
                 $sumAmount = $sumAmount + $item->sum;
             }
             $progress['print-amount'] = $sumAmount;
 
-            if ($sumAmount == 0){
+            if ($sumAmount == 0) {
                 $progress['amount-percent'] = 0;
-            }else{
-                if ((int)$model->amount > $sumAmount){
-                    $progress['amount-percent'] = number_format($sumAmount/((int)$model->amount / 100), 2, '.', ' ');
-                }else{
+            } else {
+                if ((int)$model->amount > $sumAmount) {
+                    $progress['amount-percent'] = number_format($sumAmount / ((int)$model->amount / 100), 2, '.', ' ');
+                } else {
                     $progress['amount-percent'] = 100;
                 }
             }
 
-        }else{
+        } else {
             $progress['print-amount'] = 0;
             $progress['amount-percent'] = 0;
         }
 
         $post = Yii::$app->request->post();
-        if ($post){
+        if ($post) {
             $userRoom->object_id = $id;
             $userRoom->user_id = Yii::$app->user->id;
-            if ($userRoom->load($post) && $userRoom->validate() && $userRoom->save()){
+            if ($userRoom->load($post) && $userRoom->validate() && $userRoom->save()) {
                 $object = Object::findOne($id);
-                if ($object){
-                        $object->status_object = 1;
+                if ($object) {
+                    $object->status_object = 1;
                     $object->save();
                 }
                 return $this->redirect(['view', 'id' => $id]);
@@ -228,18 +233,18 @@ class CatalogController extends DefaultFrontendController{
     /* сохраняем комментарий */
     public function actionComment()
     {
-        if (Yii::$app->request->post('CommentObject')){
+        if (Yii::$app->request->post('CommentObject')) {
             $user = UserModel::findOne(Yii::$app->user->id);
-            if ($user){
+            if ($user) {
                 $comment = new CommentObject();
                 $comment->load(Yii::$app->request->post());
                 $comment->user_id = $user->id;
                 $comment->user_name = $user->last_name . ' ' . $user->first_name;
-                if ($comment->validate() && $comment->save()){
-                    if (Yii::$app->request->post('CommentObject')['comment_id']){
+                if ($comment->validate() && $comment->save()) {
+                    if (Yii::$app->request->post('CommentObject')['comment_id']) {
                         $path = CommentObject::findOne(Yii::$app->request->post('CommentObject')['comment_id']);
-                        $comment->path = $path->path . $comment->id .'.';
-                    }else{
+                        $comment->path = $path->path . $comment->id . '.';
+                    } else {
                         $comment->path = $comment->id . '.';
                     }
 
@@ -263,9 +268,9 @@ class CatalogController extends DefaultFrontendController{
     /* отписавться user */
     public function actionUnsubscribe($oId)
     {
-        if(isset($oId)) {
+        if (isset($oId)) {
             $this->unsubscribeAll($oId, Yii::$app->user->id);
-        }else{
+        } else {
             throw new NotFoundHttpException('Вы передали не все параметры');
         }
     }
@@ -277,7 +282,7 @@ class CatalogController extends DefaultFrontendController{
             ->andWhere(['user_id' => $uId])
             ->one();
 
-        if ($userList){
+        if ($userList) {
             $userList->delete(['object_id' => $oId, 'user_id' => Yii::$app->user->id]);
         }
 
@@ -286,9 +291,9 @@ class CatalogController extends DefaultFrontendController{
             ->all();
 
         $object = Object::findOne($oId);
-        if (!$checkRoomObjects ){
+        if (!$checkRoomObjects) {
             $object->status_object = 2;
-        }else{
+        } else {
             $object->status_object = 1;
         }
 
@@ -297,7 +302,8 @@ class CatalogController extends DefaultFrontendController{
         return $this->redirect(['view', 'id' => $oId]);
     }
 
-    private function filter(){
+    private function filter()
+    {
         $objectPriceMin = Object::find()->select('amount')->orderBy('amount ASC')->one();
         $objectPriceMax = Object::find()->select('amount')->orderBy('amount DESC')->one();
 
@@ -322,9 +328,27 @@ class CatalogController extends DefaultFrontendController{
     }
 
     /* доверие объекту */
-    private function confObj($obId){
+    private function confObj($obId)
+    {
         $allListConf = count(Confidence::find()->all());
         $listConf = count(ConfidenceObject::find()->where(['object_id' => $obId])->all());
         return round($listConf * 100 / $allListConf, 2);
+    }
+
+    public function actionUploadDocumentsZip($id)
+    {
+        $modelFiles = ObjectFile::find()->where(['object_id' => $id])->all();
+        $webroot = \Yii::getAlias('@webroot');
+        $fileName = "documents-{$id}.zip";
+        $zipFilePath = "{$webroot}/uploads/objects/doc/{$id}/{$fileName}";
+        $files = [];
+        foreach ($modelFiles as $fileModel) {
+            if (isset($fileModel->doc)) {
+                $files[] = $webroot.$fileModel->doc;
+
+            }
+        }
+        Yii::$app->zipper->create($zipFilePath, $files, true, 'zip');
+        return Yii::$app->response->sendFile($zipFilePath, $fileName);
     }
 }
