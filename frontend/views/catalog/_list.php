@@ -51,7 +51,7 @@ $productImageCount = count($model->objectImgs);
                         <?php } ?>
                     <?php } else if ($productImageCount == 1) { ?>
                     <a href="<?= Url::toRoute('/catalog/view?id='.$model->id) ?>">
-                        <img class="img-fluid" src="<?=  isset($item->img_min) ? $item->img_min : $item->img ?>">
+                        <img class="img-fluid" src="<?= $model->objectImgs[0]->img_min ?>">
                     </a>
                     <?php } else { ?>
                     <a href="<?= Url::toRoute('/catalog/view?id='.$model->id) ?>">
