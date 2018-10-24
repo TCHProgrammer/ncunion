@@ -581,16 +581,16 @@ textarea.form-control {
     display: inline-block;
     vertical-align: top;
     margin-right: 15px;
-    min-width: 52px;
-    min-height: 35px;
-    padding: 8px 12px;
+    min-width: 32px;
+    min-height: 25px;
+    padding: 4px 12px;
     text-transform: uppercase;
     color: #FFFFFF;
     background-color: #009F3C;
 }
 
 .product_item .product_tags .object-tag-nks {
-    background: #246B98 url(../img/object/nks.png) no-repeat center center / auto;
+    background: #246B98 url(../img/object/nks.png) no-repeat center center / auto 15px;
 }
 
 .product_item .product_action {
