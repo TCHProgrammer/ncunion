@@ -60,8 +60,7 @@ class ImagesController extends Controller
             $min  = $pi['dirname'] . '/' . $pi['filename'] . '_min.' . $pi['extension'];
 
             if (!file_exists($webroot . $file)) continue;
-
-            if (ImageHelper::crop((int)$this->width, (int)$this->height, mime_content_type($webroot . $file), $webroot . $file, $webroot . $min)) {
+            if (ImageHelper::crop((int)$this->width, (int)$this->height, $webroot . $file, $webroot . $min)) {
                 $model->img_min = $min;
                 $model->save();
             }

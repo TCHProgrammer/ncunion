@@ -624,7 +624,7 @@ class ObjectController extends DefaultBackendController
 
             if ($model->validate()){
                 if($file->saveAs($fullName, false)){
-                    if (ImageHelper::crop(300, 300, $file->type, $file->tempName, $fullMinName) === false) {
+                    if (!ImageHelper::crop(670, 375, $file->tempName, $fullMinName)) {
                         $model->img_min = null;
                     }
 
