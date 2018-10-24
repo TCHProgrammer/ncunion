@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                             <?php if ($count == 1) { ?>
                                             <div id="product_<?= $count; ?>">
                                                 <a class="nav-link" href="<?= $item->img ?>" data-lightbox="object-gallery">
-                                                    <img src="<?= $item->img ?>">
+                                                    <img src="<?=  isset($item->img_min) ? $item->img_min : $item->img ?>">
                                                 </a>
                                             </div>
                                             <?php } ?>
