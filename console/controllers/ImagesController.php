@@ -46,6 +46,10 @@ class ImagesController extends Controller
      */
     public function actionCropMin()
     {
+	   set_time_limit(0);
+       ini_set('memory_limit', '256M');
+	    
+	    
         $models  = ObjectImg::find()->all();
         $webroot = \Yii::getAlias('@webroot');
 
