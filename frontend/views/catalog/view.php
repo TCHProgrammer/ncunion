@@ -177,8 +177,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     </div>
                                                 <?php } ?>
                                                 <?=Html::a('Скачать всё',
-                                                    Url::toRoute(['catalog/upload-documents-zip', 'id' => $model->id]),
-                                                    ['data-method' => 'post', 'data-params' => 'myParam=anyValue']) ?>
+                                                    Url::toRoute(['catalog/upload-documents-zip', 'id' => $model->id]))?>
                                             <?php } ?>
                                         </div>
                                     </div>

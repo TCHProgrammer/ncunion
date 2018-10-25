@@ -339,16 +339,29 @@ class CatalogController extends DefaultFrontendController
     {
         $modelFiles = ObjectFile::find()->where(['object_id' => $id])->all();
         $webroot = \Yii::getAlias('@webroot');
-        $fileName = "documents-{$id}.zip";
-        $zipFilePath = "{$webroot}/uploads/objects/doc/{$id}/{$fileName}";
-        $files = [];
-        foreach ($modelFiles as $fileModel) {
-            if (isset($fileModel->doc)) {
-                $files[] = $webroot.$fileModel->doc;
-
+        $zipFileName = "documents-{$id}.zip";
+        $zipFilePath = "{$webroot}/uploads/objects/doc/{$id}/{$zipFileName}";
+        $zip = new \ZipArchive();
+        if ($zip->open($zipFilePath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE)) {
+            if (!empty($modelFiles)) {
+                $files = [];
+                foreach ($modelFiles as $fileModel) {
+                    if (!empty($fileModel->doc) && file_exists($webroot . $fileModel->doc)) {
+                        $filePathArray = explode('/', $fileModel->doc);
+                        $fileName = $filePathArray[count($filePathArray) - 1];
+                        $zip->addFile($webroot . $fileModel->doc, $fileName);
+                        $files[] = $fileName;
+                    }
+                }
+                $zip->close();
+                if (is_file($zipFilePath)) {
+                    if (!empty($files)) {
+                        return Yii::$app->response->sendFile($zipFilePath, $zipFileName);
+                    }
+                    unlink($zipFilePath);
+                }
             }
         }
-        Yii::$app->zipper->create($zipFilePath, $files, true, 'zip');
-        return Yii::$app->response->sendFile($zipFilePath, $fileName);
+        return $this->redirect(['catalog/view', 'id' => $id]);
     }
 }
