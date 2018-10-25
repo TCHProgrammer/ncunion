@@ -801,6 +801,10 @@ textarea.form-control {
     color: #FFFFFF;
 }
 
+.object-page .object-description table {
+    width: 100% !important;
+}
+
 .object-page table.detail-view {
     margin-bottom: 0;
 }
