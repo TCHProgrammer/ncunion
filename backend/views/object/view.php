@@ -119,25 +119,25 @@ $this->params['breadcrumbs'][] = $this->title;
                                 $city = \backend\models\object_settings\CitySearch::findOne(['id' => $model->city_id]);
                                 return $city->name;
                             } else {
-                                return $model->place_km . ' км. от МКАД';
+                                return Yii::$app->formatter->asInteger($model->place_km) . ' км. от МКАД';
                             }
                         }
                     ],
-                    'amount',
+                    'amount:integer',
                     'address',
                     'address_map',
                     [
                         'attribute' => 'area',
                         'value' => function ($model) {
-                            return $model->area . ' кв.м';
+                            return Yii::$app->formatter->asDecimal($model->area) . ' кв.м';
                         }
                     ],
                     'rooms',
                     'owner',
-                    'price_cadastral',
-                    'price_tian',
-                    'price_market',
-                    'price_liquidation',
+                    'price_cadastral:integer',
+                    'price_tian:integer',
+                    'price_market:integer',
+                    'price_liquidation:integer',
                     'rate',
                     'term',
                     [
@@ -146,7 +146,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             return ($model->schedule_payments === 1) ? 'шаровый' : 'аннуитетный';
                         }
                     ],
-                    'nks',
+                    'nks:integer',
                     [
                         'attribute' => 'created_at',
                         'value' => function ($model) {
