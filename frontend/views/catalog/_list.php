@@ -92,24 +92,24 @@ $productImageCount = count($model->objectImgs);
                             <?= $model->rooms . ' комн.,' ?>
                         <?php } ?>
                         <?php if(!is_null($model->area)) { ?>
-                            <?= $model->area . ' м²' ?>
+                            <?= Yii::$app->formatter->asDecimal($model->area) . ' м²' ?>
                         <?php } ?>
                     </p>
                 </div>
                 <div class="product_price price">
-                    <span class="value"><?= $model->amount ?> &#8381;</span>
+                    <span class="value"><?= Yii::$app->formatter->asInteger($model->amount) ?> &#8381;</span>
                     <span class="product_help">Требуемая сумма</span>
                 </div>
                 <?php if(!is_null($model->price_tian)) { ?>
                     <div class="product_cian">
                         <span class="product_help">ЦИАН</span>
-                        <span class="value"><?= $model->price_tian ?> &#8381;</span>
+                        <span class="value"><?= Yii::$app->formatter->asInteger($model->price_tian) ?> &#8381;</span>
                     </div>
                 <?php } ?>
                 <?php if(!is_null($model->price_market)) { ?>
                     <div class="product_market_price">
                         <span class="product_help">Рыночная стоимость</span>
-                        <span class="value"><?= $model->price_market ?> &#8381;</span>
+                        <span class="value"><?= Yii::$app->formatter->asInteger($model->price_market) ?> &#8381;</span>
                     </div>
                 <?php } ?>
             </div>

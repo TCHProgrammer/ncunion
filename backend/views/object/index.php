@@ -149,7 +149,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         $city = \backend\models\object_settings\CitySearch::findOne(['id' => $model->city_id]);
                         return $city->name;
                     }else{
-                        return $model->place_km . ' км от МКАД';
+                        return Yii::$app->formatter->asDecimal($model->place_km) . ' км от МКАД';
                     }
                 }
             ],

@@ -151,8 +151,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                             }
                                         ],
                                         'rooms',
-                                        'area',
-                                        'place_km',
+                                        'area:decimal',
+                                        'place_km:decimal',
                                     ],
                                     'options' => [
                                         'class' => 'table table-bordered detail-view'
