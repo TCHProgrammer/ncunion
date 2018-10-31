@@ -15,6 +15,8 @@ use common\models\object\ObjectType;
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Каталог объектов', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$isCommerce = ObjectType::find()->where(['title' => 'Коммерция', 'id' => $model->type_id])->one();
+$isCommerce = isset($isCommerce);
 ?>
 <div class="object-view">
 
@@ -134,7 +136,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Yii::$app->formatter->asDecimal($model->area) . ' кв.м';
                         }
                     ],
-                    'roomsq',
+                    [
+                        'attribute' => 'rooms',
+                        'value' => $model->rooms,
+                        'visible' => !$isCommerce
+                    ],
                     'owner',
                     'price_cadastral:integer',
                     'price_tian:integer',

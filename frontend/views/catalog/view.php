@@ -19,6 +19,8 @@ use yii\helpers\Url;
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Каталог объектов', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$isCommerce = ObjectType::find()->where(['title' => 'Коммерция', 'id' => $model->type_id])->one();
+$isCommerce = isset($isCommerce);
 ?>
 
 <section class="content object-page">
@@ -150,7 +152,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 return $arr[$model->type_id];
                                             }
                                         ],
-                                        'rooms',
+                                        [
+                                            'attribute' => 'rooms',
+                                            'value' => $model->rooms,
+                                            'visible' => !$isCommerce
+                                        ],
                                         'area:decimal',
                                         'place_km:decimal',
                                     ],
