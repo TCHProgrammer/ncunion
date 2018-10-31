@@ -38,6 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Просмотр', Url::to(['../../catalog/view', 'id' => $model->id]), ['class' => 'btn btn-success']); ?>
+
     </p>
 
     <div class="row">
@@ -132,7 +134,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Yii::$app->formatter->asDecimal($model->area) . ' кв.м';
                         }
                     ],
-                    'rooms',
+                    'roomsq',
                     'owner',
                     'price_cadastral:integer',
                     'price_tian:integer',

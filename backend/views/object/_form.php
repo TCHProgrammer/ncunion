@@ -67,15 +67,18 @@ use common\models\object\Confidence;
     $cityFieldId = Html::getInputId($model, 'city_id');
     $regionFieldId = Html::getInputId($model, 'region_id');
     $placeKmFieldId = Html::getInputId($model, 'place_km');
+    $roomFieldId = Html::getInputId($model, 'rooms');
+    $placeTypeIdFieldId = Html::getInputId($model, 'type_id');
     $placeKmFieldHideShow = empty($model->place_km) ? 'hide' : 'show';
     $localityFieldHideShow = empty($model->locality_type_id) ? 'hide' : 'show';
     $cityFieldHideShow = empty($model->city_id) ? 'hide' : 'show';
+    $commerceType = ObjectType::find()->where(['title' => 'Коммерция'])->one();
     $this->registerJs("
     $(document).ready(function () {
         $(\"#{$placeKmFieldId}\").parent().{$placeKmFieldHideShow}();
         $(\"#{$localityFieldId}\").parent().{$localityFieldHideShow}();
         $(\"#{$cityFieldId}\").parent().{$cityFieldHideShow}();
-        
+        $(\"#{$roomFieldId}\").parent().hide();
         getCities();
     
         $(document).on('change', '#{$cityFieldId}', function () {
@@ -102,6 +105,14 @@ use common\models\object\Confidence;
                 $(\"#{$placeKmFieldId}\").parent().show();
             }
         });
+        
+        $(document).on('change', '#{$placeTypeIdFieldId}', function() {
+            if ($(\"#{$placeTypeIdFieldId}\").val() == {$commerceType->id}) {
+                $(\"#{$roomFieldId}\").parent().hide();
+            } else {
+                $(\"#{$roomFieldId}\").parent().show();
+            }
+        });
     });
     
     function getCities () {
@@ -114,6 +125,7 @@ use common\models\object\Confidence;
             $(\"#{$cityFieldId}\").parent().show();
         }
     }
+    
     function checkCityId(attribute, value) {
         return $('#{$localityFieldId} option:selected').val() == {$cityTypeId};
     }
