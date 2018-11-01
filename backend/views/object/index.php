@@ -156,7 +156,36 @@ $this->params['breadcrumbs'][] = $this->title;
 //                    }
 //                }
 //            ],
-
+                [
+                    'attribute' => 'broker_full_name',
+                    'label' => 'Брокер',
+                    'format' => 'raw',
+                    'value' => function ($model) {
+                        if ($model->broker) {
+                            return Html::label("{$model->broker->last_name} {$model->broker->first_name} {$model->broker->middle_name}", 'reviewersBrokerFulltName');
+                        }
+                    }
+                ],
+                [
+                    'attribute' => 'broker_phone',
+                    'label' => 'Телефон брокера',
+                    'format' => 'raw',
+                    'value' => function ($model) {
+                        if ($model->broker) {
+                            return Html::label($model->broker->phone, 'reviewersBrokerPhone');
+                        }
+                    }
+                ],
+                [
+                    'attribute' => 'broker_email',
+                    'label' => 'Email брокера',
+                    'format' => 'raw',
+                    'value' => function ($model) {
+                        if ($model->broker) {
+                            return Html::label($model->broker->email, 'reviewersBrokerEmail');
+                        }
+                    }
+                ],
                 [
                     'attribute' => 'amount',
                     'options' => ['style' => 'width:150px;'],

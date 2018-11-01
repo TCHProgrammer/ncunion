@@ -12,6 +12,12 @@ use common\models\object\Confidence;
 /* @var $this yii\web\View */
 /* @var $model common\models\object\Object */
 /* @var $form yii\widgets\ActiveForm */
+$brokers = [];
+if (!empty($brokersCollection)) {
+    foreach ($brokersCollection as $broker) {
+        $brokers[$broker->id] = "{$broker->first_name} {$broker->last_name} {$broker->middle_name}";
+    }
+}
 ?>
 
 <?php $form = ActiveForm::begin([
@@ -20,6 +26,10 @@ use common\models\object\Confidence;
 
 <div class="row col-lg-12">
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'broker_id', ['options' => ['class' => 'col-lg-6 col-md-6']])->dropDownList(
+        $brokers,
+        ['prompt' => 'Выберите брокера']
+    ) ?>
 
     <?= $form->field($model, 'status')->checkbox() ?>
 </div>

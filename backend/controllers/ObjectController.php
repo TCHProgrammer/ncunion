@@ -2,10 +2,13 @@
 
 namespace backend\controllers;
 
+use backend\modules\rbac\models\AuthAssignment;
+use backend\modules\rbac\models\AuthItem;
 use common\helpers\ImageHelper;
 use common\models\object\Confidence;
 use common\models\object\ConfidenceObject;
 use common\models\object\LocalityType;
+use common\models\User;
 use Yii;
 use common\models\object\Object;
 use backend\models\ObjectSearch;
@@ -200,6 +203,8 @@ class ObjectController extends DefaultBackendController
         $localityTypeCollection = LocalityType::find()->all();
         $localityType = ArrayHelper::map($localityTypeCollection, 'id', 'name');
 
+        $userIds = ArrayHelper::getColumn(AuthAssignment::find()->where(['item_name' => 'broker'])->all(), 'user_id');
+        $brokersCollection = User::find()->where(['in', 'id', $userIds])->all();
         return $this->render('create', [
             'model' => $model,
             'values' => $values,
@@ -209,8 +214,8 @@ class ObjectController extends DefaultBackendController
             'rezRadio' => $rezRadio,
             'region' => $region,
             'cities' => $cities,
-            'localityType' => $localityType
-
+            'localityType' => $localityType,
+            'brokersCollection' => $brokersCollection
         ]);
     }
 
@@ -279,6 +284,8 @@ class ObjectController extends DefaultBackendController
         $localityTypeCollection = LocalityType::find()->all();
         $localityType = ArrayHelper::map($localityTypeCollection, 'id', 'name');
 
+        $userIds = ArrayHelper::getColumn(AuthAssignment::find()->where(['item_name' => 'broker'])->all(), 'user_id');
+        $brokersCollection = User::find()->where(['in', 'id', $userIds])->all();
         return $this->render('update', [
             'model' => $model,
             'values' => $values,
@@ -290,7 +297,8 @@ class ObjectController extends DefaultBackendController
             'rezRadio' => $rezRadio,
             'region' => $region,
             'cities' => $cities,
-            'localityType' => $localityType
+            'localityType' => $localityType,
+            'brokersCollection' => $brokersCollection
         ]);
     }
 

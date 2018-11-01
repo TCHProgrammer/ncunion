@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = 'Изменить';
             'region' => $region,
             'cities' => $cities,
             'localityType' => $localityType,
+            'brokersCollection' => $brokersCollection
         ]) ?>
     </div>
 

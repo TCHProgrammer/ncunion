@@ -2,6 +2,7 @@
 
 namespace common\models\object;
 
+use common\models\User;
 use Yii;
 use yii\web\UploadedFile;
 use yii\helpers\FileHelper;
@@ -43,6 +44,7 @@ use common\models\object\Confidence;
  * @property string $saleSchedule
  * @property int locality_type_id
  * @property int region_id
+ * @property int broker_id
  *
  *
  * @property ObjectType $type
@@ -74,7 +76,7 @@ class Object extends \yii\db\ActiveRecord
             [['created_at'], 'default', 'value' => time()],
             [['updated_at'], 'default', 'value' => time()],
             [['order'], 'default', 'value' => 0],
-            [['locality_type_id', 'region_id', 'city_id', 'type_id', 'status', 'status_object', 'created_at', 'updated_at', 'close_at', 'term', 'schedule_payments'], 'integer'],
+            [['locality_type_id', 'region_id', 'city_id', 'type_id', 'status', 'status_object', 'created_at', 'updated_at', 'close_at', 'term', 'schedule_payments', 'broker_id'], 'integer'],
             [['descr'], 'string'],
             [['price_liquidation', 'price_market', 'price_cadastral', 'rate', 'amount', 'area', 'nks', 'price_tian', 'place_km'], 'number'],
             [['locality_type_id', 'region_id', 'type_id', 'title', 'created_at', 'updated_at', 'order', 'descr', 'amount', 'place_km', 'area', 'rate', 'term', 'schedule_payments'], 'required'],
@@ -132,7 +134,7 @@ class Object extends \yii\db\ActiveRecord
             'nks' => 'НКС',
             'city_id' => 'Город',
             'locality_type_id' => 'Населенный пункт',
-            'region_id' => 'Регион'
+            'region_id' => 'Регион',
         ];
     }
 
@@ -254,6 +256,14 @@ class Object extends \yii\db\ActiveRecord
     public function getType()
     {
         return $this->hasOne(ObjectType::className(), ['id' => 'type_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBroker()
+    {
+        return $this->hasOne(User::className(), ['id' => 'broker_id']);
     }
 
     /**

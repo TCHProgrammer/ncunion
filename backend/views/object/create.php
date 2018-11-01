@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title . ' (этап 1 из 3)';
         'region' => $region,
         'cities' => $cities,
         'localityType' => $localityType,
+        'brokersCollection' => $brokersCollection
     ]) ?>
 
 </div>
