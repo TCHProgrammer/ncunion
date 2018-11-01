@@ -57,6 +57,9 @@ class Object extends \yii\db\ActiveRecord
 {
     public $amountRemained;
     public $imgFile;
+    public $broker_full_name;
+    public $broker_phone;
+    public $broker_email;
     const file_name_length = 8;
 
     public static function tableName()
@@ -135,6 +138,9 @@ class Object extends \yii\db\ActiveRecord
             'city_id' => 'Город',
             'locality_type_id' => 'Населенный пункт',
             'region_id' => 'Регион',
+            'broker_full_name' => 'Брокер',
+            'broker_phone' => 'Телефон брокера',
+            'broker_email' => 'Email брокера',
         ];
     }
 

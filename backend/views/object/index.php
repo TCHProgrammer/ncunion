@@ -158,7 +158,6 @@ $this->params['breadcrumbs'][] = $this->title;
 //            ],
                 [
                     'attribute' => 'broker_full_name',
-                    'label' => 'Брокер',
                     'format' => 'raw',
                     'value' => function ($model) {
                         if ($model->broker) {
@@ -168,7 +167,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 [
                     'attribute' => 'broker_phone',
-                    'label' => 'Телефон брокера',
                     'format' => 'raw',
                     'value' => function ($model) {
                         if ($model->broker) {
@@ -178,7 +176,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 [
                     'attribute' => 'broker_email',
-                    'label' => 'Email брокера',
                     'format' => 'raw',
                     'value' => function ($model) {
                         if ($model->broker) {
