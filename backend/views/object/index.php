@@ -183,6 +183,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     }
                 ],
+                'address',
                 [
                     'attribute' => 'amount',
                     'options' => ['style' => 'width:150px;'],
