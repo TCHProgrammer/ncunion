@@ -106,6 +106,7 @@ class SiteController extends Controller
         $this->layout = "page_layout";
 
         $model = new SignupForm();
+        $model->scenario = SignupForm::SELF_REGISTER;
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {

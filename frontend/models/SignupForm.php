@@ -7,6 +7,7 @@ use common\models\User;
 
 class SignupForm extends Model
 {
+    const SELF_REGISTER = 'self_register';
     public $first_name;
     public $last_name;
     public $middle_name;
@@ -15,6 +16,7 @@ class SignupForm extends Model
     public $company_name;
     public $password;
     public $password_repeat;
+    public $captcha;
 
     public function rules()
     {
@@ -25,8 +27,9 @@ class SignupForm extends Model
             [['email'], 'unique', 'targetClass' => '\common\models\User', 'message' => 'Пользователь с таким email уже зарегистрирован.'],
             [['password', 'password_repeat'], 'string', 'min' => 6],
             [['password_repeat'], 'compare', 'compareAttribute' => 'password', 'message'=>'Введенные пароли не совпадают.'],
-            [['password'], 'compare', 'compareAttribute' => 'password_repeat', 'message'=>'Введенные пароли не совпадают.']
-
+            [['password'], 'compare', 'compareAttribute' => 'password_repeat', 'message'=>'Введенные пароли не совпадают.'],
+            ['captcha', 'captcha', 'on' => self::SELF_REGISTER],
+            [['captcha'], 'required', 'on' => self::SELF_REGISTER]
         ];
     }
 
@@ -44,6 +47,7 @@ class SignupForm extends Model
             'status' => 'Статус',
             'created_at' => 'Дата создания',
             'updated_at' => 'Дата изменения',
+            'captcha' => 'Captcha',
         ];
     }
 
