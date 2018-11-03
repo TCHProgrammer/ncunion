@@ -34,6 +34,8 @@ $list = [
 
             <?= $form->field($model, 'check_email', ['options' => ['class' => 'form-height']])->dropDownList($list) ?>
 
+            <?= $form->field($model, 'role')->dropDownList(\yii\helpers\ArrayHelper::map(\backend\modules\rbac\models\AuthItem::find()->where(['type' => 1])->all(),'name', 'description')) ?>
+
         </div>
 
         <div class="col-lg-6">

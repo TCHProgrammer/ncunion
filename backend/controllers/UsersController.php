@@ -30,9 +30,9 @@ class UsersController extends DefaultBackendController
         $listRoles = ArrayHelper::map(AuthItem::find()->where(['type' => 1])->all(), 'name', 'description');
 
         return $this->render('index', [
-            'searchModel'  => $searchModel,
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'listRoles'    => $listRoles
+            'listRoles' => $listRoles
         ]);
     }
 
@@ -122,16 +122,17 @@ class UsersController extends DefaultBackendController
     }
 
 
-    public function actionUsersModer(){
+    public function actionUsersModer()
+    {
 
         $post = Yii::$app->request->post('UserModel');
 
-        if($post){
+        if ($post) {
             $userUpdate = AuthAssignment::find()->where(['user_id' => $post['user_id']])->one();
-            if($post['good_user']){
+            if ($post['good_user']) {
                 $userUpdate->item_name = 'no_pay';
                 $userUpdate->save();
-            }elseif ($post['ban_user']){
+            } elseif ($post['ban_user']) {
                 $userUpdate->item_name = 'ban';
                 $userUpdate->save();
             }
@@ -155,8 +156,10 @@ class UsersController extends DefaultBackendController
         ]);
     }
 
-    public function actionCreateUser(){
+    public function actionCreateUser()
+    {
         $model = new SignupForm();
+
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 return $this->redirect(['/users/view', 'id' => $user->id]);

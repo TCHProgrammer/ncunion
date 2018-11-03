@@ -18,13 +18,14 @@ class SignupForm extends Model
     public $password_repeat;
     public $check_email;
     public $check_phone;
+    public $role;
 
     public function rules()
     {
         return [
             [['check_email', 'check_phone'], 'integer'],
             [['first_name', 'last_name', 'middle_name', 'phone', 'email', 'password', 'password_repeat'], 'required'],
-            [['first_name', 'last_name', 'middle_name', 'company_name', 'phone', 'password_repeat', 'email', 'first_name', 'last_name', 'middle_name', 'phone', 'company_name'], 'string', 'max' => 255],
+            [['first_name', 'last_name', 'middle_name', 'company_name', 'phone', 'password_repeat', 'email', 'first_name', 'last_name', 'middle_name', 'phone', 'company_name', 'role'], 'string', 'max' => 255],
             [['email'], 'email'],
             [['email'], 'unique', 'targetClass' => '\common\models\User', 'message' => 'Пользователь с таким email уже зарегистрирован.'],
             [['password', 'password_repeat', 'company_name', 'phone'], 'string', 'min' => 6],
@@ -50,6 +51,7 @@ class SignupForm extends Model
             'updated_at' => 'Дата изменения',
             'check_email' => 'Подтверждение email',
             'check_phone' => 'Подтверждение телефона',
+            'role' => 'Роль',
         ];
     }
 
@@ -73,7 +75,8 @@ class SignupForm extends Model
         $user->generateAuthKey();
 
         if($user->save()){
-            $user_role = Yii::$app->authManager->getRole('unknown');
+            $role = isset($this->role) ? $this->role : 'unknown';
+            $user_role = Yii::$app->authManager->getRole($role);
             Yii::$app->authManager->assign($user_role, $user->id);
             $contentMas = [
                 'first_name' => $this->first_name,
