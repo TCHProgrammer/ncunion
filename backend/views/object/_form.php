@@ -179,9 +179,16 @@ if (!empty($brokersCollection)) {
         ArrayHelper::map(Tag::find()->all(), 'id', 'title')
     ) ?>
 
-    <?= $form->field($model, 'confArray')->checkboxList(
-        ArrayHelper::map(Confidence::find()->all(), 'id', 'title')
-    ) ?>
+    <?php if (!$model->isNewRecord) { ?>
+        <?= $this->render('_formConfidence', [
+            'model' => $model,
+            'objectConfidences' => $objectConfidences,
+            'confidences' => $confidences,
+            'confidenceAddFiles' => $confidenceAddFiles,
+            'confidenceFilesList' => $confidenceFilesList,
+            'formFile' => $form
+        ]); ?>
+    <?php } ?>
 
     <?= $form->field($model, 'owner')->textInput(['maxlength' => true]) ?>
 </div>

@@ -186,9 +186,9 @@ class Object extends \yii\db\ActiveRecord
                 }
             }
 
-            $objectConfidences = $this->getObjectConfidence()->all();
-            foreach ($objectConfidences as $objectConfidence) {
-                $objectConfidence->delete();
+            $confidences = $this->getConfidence()->all();
+            foreach ($confidences as $confidence) {
+                $confidence->delete();
             }
             return true;
         } else {
@@ -199,7 +199,7 @@ class Object extends \yii\db\ActiveRecord
     public function afterSave($insert, $changedAttributes)
     {
         $this->updateTags();
-        $this->updateObjectConf();
+        $this->updateConf();
         parent::afterSave($insert, $changedAttributes);
     }
 
@@ -360,13 +360,9 @@ class Object extends \yii\db\ActiveRecord
 
     public function getConfidence()
     {
-        return $this->hasMany(Confidence::className(), ['id' => 'confidence_id'])
-            ->viaTable('{{%confidence_object}}', ['object_id' => 'id']);
-    }
-
-    public function getObjectConfidence()
-    {
         return $this->hasMany(ObjectConfidence::class, ['object_id' => 'id']);
+//        return $this->hasMany(Confidence::className(), ['id' => 'confidence_id'])
+//            ->viaTable('{{%confidence_object}}', ['object_id' => 'id']);
     }
 
     /* сохраниение тегов */
@@ -420,25 +416,7 @@ class Object extends \yii\db\ActiveRecord
 
     private function updateConf()
     {
-        $allTagsIds = $this->getConfidence()->select('id')->column();
-        $newTagsIds = $this->getConfArray();
-
-        foreach (array_filter(array_diff($newTagsIds, $allTagsIds)) as $noticeId) {
-            if ($tag = Confidence::find()->where(['id' => $noticeId])->one()) {
-                $this->link('confidence', $tag);
-            }
-        }
-
-        foreach (array_filter(array_diff($allTagsIds, $newTagsIds)) as $noticeId) {
-            if ($tag = Confidence::find()->where(['id' => $noticeId])->one()) {
-                $this->unlink('confidence', $tag, true);
-            }
-        }
-    }
-
-    private function updateObjectConf()
-    {
-        $objectConfidences = $this->getObjectConfidence()->all();
+        $objectConfidences = ObjectConfidence::find()->where(['object_id' => $this->id])->all();
         $confidences = Confidence::find()->select('id')->column();
         if (empty($objectConfidences)) {
             foreach ($confidences as $confidence) {
@@ -456,7 +434,7 @@ class Object extends \yii\db\ActiveRecord
                     $objectConfidence->delete();
                 }
             }
-            $objectConfidencesIds = $this->getObjectConfidence()->select('confidence_id')->column();
+            $objectConfidencesIds = $this->getConfidence()->select('confidence_id')->column();
             $confidenceDiff = array_diff($confidences, $objectConfidencesIds);
             if (!empty($confidenceDiff)) {
                 foreach ($confidenceDiff as $confId) {

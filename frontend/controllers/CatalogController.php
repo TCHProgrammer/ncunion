@@ -215,6 +215,18 @@ class CatalogController extends DefaultFrontendController
 
         $objectGroupCheckboxes = ArrayHelper::getColumn($objectChecked, 'group_id');
 
+        $confidences = Confidence::find()->indexBy('id')->all();
+        $objectConfidences = $model->getObjectConfidence()->indexBy('confidence_id')->all();
+        $objectConfidencesFiles = [];
+        if (!empty($objectConfidences)) {
+            foreach ($objectConfidences as $confidence) {
+                $file = $confidence->getFile();
+                if (isset($file)) {
+                    $objectConfidencesFiles[$confidence->confidence_id] = $file;
+                }
+            }
+        }
+
         return $this->render('view', [
             'model' => $model,
             'userRoom' => $userRoom,
@@ -226,7 +238,10 @@ class CatalogController extends DefaultFrontendController
             'progress' => $progress,
             'confObj' => $confObj,
             'listViewCheckboxes' => $listViewCheckboxes,
-            'objectGroupCheckboxes' => $objectGroupCheckboxes
+            'objectGroupCheckboxes' => $objectGroupCheckboxes,
+            'objectConfidences' => $objectConfidences,
+            'objectConfidencesFiles' => $objectConfidencesFiles,
+            'confidences' => $confidences
         ]);
     }
 

@@ -9,7 +9,7 @@ use yii\helpers\Url;
 
 $this->title = 'Добавление документов к объекту';
 $this->params['breadcrumbs'][] = ['label' => 'Каталог объектов', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title . ' (этап 3 из 3)';
+$this->params['breadcrumbs'][] = $this->title . ' (этап 3 из 4)';
 ?>
 <div class="object-create">
 
@@ -22,6 +22,6 @@ $this->params['breadcrumbs'][] = $this->title . ' (этап 3 из 3)';
         'listFiles' => $listFiles,
     ]) ?>
 
-    <?= Html::a('Завершить', Url::toRoute('view?id=' . $objectId), ['class' => 'btn btn-primary']) ?>
+    <?= Html::a('Далее', Url::toRoute('create-confidence?id=' . $objectId), ['class' => 'btn btn-primary']) ?>
 
 </div>

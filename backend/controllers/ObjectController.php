@@ -8,6 +8,8 @@ use common\helpers\ImageHelper;
 use common\models\object\Confidence;
 use common\models\object\ConfidenceObject;
 use common\models\object\LocalityType;
+use common\models\object\ObjectConfidence;
+use common\models\object\ObjectConfidenceFile;
 use common\models\User;
 use Yii;
 use common\models\object\Object;
@@ -88,9 +90,9 @@ class ObjectController extends DefaultBackendController
             'sorting' => [
                 'class' => \kotchuprik\sortable\actions\Sorting::className(),
                 'query' => Object::find(),
-        ],
-    ];
-}
+            ],
+        ];
+    }
 
     /**
      * Displays a single Object model.
@@ -111,24 +113,24 @@ class ObjectController extends DefaultBackendController
 
         /* шкала */
         $chekRoomUser = RoomObjectUser::find()->where(['object_id' => $id])->andWhere(['active' => 1])->all();
-        if (isset($chekRoomUser)){
+        if (isset($chekRoomUser)) {
             $sumAmount = 0;
-            foreach ($chekRoomUser as $item){
+            foreach ($chekRoomUser as $item) {
                 $sumAmount = $sumAmount + $item->sum;
             }
             $progress['print-amount'] = $sumAmount;
 
-            if ($sumAmount == 0){
+            if ($sumAmount == 0) {
                 $progress['amount-percent'] = 0;
-            }else{
-                if ((int)$model->amount > $sumAmount){
-                    $progress['amount-percent'] = number_format($sumAmount/((int)$model->amount / 100), 2, '.', ' ');
-                }else{
+            } else {
+                if ((int)$model->amount > $sumAmount) {
+                    $progress['amount-percent'] = number_format($sumAmount / ((int)$model->amount / 100), 2, '.', ' ');
+                } else {
                     $progress['amount-percent'] = 100;
                 }
             }
 
-        }else{
+        } else {
             $progress['print-amount'] = 0;
             $progress['amount-percent'] = 0;
         }
@@ -143,13 +145,25 @@ class ObjectController extends DefaultBackendController
             ],
         ]);
 
-        if ($model->status_object == 0){
+        if ($model->status_object == 0) {
             $finishObject = false;
-        }else{
+        } else {
             $finishObject = true;
         }
 
         $cityLocalityTypeId = LocalityType::find()->where(['name' => 'Город'])->one();
+
+        $confidences = ArrayHelper::map(Confidence::find()->all(), 'id', 'title');
+        $objectConfidences = $model->getObjectConfidence()->indexBy('confidence_id')->all();
+        $objectConfidencesFiles = [];
+        if (!empty($objectConfidences)) {
+            foreach ($objectConfidences as $confidence) {
+                $file = $confidence->getFile();
+                if (isset($file)) {
+                    $objectConfidencesFiles[$confidence->confidence_id] = $file;
+                }
+            }
+        }
 
         return $this->render('view', [
             'model' => $model,
@@ -159,7 +173,10 @@ class ObjectController extends DefaultBackendController
             'finishObject' => $finishObject,
             'progress' => $progress,
             'confObj' => $confObj,
-            'cityLocalityTypeId' => $cityLocalityTypeId
+            'cityLocalityTypeId' => $cityLocalityTypeId,
+            'objectConfidences' => $objectConfidences,
+            'objectConfidencesFiles' => $objectConfidencesFiles,
+            'confidences' => $confidences
         ]);
     }
 
@@ -183,7 +200,7 @@ class ObjectController extends DefaultBackendController
 
         $post = Yii::$app->request->post();
 
-        if ($model->load($post) && $model->save() &&  Model::loadMultiple($values, $post)) {
+        if ($model->load($post) && $model->save() && Model::loadMultiple($values, $post)) {
             $this->processValues($values, $model);
 
             $this->saveCheckbox(Yii::$app->request->post('GroupCheckboxes')[$model->type_id], $model);
@@ -196,7 +213,7 @@ class ObjectController extends DefaultBackendController
         }
 
         $regionCollection = \common\models\object\Region::find()->all();
-        $region = ArrayHelper::map($regionCollection,'id','name');
+        $region = ArrayHelper::map($regionCollection, 'id', 'name');
 
         $cities = [];
 
@@ -234,7 +251,7 @@ class ObjectController extends DefaultBackendController
         $listCheckbox = AttributeCheckbox::find()->joinWith('groupCheckboxes')->all();
         $modelCheckbox = ObjectAttributeCheckbox::find()->where(['object_id' => $id])->all();
         $rezCheckbox = [];
-        foreach ($modelCheckbox as $item){
+        foreach ($modelCheckbox as $item) {
             $rezCheckbox[] .= $item->group_id;
         }
 
@@ -242,7 +259,7 @@ class ObjectController extends DefaultBackendController
         $listRadio = AttributeRadio::find()->joinWith('groupRadios')->all();
         $modelRadio = ObjectAttributeRadio::find()->where(['object_id' => $id])->all();
         $rezRadio = [];
-        foreach ($modelRadio as $item){
+        foreach ($modelRadio as $item) {
             $rezRadio[] .= $item->group_id;
         }
         /* /Radio */
@@ -251,19 +268,39 @@ class ObjectController extends DefaultBackendController
         $addFile = new ObjectFile();
 
         /* загрузка файла */
-        if ($post['ObjectFile'] ?? $_FILES['ObjectFile'] ?? false){
+        if ($post['ObjectFile'] ?? $_FILES['ObjectFile'] ?? false) {
             $this->addFile($addFile, $id, $post);
         }
 
         /* удаление файла pjax */
         $get = Yii::$app->request->get();
-        if(Yii::$app->request->isAjax && isset($get['file_id']) && !isset($_FILES['ObjectFile'])){
+        if (Yii::$app->request->isAjax && isset($get['file_id']) && !isset($_FILES['ObjectFile'])) {
             $this->delFile((int)$get['file_id']);
+        }
+
+        /* загрузка файла справки*/
+
+        $confidences = ArrayHelper::map(Confidence::find()->all(), 'id', 'title');
+        $confidenceFilesUploaded = true;
+        if (!empty($_FILES)) {
+            $confidenceFilesUploaded = $this->addConfidenceFiles($confidences, $model, $post);
+        }
+
+        /* удаление файла справки pjax */
+        $get = Yii::$app->request->get();
+        if (Yii::$app->request->isAjax && isset($get['file_id']) && !isset($_FILES['ObjectConfidenceFile'])) {
+            $this->delConfidenceFile((int)$get['file_id'], (int)$get['id'], (int)$get['confidence_id']);
         }
 
         $listFiles = ObjectFile::find()->where(['object_id' => $id])->all();
 
-        if ($model->load($post) && $model->updateDate() && $model->save() &&  Model::loadMultiple($values, $post)) {
+        $objectConf = $this->updateConfidences($post);
+        if (!$objectConf['errors']) {
+            $objectConfidences = ObjectConfidence::find()->where(['object_id' => $id])->indexBy('confidence_id')->all();
+        } else {
+            $objectConfidences = $objectConf['objectConfidences'];
+        }
+        if ($model->load($post) && $model->updateDate() && $model->save() && Model::loadMultiple($values, $post) && !$objectConf['errors'] && $confidenceFilesUploaded) {
             $this->processValues($values, $model);
 
             $this->saveCheckbox(Yii::$app->request->post('GroupCheckboxes')[$model->type_id], $model);
@@ -277,7 +314,7 @@ class ObjectController extends DefaultBackendController
 
 
         $regionCollection = \common\models\object\Region::find()->all();
-        $region = ArrayHelper::map($regionCollection,'id','name');
+        $region = ArrayHelper::map($regionCollection, 'id', 'name');
 
         $cities = [];
 
@@ -286,6 +323,17 @@ class ObjectController extends DefaultBackendController
 
         $userIds = ArrayHelper::getColumn(AuthAssignment::find()->where(['item_name' => 'broker'])->all(), 'user_id');
         $brokersCollection = User::find()->where(['in', 'id', $userIds])->all();
+        $confidenceAddFiles = [];
+        $confidenceFilesList = [];
+        foreach ($confidences as $id => $val) {
+            $confidenceAddFiles[$id] = new ObjectConfidenceFile();
+            $confidenceAddFiles[$id]->confidence_id = $id;
+            $confidenceAddFiles[$id]->object_id = $model->id;
+            $file = isset($objectConfidences[$id]) ? $objectConfidences[$id]->getFile() : null;
+            if (isset($file)) {
+                $confidenceFilesList[$id] = $file;
+            }
+        }
         return $this->render('update', [
             'model' => $model,
             'values' => $values,
@@ -298,29 +346,35 @@ class ObjectController extends DefaultBackendController
             'region' => $region,
             'cities' => $cities,
             'localityType' => $localityType,
-            'brokersCollection' => $brokersCollection
+            'brokersCollection' => $brokersCollection,
+            'objectConfidences' => $objectConfidences,
+            'confidences' => $confidences,
+            'confidenceAddFiles' => $confidenceAddFiles,
+            'confidenceFilesList' => $confidenceFilesList
         ]);
     }
 
-    public function actionCreateImg($id){
+    public function actionCreateImg($id)
+    {
         $model = $this->findModel($id);
         return $this->render('create-img', [
             'model' => $model,
         ]);
     }
 
-    public function actionCreateFile($id){
+    public function actionCreateFile($id)
+    {
         $post = Yii::$app->request->post();
         $addFile = new ObjectFile();
 
         /* загрузка файла */
-        if ($post['ObjectFile'] ?? $_FILES['ObjectFile'] ?? false){
+        if ($post['ObjectFile'] ?? $_FILES['ObjectFile'] ?? false) {
             $this->addFile($addFile, $id, $post);
         }
 
         /* удаление файла pjax */
         $get = Yii::$app->request->get();
-        if(Yii::$app->request->isAjax && isset($get['file_id']) && !isset($_FILES['ObjectFile'])){
+        if (Yii::$app->request->isAjax && isset($get['file_id']) && !isset($_FILES['ObjectFile'])) {
             $this->delFile((int)$get['file_id']);
         }
 
@@ -367,11 +421,12 @@ class ObjectController extends DefaultBackendController
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    private function addFile($addFile, $id, $post){
+    private function addFile($addFile, $id, $post)
+    {
 
-        $dir = Yii::getAlias('@frontend') . '/web/uploads/objects/doc/' . $id .'/';
+        $dir = Yii::getAlias('@frontend') . '/web/uploads/objects/doc/' . $id . '/';
 
-        if (!is_dir($dir)){
+        if (!is_dir($dir)) {
             FileHelper::createDirectory($dir);
         }
 
@@ -388,22 +443,70 @@ class ObjectController extends DefaultBackendController
             $addFile->title = $fileTitle;
             $addFile->doc = '/uploads/objects/doc/' . $id . '/' . $docName;
 
-            if ($file->saveAs($dir . $docName)){
-                if ($addFile->validate()){
+            if ($file->saveAs($dir . $docName)) {
+                if ($addFile->validate()) {
                     $addFile->save();
                 }
             };
         }
     }
 
-    private function delFile($fileId){
+    private function addConfidenceFiles($confidences, $model)
+    {
+        $dir = Yii::getAlias('@frontend') . '/web/uploads/objects/doc/' . $model->id . '/conf/';
+
+        if (!is_dir($dir)) {
+            FileHelper::createDirectory($dir);
+        }
+        $fileNames = [];
+        foreach ($confidences as $confId => $title) {
+            $fileName = 'ObjectConfidence_' . $model->id . '_' . $confId . '_file';
+            $fileNames[] = $fileName;
+            if (key_exists($fileName, $_FILES)) {
+                $file = UploadedFile::getInstanceByName($fileName);
+                if (!empty($file)) {
+                    $fileTitle = mb_substr($file->name, 0, -mb_strlen(strrchr($file->name, '.')));
+                    $docName = strtotime('now') . '_' . Yii::$app->security->generateRandomString(8) . '.' . substr(strrchr($file->name, '.'), 1);;
+                    $addFile = new ObjectConfidenceFile();
+                    $addFile->confidence_id = $confId;
+                    $addFile->object_id = $model->id;
+                    $addFile->title = $fileTitle;
+                    $addFile->doc = '/uploads/objects/doc/' . $model->id . '/conf/' . $docName;
+                    if (!$file->saveAs($dir . $docName)) {
+                        return false;
+                    };
+                    if (!$addFile->validate()) {
+                        return false;
+                    }
+                    if (!$addFile->save()) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    private function delFile($fileId)
+    {
         $delFile = ObjectFile::findOne($fileId);
-        if (isset($delFile)){
+        if (isset($delFile)) {
             $delFile->delete();
         }
     }
 
-    private function initValues(Object $model){
+    private function delConfidenceFile($fileId, $objectId, $confidenceId)
+    {
+        $delFile = ObjectConfidenceFile::findOne($fileId);
+        if (isset($delFile)) {
+            $delFile->object_id = $objectId;
+            $delFile->confidence_id = $confidenceId;
+            $delFile->delete();
+        }
+    }
+
+    private function initValues(Object $model)
+    {
         $values = $model->getObjectAttributes()->indexBy('attribute_id')->all();
         $attributes = Attribute::find()->indexBy('id')->all();
 
@@ -411,9 +514,9 @@ class ObjectController extends DefaultBackendController
             $values[$attribute->id] = new ObjectAttribute(['attribute_id' => $attribute->id]);
         }
 
-       /*foreach ($values as $value) {
-            $value->setScenario(ObjectAttribute::SCENARIO_TABULAR);
-        }*/
+        /*foreach ($values as $value) {
+             $value->setScenario(ObjectAttribute::SCENARIO_TABULAR);
+         }*/
 
         return $values;
     }
@@ -424,9 +527,9 @@ class ObjectController extends DefaultBackendController
             $value->object_id = $model->id;
 
             $objectAttrinute = ObjectAttribute::find()
-                                    ->where(['object_id' => $model->id])
-                                    ->andWhere(['attribute_id' => $value->attribute_id])
-                                    ->one();
+                ->where(['object_id' => $model->id])
+                ->andWhere(['attribute_id' => $value->attribute_id])
+                ->one();
 
             $checkAttr = Attribute::findOne($value->attribute_id);
             if ($model->type_id == $checkAttr->type_id) {
@@ -442,8 +545,8 @@ class ObjectController extends DefaultBackendController
                         $value->save(false);
                     }
                 }
-            }else{
-                if($objectAttrinute){
+            } else {
+                if ($objectAttrinute) {
                     $objectAttrinute->delete(['object_id' => $model->id, 'attribute_id' => $value->attribute_id]);
                 }
             }
@@ -453,30 +556,31 @@ class ObjectController extends DefaultBackendController
     /**
      * Сохраниение checkbox
      */
-    private function saveCheckbox($groups, $model){
+    private function saveCheckbox($groups, $model)
+    {
 
         $listModel = ObjectAttributeCheckbox::find()->where(['object_id' => $model->id])->all();
 
         $arrListGroups = [];
-        foreach ($listModel as $item){
+        foreach ($listModel as $item) {
             $arrListGroups[] .= $item->group_id;
         }
 
         $delArr = [];
-        if ($groups){
-            foreach ($groups as $id => $group){
-                foreach ($group as $item){
-                    if (!in_array($item, $arrListGroups)){
+        if ($groups) {
+            foreach ($groups as $id => $group) {
+                foreach ($group as $item) {
+                    if (!in_array($item, $arrListGroups)) {
                         $addNewAttr = new ObjectAttributeCheckbox();
                         $addNewAttr->object_id = $model->id;
                         $addNewAttr->attribute_id = $id;
                         $addNewAttr->group_id = $item;
-                        if($addNewAttr->validate()){
+                        if ($addNewAttr->validate()) {
                             $addNewAttr->save();
                         }
-                    }else{
+                    } else {
                         $delArr[] .= $item;
-                        unset($arrListGroups[array_search($item,$arrListGroups)]);
+                        unset($arrListGroups[array_search($item, $arrListGroups)]);
                     }
 
                     /*$checkGroup = ObjectAttributeCheckbox::find()
@@ -516,41 +620,42 @@ class ObjectController extends DefaultBackendController
                     ->where(['object_id' => $model->id])
                     ->andWhere(['group_id' => $arrListGroup])
                     ->one();*/
-                /*if ($delModel) {
-                    $delModel->delete();
-                }*/
-            /*}
+        /*if ($delModel) {
+            $delModel->delete();
         }*/
+        /*}
+    }*/
 
     }
 
     /**
      * Сохраниение radio
      */
-    private function saveRadio($groups, $model){
+    private function saveRadio($groups, $model)
+    {
 
         $listModel = ObjectAttributeRadio::find()->where(['object_id' => $model->id])->all();
 
         $arrListGroups = [];
-        foreach ($listModel as $item){
+        foreach ($listModel as $item) {
             $arrListGroups[] .= $item->group_id;
         }
 
         $delArr = [];
-        if ($groups){
-            foreach ($groups as $id => $group){
-                foreach ($group as $item){
-                    if (!in_array($item, $arrListGroups)){
+        if ($groups) {
+            foreach ($groups as $id => $group) {
+                foreach ($group as $item) {
+                    if (!in_array($item, $arrListGroups)) {
                         $addNewAttr = new ObjectAttributeRadio();
                         $addNewAttr->object_id = $model->id;
                         $addNewAttr->attribute_id = $id;
                         $addNewAttr->group_id = $item;
-                        if($addNewAttr->validate()){
+                        if ($addNewAttr->validate()) {
                             $addNewAttr->save();
                         }
-                    }else{
+                    } else {
                         $delArr[] .= $item;
-                        unset($arrListGroups[array_search($item,$arrListGroups)]);
+                        unset($arrListGroups[array_search($item, $arrListGroups)]);
                     }
 
                     /*$checkGroup = ObjectAttributeCheckbox::find()
@@ -602,20 +707,21 @@ class ObjectController extends DefaultBackendController
     /**
      * Загрузка фото
      */
-    public function actionSaveImg(){
-        if(Yii::$app->request->isPost){
+    public function actionSaveImg()
+    {
+        if (Yii::$app->request->isPost) {
             $post = Yii::$app->request->post();
-            $dir = Yii::getAlias('@frontend') . '/web/uploads/objects/img/' . $post['object_id'] .'/';
+            $dir = Yii::getAlias('@frontend') . '/web/uploads/objects/img/' . $post['object_id'] . '/';
 
-            if (!is_dir($dir)){
+            if (!is_dir($dir)) {
                 FileHelper::createDirectory($dir);
             }
 
-            $result_link = str_replace('admin', '', Url::home(true) . 'uploads/object/img/' . $post['object_id'] .'/');
-            $file = UploadedFile::getInstancesByName( 'imgFile');
+            $result_link = str_replace('admin', '', Url::home(true) . 'uploads/object/img/' . $post['object_id'] . '/');
+            $file = UploadedFile::getInstancesByName('imgFile');
             $file = array_shift($file);
 
-            if (is_null($file)){
+            if (is_null($file)) {
                 return 'Файлы уже загруженны';
             }
             $secret = Yii::$app->security->generateRandomString(8);
@@ -627,16 +733,16 @@ class ObjectController extends DefaultBackendController
 
             $model = new ObjectImg();
             $model->object_id = $post['object_id'];
-            $model->img = '/uploads/objects/img/' . $post['object_id'] .'/' . $imgName;
-            $model->img_min = '/uploads/objects/img/' . $post['object_id'] .'/' . $imgMinName;
+            $model->img = '/uploads/objects/img/' . $post['object_id'] . '/' . $imgName;
+            $model->img_min = '/uploads/objects/img/' . $post['object_id'] . '/' . $imgMinName;
 
-            if ($model->validate()){
-                if($file->saveAs($fullName, false)){
+            if ($model->validate()) {
+                if ($file->saveAs($fullName, false)) {
                     if (!ImageHelper::crop(670, 375, $file->tempName, $fullMinName)) {
                         $model->img_min = null;
                     }
 
-                    if($model->save()){
+                    if ($model->save()) {
                         $resilt = [
                             'filelink' => $result_link . $fullName
                         ];
@@ -648,35 +754,39 @@ class ObjectController extends DefaultBackendController
             return $resilt;
         }
     }
-    public function actionDeleteImg(){
-        if($model = ObjectImg::findOne(Yii::$app->request->post('key'))){
+
+    public function actionDeleteImg()
+    {
+        if ($model = ObjectImg::findOne(Yii::$app->request->post('key'))) {
 
             //$dir = Yii::getAlias('@frontend') . '/web/' . $model->img;
 
-            if($model->delete()){
+            if ($model->delete()) {
                 return true;
-            }else{
+            } else {
                 throw new NotFoundHttpException('Изображение уже было удаленно');
             }
-        }else{
+        } else {
             throw new NotFoundHttpException('изображение не найдено');
         }
     }
-    public function actionSortImg($id){
-        if(Yii::$app->request->isAjax){
+
+    public function actionSortImg($id)
+    {
+        if (Yii::$app->request->isAjax) {
             $post = Yii::$app->request->post('sort');
-            if($post['oldIndex'] > $post['newIndex']){
-                $param = ['and', ['>=', 'sort', $post['newIndex']],['<', 'sort', $post['oldIndex']]];
+            if ($post['oldIndex'] > $post['newIndex']) {
+                $param = ['and', ['>=', 'sort', $post['newIndex']], ['<', 'sort', $post['oldIndex']]];
                 $conter = 1;
-            }else{
-                $param = ['and', ['<=', 'sort', $post['newIndex']],['>', 'sort', $post['oldIndex']]];
+            } else {
+                $param = ['and', ['<=', 'sort', $post['newIndex']], ['>', 'sort', $post['oldIndex']]];
                 $conter = -1;
             }
             ObjectImg::updateAllCounters(
-                ['sort' =>$conter], ['and', ['object_id' => $id], $param]
+                ['sort' => $conter], ['and', ['object_id' => $id], $param]
             );
             ObjectImg::updateAll(
-                ['sort' =>$post['newIndex']], ['id' => $post['stack'][$post['newIndex']]['key']]
+                ['sort' => $post['newIndex']], ['id' => $post['stack'][$post['newIndex']]['key']]
             );
             return true;
         }
@@ -692,7 +802,7 @@ class ObjectController extends DefaultBackendController
     /* отдать объект инвестору */
     public function actionObjectFinish($oId, $uId)
     {
-        if(isset($oId) && isset($uId)) {
+        if (isset($oId) && isset($uId)) {
             $modelObjUser = RoomObjectUser::find()
                 ->where(['object_id' => $oId])
                 ->andWhere(['user_id' => $uId])
@@ -707,15 +817,15 @@ class ObjectController extends DefaultBackendController
                     ->where(['object_id' => $oId])
                     ->andWhere(['active' => 1])
                     ->all();
-                if (isset($modelObjUsers)){
+                if (isset($modelObjUsers)) {
                     $sum = 0;
-                    foreach ($modelObjUsers as $item){
+                    foreach ($modelObjUsers as $item) {
                         $sum = $sum + $item->sum;
                     }
                 }
             }
             return $this->redirect(['view', 'id' => $oId]);
-        }else{
+        } else {
             throw new NotFoundHttpException('Вы передали не все параметры');
         }
     }
@@ -723,17 +833,17 @@ class ObjectController extends DefaultBackendController
     /* забрать объект у инвестора */
     public function actionObjectFinishBack($oId, $uId)
     {
-        if(isset($oId) && isset($uId)) {
+        if (isset($oId) && isset($uId)) {
             $modelObjUser = RoomObjectUser::find()
                 ->where(['object_id' => $oId])
                 ->andWhere(['user_id' => $uId])
                 ->one();
-            if (isset($modelObjUser)){
+            if (isset($modelObjUser)) {
                 $modelObjUser->active = 0;
                 $modelObjUser->update();
             }
             return $this->redirect(['view', 'id' => $oId]);
-        }else{
+        } else {
             throw new NotFoundHttpException('Вы передали не все параметры');
         }
     }
@@ -741,9 +851,9 @@ class ObjectController extends DefaultBackendController
     /* отписаться */
     public function actionUnsubscribe($oId, $uId)
     {
-        if(isset($oId) && isset($uId)) {
+        if (isset($oId) && isset($uId)) {
             $this->unsubscribeAll($oId, $uId);
-        }else{
+        } else {
             throw new NotFoundHttpException('Вы передали не все параметры');
         }
     }
@@ -755,7 +865,7 @@ class ObjectController extends DefaultBackendController
             ->andWhere(['user_id' => $uId])
             ->one();
 
-        if ($userList){
+        if ($userList) {
             $userList->delete(['object_id' => $oId, 'user_id' => Yii::$app->user->id]);
         }
 
@@ -764,9 +874,9 @@ class ObjectController extends DefaultBackendController
             ->all();
 
         $object = Object::findOne($oId);
-        if (!$checkRoomObjects){
+        if (!$checkRoomObjects) {
             $object->status_object = 2;
-        }else{
+        } else {
             $object->status_object = 1;
         }
 
@@ -777,7 +887,8 @@ class ObjectController extends DefaultBackendController
     }
 
     /* доверие объекту */
-    private function confObj($obId){
+    private function confObj($obId)
+    {
         $allListConf = count(Confidence::find()->all());
         $listConf = count(ConfidenceObject::find()->where(['object_id' => $obId])->all());
         return round($listConf * 100 / $allListConf, 2);
@@ -786,15 +897,91 @@ class ObjectController extends DefaultBackendController
     public function actionGetCities($id)
     {
         $citiesCollection = \common\models\object\City::find()->where(['region_id' => $id])->all();
-        $cities = ArrayHelper::map($citiesCollection,'id','name');
-        $mKad = ArrayHelper::map($citiesCollection,'id','mkad');
+        $cities = ArrayHelper::map($citiesCollection, 'id', 'name');
+        $mKad = ArrayHelper::map($citiesCollection, 'id', 'mkad');
         $mkadParams = [];
         if (!empty($mKad)) {
-          foreach ($mKad as $id => $val) {
-            $mkadParams[$id]['data-mkad'] = $val;
-          }
+            foreach ($mKad as $id => $val) {
+                $mkadParams[$id]['data-mkad'] = $val;
+            }
         }
         $options = ['options' => $mkadParams];
         return Html::renderSelectOptions(null, $cities, $options);
+    }
+
+    public function actionCreateConfidence($id)
+    {
+        /**
+         * TODO: refactor this s*t.
+         * Id string pattern: ObjectConfidence_{$object_id}_{confidence_id}_*field-name*
+         */
+        $object = Object::find()->where(['id' => $id])->one();
+        $confidences = ArrayHelper::map(Confidence::find()->all(), 'id', 'title');
+        $confidenceFilesUploaded = true;
+        if (!empty($_FILES)) {
+            $confidenceFilesUploaded = $this->addConfidenceFiles($confidences, $object);
+        }
+        if ($post = Yii::$app->request->post()) {
+            $objectConf = $this->updateConfidences($post);
+            if (!$objectConf['errors'] && $confidenceFilesUploaded) {
+                return $this->redirect(['view', 'id' => $id]);
+            }
+            $objectConfidences = $objectConf['objectConfidences'];
+        } else {
+            $objectConfidences = ObjectConfidence::find()->where(['object_id' => $id])->indexBy('confidence_id')->all();
+        }
+        $confidenceAddFiles = [];
+        $confidenceFilesList = [];
+        foreach ($confidences as $id => $val) {
+            $confidenceAddFiles[$id] = new ObjectConfidenceFile();
+            $confidenceAddFiles[$id]->confidence_id = $id;
+            $confidenceAddFiles[$id]->object_id = $object->id;
+            $file = isset($objectConfidences[$id]) ? $objectConfidences[$id]->getFile() : null;
+            if (isset($file)) {
+                $confidenceFilesList[$id] = $file;
+            }
+        }
+        return $this->render('create-confidence', [
+            'model' => $object,
+            'objectConfidences' => $objectConfidences,
+            'confidences' => $confidences,
+            'confidenceAddFiles' => $confidenceAddFiles,
+            'confidenceFilesList' => $confidenceFilesList
+        ]);
+    }
+
+    private function updateConfidences($post)
+    {
+        $errors = false;
+        $objectConfidences = [];
+        if ($post) {
+            $objectConfidenceData = [];
+            foreach ($post as $postId => $value) {
+                if (strpos($postId, 'ObjectConfidence_') !== false) {
+                    list($objectName, $objectId, $confidenceId, $fieldName) = explode('_', $postId);
+                    if (!key_exists($confidenceId, $objectConfidenceData)) {
+                        $objectConfidenceData[$confidenceId] = [
+                            'object_id' => $objectId,
+                            'confidence_id' => $confidenceId,
+                            'check' => false,
+                        ];
+                    }
+                    $objectConfidenceData[$confidenceId][$fieldName] = $value;
+                }
+            }
+            ksort($objectConfidenceData);
+            foreach ($objectConfidenceData as $confidenceData) {
+                $confidence = ObjectConfidence::find()->where(['object_id' => $confidenceData['object_id'], 'confidence_id' => $confidenceData['confidence_id']])->one();
+                $params = ['ObjectConfidence' => $confidenceData];
+                if ($confidence->load($params) && $confidence->validate()) {
+                    $confidence->save();
+                }
+                if (!empty($confidence->getErrors())) {
+                    $errors = true;
+                }
+                $objectConfidences[$confidence->confidence_id] = $confidence;
+            }
+        }
+        return ['objectConfidences' => $objectConfidences, 'errors' => $errors];
     }
 }

@@ -9,7 +9,7 @@ use yii\helpers\Url;
 
 $this->title = 'Добавление изображений к объекту';
 $this->params['breadcrumbs'][] = ['label' => 'Каталог объектов', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title . ' (этап 2 из 3)';
+$this->params['breadcrumbs'][] = $this->title . ' (этап 2 из 4)';
 ?>
 <div class="object-create">
 

@@ -118,23 +118,31 @@ $isCommerce = isset($isCommerce);
                                            data-width="36" data-height="36" data-thickness="0.2" data-fgColor="#FF1601"
                                            data-bgColor="#B9B9B9" disabled>
                                 </div>
-                                <?php $confidenceArray = Confidence::find()->all(); ?>
+                                <?php $confidenceArray = \common\models\object\ObjectConfidence::find()->where(['object_id' => $model->id])->all(); ?>
                                 <?php if (!is_null($confidenceArray)) { ?>
                                     <div class="object-info-inline object-trust-docs">
                                         <?php
                                         foreach ($confidenceArray as $confidenceItem) {
-                                            if (in_array($confidenceItem->id, $model->confArray)) {
-                                                $confidenceItemClass = ' checked';
-                                            } else {
-                                                $confidenceItemClass = '';
-                                            }
+                                            $confidenceItemClass= $confidenceItem->check ? 'checked' : '';
+//                                            if (in_array($confidenceItem->id, $model->confArray)) {
+//                                                $confidenceItemClass = ' checked';
+//                                            } else {
+//                                                $confidenceItemClass = '';
+//                                            }
                                             ?>
                                             <div class="item<?= $confidenceItemClass; ?>">
+                                                <?= $objectConfidences[$confidenceItem->confidence_id]->rate ?>
                                         <span class="zmdi-hc-stack zmdi-hc-lg">
                                             <i class="zmdi zmdi-square-o zmdi-hc-stack-2x"></i>
                                             <i class="zmdi zmdi-check zmdi-hc-stack-1x"></i>
                                         </span>
-                                                <span class="value"><?= $confidenceItem->title; ?></span>
+                                                <span class="value"><?= $confidences[$confidenceItem->confidence_id]->title; ?></span>
+                                                <?php
+                                                $file = '-';
+                                                if (isset($objectConfidencesFiles[$confidenceItem->confidence_id])) {
+                                                    $file  = Html::a($objectConfidencesFiles[$confidenceItem->confidence_id]->title, $objectConfidencesFiles[$confidenceItem->confidence_id]->doc, ['class' => 'form-a-del', 'data-pjax' => '0', 'download' => true]) . '</p>';
+                                                } ?>
+                                                <?= $file ?>
                                             </div>
                                         <?php } ?>
                                     </div>

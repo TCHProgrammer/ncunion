@@ -8,7 +8,7 @@ use yii\widgets\Breadcrumbs;
 
 $this->title = 'Создание нового объекта';
 $this->params['breadcrumbs'][] = ['label' => 'Каталог объектов', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title . ' (этап 1 из 3)';
+$this->params['breadcrumbs'][] = $this->title . ' (этап 1 из 4)';
 ?>
 <div class="object-create">
 

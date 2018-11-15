@@ -68,106 +68,130 @@ $isCommerce = isset($isCommerce);
                 <div class="right-pr-striped"><?= $model->amount ?></div>
             </div>
 
+            <?php
+            $attributes = [
+                'id',
+                [
+                    'attribute' => 'type_id',
+                    'value' => function ($model) {
+                        $arr = ArrayHelper::map(ObjectType::find()->all(), 'id', 'title');
+                        return $arr[$model->type_id];
+                    }
+                ],
+                [
+                    'attribute' => 'status',
+                    'value' => function ($model) {
+                        return $model->status ? 'Да' : 'Нет';
+                    }
+                ],
+                [
+                    'attribute' => 'status_object',
+                    'value' => function ($model) {
+                        switch ($model->status_object) {
+                            case 2:
+                                return 'Сделка открыта';
+                            case 1:
+                                return 'Сделка частично закрыта';
+                            default :
+                                return 'Сделка закрыта';
+                        }
+                    }
+                ],
+                'title',
+                'descr:html',
+                [
+                    'attribute' => 'city_id',
+                    'value' => function ($model, $cityLocalityTypeId) {
+                        $city = \backend\models\object_settings\CitySearch::findOne(['id' => $model->city_id]);
+                        if (!isset($city)) {
+                            $cityName = null;
+                            if ($model->locality_type_id != $cityLocalityTypeId) {
+                                $localityType = \common\models\object\LocalityType::find()->where(['id' => $model->locality_type_id])->one();
+                                $cityName = $localityType->name;
+                            }
+                        } else {
+                            $cityName = $city->name;
+                        }
+                        return $cityName;
+                    }
+                ],
+                [
+                    'attribute' => 'place_km',
+                    'value' => function ($model) {
+                        if ($model->place_km === 0) {
+                            $city = \backend\models\object_settings\CitySearch::findOne(['id' => $model->city_id]);
+                            return $city->name;
+                        } else {
+                            return Yii::$app->formatter->asInteger($model->place_km) . ' км. от МКАД';
+                        }
+                    }
+                ],
+                'amount:integer',
+                'address',
+                'address_map',
+                [
+                    'attribute' => 'area',
+                    'value' => function ($model) {
+                        return Yii::$app->formatter->asDecimal($model->area) . ' кв.м';
+                    }
+                ],
+                [
+                    'attribute' => 'rooms',
+                    'value' => $model->rooms,
+                    'visible' => !$isCommerce
+                ],
+                'owner',
+                'price_cadastral:integer',
+                'price_tian:integer',
+                'price_market:integer',
+                'price_liquidation:integer',
+                'rate',
+                'term',
+                [
+                    'attribute' => 'schedule_payments',
+                    'value' => function ($model) {
+                        return ($model->schedule_payments === 1) ? 'шаровый' : 'аннуитетный';
+                    }
+                ],
+                'nks:integer',
+                [
+                    'attribute' => 'created_at',
+                    'value' => function ($model) {
+                        return Yii::$app->date->month($model->created_at);
+                    }
+                ],
+                [
+                    'attribute' => 'updated_at',
+                    'value' => function ($model) {
+                        return Yii::$app->date->month($model->updated_at);
+                    }
+                ],
+            ];
+
+            foreach ($confidences as $confId => $title) {
+                $attributes[] = [
+                    'label' => $title,
+                    'value' => $objectConfidences[$confId]->check ? 'Да' : 'Нет'
+                ];
+                $attributes[] = [
+                    'label' => $title. '(рейтинг)',
+                    'value' => $objectConfidences[$confId]->rate
+                ];
+                $file = '-';
+                if (isset($objectConfidencesFiles[$confId])) {
+                    $file  = Html::a($objectConfidencesFiles[$confId]->title, $objectConfidencesFiles[$confId]->doc, ['class' => 'form-a-del', 'data-pjax' => '0', 'download' => true]) . '</p>';
+                }
+                $attributes[] = [
+                    'label' => $title. '(файл)',
+                    'value' => $file,
+                    'format' => 'raw'
+                ];
+            }
+            ?>
+
             <?= DetailView::widget([
                 'model' => $model,
-                'attributes' => [
-                    'id',
-                    [
-                        'attribute' => 'type_id',
-                        'value' => function ($model) {
-                            $arr = ArrayHelper::map(ObjectType::find()->all(), 'id', 'title');
-                            return $arr[$model->type_id];
-                        }
-                    ],
-                    [
-                        'attribute' => 'status',
-                        'value' => function ($model) {
-                            return $model->status ? 'Да' : 'Нет';
-                        }
-                    ],
-                    [
-                        'attribute' => 'status_object',
-                        'value' => function ($model) {
-                            switch ($model->status_object) {
-                                case 2:
-                                    return 'Сделка открыта';
-                                case 1:
-                                    return 'Сделка частично закрыта';
-                                default :
-                                    return 'Сделка закрыта';
-                            }
-                        }
-                    ],
-                    'title',
-                    'descr:html',
-                    [
-                        'attribute' => 'city_id',
-                        'value' => function ($model, $cityLocalityTypeId) {
-                            $city = \backend\models\object_settings\CitySearch::findOne(['id' => $model->city_id]);
-                            if (!isset($city)) {
-                                $cityName = null;
-                                if ($model->locality_type_id != $cityLocalityTypeId) {
-                                    $localityType = \common\models\object\LocalityType::find()->where(['id' => $model->locality_type_id])->one();
-                                    $cityName = $localityType->name;
-                                }
-                            } else {
-                                $cityName = $city->name;
-                            }
-                            return $cityName;
-                        }
-                    ],
-                    [
-                        'attribute' => 'place_km',
-                        'value' => function ($model) {
-                            if ($model->place_km === 0) {
-                                $city = \backend\models\object_settings\CitySearch::findOne(['id' => $model->city_id]);
-                                return $city->name;
-                            } else {
-                                return Yii::$app->formatter->asInteger($model->place_km) . ' км. от МКАД';
-                            }
-                        }
-                    ],
-                    'amount:integer',
-                    'address',
-                    'address_map',
-                    [
-                        'attribute' => 'area',
-                        'value' => function ($model) {
-                            return Yii::$app->formatter->asDecimal($model->area) . ' кв.м';
-                        }
-                    ],
-                    [
-                        'attribute' => 'rooms',
-                        'value' => $model->rooms,
-                        'visible' => !$isCommerce
-                    ],
-                    'owner',
-                    'price_cadastral:integer',
-                    'price_tian:integer',
-                    'price_market:integer',
-                    'price_liquidation:integer',
-                    'rate',
-                    'term',
-                    [
-                        'attribute' => 'schedule_payments',
-                        'value' => function ($model) {
-                            return ($model->schedule_payments === 1) ? 'шаровый' : 'аннуитетный';
-                        }
-                    ],
-                    'nks:integer',
-                    [
-                        'attribute' => 'created_at',
-                        'value' => function ($model) {
-                            return Yii::$app->date->month($model->created_at);
-                        }
-                    ],
-                    [
-                        'attribute' => 'updated_at',
-                        'value' => function ($model) {
-                            return Yii::$app->date->month($model->updated_at);
-                        }
-                    ],
-                ],
+                'attributes' => $attributes,
             ]) ?>
         </div>
 
