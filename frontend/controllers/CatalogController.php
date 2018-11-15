@@ -150,7 +150,11 @@ class CatalogController extends DefaultFrontendController
         $userRoom->nks = $model->nks;
 
         /* доверие объекту */
-        $confObj = $this->confObj($id);
+        /** TODO: заменяем старое доверие к объекту */
+
+        $objectRates = (int) $model->getObjectConfidence()->sum('rate');
+        $confObj = round($objectRates / 50);
+//        $confObj = $this->confObj($id);
 
         $modelImgs = ObjectImg::find()->where(['object_id' => $id])->orderBy('sort ASC')->all();
         $modelFiles = ObjectFile::find()->where(['object_id' => $id])->all();
