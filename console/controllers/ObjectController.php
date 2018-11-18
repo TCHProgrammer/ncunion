@@ -6,6 +6,7 @@ namespace console\controllers;
 use common\models\object\Confidence;
 use common\models\object\Object;
 use common\models\object\ObjectConfidence;
+use common\models\object\ObjectType;
 use yii\console\Controller;
 
 class ObjectController extends Controller
@@ -60,15 +61,17 @@ class ObjectController extends Controller
                         }
                     }
                 }
-
-                /**
-                 * @var Object $object
-                 */
-//                var_dump($checkedConfidences);
-//                echo PHP_EOL;
-//                echo count($confidenceIds) . ' = = > ' . count($objectConfidences). ' = = > ' . count($checkedConfidences);
-//                echo PHP_EOL;
             }
+        }
+    }
+
+    public function actionClearCommerceRooms()
+    {
+        $commerceType = ObjectType::find()->select('id')->where(['title' => 'Коммерция'])->column();
+        $allObjects = Object::find()->where(['type_id' => $commerceType[0]])->all();
+        foreach ($allObjects as $object) {
+            $object->rooms = null;
+            $object->save();
         }
     }
 }

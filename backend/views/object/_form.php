@@ -25,15 +25,15 @@ if (!empty($brokersCollection)) {
 ]); ?>
 
 <?php if (Yii::$app->user->can('set_object_broker')): ?>
-<div class="row col-lg-12">
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'broker_id', ['options' => ['class' => 'col-lg-6 col-md-6']])->dropDownList(
-        $brokers,
-        ['prompt' => 'Выберите брокера']
-    ) ?>
+    <div class="row col-lg-12">
+        <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'broker_id', ['options' => ['class' => 'col-lg-6 col-md-6']])->dropDownList(
+            $brokers,
+            ['prompt' => 'Выберите брокера']
+        ) ?>
 
-    <?= $form->field($model, 'status')->checkbox() ?>
-</div>
+        <?= $form->field($model, 'status')->checkbox() ?>
+    </div>
 
 <?php endif; ?>
 
@@ -88,10 +88,17 @@ if (!empty($brokersCollection)) {
     $commerceType = ObjectType::find()->where(['title' => 'Коммерция'])->one();
     $this->registerJs("
     $(document).ready(function () {
+        var roomsValue = $(\"#{$roomFieldId}\").val();
+        if ($(\"#{$placeTypeIdFieldId}\").val() == {$commerceType->id}) {
+            $(\"#{$roomFieldId}\").val('');
+            $(\"#{$roomFieldId}\").parent().hide();
+        } else {
+            $(\"#{$roomFieldId}\").val(roomsValue);
+            $(\"#{$roomFieldId}\").parent().show();
+        }
         $(\"#{$placeKmFieldId}\").parent().{$placeKmFieldHideShow}();
         $(\"#{$localityFieldId}\").parent().{$localityFieldHideShow}();
         $(\"#{$cityFieldId}\").parent().{$cityFieldHideShow}();
-        $(\"#{$roomFieldId}\").parent().hide();
         getCities();
     
         $(document).on('change', '#{$cityFieldId}', function () {
@@ -121,8 +128,11 @@ if (!empty($brokersCollection)) {
         
         $(document).on('change', '#{$placeTypeIdFieldId}', function() {
             if ($(\"#{$placeTypeIdFieldId}\").val() == {$commerceType->id}) {
+                roomsValue = $(\"#{$roomFieldId}\").val();
+                $(\"#{$roomFieldId}\").val('');
                 $(\"#{$roomFieldId}\").parent().hide();
             } else {
+                $(\"#{$roomFieldId}\").val(roomsValue);
                 $(\"#{$roomFieldId}\").parent().show();
             }
         });
