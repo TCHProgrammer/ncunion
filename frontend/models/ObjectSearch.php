@@ -54,7 +54,7 @@ class ObjectSearch extends Object
     {
         return [
             [['id', 'type_id', 'status', 'place_km', 'area', 'rooms', 'price_cadastral', 'price_tian', 'price_market', 'price_liquidation',
-              'amount_min', 'amount_max', 'area_min', 'area_max', 'rooms_min', 'rooms_max'], 'integer'],
+                'amount_min', 'amount_max', 'area_min', 'area_max', 'rooms_min', 'rooms_max'], 'integer'],
             [['title', 'descr', 'address', 'address_map', 'owner'], 'safe'],
             [['amount'], 'number'],
         ];
@@ -141,21 +141,45 @@ class ObjectSearch extends Object
             ->andFilterWhere(['between', 'area', $this->area_min, $this->area_max])
             ->andFilterWhere(['between', 'rooms', $this->rooms_min, $this->rooms_max]);
 
+        if (!empty($this->amount_min) && empty($this->amount_max)) {
+            $query->andWhere(['>=', 'amount', $this->amount_min]);
+        }
+
+        if (empty($this->amount_min) && !empty($this->amount_max)) {
+            $query->andWhere(['<=', 'amount', $this->amount_max]);
+        }
+
+        if (!empty($this->area_min) && empty($this->area_max)) {
+            $query->andWhere(['>=', 'area', $this->area_min]);
+        }
+
+        if (empty($this->area_min) && !empty($this->area_max)) {
+            $query->andWhere(['<=', 'area', $this->area_max]);
+        }
+
+        if (!empty($this->rooms_min) && empty($this->rooms_max)) {
+            $query->andWhere(['>=', 'rooms', $this->rooms_min]);
+        }
+
+        if (empty($this->rooms_min) && !empty($this->rooms_max)) {
+            $query->andWhere(['<=', 'rooms', $this->rooms_max]);
+        }
+
         if ($this->place_km) {
-            if ($this->place_km == 0){
+            if ($this->place_km == 0) {
                 $query->andFilterWhere(['place_km' => $this->place_km]);
-            }else{
+            } else {
                 $query->andFilterWhere(['<=', 'place_km', $this->place_km])
                     ->andFilterWhere(['!=', 'place_km', 0]);
             }
 
         }
 
-        if (isset($params['GroupCheckboxes'][$this->type_id])){
-            foreach ($params['GroupCheckboxes'][$this->type_id] as $attribute => $groups){
-                $query ->joinWith('objectCheckboxes oac' . $attribute);
+        if (isset($params['GroupCheckboxes'][$this->type_id])) {
+            foreach ($params['GroupCheckboxes'][$this->type_id] as $attribute => $groups) {
+                $query->joinWith('objectCheckboxes oac' . $attribute);
                 $filter = ['or'];
-                foreach ($groups as $group){
+                foreach ($groups as $group) {
                     $filter[] = ['oac' . $attribute . '.group_id' => (int)$group];
 
                 }
@@ -163,11 +187,11 @@ class ObjectSearch extends Object
             };
         }
 
-        if (isset($params['GroupRadios'][$this->type_id])){
-            foreach ($params['GroupRadios'][$this->type_id] as $attribute => $groups){
-                $query ->joinWith('objectRadios oar' . $attribute);
+        if (isset($params['GroupRadios'][$this->type_id])) {
+            foreach ($params['GroupRadios'][$this->type_id] as $attribute => $groups) {
+                $query->joinWith('objectRadios oar' . $attribute);
                 $filter = ['or'];
-                foreach ($groups as $group){
+                foreach ($groups as $group) {
                     $filter[] = ['oar' . $attribute . '.group_id' => (int)$group];
 
                 }
