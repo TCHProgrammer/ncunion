@@ -1168,23 +1168,25 @@ header .top {
 }
 
 .programs .item .image {
-    flex-basis: 45%;
+    flex-basis: 40%;
+}
+
+.programs .item .image img {
+    max-width: 90%;
 }
 
 .programs .item .text {
-    flex-basis: 55%;
+    flex-basis: 60%;
     padding-left: 25px;
     border-left: 2px solid #3B34A6;
 }
 
-.programs .properties-list,
-.programs .programs-wrapper {
+.programs .properties-list {
     margin-left: -5px;
     margin-right: -5px;
 }
 
-.programs .properties-list > div[class^="col-"],
-.programs .programs-wrapper > div[class^="col-"] {
+.programs .properties-list > div[class^="col-"] {
     padding-left: 5px;
     padding-right: 5px;
 }
