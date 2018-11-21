@@ -997,6 +997,12 @@ header .top {
     font-size: 14px;
 }
 
+.conditions-list .section-name {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
 .conditions-list .condition .item {
     position: relative;
     -webkit-box-shadow: 3px 2px 7px 0px rgba(0,0,0,0.2);
