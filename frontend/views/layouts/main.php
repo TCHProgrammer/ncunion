@@ -479,8 +479,37 @@ AppAsset::register($this);
                             <img src="<?php echo Url::to('@web/img/main/program-1.png'); ?>" alt="Доходная" class="img-responsive">
                         </div>
                         <div class="text">
-                            <h3>Доходная</h3>
-                            <p>Выплата дохода в конце срока действия договора дополнительные 1,5% годовых, на новые договоры, при предъявлении пенсионного удостоверения</p>
+                            <h3>Вклад "Оптимальный"</h3>
+                            <div class="row flex-row properties-list">
+                                <div class="col-sm-6">
+                                    <div class="property property-price">
+                                        <div class="image">
+                                            <img src="<?php echo Url::to('@web/img/main/program-icon-price.png'); ?>" alt="Сумма вклада">
+                                        </div>
+                                        <span class="name">Сумма вклада:</span>
+                                        <p>от 1 500 000 руб</p>
+                                        <p>до 10 000 000 руб</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="property property-time">
+                                        <div class="image">
+                                            <img src="<?php echo Url::to('@web/img/main/program-icon-time.png'); ?>" alt="Срок вклада">
+                                        </div>
+                                        <span class="name">Срок вклада:</span>
+                                        <p>от 12 месяцев</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="property property-percent">
+                                        <div class="image">
+                                            <img src="<?php echo Url::to('@web/img/main/program-icon-percent.png'); ?>" alt="Выплата процентов">
+                                        </div>
+                                        <span class="name">Выплата процентов:</span>
+                                        <p>в конце срока, ежемесячно</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -490,8 +519,37 @@ AppAsset::register($this);
                             <img src="<?php echo Url::to('@web/img/main/program-2.png'); ?>" alt="Доходная" class="img-responsive">
                         </div>
                         <div class="text">
-                            <h3>Доходная</h3>
-                            <p>Выплата дохода в конце срока действия договора дополнительные 1,5% годовых, на новые договоры, при предъявлении пенсионного удостоверения</p>
+                            <h3>Вклад "Универсальный"</h3>
+                            <div class="row flex-row properties-list">
+                                <div class="col-sm-6">
+                                    <div class="property property-price">
+                                        <div class="image">
+                                            <img src="<?php echo Url::to('@web/img/main/program-icon-price.png'); ?>" alt="Сумма вклада">
+                                        </div>
+                                        <span class="name">Сумма вклада:</span>
+                                        <p>от 1 500 000 руб</p>
+                                        <p>до 10 000 000 руб</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="property property-time">
+                                        <div class="image">
+                                            <img src="<?php echo Url::to('@web/img/main/program-icon-time.png'); ?>" alt="Срок вклада">
+                                        </div>
+                                        <span class="name">Срок вклада:</span>
+                                        <p>от 12 месяцев</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="property property-percent">
+                                        <div class="image">
+                                            <img src="<?php echo Url::to('@web/img/main/program-icon-percent.png'); ?>" alt="Выплата процентов">
+                                        </div>
+                                        <span class="name">Выплата процентов:</span>
+                                        <p>в конце срока, ежемесячно</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

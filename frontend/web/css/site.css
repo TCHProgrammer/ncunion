@@ -50,9 +50,6 @@ body {
      -webkit-box-pack: center;
      -ms-flex-pack: center;
      justify-content: center;
-     -webkit-box-align: center;
-     -ms-flex-align: center;
-     align-items: center;
  }
 
 /* add sorting icons to gridview sort links */
@@ -1150,6 +1147,7 @@ header .top {
 
 .programs .item h3 {
     margin-top: 10px;
+    text-align: center;
 }
 
 .programs .item {
@@ -1177,6 +1175,32 @@ header .top {
     flex-basis: 55%;
     padding-left: 25px;
     border-left: 2px solid #3B34A6;
+}
+
+.programs .properties-list,
+.programs .programs-wrapper {
+    margin-left: -5px;
+    margin-right: -5px;
+}
+
+.programs .properties-list > div[class^="col-"],
+.programs .programs-wrapper > div[class^="col-"] {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.programs .properties-list .property {
+    text-align: center;
+}
+
+.programs .properties-list .property .image img {
+    display: block;
+    float: none;
+    margin: 0 auto 5px;
+}
+
+.programs .properties-list .property .name {
+    font-weight: 700;
 }
 
 .get-consultation {
