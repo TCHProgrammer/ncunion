@@ -26,6 +26,11 @@ $(document).ready(function () {
         slideshow: false,
     });
 
+    $('#advantage-tabs a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+    });
+
     /* Карусель в блоке "Почему мы?" на главной */
     $('.why-we-carousel').owlCarousel({
         loop: true,

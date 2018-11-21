@@ -181,61 +181,285 @@ AppAsset::register($this);
     </section>
 
     <section class="advantages no-animate">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-4 item-wrapper">
-                    <div class="item">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-3 image-wrapper">
-                                <div class="image">
-                                    <img class="img-responsive" src="<?php echo Url::to('@web/img/main/shield.png'); ?>" alt="Безопасно">
+        <section class="advantages-tabs">
+            <div class="container">
+                <ul class="row list-unstyled nav nav-tabs" id="advantage-tabs" role="tablist">
+                    <li class="col-sm-4 item-wrapper active" role="presentation">
+                        <a class="item item-security" href="#tab-security">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-3 image-wrapper">
+                                    <div class="image">
+                                        <div class="bg"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-9">
+                                    <div class="info">
+                                        <h3>Безопасность и гарантии</h3>
+                                        <p>Инвестиции не только вернутся, но и принесут неплохой доход. Гарантируем!</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-9">
-                                <div class="info">
-                                    <h3>Безопасно</h3>
-                                    <p>Инвестиции не только вернутся, но и принесут неплохой доход. Гарантируем!</p>
+                        </a>
+                    </li>
+                    <li class="col-sm-4 item-wrapper" role="presentation">
+                        <a class="item item-benefit" href="#tab-benefit">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-3 image-wrapper">
+                                    <div class="image">
+                                        <div class="bg"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-9">
+                                    <div class="info">
+                                        <h3>Выгоды</h3>
+                                        <p>Процент доходности больше, чем в банках! Зачем зарабатывать мало, если с нами можно заработать много?</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="col-sm-4 item-wrapper" role="presentation">
+                        <a class="item item-availability" href="#tab-availability">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-3 image-wrapper">
+                                    <div class="image">
+                                        <div class="bg"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-9">
+                                    <div class="info">
+                                        <h3>Преимущества</h3>
+                                        <p>Начальная сумма инвестиций от 500 000 рублей! Бесплатные консультации начинающим инвесторам.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <section class="advantage-tabs-content">
+            <div class="container">
+                <div id="advantage-tabs-content" class="row tab-content">
+                    <div class="col-sm-12 tab-pane fade in active" id="tab-security">
+                        <div class="item-tab-content">
+                            <div class="row tab-numbers">
+                                <div class="col-sm-6 col-md-3 tab-number-1">
+                                    <div class="item">
+                                        <img src="<?php echo Url::to('@web/img/main/tab-number-1.png'); ?>" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-3 tab-number-2">
+                                    <div class="item">
+                                        <img src="<?php echo Url::to('@web/img/main/tab-number-2.png'); ?>" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-3 tab-number-3">
+                                    <div class="item">
+                                        <img src="<?php echo Url::to('@web/img/main/tab-number-3.png'); ?>" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-3 tab-number-4">
+                                    <div class="item">
+                                        <img src="<?php echo Url::to('@web/img/main/tab-number-4.png'); ?>" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <section class="conditions-list">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h3 class="section-name">Гарантии работы с НКС</h3>
+                                    </div>
+                                </div>
+                                <div class="row flex-row">
+                                    <div class="col-sm-3 condition color-4">
+                                        <div class="item">
+                                            <span class="number">01</span>
+                                            <h4 class="name">Страхование</h4>
+                                            <span class="divider"></span>
+                                            <div class="text">
+                                                <p>Страховой сертификат моментальной выплаты позволяет получить денежные средства инвестором в течение трех рабочих дней, но не ранее чем через три месяца после подписания договора и открытии вклада.</p>
+                                            </div>
+                                            <div class="icon">
+                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-9.png'); ?>" alt="Страхование">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 condition color-3">
+                                        <div class="item">
+                                            <span class="number">02</span>
+                                            <h4 class="name">Вексель</h4>
+                                            <span class="divider"></span>
+                                            <div class="text">
+                                                <p>Ценная бумага, подтверждающая обязательства должника «векселедателя» уплатить требуемую сумму кредитору (векселедержателю) через оговоренный срок после его предъявления.</p>
+                                            </div>
+                                            <div class="icon">
+                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-10.png'); ?>" alt="Вексель">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 condition color-2">
+                                        <div class="item">
+                                            <span class="number">03</span>
+                                            <h4 class="name">Закладная</h4>
+                                            <span class="divider"></span>
+                                            <div class="text">
+                                                <p>Именная ценная бумага, удостоверяющая право ее законного владельца на получение исполнения по денежному обязательству, обеспеченному ипотекой, а также право залога на имущество, обремененное ипотекой. Закладная подлежит обязательной государственной нотариальной регистрации.</p>
+                                            </div>
+                                            <div class="icon">
+                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-11.png'); ?>" alt="Закладная">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 tab-pane fade" id="tab-benefit">
+                        <div class="item-tab-content">
+                            <div class="row tab-graphs">
+                                <div class="col-sm-6">
+                                    <div class="item">
+                                        <h3>Доходность</h3>
+                                        <img class="img-responsive" src="<?php echo Url::to('@web/img/main/tab-graph-1.png'); ?>">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="item">
+                                        <h3>Надёжность</h3>
+                                        <img class="img-responsive" src="<?php echo Url::to('@web/img/main/tab-graph-2.png'); ?>">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-4 item-wrapper">
-                    <div class="item">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-3 image-wrapper">
-                                <div class="image">
-                                    <img class="img-responsive" src="<?php echo Url::to('@web/img/main/thumb-up.png'); ?>" alt="Выгодно">
+                    <div class="col-sm-12 tab-pane fade" id="tab-availability">
+                        <div class="item-tab-content">
+                            <section class="conditions-list">
+                                <div class="row">
+                                    <div class="col-sm-3 condition color-1">
+                                        <div class="item">
+                                            <span class="number">01</span>
+                                            <h4 class="name">Минимальная сумма</h4>
+                                            <span class="divider"></span>
+                                            <span class="value">от 50 000 Р</span>
+                                            <div class="text">
+                                                <p>Для пассивного получения дохода предусмотрено два вида программ: <a
+                                                            href="#">Вклад «Оптимальный»</a> и <a
+                                                            href="#">Вклад «Универсальный»</a>.</p>
+                                                <p>Конкурентные процентные ставки, высоконадежные вклады для получения высокого, стабильного дохода.</p>
+                                            </div>
+                                            <div class="icon">
+                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-1.png'); ?>" alt="Минимальная сумма">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 condition color-2">
+                                        <div class="item">
+                                            <span class="number">02</span>
+                                            <h4 class="name">Обучение</h4>
+                                            <span class="divider"></span>
+                                            <span class="value">Бесплатно</span>
+                                            <div class="text">
+                                                <p>Бесплатные консультации, обучение, тренинги по закладному кредитованию для начинающих инвесторов.</p>
+                                            </div>
+                                            <div class="icon">
+                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-2.png'); ?>" alt="Обучение">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 condition color-3">
+                                        <div class="item">
+                                            <span class="number">03</span>
+                                            <h4 class="name">Прозрачность сделок</h4>
+                                            <span class="divider"></span>
+                                            <span class="value">Прозрачность</span>
+                                            <div class="text">
+                                                <p>Вы всегда можете узнать, в каких именно проектах (в области залогового кредитования) работают ваши денежные средства.</p>
+                                                <p>Мы полностью проверяем юридическую чистоту сделки. Только после этого вы принимаете решение.</p>
+                                            </div>
+                                            <div class="icon">
+                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-3.png'); ?>" alt="Прозрачность сделок">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 condition color-4">
+                                        <div class="item">
+                                            <span class="number">04</span>
+                                            <h4 class="name">Единый рынок</h4>
+                                            <span class="divider"></span>
+                                            <span class="value">Биржа</span>
+                                            <div class="text">
+                                                <p>Единственная биржа недвижимости на Российском рынке, где объединяются инвесторы и заёмщики.</p>
+                                            </div>
+                                            <div class="icon">
+                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-4.png'); ?>" alt="Единый рынок">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 condition color-4">
+                                        <div class="item">
+                                            <span class="number">05</span>
+                                            <h4 class="name">Территория РФ</h4>
+                                            <span class="divider"></span>
+                                            <span class="value">Вся Россия</span>
+                                            <div class="text">
+                                                <p>Возможность совместного инвестирования в высоколиквидные залоговые объекты по всей территории Российской Федерации</p>
+                                            </div>
+                                            <div class="icon">
+                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-5.png'); ?>" alt="Территория РФ">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 condition color-3">
+                                        <div class="item">
+                                            <span class="number">06</span>
+                                            <h4 class="name">Удобство</h4>
+                                            <span class="divider"></span>
+                                            <span class="value">Понятная система</span>
+                                            <div class="text">
+                                                <p>Уникальная, удобная, интуитивно понятная система инвестирования, выбора инвестиционных, залоговых объектов через личный кабинет биржевого портала НКС.</p>
+                                            </div>
+                                            <div class="icon">
+                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-6.png'); ?>" alt="Удобство">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 condition color-2">
+                                        <div class="item">
+                                            <span class="number">07</span>
+                                            <h4 class="name">Выбор</h4>
+                                            <span class="divider"></span>
+                                            <span class="value">Объекты</span>
+                                            <div class="text">
+                                                <p>Возможность самостоятельного выбора объектов инвестирования.</p>
+                                            </div>
+                                            <div class="icon">
+                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-7.png'); ?>" alt="Выбор">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 condition color-1">
+                                        <div class="item">
+                                            <span class="number">08</span>
+                                            <h4 class="name">Магазин решений</h4>
+                                            <span class="divider"></span>
+                                            <span class="value">Ценные документы</span>
+                                            <div class="text">
+                                                <p>Все ценные бумаги (вексель\закладная), выпущенные в Национальном кредитном союзе можно предложить к продаже для других инвесторов, так и купить в супермаркете ценных бумаг на нашем сайте.</p>
+                                            </div>
+                                            <div class="icon">
+                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-8.png'); ?>" alt="Магазин решений">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-12 col-md-9">
-                                <div class="info">
-                                    <h3>Выгодно</h3>
-                                    <p>Процент доходности больше, чем в банках! Зачем зарабатывать мало, если с нами можно заработать много?</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4 item-wrapper">
-                    <div class="item">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-3 image-wrapper">
-                                <div class="image">
-                                    <img class="img-responsive" src="<?php echo Url::to('@web/img/main/pocket.png'); ?>" alt="Доступно каждому">
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-9">
-                                <div class="info">
-                                    <h3>Доступно каждому</h3>
-                                    <p>Начальная сумма инвестиций от 500 000 рублей! Бесплатные консультации начинающим инвесторам.</p>
-                                </div>
-                            </div>
+                            </section>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </section>
 
     <section class="programs" id="programs">
@@ -261,31 +485,9 @@ AppAsset::register($this);
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-6">
-                    <div class="item small-padding">
+                    <div class="item">
                         <div class="image">
                             <img src="<?php echo Url::to('@web/img/main/program-2.png'); ?>" alt="Доходная" class="img-responsive">
-                        </div>
-                        <div class="text">
-                            <h3>Доходная</h3>
-                            <p>Выплата дохода в конце срока действия договора дополнительные 1,5% годовых, на новые договоры, при предъявлении пенсионного удостоверения</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-6">
-                    <div class="item">
-                        <div class="image">
-                            <img src="<?php echo Url::to('@web/img/main/program-3.png'); ?>" alt="Доходная" class="img-responsive">
-                        </div>
-                        <div class="text">
-                            <h3>Доходная</h3>
-                            <p>Выплата дохода в конце срока действия договора дополнительные 1,5% годовых, на новые договоры, при предъявлении пенсионного удостоверения</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-6">
-                    <div class="item">
-                        <div class="image">
-                            <img src="<?php echo Url::to('@web/img/main/program-4.png'); ?>" alt="Доходная" class="img-responsive">
                         </div>
                         <div class="text">
                             <h3>Доходная</h3>

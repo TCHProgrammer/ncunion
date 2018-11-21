@@ -41,6 +41,20 @@ body {
     font-style: italic;
 }
 
+.flex-row {
+     display: -webkit-box;
+     display: -ms-flexbox;
+     display: flex;
+     -ms-flex-wrap: wrap;
+     flex-wrap: wrap;
+     -webkit-box-pack: center;
+     -ms-flex-pack: center;
+     justify-content: center;
+     -webkit-box-align: center;
+     -ms-flex-align: center;
+     align-items: center;
+ }
+
 /* add sorting icons to gridview sort links */
 a.asc:after, a.desc:after {
     position: relative;
@@ -845,22 +859,128 @@ header .top {
     position: relative;
 }
 
-.advantages {
+.advantages .advantages-tabs {
     background-color: #F5F5F5;
     padding: 50px 0;
+}
+
+.advantages .advantages-tabs .nav-tabs {
+    border-bottom: 0;
+}
+
+.advantages .advantages-tabs .nav-tabs > li > a {
+    color: inherit;
+    border: none;
+}
+
+.advantages .advantages-tabs .nav-tabs > li > a:hover {
+    background-color: transparent;
+}
+
+.advantages .advantages-tabs .nav-tabs > li > a h3 {
+    color: #9B9B9B;
+}
+
+.advantages .advantages-tabs .nav-tabs > li.active > a,
+.advantages .advantages-tabs .nav-tabs > li.active > a:hover,
+.advantages .advantages-tabs .nav-tabs > li.active > a:focus {
+    color: inherit;
+    background-color: transparent;
+    border: none;
+}
+
+.advantages .advantages-tabs .nav-tabs > li.active > a h3,
+.advantages .advantages-tabs .nav-tabs > li.active > a h3:hover,
+.advantages .advantages-tabs .nav-tabs > li.active > a h3:focus {
+    color: #3B34A6;
+}
+
+.advantages .item-tab-content,
+.advantages .tab-graphs,
+.advantages .tab-numbers {
+    padding: 30px 0;
+}
+
+.advantages .tab-graphs .item h3 {
+    text-align: center;
+}
+
+.advantages .tab-numbers .item {
+    position: relative;
+}
+
+.advantages .tab-numbers .item img {
+    max-width: 90%;
+}
+
+.advantages .tab-numbers .item::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: block;
+    background: transparent no-repeat center right / auto 100%;
+}
+
+.advantages .tab-numbers .tab-number-1 .item::after {
+    content: "";
+    background-image: url('../img/main/tab-number-1-after.png');
+}
+
+.advantages .tab-numbers .tab-number-2 .item::after {
+    content: "";
+    background-image: url('../img/main/tab-number-2-after.png');
+}
+
+.advantages .tab-numbers .tab-number-3 .item::after {
+    content: "";
+    background-image: url('../img/main/tab-number-1-after.png');
+}
+
+.advantages .tab-numbers .tab-number-4 .item::after {
+    display: none;
 }
 
 .advantages h3 {
     margin-top: 0;
 }
 
-.advantages .item .image {
+.advantages .advantages-tabs .item .image,
+.advantages .advantages-tabs .item .image .bg {
     position: relative;
+    width: 53px;
+    height: 53px;
 }
 
-.advantages .item .image img {
-    position: relative;
-    z-index: 10;
+.advantages .advantages-tabs .item .image .bg {
+    z-index: 2;
+    background: no-repeat center center / 100% auto;
+}
+
+.advantages .advantages-tabs .item.item-security .image .bg {
+    background-image: url(../img/main/shield.png);
+}
+
+.advantages .advantages-tabs .active .item.item-security .image .bg {
+    background-image: url(../img/main/shield-active.png);
+}
+
+.advantages .advantages-tabs .item.item-benefit .image .bg {
+    background-image: url(../img/main/pocket.png);
+}
+
+.advantages .advantages-tabs .active .item.item-benefit .image .bg {
+    background-image: url(../img/main/pocket-active.png);
+}
+
+.advantages .advantages-tabs .item.item-availability .image .bg {
+    background-image: url(../img/main/thumb-up.png);
+}
+
+.advantages .advantages-tabs .active .item.item-availability .image .bg {
+    background-image: url(../img/main/thumb-up-active.png);
 }
 
 .advantages .item .image::after {
@@ -875,9 +995,149 @@ header .top {
     z-index: 1;
 }
 
-.advantages p {
+.advantages .advantages-tabs p {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
+}
+
+.conditions-list .condition .item {
+    position: relative;
+    -webkit-box-shadow: 3px 2px 7px 0px rgba(0,0,0,0.2);
+    -moz-box-shadow: 3px 2px 7px 0px rgba(0,0,0,0.2);
+    box-shadow: 3px 2px 7px 0px rgba(0,0,0,0.2);
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    text-align: center;
+    min-height: 380px;
+    margin-top: 85px;
+}
+
+.conditions-list .condition .item .number {
+    position: absolute;
+    top: -85px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 150px;
+    background: url(../img/main/condition-number.png) no-repeat center center / 100% auto;
+    line-height: 140px;
+    font-size: 36px;
+    text-align: center;
+}
+
+.conditions-list .condition .item .name {
+    display: block;
+    width: 100%;
+    font-weight: 700;
+    color: #FFFFFF;
+    padding: 50px 10px 10px;
+    margin-bottom: 0;
+}
+
+.conditions-list .condition .item .divider {
+    display: block;
+    width: 100%;
+    height: 5px;
+    background-color: #27AAE1;
+    margin: 10px 0 0;
+}
+
+.conditions-list .condition .item .value {
+    display: block;
+    width: 100%;
+    padding: 20px 10px 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #27AAE1;
+}
+
+.conditions-list .condition .item .text {
+    font-size: 12px;
+    padding: 20px 10px 0;
+}
+
+.conditions-list .condition .item .icon {
+    position: absolute;
+    bottom: 0;
+    display: block;
+    width: 100%;
+    padding: 15px 0;
+}
+
+.conditions-list .condition .item .icon img {
+    display: block;
+    float: none;
+    margin: 0 auto;
+    max-width: 36px;
+    height: auto;
+}
+
+.conditions-list .condition.color-1 .item .name {
+    background: #1c75bc; /* Old browsers */
+    background: -moz-linear-gradient(left, #1c75bc 0%, #27aae1 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, #1c75bc 0%,#27aae1 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, #1c75bc 0%,#27aae1 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1c75bc', endColorstr='#27aae1',GradientType=1 ); /* IE6-9 */
+}
+
+.conditions-list .condition.color-1 .item .divider {
+    background-color: #27AAE1;
+}
+
+.conditions-list .condition.color-1 .item .number,
+.conditions-list .condition.color-1 .item .value {
+    color: #27AAE1;
+}
+
+.conditions-list .condition.color-2 .item .name {
+    background: #ffad17; /* Old browsers */
+    background: -moz-linear-gradient(left, #ffad17 0%, #ffde18 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, #ffad17 0%,#ffde18 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, #ffad17 0%,#ffde18 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffad17', endColorstr='#ffde18',GradientType=1 ); /* IE6-9 */
+}
+
+.conditions-list .condition.color-2 .item .divider {
+    background-color: #FFAD17;
+}
+
+.conditions-list .condition.color-2 .item .number,
+.conditions-list .condition.color-2 .item .value {
+    color: #FFAD17;
+}
+
+.conditions-list .condition.color-3 .item .name {
+    background: #009444; /* Old browsers */
+    background: -moz-linear-gradient(left, #009444 0%, #8dc63f 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, #009444 0%,#8dc63f 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, #009444 0%,#8dc63f 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#009444', endColorstr='#8dc63f',GradientType=1 ); /* IE6-9 */
+}
+
+.conditions-list .condition.color-3 .item .divider {
+    background-color: #009444;
+}
+
+.conditions-list .condition.color-3 .item .number,
+.conditions-list .condition.color-3 .item .value {
+    color: #009444;
+}
+
+.conditions-list .condition.color-4 .item .name {
+    background: #da1c5c; /* Old browsers */
+    background: -moz-linear-gradient(left, #da1c5c 0%, #ec3882 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, #da1c5c 0%,#ec3882 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, #da1c5c 0%,#ec3882 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#da1c5c', endColorstr='#ec3882',GradientType=1 ); /* IE6-9 */
+}
+
+.conditions-list .condition.color-4 .item .divider {
+    background-color: #EE2A7B;
+}
+
+.conditions-list .condition.color-4 .item .number,
+.conditions-list .condition.color-4 .item .value {
+    color: #EE2A7B;
 }
 
 .programs .container {
@@ -1350,6 +1610,14 @@ textarea {
     }
     .how-to .item .image::after {
         right: -60px;
+    }
+}
+
+@media all and (min-width: 992px) and (max-width: 1199px) {
+    .advantages .advantages-tabs .item .image,
+    .advantages .advantages-tabs .item .image .bg {
+        width: 45px;
+        height: 45px;
     }
 }
 
