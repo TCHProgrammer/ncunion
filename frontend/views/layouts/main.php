@@ -487,8 +487,8 @@ AppAsset::register($this);
                                             <img src="<?php echo Url::to('@web/img/main/program-icon-price.png'); ?>" alt="Сумма вклада">
                                         </div>
                                         <span class="name">Сумма вклада:</span>
-                                        <p>от 1 500 000 руб</p>
-                                        <p>до 10 000 000 руб</p>
+                                        <p>от 50 000 руб</p>
+                                        <p>до 1 499 999 руб</p>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -497,7 +497,7 @@ AppAsset::register($this);
                                             <img src="<?php echo Url::to('@web/img/main/program-icon-time.png'); ?>" alt="Срок вклада">
                                         </div>
                                         <span class="name">Срок вклада:</span>
-                                        <p>от 12 месяцев</p>
+                                        <p>от 3 месяцев</p>
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
