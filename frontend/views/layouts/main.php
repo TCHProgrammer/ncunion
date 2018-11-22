@@ -559,10 +559,10 @@ AppAsset::register($this);
 
     <section class="get-consultation">
         <div class="container">
-            <div class="row">
+            <div class="row flex-row">
                 <div class="col-sm-12 col-md-8">
                     <div class="heading">
-                        <h2>Есть вопросы? Пишите!</h2>
+                        <h2>Остались вопросы?</h2>
                         <span>Наши специалисты уже готовы дать профессиональную консультацию!</span>
                     </div>
                 </div>

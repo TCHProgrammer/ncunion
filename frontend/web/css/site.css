@@ -1214,8 +1214,13 @@ header .top {
 
 .get-consultation {
     background: url(../img/main/get-consultation-bg.jpg) no-repeat center center / cover;
-    min-height: 335px;
-    padding: 115px 0;
+    padding: 40px 0;
+}
+
+.get-consultation .flex-row {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
 }
 
 .get-consultation .heading {
@@ -1223,6 +1228,7 @@ header .top {
 }
 
 .get-consultation .heading h2 {
+    font-size: 48px;
     color: #FFFFFF;
 }
 
@@ -1230,10 +1236,6 @@ header .top {
     font-size: 18px;
     color: #E27856;
     text-transform: none;
-}
-
-.get-consultation .buttons {
-    margin-top: 30px;
 }
 
 .calculator-row {
