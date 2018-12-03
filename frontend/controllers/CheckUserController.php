@@ -18,6 +18,8 @@ use common\components\Smsc;
 
 class CheckUserController extends Controller{
 
+    public $layout = 'page_layout';
+
     public function behaviors(){
         return [
             'access' => [

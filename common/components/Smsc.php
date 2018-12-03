@@ -1,17 +1,18 @@
 <?php
+
 namespace common\components;
 
 use Yii;
 use yii\helpers\FileHelper;
 
-define("SMSC_LOGIN", "Natali37");			// логин клиента
-define("SMSC_PASSWORD", "iy4QIOdqJWKx");	    // пароль или MD5-хеш пароля в нижнем регистре
-define("SMSC_POST", 0);					    // использовать метод POST
-define("SMSC_HTTPS", 0);				    // использовать HTTPS протокол
+define("SMSC_LOGIN", "Natali37");            // логин клиента
+define("SMSC_PASSWORD", "EGENNaK5Q");        // пароль или MD5-хеш пароля в нижнем регистре
+define("SMSC_POST", 0);                        // использовать метод POST
+define("SMSC_HTTPS", 0);                    // использовать HTTPS протокол
 //define("SMSC_CHARSET", "windows-1251");	// кодировка сообщения: utf-8, koi8-r или windows-1251 (по умолчанию)
-define("SMSC_CHARSET", "utf-8");	        // кодировка сообщения: utf-8, koi8-r или windows-1251 (по умолчанию)
+define("SMSC_CHARSET", "utf-8");            // кодировка сообщения: utf-8, koi8-r или windows-1251 (по умолчанию)
 // define("SMSC_DEBUG", 0);				    // флаг отладки
-define("SMSC_DEBUG", 1);				    // флаг отладки
+define("SMSC_DEBUG", 1);                    // флаг отладки
 define("SMTP_FROM", "api@cp.smsteam.ru");   // e-mail адрес отправителя
 
 /**
@@ -44,14 +45,15 @@ class Smsc
     /**
      * Отпправка смс клиенту на подтверждение регистрации
      */
-    public function pushSms($phone, $code){
+    public function pushSms($phone, $code)
+    {
         $res = $this->send_sms($phone, 'Ваш код подтверждения: ' . $code);
         return $res;
     }
 
-    public static function send_sms($phones, $message, $translit = 0, $time = 0, $id = 0, $format = 0, $sender = false, $query = '', $files = array())
+    static $formats = array(1 => "flash=1", "push=1", "hlr=1", "bin=1", "bin=2", "ping=1", "mms=1", "mail=1", "call=1");
+    public static function send_sms($phones, $message, $translit = 0, $time = 0, $id = 0, $format = 0, $sender = false)
     {
-        static $formats = array(1 => "flash=1", "push=1", "hlr=1", "bin=1", "bin=2", "ping=1", "mms=1", "mail=1", "call=1");
 
         $phones = trim($phones);
         $message = trim($message);
@@ -63,11 +65,21 @@ class Smsc
             }
         }
 
-        $m = self::_smsc_send_cmd("send", "cost=3&phones=" . urlencode($phones) . "&mes=" . urlencode($message) .
-            "&translit=$translit&id=$id" . ($format > 0 ? "&" . $formats[$format] : "") .
-            ($sender === false ? "" : "&sender=" . urlencode($sender)) .
-            ($time ? "&time=" . urlencode($time) : "") . ($query ? "&$query" : ""), $files);
+        $params = [
+            'cost' => 3,
+            'phones' => $phones,
+            'mes' => $message,
+            'translit' => $translit,
+            'id' => $id,
+        ];
+        if ($format > 0) {
+            list($k, $v) = explode('=', self::$formats[$format]);
+            $params[$k] = $v;
+        }
+        if ($sender !== false) $params['sender'] = $sender;
+        if ($time) $params['time'] = $time;
 
+        $m = self::_smsc_send($params);
         // (id, cnt, cost, balance) или (id, -error)
 
         if (SMSC_DEBUG) {
@@ -111,18 +123,27 @@ class Smsc
 
 // Функция вызова запроса. Формирует URL и делает 5 попыток чтения через разные подключения к сервису
 
+    public static function _smsc_send($params = [], $name = 'send')
+    {
+        return self::_smsc_send_cmd($name, http_build_query($params));
+    }
+
     public static function _smsc_send_cmd($cmd, $arg = "", $files = array())
     {
-        $url = $_url = (SMSC_HTTPS ? "https" : "http")."://cp.smsteam.ru/sys/$cmd.php?login=".urlencode(SMSC_LOGIN)."&psw=".urlencode(SMSC_PASSWORD)."&fmt=1&charset=".SMSC_CHARSET."&".$arg;
-
+        $params = [
+            'login' => SMSC_LOGIN,
+            'psw' => SMSC_PASSWORD,
+            'charset' => SMSC_CHARSET,
+            'fmt' => 1,
+        ];
+        $url = $_url = (SMSC_HTTPS ? "https" : "http") . "://cp.smsteam.ru/sys/$cmd.php?" . http_build_query($params) . "&" . $arg;
         $i = 0;
         do {
             if ($i++)
-                $url = str_replace('://cp.smsteam.ru/', '://www'.$i.'.cp.smsteam.ru/', $_url);
+                $url = str_replace('://cp.smsteam.ru/', '://www' . $i . '.cp.smsteam.ru/', $_url);
 
             $ret = self::_smsc_read_url($url, $files, 3 + $i);
-        }
-        while ($ret == "" && $i < 5);
+        } while ($ret == "" && $i < 5);
 
         if ($ret == "") {
             if (SMSC_DEBUG) {
@@ -152,8 +173,7 @@ class Smsc
         $ret = "";
         $post = SMSC_POST || strlen($url) > 2000 || $files;
 
-        if (function_exists("curl_init"))
-        {
+        if (function_exists("curl_init")) {
             static $c = 0; // keepalive
 
             if (!$c) {
@@ -166,8 +186,7 @@ class Smsc
 
             curl_setopt($c, CURLOPT_POST, $post);
 
-            if ($post)
-            {
+            if ($post) {
                 list($url, $post) = explode("?", $url, 2);
 
                 if ($files) {
@@ -179,7 +198,7 @@ class Smsc
                     $post = $m;
                     foreach ($files as $i => $path)
                         if (file_exists($path))
-                            $post["file".$i] = function_exists("curl_file_create") ? curl_file_create($path) : "@".$path;
+                            $post["file" . $i] = function_exists("curl_file_create") ? curl_file_create($path) : "@" . $path;
                 }
 
                 curl_setopt($c, CURLOPT_POSTFIELDS, $post);
@@ -188,14 +207,11 @@ class Smsc
             curl_setopt($c, CURLOPT_URL, $url);
 
             $ret = curl_exec($c);
-        }
-        elseif ($files) {
+        } elseif ($files) {
             if (SMSC_DEBUG)
                 echo "Не установлен модуль curl для передачи файлов\n";
-        }
-        else {
-            if (!SMSC_HTTPS && function_exists("fsockopen"))
-            {
+        } else {
+            if (!SMSC_HTTPS && function_exists("fsockopen")) {
                 $m = parse_url($url);
 
                 if (!$fp = fsockopen($m["host"], 80, $errno, $errstr, $tm))
@@ -204,7 +220,7 @@ class Smsc
                 if ($fp) {
                     stream_set_timeout($fp, 60);
 
-                    fwrite($fp, ($post ? "POST $m[path]" : "GET $m[path]?$m[query]")." HTTP/1.1\r\nHost: cp.smsteam.ru\r\nUser-Agent: PHP".($post ? "\r\nContent-Type: application/x-www-form-urlencoded\r\nContent-Length: ".strlen($m['query']) : "")."\r\nConnection: Close\r\n\r\n".($post ? $m['query'] : ""));
+                    fwrite($fp, ($post ? "POST $m[path]" : "GET $m[path]?$m[query]") . " HTTP/1.1\r\nHost: cp.smsteam.ru\r\nUser-Agent: PHP" . ($post ? "\r\nContent-Type: application/x-www-form-urlencoded\r\nContent-Length: " . strlen($m['query']) : "") . "\r\nConnection: Close\r\n\r\n" . ($post ? $m['query'] : ""));
 
                     while (!feof($fp))
                         $ret .= fgets($fp, 1024);
@@ -212,8 +228,7 @@ class Smsc
 
                     fclose($fp);
                 }
-            }
-            else
+            } else
                 $ret = file_get_contents($url);
         }
 
