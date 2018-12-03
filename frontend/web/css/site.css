@@ -11,6 +11,7 @@ body.user-form-page {
     position: relative;
     height: auto;
     padding-bottom: 60px;
+    min-height: 100%;
 }
 
 .wrap {
