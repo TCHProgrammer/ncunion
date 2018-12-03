@@ -7,6 +7,12 @@ body {
     font-family: 'Open Sans', Arial, Helvetica, sans-serif !important;
 }
 
+body.user-form-page {
+    position: relative;
+    height: auto;
+    padding-bottom: 60px;
+}
+
 .wrap {
     min-height: 100%;
     height: auto;
@@ -24,6 +30,12 @@ body {
     border-top: 0;
     padding-top: 20px;
     color: #FFFFFF;
+}
+
+.user-form-page .footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
 }
 
 .jumbotron {
@@ -629,6 +641,10 @@ header {
 
 .page header {
     position: relative;
+}
+
+.user-form-page header {
+    background: url('../img/main/slide-1.jpg') no-repeat top center / cover;
 }
 
 header .top {
@@ -1760,6 +1776,9 @@ textarea {
 }
 
 @media all and (max-width: 767px) {
+    body.user-form-page {
+        padding-bottom: 100px;
+    }
     h2,
     .h2 {
         font-size: 30px;

@@ -25,7 +25,7 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body class="page">
+<body class="page user-form-page">
 <?php if (!Yii::$app->user->can('ban')){ ?>
 <?php $this->beginBody() ?>
 <?= AdminPanel::widget(); ?>
@@ -55,7 +55,7 @@ AppAsset::register($this);
                     </div>
                     <div class="col-sm-2">
                         <div class="call-order">
-                            <button class="btn btn-phone">Обратный звонок</button>
+                            <button class="btn btn-primary btn-phone">Обратный звонок</button>
                         </div>
                     </div>
                 </div>
