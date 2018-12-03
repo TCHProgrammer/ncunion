@@ -294,9 +294,11 @@ $(document).ready(function () {
     /* Блок "Доверие" на каждом объекте страницы каталога */
     $('.trust_o_meter').knob({
         'draw' : function() {
-            var value = $(this.i).val() + '%';
-            $(this.i).val(value).css('font-size', '14px');
-        }
+            var value = $(this.i).val();
+            $(this.i).val(value).css('font-size', '12px');
+        },
+        'min':0,
+        'max':5000
     });
 
     /* Инициализация тултипов */

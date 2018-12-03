@@ -153,7 +153,7 @@ class CatalogController extends DefaultFrontendController
         /** TODO: заменяем старое доверие к объекту */
 
         $objectRates = (int) $model->getObjectConfidence()->sum('rate');
-        $confObj = round($objectRates / 50);
+        $confObj = round($objectRates);
 //        $confObj = $this->confObj($id);
 
         $modelImgs = ObjectImg::find()->where(['object_id' => $id])->orderBy('sort ASC')->all();
