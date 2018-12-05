@@ -931,7 +931,8 @@ textarea.form-control {
     .object-page .object-trust-docs {
         flex-wrap: wrap;
     }
-    .object-page .object-trust-docs > * {
+    .object-page .object-trust-docs .item,
+    .object-page .object-trust-docs .itemchecked {
         flex-basis: 50%;
     }
 }
