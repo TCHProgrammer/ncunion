@@ -749,14 +749,17 @@ textarea.form-control {
     display: flex;
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
-    justify-content: space-between;
+    justify-content: flex-start;
     -ms-flex-line-pack: center;
     align-content: center;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
 }
 
-.object-page .object-trust-docs .item {
-    -ms-flex-preferred-size: 20%;
-    flex-basis: 20%;
+.object-page .object-trust-docs .item,
+.object-page .object-trust-docs .itemchecked {
+    -ms-flex-preferred-size: 33.3333%;
+    flex-basis: 33.3333%;
     text-align: center;
 }
 
@@ -930,14 +933,17 @@ textarea.form-control {
     /* TODO: Префиксы. */
     .object-page .object-trust-docs .item,
     .object-page .object-trust-docs .itemchecked {
+        -ms-flex-preferred-size: 50%;
         flex-basis: 50%;
     }
 }
 
-@media all and (min-width: 1200px) and (max-width: 1600px) {
+@media all and (max-width: 1400px) {
     /* TODO: Префиксы. */
-    .object-page .object-trust-docs {
-        flex-wrap: wrap;
+    .object-page .object-trust-docs .item,
+    .object-page .object-trust-docs .itemchecked {
+        -ms-flex-preferred-size: 20%;
+        flex-basis: 20%;
     }
 }
 
@@ -954,8 +960,26 @@ textarea.form-control {
     }
 }
 
+@media all and (max-width: 500px) {
+    /* TODO: Префиксы. */
+    .object-page .object-trust-docs .item,
+    .object-page .object-trust-docs .itemchecked {
+        -ms-flex-preferred-size: 33.3333%;
+        flex-basis: 33.3333%;
+    }
+}
+
 @media all and (max-width: 450px) {
     .object-page .credit-wishes > tbody > tr {
         width: 100%;
+    }
+}
+
+@media all and (max-width: 350px) {
+    /* TODO: Префиксы. */
+    .object-page .object-trust-docs .item,
+    .object-page .object-trust-docs .itemchecked {
+        -ms-flex-preferred-size: 50%;
+        flex-basis: 50%;
     }
 }
