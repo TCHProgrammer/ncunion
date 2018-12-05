@@ -693,7 +693,7 @@ textarea.form-control {
     text-align: center;
 }
 
-.object-page .object-trust-docs value {
+.object-page .object-trust-docs .value {
     display: inline-block;
     width: 100%;
     text-align: center;
