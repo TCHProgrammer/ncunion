@@ -926,14 +926,18 @@ textarea.form-control {
     }
 }
 
+@media all and (min-width: 1401px) and (max-width: 1600px) {
+    /* TODO: Префиксы. */
+    .object-page .object-trust-docs .item,
+    .object-page .object-trust-docs .itemchecked {
+        flex-basis: 50%;
+    }
+}
+
 @media all and (min-width: 1200px) and (max-width: 1600px) {
     /* TODO: Префиксы. */
     .object-page .object-trust-docs {
         flex-wrap: wrap;
-    }
-    .object-page .object-trust-docs .item,
-    .object-page .object-trust-docs .itemchecked {
-        flex-basis: 50%;
     }
 }
 
