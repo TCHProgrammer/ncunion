@@ -12,7 +12,7 @@ use common\models\object\City;
 /* доверие объекту */
 $allListConf = count(Confidence::find()->all());
 $listConf = count(ConfidenceObject::find()->where(['object_id' => $model->id])->all());
-$conf = (int) $model->getObjectConfidence()->sum('rate');
+$conf = (int) $model->getObjectConfidence()->sum('rate') / 5;
 $productImageCount = count($model->objectImgs);
 ?>
 

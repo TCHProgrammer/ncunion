@@ -1,4 +1,5 @@
 <?php
+
 use \common\models\UserModel;
 use yii\helpers\Url;
 use backend\components\menu\Menu;
@@ -19,13 +20,14 @@ $menu = new Menu();
             </div>
             <div class="pull-left info">
                 <p><?= $user->email ?></p>
-                <a href="<?= Url::to('/') ?>" target="_blank" style="color: #d8d330"><?= 'http://' . $_SERVER['SERVER_NAME'] ?></a>
+                <a href="<?= Url::to('/') ?>" target="_blank"
+                   style="color: #d8d330"><?= 'http://' . $_SERVER['SERVER_NAME'] ?></a>
             </div>
         </div>
 
         <?= dmstr\widgets\Menu::widget(
             [
-                'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
+                'options' => ['class' => 'sidebar-menu tree', 'data-widget' => 'tree'],
                 'items' => [
                     ['label' => 'Меню', 'options' => ['class' => 'header']],
 
@@ -121,8 +123,22 @@ $menu = new Menu();
                     [
                         'label' => 'Объекты',
                         'icon' => 'fw fa-institution',
-                        'url' => ['/object'],
-                        'visible' => $menu->menuObject()
+                        'url' => '#',
+                        'visible' => $menu->menuObject(),
+                        'items' => [
+                            [
+                                'label' => 'Список объектов',
+                                'icon' => 'fw fa-institution',
+                                'url' => ['/object'],
+                                'visible' => $menu->menuObject()
+                            ],
+                            [
+                                'label' => 'Отклики на объекты',
+                                'icon' => 'fw fa-user',
+                                'url' => ['/object-subscriptions'],
+                                'visible' => Yii::$app->user->can('admin_menu_object_subscriptions')
+                            ],
+                        ],
                     ],
 
                     [

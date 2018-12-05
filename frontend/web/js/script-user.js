@@ -298,7 +298,7 @@ $(document).ready(function () {
             $(this.i).val(value).css('font-size', '12px');
         },
         'min':0,
-        'max':5000
+        'max':1000
     });
 
     /* Инициализация тултипов */
