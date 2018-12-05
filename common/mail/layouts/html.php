@@ -38,11 +38,11 @@ $model = InfoSite::findOne(1);
                     <tbody class="email-foot" style="background-color:#424b5f;color:#fff; border: 5px double #000;">
                         <tr>
                             <td align="left" style="padding:30px 30px 15px 30px">
-                                <p>© <?= $model->title ?> <?= date('Y') ?></p>
+                                <p>© Национальный Кредитный Союз <?= date('Y') ?></p>
                             </td>
                             <td align="right" style="padding:20px 20px 10px 20px;color:#fff">
                                 <p>Телефон: <?= $model->letter_phone ?></p>
-                                <p style="color:#9db7ff">Почта: <?= $model->letter_email ?></p>
+                                <p style="color:#9db7ff">Почта: <a href="mailto:info@zalogzalog.ru">info@zalogzalog.ru</a></p>
                             </td>
                         </tr>
                     </tbody>
