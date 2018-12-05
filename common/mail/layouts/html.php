@@ -42,6 +42,7 @@ $model = InfoSite::findOne(1);
                             </td>
                             <td align="right" style="padding:20px 20px 10px 20px;color:#fff">
                                 <p>Телефон: <?= $model->letter_phone ?></p>
+                                <?php /* TODO: Return letter_email model in future */ ?>
                                 <p style="color:#9db7ff">Почта: <a href="mailto:info@zalogzalog.ru">info@zalogzalog.ru</a></p>
                             </td>
                         </tr>
