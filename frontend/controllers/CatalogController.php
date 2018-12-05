@@ -204,6 +204,8 @@ class CatalogController extends DefaultFrontendController
                 if ($object) {
                     $object->status_object = 1;
                     $object->save();
+                    $user = UserModel::find()->where(['id' => $userRoom->user_id])->one();
+                    Yii::$app->email->subscribeObject($user->email, $object->title);
                 }
                 return $this->redirect(['view', 'id' => $id]);
             }
@@ -289,6 +291,9 @@ class CatalogController extends DefaultFrontendController
     {
         if (isset($oId)) {
             $this->unsubscribeAll($oId, Yii::$app->user->id);
+            $object = Object::find()->where(['id' => $oId])->one();
+            $user = UserModel::find()->where(['id' => Yii::$app->user->id])->one();
+            Yii::$app->email->unsubscribeObject($user->email, $object->title);
         } else {
             throw new NotFoundHttpException('Вы передали не все параметры');
         }

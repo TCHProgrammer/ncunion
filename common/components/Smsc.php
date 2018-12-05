@@ -5,8 +5,10 @@ namespace common\components;
 use Yii;
 use yii\helpers\FileHelper;
 
-define("SMSC_LOGIN", "Natali37");            // логин клиента
-define("SMSC_PASSWORD", "EGENNaK5Q");        // пароль или MD5-хеш пароля в нижнем регистре
+//define("SMSC_LOGIN", "Natali37");            // логин клиента
+//define("SMSC_PASSWORD", "EGENNaK5Q");        // пароль или MD5-хеш пароля в нижнем регистре
+define("SMSC_LOGIN", "Ncunion");            // логин клиента
+define("SMSC_PASSWORD", "7c3XT3");        // пароль или MD5-хеш пароля в нижнем регистре
 define("SMSC_POST", 0);                        // использовать метод POST
 define("SMSC_HTTPS", 0);                    // использовать HTTPS протокол
 //define("SMSC_CHARSET", "windows-1251");	// кодировка сообщения: utf-8, koi8-r или windows-1251 (по умолчанию)

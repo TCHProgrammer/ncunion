@@ -104,6 +104,7 @@ class CheckUserController extends Controller{
                 $user->check_phone = 1;
                 if ($user->update()){
                     Yii::$app->session->setFlash('success', 'Ваш телефон успешно подтвержден.');
+
                     return $this->redirect('/check-user');
                 }else{
                     Yii::$app->session->setFlash('error', 'Возникла внутренняя ошибка сервера. Пользователь не найден.');
@@ -136,6 +137,7 @@ class CheckUserController extends Controller{
             /*отправляем письмо по смс*/
             $sms = new Smsc();
             if ($sms->pushSms($user->phone, $code)){
+                Yii::$app->email->regPhone($user->email);
                 return true;
             }else{
                 return false;

@@ -1,14 +1,18 @@
 <?php
+
 namespace common\components;
+
 use yii\base\Component;
 use Yii;
 use common\models\InfoSite;
 
-class EmailComponent extends Component{
+class EmailComponent extends Component
+{
 
     public $infoSite;
 
-    public function init(){
+    public function init()
+    {
         parent::init();
         $this->infoSite = InfoSite::find()->select(['title', 'letter_email', 'letter_phone'])->where(['id' => 1])->one();
     }
@@ -16,7 +20,8 @@ class EmailComponent extends Component{
     /**
      * тестовая отправка сообщения
      */
-    public function test($userTo){
+    public function test($userTo)
+    {
         Yii::$app->mailer->compose(['html' => 'test'], ['model' => $this->infoSite])
             ->setFrom($this->infoSite->letter_email)
             ->setTo($userTo)
@@ -28,7 +33,8 @@ class EmailComponent extends Component{
     /**
      * 1 этап регистрации (самая первая регистрация)
      */
-    public function regUser($userTo, $contentMas){
+    public function regUser($userTo, $contentMas)
+    {
         Yii::$app->mailer->compose(['html' => 'regUser'], ['contentMas' => $contentMas])
             ->setFrom($this->infoSite->letter_email)
             ->setTo($userTo)
@@ -39,22 +45,82 @@ class EmailComponent extends Component{
     /**
      * подстверждения email
      */
-    public function checkEmailUser($userTo, $contentMas){
+    public function checkEmailUser($userTo, $contentMas)
+    {
         if (
-            Yii::$app->mailer->compose(['html' => 'checkEmailUser'], ['contentMas' => $contentMas])
+        Yii::$app->mailer->compose(['html' => 'checkEmailUser'], ['contentMas' => $contentMas])
             ->setFrom($this->infoSite->letter_email)
             ->setTo($userTo)
             ->setSubject('Подтвердите адрес электроннно почты')
             ->send()
-        ){
+        ) {
             return true;
         }
+    }
+
+    public function checkModerate($userTo, $contentMas)
+    {
+        Yii::$app->mailer->compose(['html' => 'checkModerate'], ['contentMas' => $contentMas])
+            ->setFrom($this->infoSite->letter_email)
+            ->setTo($userTo)
+            ->setSubject('Модерация завершена')
+            ->send();
+    }
+
+    public function subscribeObject($userTo, $objectTitle)
+    {
+        Yii::$app->mailer->compose()
+            ->setFrom($this->infoSite->letter_email)
+            ->setTo($userTo)
+            ->setSubject('Вы подписаны')
+            ->setTextBody("Спасибо за оставленную заявку на объект \"{$objectTitle}\". В ближайшее время решение будет принято.")
+            ->send();
+    }
+
+    public function acceptSubscribeObject($userTo, $objectTitle)
+    {
+        Yii::$app->mailer->compose()
+            ->setFrom($this->infoSite->letter_email)
+            ->setTo($userTo)
+            ->setSubject('Заявка принята.')
+            ->setTextBody("Ваша заявка на объект \"{$objectTitle}\" принята.")
+            ->send();
+    }
+
+    public function declineSubscribeObject($userTo, $objectTitle)
+    {
+        Yii::$app->mailer->compose()
+            ->setFrom($this->infoSite->letter_email)
+            ->setTo($userTo)
+            ->setSubject('Заявка отклонена.')
+            ->setTextBody("Ваша заявка на объект \"{$objectTitle}\" отклонена.")
+            ->send();
+    }
+
+    public function takeAwayObject($userTo, $objectTitle)
+    {
+        Yii::$app->mailer->compose()
+            ->setFrom($this->infoSite->letter_email)
+            ->setTo($userTo)
+            ->setSubject('Срочное уведомление.')
+            ->setTextBody("Здравствуйте. Благодарим за работу в нашей системе. На данный момент вы не являетесь инвестором обьекта \"{$objectTitle}\".")
+            ->send();
+    }
+    public function unsubscribeObject($userTo, $objectTitle)
+    {
+        Yii::$app->mailer->compose()
+            ->setFrom($this->infoSite->letter_email)
+            ->setTo($userTo)
+            ->setSubject('Вы отписались')
+            ->setTextBody("Вы отписались от объекта \"{$objectTitle}\".")
+            ->send();
     }
 
     /**
      * 2 этап регистрации (регистрация паспорта)
      */
-    public function regPassport($userTo){
+    public function regPassport($userTo)
+    {
         Yii::$app->mailer->compose()
             ->setTo($userTo)
             ->setFrom($this->infoSite->letter_email)
@@ -63,10 +129,21 @@ class EmailComponent extends Component{
             ->send();
     }
 
+    public function regPhone($userTo)
+    {
+        Yii::$app->mailer->compose()
+            ->setTo($userTo)
+            ->setFrom($this->infoSite->letter_email)
+            ->setSubject('Вы успешно подтвердили номер телефона')
+            ->setTextBody('Благодарим Вас за подтверждение номера телефона. Доступ к сервису будет открыт после модерации. Спасибо за ожидание.')
+            ->send();
+    }
+
     /**
      * Восстановление пароля
      */
-    public function passwordResetToken($userTo, $user){
+    public function passwordResetToken($userTo, $user)
+    {
         return Yii::$app
             ->mailer
             ->compose(

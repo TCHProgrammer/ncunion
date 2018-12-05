@@ -8,6 +8,8 @@ use Yii;
 use common\models\UserModel;
 use backend\models\UserSearch;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
@@ -126,15 +128,27 @@ class UsersController extends DefaultBackendController
     {
 
         $post = Yii::$app->request->post('UserModel');
-
         if ($post) {
             $userUpdate = AuthAssignment::find()->where(['user_id' => $post['user_id']])->one();
+            $user = UserModel::find()->where(['id' => $post['user_id']])->one();
             if ($post['good_user']) {
-                $userUpdate->item_name = 'no_pay';
-                $userUpdate->save();
+//                $userUpdate->item_name = 'no_pay';
+                $userUpdate->item_name = 'user';
+                if ($userUpdate->save()) {
+                    $contentMas = [
+                        'text' => 'Благодарим вас за ожидание. Вам открыт доступ к сервису. Приятной работы.',
+                        'htmlA' => Html::a('Перейти в каталог', Yii::$app->urlManagerFrontend->createAbsoluteUrl('catalog'), ['style' => 'color:#ebec8b'])
+                    ];
+                    Yii::$app->email->checkModerate($user->email, $contentMas);
+                }
             } elseif ($post['ban_user']) {
                 $userUpdate->item_name = 'ban';
                 $userUpdate->save();
+                $contentMas = [
+                    'text' => 'Ваш аккаунт не подтвержден администратором',
+                    'htmlA' => ''
+                ];
+                Yii::$app->email->checkModerate($user->email, $contentMas);
             }
         }
 
@@ -143,7 +157,7 @@ class UsersController extends DefaultBackendController
                 ->leftJoin('auth_assignment', 'auth_assignment.user_id = user.id')
                 ->where(['auth_assignment.item_name' => 'unknown'])
                 ->andWhere(['check_email' => 1, 'check_phone' => 1])
-                ->andWhere(['not', ['user_passport_id' => null]])
+//                ->andWhere(['not', ['user_passport_id' => null]])
                 ->orderBy('created_at ASC'),
             'pagination' => [
                 'pageSize' => 20,

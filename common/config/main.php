@@ -33,6 +33,13 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
         ],
+        'urlManagerFrontend' => [
+            'class' => 'yii\web\UrlManager',
+            'baseUrl' => '',
+            'enablePrettyUrl' => true,
+            'enableStrictParsing' => true,
+            'showScriptName' => false,
+        ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
             //'cache' => 'cache' //Включаем кеширование

@@ -11,6 +11,7 @@ use common\models\object\LocalityType;
 use common\models\object\ObjectConfidence;
 use common\models\object\ObjectConfidenceFile;
 use common\models\User;
+use common\models\UserModel;
 use Yii;
 use common\models\object\Object;
 use backend\models\ObjectSearch;
@@ -811,6 +812,9 @@ class ObjectController extends DefaultBackendController
                 $modelObjUser->active = 1;
                 $modelObjUser->update();
 
+                $object = Object::find()->where(['id' => $oId])->one();
+                $user = UserModel::find()->where(['id' => $uId])->one();
+                Yii::$app->email->acceptSubscribeObject($user->email, $object->title);
                 /* проверяем всю собранную сумме, если она подходит, то изменяем статус у объекта на "закрыт" */
                 $object = Object::findOne($oId);
                 $modelObjUsers = RoomObjectUser::find()
@@ -841,6 +845,9 @@ class ObjectController extends DefaultBackendController
             if (isset($modelObjUser)) {
                 $modelObjUser->active = 0;
                 $modelObjUser->update();
+                $object = Object::find()->where(['id' => $oId])->one();
+                $user = UserModel::find()->where(['id' => Yii::$app->user->id])->one();
+                Yii::$app->email->takeAwayObject($user->email, $object->title);
             }
             return $this->redirect(['view', 'id' => $oId]);
         } else {
@@ -853,6 +860,9 @@ class ObjectController extends DefaultBackendController
     {
         if (isset($oId) && isset($uId)) {
             $this->unsubscribeAll($oId, $uId);
+            $object = Object::find()->where(['id' => $oId])->one();
+            $user = UserModel::find()->where(['id' => Yii::$app->user->id])->one();
+            Yii::$app->email->unsubscribeObject($user->email, $object->title);
         } else {
             throw new NotFoundHttpException('Вы передали не все параметры');
         }

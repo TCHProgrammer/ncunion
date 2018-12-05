@@ -71,7 +71,7 @@ class ObjectSearch extends Object
         $query->andFilterWhere([
             'id' => $this->id,
             'type_id' => $this->type_id,
-            'status' => $this->status,
+            'object.status' => $this->status,
             'place_km' => $this->place_km,
             'amount' => $this->amount,
             'area' => $this->area,
