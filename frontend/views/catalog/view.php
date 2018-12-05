@@ -141,7 +141,7 @@ $isCommerce = isset($isCommerce);
                                         </span>
                                                 <span class="value"><?= $confidences[$confidenceItem->confidence_id]->title; ?></span>
                                                 <?php
-                                                $file = '-';
+                                                $file = '';
                                                 if (isset($objectConfidencesFiles[$confidenceItem->confidence_id])) {
                                                     $file  = Html::a('Скачать', $objectConfidencesFiles[$confidenceItem->confidence_id]->doc, ['class' => 'form-a-del', 'data-pjax' => '0', 'download' => true]) . '</p>';
                                                 } ?>

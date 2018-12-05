@@ -931,8 +931,8 @@ textarea.form-control {
     .object-page .object-trust-docs {
         flex-wrap: wrap;
     }
-    .object-page .object-trust-docs .item {
-        flex-basis: 33.3333%;
+    .object-page .object-trust-docs > * {
+        flex-basis: 50%;
     }
 }
 
