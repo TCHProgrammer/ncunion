@@ -131,7 +131,6 @@ $isCommerce = isset($isCommerce);
 //                                            }
                                             ?>
                                             <div class="item<?= $confidenceItemClass; ?>">
-                                                <?= $objectConfidences[$confidenceItem->confidence_id]->rate ?>
                                         <span class="zmdi-hc-stack zmdi-hc-lg">
                                             <i class="zmdi zmdi-square-o zmdi-hc-stack-2x"></i>
                                             <i class="zmdi zmdi-check zmdi-hc-stack-1x"></i>
