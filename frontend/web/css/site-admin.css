@@ -690,6 +690,13 @@ textarea.form-control {
 .object-page .object-info-inline > * {
     display: inline-block;
     vertical-align: middle;
+    text-align: center;
+}
+
+.object-page .object-trust-docs value {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
 }
 
 .object-page .object-info-inline h4 {

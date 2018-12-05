@@ -15,6 +15,9 @@ use yii\helpers\Url;
 /* @var $model common\models\object\Object */
 /* @var $listViewCheckboxes frontend\controllers\CatalogController */
 /* @var $objectGroupCheckboxes frontend\controllers\CatalogController */
+/* @var $objectConfidences frontend\controllers\CatalogController */
+/* @var $objectConfidencesFiles frontend\controllers\CatalogController */
+/* @var $confidences frontend\controllers\CatalogController */
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Каталог объектов', 'url' => ['index']];
@@ -140,7 +143,7 @@ $isCommerce = isset($isCommerce);
                                                 <?php
                                                 $file = '-';
                                                 if (isset($objectConfidencesFiles[$confidenceItem->confidence_id])) {
-                                                    $file  = Html::a($objectConfidencesFiles[$confidenceItem->confidence_id]->title, $objectConfidencesFiles[$confidenceItem->confidence_id]->doc, ['class' => 'form-a-del', 'data-pjax' => '0', 'download' => true]) . '</p>';
+                                                    $file  = Html::a('Скачать', $objectConfidencesFiles[$confidenceItem->confidence_id]->doc, ['class' => 'form-a-del', 'data-pjax' => '0', 'download' => true]) . '</p>';
                                                 } ?>
                                                 <?= $file ?>
                                             </div>
