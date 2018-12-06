@@ -49,11 +49,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 [
                     'class' => 'yii\grid\ActionColumn',
-                    'template' => '{acceptButton} {declineButton}',
+                    'template' => '{acceptButton} {declineButton} {objectView}',
                     'buttons' => [
                         'acceptButton' => function ($url, $model, $key) {
                             if ($model->active) {
-                                $button = Html::a('Забрать у инвестора', ['/object/object-finish-back?oId='.$model->object_id.'&uId='.$model['user']->id], ['class' => 'btn btn-danger', 'data-confirm' => 'Вы уверены, что хотите забрать объект у инвестора?']);
+                                $button = Html::a('Забрать у инвестора', ['/object/object-finish-back?oId='.$model->object_id.'&uId='.$model->user->id], ['class' => 'btn btn-danger', 'data-confirm' => 'Вы уверены, что хотите забрать объект у инвестора?']);
                             } else {
                                 $button = Html::a('Отдать инвестору', ['/object/object-finish?oId=' . $model->object_id . '&uId=' . $model->user->id], ['class' => 'btn btn-success', 'data-confirm' => 'Вы уверены, что хотите отдать объект именно этому инвестору?']);
                             }
@@ -62,9 +62,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         'declineButton' => function ($url, $model, $key) {
                             $button = '';
                             if (!$model->active) {
-                                $button = Html::a('Удалить отклик', ['/object/unsubscribe?oId='.$model->object_id.'&uId='.$model['user']->id], ['class' => 'btn btn-primary', 'data-confirm' => 'Вы уверены, что хотите удалить отклик?']);
+                                $button = Html::a('Удалить отклик', ['/object/unsubscribe?oId='.$model->object_id.'&uId='.$model->user->id], ['class' => 'btn btn-primary', 'data-confirm' => 'Вы уверены, что хотите удалить отклик?']);
                             }
                             return $button;
+                        },
+                        'objectView' => function ($url, $model, $key) {
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['/object/view?id='.$model->object_id]);
                         }
                     ]
                 ]
