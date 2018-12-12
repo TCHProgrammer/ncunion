@@ -1,21 +1,33 @@
 jQuery(document).ready(function(){
 
-    var $tariffPrice = jQuery('#tariffPrice');
+    var $tariffPrice = jQuery('#tariffPrice'),
+        $textPrice   = jQuery('#text-price');
 
     $tariffPrice.ionRangeSlider({
-        grid: true,
+        extra_classes: "calc-irs",
+        postfix: " Р",
         onStart: function(data) {
             checkForm(data.from);
             getData();
+            $textPrice.val(data.from);
         },
         onChange: function(data) {
             checkForm(data.from);
             getData();
+            $textPrice.val(data.from);
         },
     });
 
     $tariffPrice.on("change", function(){
         jQuery("#tariffForm").attr('data-tariff', changeTariff());
+    });
+
+    $textPrice.on("change keyup paste", function(){
+        var $this = jQuery(this);
+        console.log(jQuery(this).val());
+        $tariffPrice.data("ionRangeSlider").update({
+            from: parseInt($this.val())
+        });
     });
 
     getData();
@@ -119,6 +131,7 @@ function changeTariff() {
 
 function checkForm(price) {
     if (price == 50000) {
+        jQuery('.heading h2 span', '#calculator').text('Оптимальный');
         jQuery('.tariff-1', '#calculator').show();
         jQuery('.tariff-2', '#calculator').hide();
 
@@ -148,6 +161,7 @@ function checkForm(price) {
             }
         });
     } else if ((price >= 51000) && (price <= 1500000)) {
+        jQuery('.heading h2 span', '#calculator').text('Оптимальный');
         jQuery('.tariff-1', '#calculator').show();
         jQuery('.tariff-2', '#calculator').hide();
 
@@ -177,6 +191,7 @@ function checkForm(price) {
             }
         });
     } else if (price >= 1500001) {
+        jQuery('.heading h2 span', '#calculator').text('Универсальный');
         jQuery('.tariff-2', '#calculator').show();
         jQuery('.tariff-1', '#calculator').hide();
 

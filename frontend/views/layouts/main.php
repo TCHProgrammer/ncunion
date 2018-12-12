@@ -580,7 +580,7 @@ AppAsset::register($this);
             <div class="row">
                 <div class="col-sm-12">
                     <div class="heading">
-                        <h2>Калькулятор вашего дохода</h2>
+                        <h2>Калькулятор вклада <span>Оптимальный</span></h2>
                         <span>моментально узнайте будущую выгоду!</span>
                     </div>
                 </div>
@@ -591,7 +591,9 @@ AppAsset::register($this);
                         <form action="#" id="tariffForm" data-tariff="1" data-difference="0.25" data-keyrate="7.5">
                             <div class="row">
                                 <div class="col-sm-6">
+                                    <p class="group-name">Хочу вложить</p>
                                     <div class="form-group">
+                                        <input type="text" id="text-price" name="text-price" class="text-price" readonly="readonly" disabled="disabled">
                                         <input id="tariffPrice"
                                                type="text"
                                                name="price"
@@ -602,58 +604,70 @@ AppAsset::register($this);
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
-                                    <p>На сколько месяцев</p>
+                                    <p class="group-name">На сколько месяцев</p>
 
-                                    <div class="radio input optimal">
-                                        <label>
-                                            <input type="radio" name="month" value="3" checked>
-                                            <span>3</span>
-                                        </label>
-                                    </div>
-                                    <div class="radio input optimal universal">
-                                        <label>
-                                            <input type="radio" name="month" value="12">
-                                            <span>12</span>
-                                        </label>
-                                    </div>
-                                    <div class="radio input universal">
-                                        <label>
-                                            <input type="radio" name="month" value="36">
-                                            <span>36</span>
-                                        </label>
+                                    <div class="radio-group radio-group-month flex">
+                                        <div class="radio input optimal">
+                                            <input type="radio" id="month-3" name="month" value="3" checked>
+                                            <label for="month-3">
+                                                <span>3</span>
+                                            </label>
+                                        </div>
+                                        <div class="radio input optimal universal">
+                                            <input type="radio" id="month-12" name="month" value="12">
+                                            <label for="month-12">
+                                                <span>12</span>
+                                            </label>
+                                        </div>
+                                        <div class="radio input universal">
+                                            <input type="radio" id="month-36" name="month" value="36">
+                                            <label for="month-36">
+                                                <span>36</span>
+                                            </label>
+                                        </div>
                                     </div>
 
-                                    <div class="additional">
+                                    <div class="checkbox-additional flex">
                                         <div class="checkbox input optimal universal">
-                                            <label>
-                                                <input type="checkbox" name="additional" value="1"> Страховка
+                                            <input type="checkbox" id="additional-guarantees-1" name="additional" value="1">
+                                            <label for="additional-guarantees-1">
+                                                <span class="square"></span>
+                                                <span>Страховка</span>
                                             </label>
                                         </div>
                                         <div class="checkbox input universal">
-                                            <label>
-                                                <input type="checkbox" name="additional" value="2"> Вексель
+                                            <input type="checkbox" id="additional-guarantees-2" name="additional" value="2">
+                                            <label for="additional-guarantees-2">
+                                                <span class="square"></span>
+                                                <span>Вексель</span>
                                             </label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
-                                    <p>Выплата процентов</p>
+                                    <p class="group-name">Выплата процентов</p>
 
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="percent-payment" value="1" checked> ежемесячно
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="percent-payment" value="2"> в конце срока
-                                        </label>
+                                    <div class="radio-group radio-group-pay flex">
+                                        <div class="radio">
+                                            <input type="radio" id="percent-payment-1" name="percent-payment" value="1" checked>
+                                            <label for="percent-payment-1">
+                                                <span>ежемесячно</span>
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <input type="radio" id="percent-payment-2" name="percent-payment" value="2">
+                                            <label for="percent-payment-2">
+                                                <span>в конце срока</span>
+                                            </label>
+                                        </div>
                                     </div>
 
-                                    <div class="additional">
+                                    <div class="checkbox-additional flex">
                                         <div class="checkbox input universal">
-                                            <label>
-                                                <input type="checkbox" name="additional" value="3"> Закладная на имущественные права
+                                            <input type="checkbox" id="additional-guarantees-3" name="additional" value="3">
+                                            <label for="additional-guarantees-3">
+                                                <span class="square"></span>
+                                                <span>Закладная на имущественные права</span>
                                             </label>
                                         </div>
                                     </div>
