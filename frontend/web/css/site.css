@@ -1285,6 +1285,11 @@ header .top {
     text-align: center;
     color: #FFFFFF;
     min-height: 530px;
+    opacity: 0.65;
+}
+
+.calculator .item.active {
+    opacity: 1;
 }
 
 .calculator .item.item-1 {
@@ -1310,13 +1315,14 @@ header .top {
 
 .calculator .item h3 span {
     font-weight: 700;
+    font-size: 21px;
 }
 
 .calculator .item .info .price-name {
     font-size: 18px;
 }
 
-.calculator .item .info .price {
+.calculator .item .info .full-price {
     display: block;
     margin: 10px 30px 0;
     font-size: 24px;
@@ -1326,19 +1332,19 @@ header .top {
     border-radius: 5px;
 }
 
-.calculator .item.item-1 .info .price {
+.calculator .item.item-1 .info .full-price {
     color: #862183;
 }
 
-.calculator .item.item-2 .info .price {
+.calculator .item.item-2 .info .full-price {
     color: #109C98;
 }
 
-.calculator .item.item-3 .info .price {
+.calculator .item.item-3 .info .full-price {
     color: #6CBF4A;
 }
 
-.calculator .item.item-4 .info .price {
+.calculator .item.item-4 .info .full-price {
     color: #0F55A9;
 }
 
@@ -1349,8 +1355,63 @@ header .top {
 
 .calculator .item .info ul {
     font-size: 12px;
-    text-align: left;
-    margin: 40px 0;
+}
+/* TODO: Префиксы */
+.calculator .item .item-conditions,
+.calculator .item .item-additionals {
+    flex-wrap: wrap;
+}
+
+.calculator .item .item-conditions {
+    margin: 30px 0 0;
+}
+
+.calculator .item .item-conditions .item-condition {
+    flex-basis: 50%;
+    text-align: center;
+    background: no-repeat top center / auto;
+    padding-top: 35px;
+}
+
+.calculator .item .item-conditions .item-price {
+    background-image: url(../img/main/calc-icon-1.png);
+}
+
+.calculator .item .item-conditions .item-month {
+    background-image: url(../img/main/calc-icon-2.png);
+}
+
+.calculator .item .item-conditions .item-pay {
+    background-image: url(../img/main/calc-icon-3.png);
+}
+
+.calculator .item .item-conditions .item-pay {
+    background-position: 20px center;
+    padding-top: 15px;
+}
+
+.calculator .item .item-conditions .item-pay,
+.calculator .item .item-additionals-wrapper {
+    flex-basis: 100%;
+}
+
+.calculator .item .item-additionals-wrapper {
+    margin: 15px 0;
+}
+
+.calculator .item .item-conditions .item-condition .name {
+    font-weight: 700;
+    margin: 0;
+}
+
+.calculator .item .item-additionals .item-additional {
+    flex-basis: 33.3333%;
+    text-align: center;
+}
+
+.calculator .item .full-conditions {
+    font-size: 12px;
+    color: #F6FF00;
 }
 
 .calculator .buttons {
@@ -1359,7 +1420,7 @@ header .top {
     left: 0;
     right: 0;
     background-color: #FFFFFF;
-    min-height: 150px;
+    min-height: 110px;
 }
 
 .calculator .buttons .message-button {
@@ -1437,13 +1498,13 @@ header .top {
     padding: 30px 0 40px;
     text-align: center;
 }
-
+/* TODO: Префиксы */
 .why-we .grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
-
+/* TODO: Префиксы */
 .why-we .grid .item {
     flex-basis: 50%;
     padding: 40px;

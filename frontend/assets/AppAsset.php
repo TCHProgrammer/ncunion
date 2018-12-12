@@ -17,7 +17,8 @@ class AppAsset extends AssetBundle
         'js/jquery.flexslider-min.js',
         'js/owl.carousel.min.js',
         'js/jquery.visible.min.js',
-        'js/script.js'
+        'js/script.js',
+        'js/calc.js'
     ];
     public $css = [
         //'//cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/css/bootstrap-slider.min.css',
