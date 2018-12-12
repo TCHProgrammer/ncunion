@@ -6,9 +6,11 @@ jQuery(document).ready(function(){
         grid: true,
         onStart: function(data) {
             checkForm(data.from);
+            getData();
         },
         onChange: function(data) {
             checkForm(data.from);
+            getData();
         },
     });
 
