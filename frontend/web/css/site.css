@@ -1285,7 +1285,7 @@ header .top {
     text-align: center;
     color: #FFFFFF;
     min-height: 530px;
-    opacity: 0.65;
+    opacity: 0.35;
 }
 
 .calculator .item.active {
@@ -1407,6 +1407,10 @@ header .top {
 .calculator .item .item-additionals .item-additional {
     flex-basis: 33.3333%;
     text-align: center;
+}
+
+.calculator .item .item-additional.active {
+    font-weight: 700;
 }
 
 .calculator .item .full-conditions {

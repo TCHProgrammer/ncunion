@@ -35,6 +35,7 @@ function getData(){
         stage               = getStage(),
         pay                 = getPay(),
         payName             = getPayName(),
+        additionalArray     = getAdditional(),
         additional          = getAdditionalPercent(),
         keyRate             = getKeyRate(),
         difference          = getDifference(),
@@ -48,6 +49,11 @@ function getData(){
        jQuery(this)
            .removeClass('active')
            .find('.item-condition .value').text('---');
+       jQuery(this)
+           .find('.item-additional')
+           .each(function(){
+                jQuery(this).removeClass('active');
+           });
     });
 
     jQuery(stageBlock, '#calculator')
@@ -62,8 +68,19 @@ function getData(){
             } else if (jQuery(this).hasClass('item-pay')) {
                 jQuery(this).find('.value').text(payName);
             }
-        })
+        });
 
+    jQuery(stageBlock, '#calculator')
+        .find('.item-additional')
+        .each(function(){
+            // console.log(additionalArray);
+            var $this = jQuery(this);
+            additionalArray.forEach(function(item){
+                $this
+                    .filter('.additional-' + item)
+                    .addClass('active');
+            });
+        });
     /*
     console.log('----------------');
     console.log('Цена (в рублях): ' + price);
