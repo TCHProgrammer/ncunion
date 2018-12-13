@@ -685,7 +685,7 @@ AppAsset::register($this);
                             <div class="info">
                                 <span class="price-name">Вы получите</span>
                                 <p class="item-condition full-price"><span class="value">---</span></p>
-                                <h3>Вклад <span>Универсальный 1</span></h3>
+                                <h3>Вклад <span>Летний</span></h3>
                                 <ul class="item-conditions list-unstyled flex">
                                     <li class="item-condition item-price">
                                         <p class="name">Сумма вклада:</p>
@@ -719,7 +719,7 @@ AppAsset::register($this);
                             <div class="info">
                                 <span class="price-name">Вы получите</span>
                                 <p class="item-condition full-price"><span class="value">---</span></p>
-                                <h3>Вклад <span>Универсальный 2</span></h3>
+                                <h3>Вклад <span>Весенний</span></h3>
                                 <ul class="item-conditions list-unstyled flex">
                                     <li class="item-condition item-price">
                                         <p class="name">Сумма вклада:</p>
@@ -753,7 +753,7 @@ AppAsset::register($this);
                             <div class="info">
                                 <span class="price-name">Вы получите</span>
                                 <p class="item-condition full-price"><span class="value">---</span></p>
-                                <h3>Вклад <span>Универсальный 3</span></h3>
+                                <h3>Вклад <span>Осенний</span></h3>
                                 <ul class="item-conditions list-unstyled flex">
                                     <li class="item-condition item-price">
                                         <p class="name">Сумма вклада:</p>
@@ -787,7 +787,7 @@ AppAsset::register($this);
                             <div class="info">
                                 <span class="price-name">Вы получите</span>
                                 <p class="item-condition full-price"><span class="value">---</span></p>
-                                <h3>Вклад <span>Универсальный 4</span></h3>
+                                <h3>Вклад <span>Зимний</span></h3>
                                 <ul class="item-conditions list-unstyled flex">
                                     <li class="item-condition item-price">
                                         <p class="name">Сумма вклада:</p>
