@@ -56,7 +56,7 @@ function getData(){
         percentModification = getPercentModification(),
         percent             = getPercent(),
         revenue             = getRevenue();
-        stageBlock          = '.tariff-' + tariff + ' .item-' + (stage + 1);
+        stageBlock          = '.item-' + (stage + 1);
         fullPrice           = price + revenue;
 
     jQuery('.tariffs .item', '#calculator').each(function(){
@@ -131,9 +131,6 @@ function changeTariff() {
 
 function checkForm(price) {
     if (price == 50000) {
-        jQuery('.heading h2 span', '#calculator').text('Оптимальный');
-        jQuery('.tariff-1', '#calculator').show();
-        jQuery('.tariff-2', '#calculator').hide();
 
         jQuery('input[name="month"]', '#tariffForm').each(function(){
             jQuery(this).prop('disabled', false);
@@ -160,10 +157,7 @@ function checkForm(price) {
                 jQuery(this).prop('disabled', true);
             }
         });
-    } else if ((price >= 51000) && (price <= 1500000)) {
-        jQuery('.heading h2 span', '#calculator').text('Оптимальный');
-        jQuery('.tariff-1', '#calculator').show();
-        jQuery('.tariff-2', '#calculator').hide();
+    } else if ((price >= 51000) && (price < 1500000)) {
 
         jQuery('input[name="month"]', '#tariffForm').each(function(){
             jQuery(this).prop('disabled', false);
@@ -190,10 +184,7 @@ function checkForm(price) {
                 jQuery(this).prop('disabled', true);
             }
         });
-    } else if (price >= 1500001) {
-        jQuery('.heading h2 span', '#calculator').text('Универсальный');
-        jQuery('.tariff-2', '#calculator').show();
-        jQuery('.tariff-1', '#calculator').hide();
+    } else if (price >= 1500000) {
 
         jQuery('input[name="month"]', '#tariffForm').each(function(){
             jQuery(this).prop('disabled', false);

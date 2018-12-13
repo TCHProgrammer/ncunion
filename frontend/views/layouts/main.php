@@ -580,7 +580,7 @@ AppAsset::register($this);
             <div class="row">
                 <div class="col-sm-12">
                     <div class="heading">
-                        <h2>Калькулятор вклада <span>Оптимальный</span></h2>
+                        <h2>Калькулятор вклада <span>Универсальный</span></h2>
                         <span>моментально узнайте будущую выгоду!</span>
                     </div>
                 </div>
@@ -588,7 +588,7 @@ AppAsset::register($this);
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form">
-                        <form action="#" id="tariffForm" data-tariff="1" data-difference="0.25" data-keyrate="7.5">
+                        <form action="#" id="tariffForm" data-tariff="2" data-difference="0.25" data-keyrate="7.5">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <p class="group-name">Хочу вложить</p>
@@ -597,9 +597,9 @@ AppAsset::register($this);
                                         <input id="tariffPrice"
                                                type="text"
                                                name="price"
-                                               data-min="50000"
+                                               data-min="1500000"
                                                data-max="10000000"
-                                               data-from="50000"
+                                               data-from="1500000"
                                                data-type="single">
                                     </div>
                                 </div>
@@ -679,144 +679,6 @@ AppAsset::register($this);
                 </div>
             </div>
             <div class="row items-row">
-                <div class="tariffs tariff-1">
-                    <div class="col-xs-6 col-lg-3 item-wrapper">
-                        <div class="item item-1" data-from="50000" data-to="50000">
-                            <div class="info">
-                                <span class="price-name">Вы получите</span>
-                                <p class="item-condition full-price"><span class="value">---</span></p>
-                                <h3>Вклад <span>Оптимальный 1</span></h3>
-                                <ul class="item-conditions list-unstyled flex">
-                                    <li class="item-condition item-price">
-                                        <p class="name">Сумма вклада:</p>
-                                        <p class="value">---</p>
-                                    </li>
-                                    <li class="item-condition item-month">
-                                        <p class="name">Срок вклада:</p>
-                                        <p class="value">---</p>
-                                    </li>
-                                    <li class="item-condition item-pay">
-                                        <p class="name">Выплата процентов:</p>
-                                        <p class="value">---</p>
-                                    </li>
-                                    <li class="item-additionals-wrapper">
-                                        <ul class="list-unstyled item-additionals flex">
-                                            <li class="item-additional additional-1" data-value="1">Страховка</li>
-                                            <li class="item-additional additional-2" data-value="2">Вексель</li>
-                                            <li class="item-additional additional-3" data-value="3">Закладная</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                <a class="full-conditions" href="#">Полные условия</a>
-                            </div>
-                            <div class="buttons">
-                                <button class="btn btn-default message-button btn-consult">Оставить заявку</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-lg-3 item-wrapper">
-                        <div class="item item-2" data-from="51000" data-to="299999">
-                            <div class="info">
-                                <span class="price-name">Вы получите</span>
-                                <p class="item-condition full-price"><span class="value">---</span></p>
-                                <h3>Вклад <span>Оптимальный 2</span></h3>
-                                <ul class="item-conditions list-unstyled flex">
-                                    <li class="item-condition item-price">
-                                        <p class="name">Сумма вклада:</p>
-                                        <p class="value">---</p>
-                                    </li>
-                                    <li class="item-condition item-month">
-                                        <p class="name">Срок вклада:</p>
-                                        <p class="value">---</p>
-                                    </li>
-                                    <li class="item-condition item-pay">
-                                        <p class="name">Выплата процентов:</p>
-                                        <p class="value">---</p>
-                                    </li>
-                                    <li class="item-additionals-wrapper">
-                                        <ul class="list-unstyled item-additionals flex">
-                                            <li class="item-additional additional-1" data-value="1">Страховка</li>
-                                            <li class="item-additional additional-2" data-value="2">Вексель</li>
-                                            <li class="item-additional additional-3" data-value="3">Закладная</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                <a class="full-conditions" href="#">Полные условия</a>
-                            </div>
-                            <div class="buttons">
-                                <button class="btn btn-default message-button btn-consult">Оставить заявку</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-lg-3 item-wrapper">
-                        <div class="item item-3" data-from="300000" data-to="999999">
-                            <div class="info">
-                                <span class="price-name">Вы получите</span>
-                                <p class="item-condition full-price"><span class="value">---</span></p>
-                                <h3>Вклад <span>Оптимальный 3</span></h3>
-                                <ul class="item-conditions list-unstyled flex">
-                                    <li class="item-condition item-price">
-                                        <p class="name">Сумма вклада:</p>
-                                        <p class="value">---</p>
-                                    </li>
-                                    <li class="item-condition item-month">
-                                        <p class="name">Срок вклада:</p>
-                                        <p class="value">---</p>
-                                    </li>
-                                    <li class="item-condition item-pay">
-                                        <p class="name">Выплата процентов:</p>
-                                        <p class="value">---</p>
-                                    </li>
-                                    <li class="item-additionals-wrapper">
-                                        <ul class="list-unstyled item-additionals flex">
-                                            <li class="item-additional additional-1" data-value="1">Страховка</li>
-                                            <li class="item-additional additional-2" data-value="2">Вексель</li>
-                                            <li class="item-additional additional-3" data-value="3">Закладная</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                <a class="full-conditions" href="#">Полные условия</a>
-                            </div>
-                            <div class="buttons">
-                                <button class="btn btn-default message-button btn-consult">Оставить заявку</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-lg-3 item-wrapper">
-                        <div class="item item-4" data-from="1000000" data-to="1499999">
-                            <div class="info">
-                                <span class="price-name">Вы получите</span>
-                                <p class="item-condition full-price"><span class="value">---</span></p>
-                                <h3>Вклад <span>Оптимальный 4</span></h3>
-                                <ul class="item-conditions list-unstyled flex">
-                                    <li class="item-condition item-price">
-                                        <p class="name">Сумма вклада:</p>
-                                        <p class="value">---</p>
-                                    </li>
-                                    <li class="item-condition item-month">
-                                        <p class="name">Срок вклада:</p>
-                                        <p class="value">---</p>
-                                    </li>
-                                    <li class="item-condition item-pay">
-                                        <p class="name">Выплата процентов:</p>
-                                        <p class="value">---</p>
-                                    </li>
-                                    <li class="item-additionals-wrapper">
-                                        <ul class="list-unstyled item-additionals flex">
-                                            <li class="item-additional additional-1" data-value="1">Страховка</li>
-                                            <li class="item-additional additional-2" data-value="2">Вексель</li>
-                                            <li class="item-additional additional-3" data-value="3">Закладная</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                <a class="full-conditions" href="#">Полные условия</a>
-                            </div>
-                            <div class="buttons">
-                                <button class="btn btn-default message-button btn-consult">Оставить заявку</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="tariffs tariff-2">
                     <div class="col-xs-6 col-lg-3 item-wrapper">
                         <div class="item item-1" data-from="1500000" data-to="2999999">
