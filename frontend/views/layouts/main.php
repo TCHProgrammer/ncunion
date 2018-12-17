@@ -606,72 +606,74 @@ AppAsset::register($this);
                                                data-type="single">
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
-                                    <p class="group-name">На сколько месяцев</p>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <p class="group-name">На сколько месяцев</p>
 
-                                    <div class="radio-group radio-group-month flex">
-                                        <div class="radio input optimal">
-                                            <input type="radio" id="month-3" name="month" value="3" checked>
-                                            <label for="month-3">
-                                                <span>3</span>
-                                            </label>
+                                            <div class="radio-group radio-group-month flex">
+                                                <div class="radio input optimal">
+                                                    <input type="radio" id="month-3" name="month" value="3" checked>
+                                                    <label for="month-3">
+                                                        <span>3</span>
+                                                    </label>
+                                                </div>
+                                                <div class="radio input optimal universal">
+                                                    <input type="radio" id="month-12" name="month" value="12">
+                                                    <label for="month-12">
+                                                        <span>12</span>
+                                                    </label>
+                                                </div>
+                                                <div class="radio input universal">
+                                                    <input type="radio" id="month-36" name="month" value="36">
+                                                    <label for="month-36">
+                                                        <span>36</span>
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="radio input optimal universal">
-                                            <input type="radio" id="month-12" name="month" value="12">
-                                            <label for="month-12">
-                                                <span>12</span>
-                                            </label>
-                                        </div>
-                                        <div class="radio input universal">
-                                            <input type="radio" id="month-36" name="month" value="36">
-                                            <label for="month-36">
-                                                <span>36</span>
-                                            </label>
-                                        </div>
-                                    </div>
+                                        <div class="col-sm-6">
+                                            <p class="group-name">Выплата процентов</p>
 
-                                    <div class="checkbox-additional flex">
-                                        <div class="checkbox input optimal universal">
-                                            <input type="checkbox" id="additional-guarantees-1" name="additional" value="1">
-                                            <label for="additional-guarantees-1">
-                                                <span class="square"></span>
-                                                <span>Страховка</span>
-                                            </label>
+                                            <div class="radio-group radio-group-pay flex">
+                                                <div class="radio">
+                                                    <input type="radio" id="percent-payment-1" name="percent-payment" value="1" checked>
+                                                    <label for="percent-payment-1">
+                                                        <span>ежемесячно</span>
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <input type="radio" id="percent-payment-2" name="percent-payment" value="2">
+                                                    <label for="percent-payment-2">
+                                                        <span>в конце срока</span>
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="checkbox input universal">
-                                            <input type="checkbox" id="additional-guarantees-2" name="additional" value="2">
-                                            <label for="additional-guarantees-2">
-                                                <span class="square"></span>
-                                                <span>Вексель</span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <p class="group-name">Выплата процентов</p>
-
-                                    <div class="radio-group radio-group-pay flex">
-                                        <div class="radio">
-                                            <input type="radio" id="percent-payment-1" name="percent-payment" value="1" checked>
-                                            <label for="percent-payment-1">
-                                                <span>ежемесячно</span>
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <input type="radio" id="percent-payment-2" name="percent-payment" value="2">
-                                            <label for="percent-payment-2">
-                                                <span>в конце срока</span>
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <div class="checkbox-additional flex">
-                                        <div class="checkbox input universal">
-                                            <input type="checkbox" id="additional-guarantees-3" name="additional" value="3">
-                                            <label for="additional-guarantees-3">
-                                                <span class="square"></span>
-                                                <span>Закладная на имущественные права</span>
-                                            </label>
+                                        <div class="col-sm-12">
+                                            <div class="checkbox-additional flex">
+                                                <div class="checkbox input optimal universal">
+                                                    <input type="checkbox" id="additional-guarantees-1" name="additional" value="1">
+                                                    <label for="additional-guarantees-1">
+                                                        <span class="square"></span>
+                                                        <span>Страховка</span>
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox input universal">
+                                                    <input type="checkbox" id="additional-guarantees-2" name="additional" value="2">
+                                                    <label for="additional-guarantees-2">
+                                                        <span class="square"></span>
+                                                        <span>Вексель</span>
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox input universal">
+                                                    <input type="checkbox" id="additional-guarantees-3" name="additional" value="3">
+                                                    <label for="additional-guarantees-3">
+                                                        <span class="square"></span>
+                                                        <span>Закладная на имущественные права</span>
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
