@@ -1319,7 +1319,7 @@ header .top {
 .calculator .irs-min,
 .calculator .irs-max {
     top: auto;
-    bottom: -20px;
+    bottom: -25px;
     color: #3B34A6;
     font-size: 18px;
     background-color: transparent;
@@ -1611,10 +1611,12 @@ header .top {
 }
 
 .calculator .irs-slider.single {
-    border-radius: 50%;
+    top: 25px;
     width: 16px;
     height: 16px;
     z-index: 20;
+    -webkit-clip-path: polygon(50% 100%, 100% 55%, 100% 0, 0 0, 0 55%);
+    clip-path: polygon(50% 100%, 100% 55%, 100% 0, 0 0, 0 55%);
 }
 
 .why-we {
