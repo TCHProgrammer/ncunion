@@ -72,6 +72,7 @@ function changeBgLayer() {
 
 function getData(){
     var price               = getPrice(),
+        dividedPrice        = getDividedNumber(price),
         priceName           = ' Р',
         tariff              = getTariff(),
         tariffName          = getTariffName(),
@@ -88,7 +89,7 @@ function getData(){
         percent             = getPercent(),
         revenue             = getRevenue();
         stageBlock          = '.item-' + (stage + 1);
-        fullPrice           = price + revenue;
+        fullDividedPrice    = getDividedNumber(price + revenue);
 
     jQuery('.tariffs .item', '#calculator').each(function(){
        jQuery(this)
@@ -105,9 +106,9 @@ function getData(){
         .addClass('active')
         .find('.item-condition').each(function(){
             if (jQuery(this).hasClass('full-price')) {
-                jQuery(this).find('.value').text(fullPrice + priceName);
+                jQuery(this).find('.value').text(fullDividedPrice);
             } else if (jQuery(this).hasClass('item-price')) {
-                jQuery(this).find('.value').text(price + priceName);
+                jQuery(this).find('.value').text(dividedPrice);
             } else if (jQuery(this).hasClass('item-month')) {
                 jQuery(this).find('.value').text(month + monthName);
             } else if (jQuery(this).hasClass('item-pay')) {
