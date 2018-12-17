@@ -712,7 +712,6 @@ AppAsset::register($this);
                                         </ul>
                                     </li>
                                 </ul>
-                                <a class="full-conditions" href="#">Полные условия</a>
                             </div>
                             <div class="buttons">
                                 <button class="btn btn-default message-button btn-consult">Оставить заявку</button>
@@ -746,7 +745,6 @@ AppAsset::register($this);
                                         </ul>
                                     </li>
                                 </ul>
-                                <a class="full-conditions" href="#">Полные условия</a>
                             </div>
                             <div class="buttons">
                                 <button class="btn btn-default message-button btn-consult">Оставить заявку</button>
@@ -780,7 +778,6 @@ AppAsset::register($this);
                                         </ul>
                                     </li>
                                 </ul>
-                                <a class="full-conditions" href="#">Полные условия</a>
                             </div>
                             <div class="buttons">
                                 <button class="btn btn-default message-button btn-consult">Оставить заявку</button>
@@ -814,7 +811,6 @@ AppAsset::register($this);
                                         </ul>
                                     </li>
                                 </ul>
-                                <a class="full-conditions" href="#">Полные условия</a>
                             </div>
                             <div class="buttons">
                                 <button class="btn btn-default message-button btn-consult">Оставить заявку</button>
