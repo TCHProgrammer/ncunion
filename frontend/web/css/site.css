@@ -1278,20 +1278,42 @@ header .top {
     text-transform: none;
 }
 
-.calculator .text-price {
-    width: 100%;
-    height: 60px;
+.calculator .tariff-group {
+    position: relative;
+    overflow: hidden;
     border: 1px solid #3B34A6;
     border-radius: 10px;
+}
+
+.calculator .tariff-group .bg-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #A7A3F0;
+    border-right: 1px solid #3B34A6;
+    z-index: 1;
+}
+
+.calculator .text-price {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    border: 0;
     font-size: 37px;
     text-align: center;
     color: #3B34A6;
     background-color: transparent;
+    z-index: 2;
 }
 
 .calculator .form-group > .irs {
+    margin-left: -8px;
+    margin-right: -7px;
+}
+
+.calculator .form-group .irs > .irs {
     margin-top: -31px;
-    padding: 0 10px;
 }
 
 .calculator .irs-min,
@@ -1578,6 +1600,7 @@ header .top {
 .calculator .irs-line {
     height: 1px;
     top: 30px;
+    background: transparent;
 }
 
 .calculator .irs-line > *,
@@ -1591,6 +1614,7 @@ header .top {
     border-radius: 50%;
     width: 16px;
     height: 16px;
+    z-index: 20;
 }
 
 .why-we {

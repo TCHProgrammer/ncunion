@@ -1,7 +1,7 @@
 jQuery(document).ready(function(){
 
-    var $tariffPrice = jQuery('#tariffPrice'),
-        $textPrice   = jQuery('#text-price');
+    var $tariffPrice =      jQuery('#tariffPrice'),
+        $textPrice   =      jQuery('#text-price');
 
     $tariffPrice.ionRangeSlider({
         extra_classes: "calc-irs",
@@ -9,25 +9,43 @@ jQuery(document).ready(function(){
         onStart: function(data) {
             checkForm(data.from);
             getData();
-            $textPrice.val(data.from);
+            $textPrice.val(getDividedNumber(data.from));
+            changeBgLayer();
         },
         onChange: function(data) {
             checkForm(data.from);
             getData();
-            $textPrice.val(data.from);
+            $textPrice.val(getDividedNumber(data.from));
+            changeBgLayer();
         },
     });
+
+    var tariffPriceData = $tariffPrice.data("ionRangeSlider");
 
     $tariffPrice.on("change", function(){
         jQuery("#tariffForm").attr('data-tariff', changeTariff());
     });
 
+    $textPrice.on("focus", function(){
+        console.log(tariffPriceData.result.from);
+        var $this = jQuery(this);
+        $this.val(getNormalNumber(tariffPriceData.result.from));
+        changeBgLayer();
+    });
+
+    $textPrice.on("blur", function(){
+        console.log(tariffPriceData.result.from);
+        var $this = jQuery(this);
+        $this.val(getDividedNumber(tariffPriceData.result.from));
+        changeBgLayer();
+    });
+
     $textPrice.on("change keyup paste", function(){
         var $this = jQuery(this);
-        console.log(jQuery(this).val());
         $tariffPrice.data("ionRangeSlider").update({
             from: parseInt($this.val())
         });
+        changeBgLayer();
     });
 
     getData();
@@ -38,6 +56,19 @@ jQuery(document).ready(function(){
 */
 
 jQuery('input', "#tariffForm").on('change', getData);
+
+function changeBgLayer() {
+    var $textPriceBgLayer = jQuery('.tariff-group .bg-layer', '#calculator'),
+        width = jQuery('.irs-bar', '#calculator').outerWidth();
+
+    $textPriceBgLayer.outerWidth(width);
+
+    if ($textPriceBgLayer.outerWidth() == 1) {
+        $textPriceBgLayer.css('left', '-1px');
+    } else {
+        $textPriceBgLayer.css('left', '0px');
+    };
+}
 
 function getData(){
     var price               = getPrice(),
@@ -207,6 +238,14 @@ function checkForm(price) {
             jQuery(this).prop('checked', false);
         });
     }
+}
+
+function getDividedNumber(value) {
+    return String(value).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ') + ' Р';
+}
+
+function getNormalNumber(value) {
+    return parseInt(String(value).replace(",",".").replace(/[^0-9.]/gim, ""));
 }
 
 function getPrice() {

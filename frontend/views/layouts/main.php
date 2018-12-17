@@ -593,7 +593,10 @@ AppAsset::register($this);
                                 <div class="col-sm-6">
                                     <p class="group-name">Хочу вложить</p>
                                     <div class="form-group">
-                                        <input type="text" id="text-price" name="text-price" class="text-price" readonly="readonly" disabled="disabled">
+                                        <div class="tariff-group">
+                                            <div class="bg-layer"></div>
+                                            <input type="text" id="text-price" name="text-price" class="text-price">
+                                        </div>
                                         <input id="tariffPrice"
                                                type="text"
                                                name="price"
