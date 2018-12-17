@@ -1397,12 +1397,12 @@ header .top {
 /* TODO: Префиксы */
 .calculator .checkbox-additional {
     padding: 30px 0;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: baseline;
 }
 
 .calculator .checkbox-additional label {
-    font-size: 14px;
+    font-size: 21px;
 }
 
 .calculator .checkbox-additional label > * {
@@ -1411,8 +1411,8 @@ header .top {
 }
 
 .calculator .checkbox-additional label .square {
-    width: 15px;
-    height: 15px;
+    width: 18px;
+    height: 18px;
     border: 1px solid #3B34A6;
     background-color: #F6F5F5;
     border-radius: 2px;
@@ -1560,6 +1560,7 @@ header .top {
 
 .calculator .item .item-additional.active {
     font-weight: 700;
+    color: #F6FF00;
 }
 
 .calculator .item .full-conditions {
