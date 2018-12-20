@@ -121,24 +121,6 @@ TariffsAsset::register($this);
         <?= $content ?>
     </div>
 
-    <section class="get-consultation">
-        <div class="container">
-            <div class="row flex-row">
-                <div class="col-sm-12 col-md-8">
-                    <div class="heading">
-                        <h2>Остались вопросы?</h2>
-                        <span>Наши специалисты уже готовы дать профессиональную консультацию!</span>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-4">
-                    <div class="buttons">
-                        <button class="btn btn-default btn-get-consultation btn-consult">Получить консультацию</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section class="programs" id="programs">
         <div class="container">
             <div class="row">
@@ -230,6 +212,24 @@ TariffsAsset::register($this);
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="get-consultation">
+        <div class="container">
+            <div class="row flex-row">
+                <div class="col-sm-12 col-md-8">
+                    <div class="heading">
+                        <h2>Остались вопросы?</h2>
+                        <span>Наши специалисты уже готовы дать профессиональную консультацию!</span>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="buttons">
+                        <button class="btn btn-default btn-get-consultation btn-consult">Получить консультацию</button>
                     </div>
                 </div>
             </div>

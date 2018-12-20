@@ -474,7 +474,8 @@ AppAsset::register($this);
             </div>
             <div class="row programs-wrapper">
                 <div class="col-xs-6 col-sm-6">
-                    <div class="item">
+                    <a href="/tariffs/optimal" class="item-link">
+                        <div class="item">
                         <div class="image">
                             <img src="<?php echo Url::to('@web/img/main/program-1.png'); ?>" alt="Доходная" class="img-responsive">
                         </div>
@@ -512,6 +513,7 @@ AppAsset::register($this);
                             </div>
                         </div>
                     </div>
+                    </a>
                 </div>
                 <div class="col-xs-6 col-sm-6">
                     <div class="item">
