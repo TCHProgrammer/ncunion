@@ -1,0 +1,130 @@
+.btn-default.btn-tariff {
+    border-color: #E27856;
+    background-color: transparent;
+    color: #E27856;
+}
+
+.btn-default.btn-tariff:active,
+.btn-default.btn-tariff:focus,
+.btn-default.btn-tariff:hover,
+.btn-default.btn-tariff:active:focus,
+.btn-default.btn-tariff:active:hover,
+.btn-default.btn-get-consultation:active {
+    background-color: #E27856;
+    border-color: #E27856;
+    color: #FFFFFF;
+}
+
+.calculator.tariff-optimal .container {
+    background-image: url(../img/tariffs/calculator-optimal-bg.png);
+}
+
+.calculator .calculator-wrapper {
+    -webkit-box-shadow: 6.13px 5.14px 18px 0px rgba(0,0,0,0.35);
+    -moz-box-shadow: 6.13px 5.14px 18px 0px rgba(0,0,0,0.35);
+    box-shadow: 6.13px 5.14px 18px 0px rgba(0,0,0,0.35);
+    margin-bottom: 60px;
+}
+
+.calculator .calculator-wrapper .form-inside {
+    padding: 60px 35px;
+    min-height: 530px;
+}
+
+.calculator .calculator-wrapper .form-inside.blue {
+    background-color: #3B34A6;
+}
+
+.calculator .calculator-wrapper .tariff-group .bg-layer {
+    background-color: #A7A3F0;
+    border-right-color: #A7A3F0;
+}
+
+.calculator .calculator-wrapper form .group {
+    padding: 30px 0;
+}
+
+/* TODO: Префиксы */
+.calculator .calculator-wrapper .item-conditions {
+    flex-wrap: wrap;
+}
+
+.calculator .calculator-wrapper .item-condition {
+    flex-basis: 33.3333%;
+    color: #FFFFFF;
+    font-weight: 700;
+    text-align: center;
+    padding: 0 0 40px;
+}
+
+.calculator .calculator-wrapper .item-condition .name {
+    color: #A7A3F0;
+}
+
+.calculator .calculator-wrapper .item-condition.full-price {
+    flex-basis: 100%;
+}
+
+.calculator .calculator-wrapper .item-condition.full-price .name {
+    font-weight: 400;
+    color: #FFFFFF;
+    font-size: 18px;
+}
+
+.calculator .calculator-wrapper .item-condition.full-price .value {
+    font-size: 63px;
+    color: #A7A3F0;
+}
+
+.calculator .calculator-wrapper .checkbox-additional label > * {
+    font-size: 12px;
+}
+
+.calculator .calculator-wrapper .item-condition.with-icon {
+    padding: 30px 0 40px;
+    background: no-repeat top center / auto 17px;
+}
+
+.calculator .calculator-wrapper .item-condition.item-revenue {
+    background-image: url(../img/tariffs/calc-icon-1-tariff.png);
+}
+
+.calculator .calculator-wrapper .item-condition.item-percent {
+    background-image: url(../img/tariffs/calc-icon-2-tariff.png);
+}
+
+.calculator .calculator-wrapper .item-condition.item-month {
+    background-image: url(../img/tariffs/calc-icon-3-tariff.png);
+}
+
+.calculator .calculator-wrapper .buttons {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    min-height: auto;
+    background-color: transparent;
+    text-align: center;
+}
+
+@media all and (min-width: 992px) and (max-width: 1199px) {
+    .calculator .calculator-wrapper .item-condition.full-price .value {
+        font-size: 55px;
+    }
+}
+/* TODO: Префиксы */
+@media all and (max-width: 500px) {
+    .calculator .calculator-wrapper .item-condition {
+        flex-basis: 50%;
+    }
+    .calculator .calculator-wrapper .item-condition.full-price .value {
+        font-size: 36px;
+    }
+}
+/* TODO: Префиксы */
+@media all and (max-width: 430px) {
+    .calculator .calculator-wrapper .item-condition {
+        flex-basis: 100%;
+    }
+}

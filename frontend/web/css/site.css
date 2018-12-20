@@ -1174,6 +1174,18 @@ header .top {
     text-align: center;
 }
 
+.programs .item-link {
+    color: #333;
+}
+
+.programs .item-link:hover,
+.programs .item-link:focus,
+.programs .item-link:active,
+.programs .item-link:active:hover,
+.programs .item-link:active:focus {
+    text-decoration: none;
+}
+
 .programs .item {
     display: flex;
     justify-content: space-between;

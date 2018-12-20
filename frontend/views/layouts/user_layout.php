@@ -14,7 +14,7 @@ use frontend\assets\ProfileAsset;
 use common\widgets\Alert;
 use frontend\widget\AdminPanel;
 
-ProfileAsset::register($this);
+ProfileAsset::register($this);programs
 ?>
 <?php $this->beginPage() ?>
 <!doctype html>

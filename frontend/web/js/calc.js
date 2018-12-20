@@ -87,24 +87,27 @@ function getData(){
         difference          = getDifference(),
         percentModification = getPercentModification(),
         percent             = getPercent(),
+        percentName         = ' %',
         revenue             = getRevenue();
+        revenueByMonth      = getRevenueByMonth(),
         stageBlock          = '.item-' + (stage + 1);
         fullDividedPrice    = getDividedNumber(price + revenue);
 
-    jQuery('.tariffs .item', '#calculator').each(function(){
-       jQuery(this)
-           .removeClass('active')
-           .find('.item-condition .value').text('---');
-       jQuery(this)
-           .find('.item-additional')
-           .each(function(){
-                jQuery(this).removeClass('active');
-           });
-    });
+    if (price >= 1500000) {
+        jQuery('.tariffs .item', '#calculator').each(function(){
+            jQuery(this)
+                .removeClass('active')
+                .find('.item-condition .value').text('---');
+            jQuery(this)
+                .find('.item-additional')
+                .each(function(){
+                    jQuery(this).removeClass('active');
+                });
+        });
 
-    jQuery(stageBlock, '#calculator')
-        .addClass('active')
-        .find('.item-condition').each(function(){
+        jQuery(stageBlock, '#calculator')
+            .addClass('active')
+            .find('.item-condition').each(function(){
             if (jQuery(this).hasClass('full-price')) {
                 jQuery(this).find('.value').text(fullDividedPrice);
             } else if (jQuery(this).hasClass('item-price')) {
@@ -116,17 +119,35 @@ function getData(){
             }
         });
 
-    jQuery(stageBlock, '#calculator')
-        .find('.item-additional')
-        .each(function(){
-            // console.log(additionalArray);
-            var $this = jQuery(this);
-            additionalArray.forEach(function(item){
-                $this
-                    .filter('.additional-' + item)
-                    .addClass('active');
+        jQuery(stageBlock, '#calculator')
+            .find('.item-additional')
+            .each(function(){
+                // console.log(additionalArray);
+                var $this = jQuery(this);
+                additionalArray.forEach(function(item){
+                    $this
+                        .filter('.additional-' + item)
+                        .addClass('active');
+                });
             });
+    } else {
+        jQuery("#tariff-result", '#calculator')
+            .find('.item-condition').each(function(){
+            if (jQuery(this).hasClass('full-price')) {
+                jQuery(this).find('.value').text(fullDividedPrice);
+            } else if (jQuery(this).hasClass('item-revenue')) {
+                jQuery(this).find('.value').text(revenue + priceName);
+            } else if (jQuery(this).hasClass('item-percent')) {
+                jQuery(this).find('.value').text(percent + percentName);
+            } else if (jQuery(this).hasClass('item-month')) {
+                jQuery(this).find('.value').text(month + monthName);
+            } else if (jQuery(this).hasClass('item-pay')) {
+                jQuery(this).find('.value').text(payName);
+            } else if (jQuery(this).hasClass('item-revenue-by-month')) {
+                jQuery(this).find('.value').text(revenueByMonth + priceName);
+            }
         });
+    }
     /*
     console.log('----------------');
     console.log('Цена (в рублях): ' + price);
@@ -173,15 +194,6 @@ function checkForm(price) {
                 jQuery(this).prop('disabled', true);
             }
         });
-        jQuery('input[name="percent-payment"]', '#tariffForm').each(function(){
-            jQuery(this).prop('disabled', false);
-            jQuery(this).prop('checked', false);
-            if (parseInt(jQuery(this).val()) == 1) {
-                jQuery(this).prop('checked', true);
-            } else {
-                jQuery(this).prop('disabled', true);
-            }
-        });
         jQuery('input[name="additional"]', '#tariffForm').each(function(){
             jQuery(this).prop('disabled', false);
             jQuery(this).prop('checked', false);
@@ -195,15 +207,6 @@ function checkForm(price) {
             jQuery(this).prop('disabled', false);
             jQuery(this).prop('checked', false);
             if (parseInt(jQuery(this).val()) == 12) {
-                jQuery(this).prop('checked', true);
-            } else {
-                jQuery(this).prop('disabled', true);
-            }
-        });
-        jQuery('input[name="percent-payment"]', '#tariffForm').each(function(){
-            jQuery(this).prop('disabled', false);
-            jQuery(this).prop('checked', false);
-            if (parseInt(jQuery(this).val()) == 2) {
                 jQuery(this).prop('checked', true);
             } else {
                 jQuery(this).prop('disabled', true);
@@ -308,13 +311,21 @@ function getAdditional() {
 }
 
 function getAdditionalPercentsInArray() {
-    var percents   = {
+    var percents           = {},
+        additional         = getAdditional(),
+        additionalPercents = [],
+        tariff             = getTariff();
+    if (tariff == 1) {
+        percents = {
+            1: [0.25, 0.25]
+        }
+    } else if (tariff == 2) {
+        percents = {
             1: [1.75, 0.25],
             2: [3, 2.25],
             3: [3.75, 2.75]
-        },
-        additional = getAdditional(),
-        additionalPercents = [];
+        }
+    }
 
     additional.forEach(function(item){
         additionalPercents.push(percents[item]);
@@ -395,6 +406,14 @@ function getPercent() {
 
 }
 
+function getRevenueByMonth() {
+    var price = getPrice(),
+        percent = getPercent(),
+        revenueByMonth = Math.round((price / 12) * (percent / 100));
+
+    return revenueByMonth;
+}
+
 function getRevenue() {
     var price = getPrice(),
         percent = getPercent(),
@@ -408,16 +427,14 @@ function getStage() {
 
     var tariff = getTariff(),
         price = getPrice(),
-        optimal = [],
+        optimal = [
+            [50000, 50000],
+            [51000, 299999],
+            [300000, 999999],
+            [1000000, 1499999]
+        ],
         universal = [],
         stageIndex = -1;
-
-    jQuery('.tariff-1 .item', '#calculator').each(function(){
-        var optimalArray = [];
-        optimalArray[0] = parseInt(jQuery(this).data('from'));
-        optimalArray[1] = parseInt(jQuery(this).data('to'));
-        optimal.push(optimalArray);
-    });
 
     jQuery('.tariff-2 .item', '#calculator').each(function(){
         var universalArray = [];
