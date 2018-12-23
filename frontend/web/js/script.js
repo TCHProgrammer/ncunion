@@ -337,8 +337,10 @@ $(window).on('load resize', function(){
 
 $(window).on('scroll load', function(){
     $('.animated').each(function(){
-        if($(this).is(':appeared')) {
-            $(this).addClass('fadeInUp');
+        if (window.matchMedia('(min-width: 992px)').matches) {
+            if($(this).is(':appeared')) {
+                $(this).addClass('fadeInUp');
+            }
         }
     });
 });
