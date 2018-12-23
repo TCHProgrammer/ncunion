@@ -29,7 +29,7 @@ AppAsset::register($this);
 <?php if (!Yii::$app->user->can('ban')){ ?>
 <?php $this->beginBody() ?>
 <?= AdminPanel::widget(); ?>
-    <header class="no-animate">
+    <header>
         <div class="top">
             <div class="container">
                 <div class="row top-wrapper">
@@ -121,7 +121,7 @@ AppAsset::register($this);
         -->
     </header>
 
-    <section class="slider flexslider no-animate">
+    <section class="slider flexslider">
         <ul class="slides">
             <li style="background-image: url(<?php echo Url::to('@web/img/main/slide-1.jpg'); ?>)">
                 <div class="flex-caption">
@@ -180,7 +180,7 @@ AppAsset::register($this);
         </ul>
     </section>
 
-    <section class="advantages no-animate">
+    <section class="advantages animated">
         <section class="advantages-tabs">
             <div class="container">
                 <ul class="row list-unstyled nav nav-tabs" id="advantage-tabs" role="tablist">
@@ -462,7 +462,7 @@ AppAsset::register($this);
         </section>
     </section>
 
-    <section class="programs" id="programs">
+    <section class="programs animated" id="programs">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
@@ -516,7 +516,8 @@ AppAsset::register($this);
                     </a>
                 </div>
                 <div class="col-xs-6 col-sm-6">
-                    <div class="item">
+                    <a href="#calculator" class="item-link goto-calculator">
+                        <div class="item">
                         <div class="image">
                             <img src="<?php echo Url::to('@web/img/main/program-2.png'); ?>" alt="Доходная" class="img-responsive">
                         </div>
@@ -554,12 +555,13 @@ AppAsset::register($this);
                             </div>
                         </div>
                     </div>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="get-consultation">
+    <section class="get-consultation animated">
         <div class="container">
             <div class="row flex-row">
                 <div class="col-sm-12 col-md-8">
@@ -577,7 +579,7 @@ AppAsset::register($this);
         </div>
     </section>
 
-    <section class="calculator" id="calculator">
+    <section class="calculator animated" id="calculator">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
@@ -928,7 +930,7 @@ AppAsset::register($this);
     </section>
     -->
 
-    <section class="why-we">
+    <section class="why-we animated">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
@@ -1078,7 +1080,14 @@ AppAsset::register($this);
                         </div>
                         <div class="item item-blue">
                             <h3>Мы эксперты в:</h3>
-                            <p>инвестировании в недвижимость</p>
+                            <p>инвестировании в недвижимость;</p>
+                            <p>финансовой аналитике;</p>
+                            <p>оценке рисков;</p>
+                            <p>стабильном устойчивом развитии;</p>
+                            <p>привлечении капитала;</p>
+                            <p>поиске и освоении различных бизнес-ниш;</p>
+                            <p>разработке и внедрению новых финансовых инструментов;</p>
+                            <p>получении прибыли для себя и своих партнеров.</p>
                             <a href="#" class="btn btn-primary btn-blue">Подробнее</a>
                         </div>
                         <div class="item item-image" style="background-image: url(<?php echo Url::to('@web/img/main/why-2.jpg'); ?>);"></div>
@@ -1088,7 +1097,7 @@ AppAsset::register($this);
         </div>
     </section>
 
-    <section class="how-to">
+    <section class="how-to animated">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
@@ -1139,7 +1148,7 @@ AppAsset::register($this);
         </div>
     </section>
 
-    <section class="consultation-form" id="consultation-form">
+    <section class="consultation-form animated" id="consultation-form">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 col-md-5">
@@ -1180,7 +1189,7 @@ AppAsset::register($this);
         </div>
     </section>
 
-    <section class="map">
+    <section class="map animated">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2245.3919969563412!2d37.530455816243816!3d55.751692380553074!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54bdf26955a8f%3A0x27582effbd2d7a96!2z0KHQtdCy0LXRgNC90LDRjyDQkdCw0YjQvdGP!5e0!3m2!1sru!2sru!4v1539330204523" frameborder="0" style="border:0; width: 100%; height: 550px;"></iframe>
         <div class="contacts-card">
             <div class="text">
@@ -1197,7 +1206,7 @@ AppAsset::register($this);
         </div>
     </section>
 
-    <footer class="footer">
+    <footer class="footer animated">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">

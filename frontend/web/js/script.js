@@ -19,6 +19,7 @@ function openAnswer(id, lvl) {
 /* по хорошему их можно бы по другому реализовать, так сказать более разумнее */
 
 $(document).ready(function () {
+
     /* Слайдер на главной */
     $('.slider').flexslider({
         animation: "slide",
@@ -334,15 +335,10 @@ $(window).on('load resize', function(){
     });
 });
 
-/* Анимирование отдельных частей главной */
 $(window).on('scroll load', function(){
-    if (window.matchMedia('(min-width: 992px)').matches) {
-        $('.heading').each(function(){
-            if ( $(this).visible()) {
-                $(this)
-                    .addClass('animated fadeInUpBig')
-                    .css('visibility', 'visible');
-            }
-        });
-    }
+    $('.animated').each(function(){
+        if($(this).is(':appeared')) {
+            $(this).addClass('fadeInUp');
+        }
+    });
 });

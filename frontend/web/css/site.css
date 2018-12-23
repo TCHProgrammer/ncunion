@@ -1904,12 +1904,6 @@ textarea {
     }
 }
 
-@media all and (min-width: 992px) {
-    .heading {
-        visibility: hidden;
-    }
-}
-
 @media all and (max-width: 991px) {
     .slider .flex-caption .slide-row .item h2 {
         font-size: 20px;

@@ -16,7 +16,7 @@ class AppAsset extends AssetBundle
         'js/ion.rangeSlider.min.js',
         'js/jquery.flexslider-min.js',
         'js/owl.carousel.min.js',
-        'js/jquery.visible.min.js',
+        'js/jquery.appear.js',
         'js/script.js',
         'js/calc.js'
     ];
