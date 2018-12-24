@@ -24,7 +24,7 @@ $(document).ready(function () {
     $('.slider').flexslider({
         animation: "slide",
         directionNav: false,
-        slideshow: false,
+        slideshow: true,
     });
 
     $('#advantage-tabs a').click(function (e) {
@@ -55,6 +55,13 @@ $(document).ready(function () {
     $('.btn-consult').on('click', function(){
         $('html, body').animate({
             scrollTop: $("#consultation-form").offset().top
+        }, 2000);
+    });
+
+    $('.goto-calculator').on('click', function(e){
+        e.preventDefault();
+        $('html, body').animate({
+            scrollTop: $($(this).attr('href')).offset().top
         }, 2000);
     });
 

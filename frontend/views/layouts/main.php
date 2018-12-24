@@ -244,22 +244,22 @@ AppAsset::register($this);
                     <div class="col-sm-12 tab-pane fade in active" id="tab-security">
                         <div class="item-tab-content">
                             <div class="row tab-numbers">
-                                <div class="col-sm-6 col-md-3 tab-number-1">
+                                <div class="col-xs-6 col-md-3 tab-number-1">
                                     <div class="item">
                                         <img src="<?php echo Url::to('@web/img/main/tab-number-1.png'); ?>" alt="">
                                     </div>
                                 </div>
-                                <div class="col-sm-6 col-md-3 tab-number-2">
+                                <div class="col-xs-6 col-sm-6 col-md-3 tab-number-2">
                                     <div class="item">
                                         <img src="<?php echo Url::to('@web/img/main/tab-number-2.png'); ?>" alt="">
                                     </div>
                                 </div>
-                                <div class="col-sm-6 col-md-3 tab-number-3">
+                                <div class="col-xs-6 col-sm-6 col-md-3 tab-number-3">
                                     <div class="item">
                                         <img src="<?php echo Url::to('@web/img/main/tab-number-3.png'); ?>" alt="">
                                     </div>
                                 </div>
-                                <div class="col-sm-6 col-md-3 tab-number-4">
+                                <div class="col-xs-6 col-sm-6 col-md-3 tab-number-4">
                                     <div class="item">
                                         <img src="<?php echo Url::to('@web/img/main/tab-number-4.png'); ?>" alt="">
                                     </div>
@@ -272,7 +272,7 @@ AppAsset::register($this);
                                     </div>
                                 </div>
                                 <div class="row flex-row">
-                                    <div class="col-sm-3 condition color-4">
+                                    <div class="col-xs-6 col-sm-4 col-md-3 condition color-4">
                                         <div class="item">
                                             <span class="number">01</span>
                                             <h4 class="name">Страхование</h4>
@@ -285,7 +285,7 @@ AppAsset::register($this);
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 condition color-3">
+                                    <div class="col-xs-6 col-sm-4 col-md-3 condition color-3">
                                         <div class="item">
                                             <span class="number">02</span>
                                             <h4 class="name">Вексель</h4>
@@ -298,7 +298,7 @@ AppAsset::register($this);
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 condition color-2">
+                                    <div class="col-xs-6 col-sm-4 col-md-3 condition color-2">
                                         <div class="item">
                                             <span class="number">03</span>
                                             <h4 class="name">Закладная</h4>
@@ -318,13 +318,13 @@ AppAsset::register($this);
                     <div class="col-sm-12 tab-pane fade" id="tab-benefit">
                         <div class="item-tab-content">
                             <div class="row tab-graphs">
-                                <div class="col-sm-6">
+                                <div class="col-sm-6 tab-graph">
                                     <div class="item">
                                         <h3>Доходность</h3>
                                         <img class="img-responsive" src="<?php echo Url::to('@web/img/main/tab-graph-1.png'); ?>">
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-6 tab-graph">
                                     <div class="item">
                                         <h3>Надёжность</h3>
                                         <img class="img-responsive" src="<?php echo Url::to('@web/img/main/tab-graph-2.png'); ?>">
@@ -336,8 +336,8 @@ AppAsset::register($this);
                     <div class="col-sm-12 tab-pane fade" id="tab-availability">
                         <div class="item-tab-content">
                             <section class="conditions-list">
-                                <div class="row">
-                                    <div class="col-sm-3 condition color-1">
+                                <div class="row flex-rowitem-link goto-calculator">
+                                    <div class="col-xs-6 col-sm-4 col-md-3 condition color-1">
                                         <div class="item">
                                             <span class="number">01</span>
                                             <h4 class="name">Минимальная сумма</h4>
@@ -354,7 +354,7 @@ AppAsset::register($this);
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 condition color-2">
+                                    <div class="col-xs-6 col-sm-4 col-md-3 condition color-2">
                                         <div class="item">
                                             <span class="number">02</span>
                                             <h4 class="name">Обучение</h4>
@@ -368,7 +368,7 @@ AppAsset::register($this);
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 condition color-3">
+                                    <div class="col-xs-6 col-sm-4 col-md-3 condition color-3">
                                         <div class="item">
                                             <span class="number">03</span>
                                             <h4 class="name">Прозрачность сделок</h4>
@@ -383,7 +383,7 @@ AppAsset::register($this);
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 condition color-4">
+                                    <div class="col-xs-6 col-sm-4 col-md-3 condition color-4">
                                         <div class="item">
                                             <span class="number">04</span>
                                             <h4 class="name">Единый рынок</h4>
@@ -397,7 +397,7 @@ AppAsset::register($this);
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 condition color-4">
+                                    <div class="col-xs-6 col-sm-4 col-md-3 condition color-4">
                                         <div class="item">
                                             <span class="number">05</span>
                                             <h4 class="name">Территория РФ</h4>
@@ -411,7 +411,7 @@ AppAsset::register($this);
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 condition color-3">
+                                    <div class="col-xs-6 col-sm-4 col-md-3 condition color-3">
                                         <div class="item">
                                             <span class="number">06</span>
                                             <h4 class="name">Удобство</h4>
@@ -425,7 +425,7 @@ AppAsset::register($this);
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 condition color-2">
+                                    <div class="col-xs-6 col-sm-4 col-md-3 condition color-2">
                                         <div class="item">
                                             <span class="number">07</span>
                                             <h4 class="name">Выбор</h4>
@@ -439,7 +439,7 @@ AppAsset::register($this);
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 condition color-1">
+                                    <div class="col-xs-6 col-sm-4 col-md-3 condition color-1">
                                         <div class="item">
                                             <span class="number">08</span>
                                             <h4 class="name">Магазин решений</h4>
@@ -473,58 +473,58 @@ AppAsset::register($this);
                 </div>
             </div>
             <div class="row programs-wrapper">
-                <div class="col-xs-6 col-sm-6">
-                    <a href="/tariffs/optimal" class="item-link">
-                        <div class="item">
-                        <div class="image">
-                            <img src="<?php echo Url::to('@web/img/main/program-1.png'); ?>" alt="Доходная" class="img-responsive">
-                        </div>
-                        <div class="text">
-                            <h3>Вклад "Оптимальный"</h3>
-                            <div class="row flex-row properties-list">
-                                <div class="col-sm-6">
-                                    <div class="property property-price">
-                                        <div class="image">
-                                            <img src="<?php echo Url::to('@web/img/main/program-icon-price.png'); ?>" alt="Сумма вклада">
+                <div class="col-xs-6 col-sm-6 program">
+                    <div class="item">
+                        <a href="/tariffs/optimal" class="item-link">
+                            <div class="image">
+                                <img src="<?php echo Url::to('@web/img/main/program-1.png'); ?>" alt="Доходная" class="img-responsive">
+                            </div>
+                            <div class="text">
+                                <h3>Вклад "Оптимальный"</h3>
+                                <div class="row flex-row properties-list">
+                                    <div class="col-sm-6 col-md-12 col-lg-6 property-wrapper">
+                                        <div class="property property-price">
+                                            <div class="image">
+                                                <img src="<?php echo Url::to('@web/img/main/program-icon-price.png'); ?>" alt="Сумма вклада">
+                                            </div>
+                                            <span class="name">Сумма вклада:</span>
+                                            <p>от 50 000 руб</p>
+                                            <p>до 1 499 999 руб</p>
                                         </div>
-                                        <span class="name">Сумма вклада:</span>
-                                        <p>от 50 000 руб</p>
-                                        <p>до 1 499 999 руб</p>
                                     </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="property property-time">
-                                        <div class="image">
-                                            <img src="<?php echo Url::to('@web/img/main/program-icon-time.png'); ?>" alt="Срок вклада">
+                                    <div class="col-sm-6 col-md-12 col-lg-6 property-wrapper">
+                                        <div class="property property-time">
+                                            <div class="image">
+                                                <img src="<?php echo Url::to('@web/img/main/program-icon-time.png'); ?>" alt="Срок вклада">
+                                            </div>
+                                            <span class="name">Срок вклада:</span>
+                                            <p>от 3 месяцев</p>
                                         </div>
-                                        <span class="name">Срок вклада:</span>
-                                        <p>от 3 месяцев</p>
                                     </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="property property-percent">
-                                        <div class="image">
-                                            <img src="<?php echo Url::to('@web/img/main/program-icon-percent.png'); ?>" alt="Выплата процентов">
+                                    <div class="col-sm-12 property-wrapper">
+                                        <div class="property property-percent">
+                                            <div class="image">
+                                                <img src="<?php echo Url::to('@web/img/main/program-icon-percent.png'); ?>" alt="Выплата процентов">
+                                            </div>
+                                            <span class="name">Выплата процентов:</span>
+                                            <p>в конце срока, ежемесячно</p>
                                         </div>
-                                        <span class="name">Выплата процентов:</span>
-                                        <p>в конце срока, ежемесячно</p>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
-                    </a>
                 </div>
-                <div class="col-xs-6 col-sm-6">
-                    <a href="#calculator" class="item-link goto-calculator">
-                        <div class="item">
-                        <div class="image">
-                            <img src="<?php echo Url::to('@web/img/main/program-2.png'); ?>" alt="Доходная" class="img-responsive">
-                        </div>
-                        <div class="text">
+                <div class="col-xs-6 col-sm-6 program">
+                    <div class="item">
+                        <a href="#calculator" class="item-link goto-calculator">
+                            <div class="image">
+                                <img src="<?php echo Url::to('@web/img/main/program-2.png'); ?>" alt="Доходная" class="img-responsive">
+                            </div>
+                            <div class="text">
                             <h3>Вклад "Универсальный"</h3>
                             <div class="row flex-row properties-list">
-                                <div class="col-sm-6">
+                                <div class="col-sm-6 col-md-12 col-lg-6">
                                     <div class="property property-price">
                                         <div class="image">
                                             <img src="<?php echo Url::to('@web/img/main/program-icon-price.png'); ?>" alt="Сумма вклада">
@@ -534,7 +534,7 @@ AppAsset::register($this);
                                         <p>до 10 000 000 руб</p>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-6 col-md-12 col-lg-6">
                                     <div class="property property-time">
                                         <div class="image">
                                             <img src="<?php echo Url::to('@web/img/main/program-icon-time.png'); ?>" alt="Срок вклада">
@@ -554,8 +554,8 @@ AppAsset::register($this);
                                 </div>
                             </div>
                         </div>
+                        </a>
                     </div>
-                    </a>
                 </div>
             </div>
         </div>
@@ -594,7 +594,7 @@ AppAsset::register($this);
                     <div class="form">
                         <form action="#" id="tariffForm" data-tariff="2" data-difference="0.25" data-keyrate="7.5">
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-md-6">
                                     <p class="group-name">Хочу вложить</p>
                                     <div class="form-group">
                                         <div class="tariff-group">
@@ -610,7 +610,7 @@ AppAsset::register($this);
                                                data-type="single">
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-xs-6 col-sm-6 col-md-3 calc-time">
                                     <p class="group-name">На сколько месяцев</p>
 
                                     <div class="radio-group radio-group-month flex">
@@ -634,7 +634,7 @@ AppAsset::register($this);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-xs-6 col-sm-6 col-md-3 calc-time">
                                     <p class="group-name">Выплата процентов</p>
 
                                     <div class="radio-group radio-group-pay flex">
@@ -653,27 +653,27 @@ AppAsset::register($this);
                                     </div>
                                 </div>
 
-                                <div class="col-sm-12">
+                                <div class="col-xs-12 col-sm-12">
                                     <div class="checkbox-additional flex">
                                         <div class="checkbox input optimal universal">
                                             <input type="checkbox" id="additional-guarantees-1" name="additional" value="1">
                                             <label for="additional-guarantees-1">
                                                 <span class="square"></span>
-                                                <span>Страховка</span>
+                                                <span class="label-text">Страховка</span>
                                             </label>
                                         </div>
                                         <div class="checkbox input universal">
                                             <input type="checkbox" id="additional-guarantees-2" name="additional" value="2">
                                             <label for="additional-guarantees-2">
                                                 <span class="square"></span>
-                                                <span>Вексель</span>
+                                                <span class="label-text">Вексель</span>
                                             </label>
                                         </div>
                                         <div class="checkbox input universal">
                                             <input type="checkbox" id="additional-guarantees-3" name="additional" value="3">
                                             <label for="additional-guarantees-3">
                                                 <span class="square"></span>
-                                                <span>Закладная на имущественные права</span>
+                                                <span class="label-text">Закладная на имущественные права</span>
                                             </label>
                                         </div>
                                     </div>

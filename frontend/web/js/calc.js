@@ -57,6 +57,8 @@ jQuery(document).ready(function(){
 
 jQuery('input', "#tariffForm").on('change', getData);
 
+jQuery(window).on('resize', changeBgLayer);
+
 function changeBgLayer() {
     var $textPriceBgLayer = jQuery('.tariff-group .bg-layer', '#calculator'),
         width = jQuery('.irs-bar', '#calculator').outerWidth();

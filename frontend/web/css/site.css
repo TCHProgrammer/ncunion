@@ -1174,6 +1174,21 @@ header .top {
     text-align: center;
 }
 
+.programs .item,
+.programs .item-link {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
 .programs .item-link {
     color: #333;
 }
@@ -1187,16 +1202,22 @@ header .top {
 }
 
 .programs .item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     background-color: #FFFFFF;
     padding: 50px 30px;
     -webkit-box-shadow: 6.13px 5.14px 18px 0px rgba(0,0,0,0.35);
     -moz-box-shadow: 6.13px 5.14px 18px 0px rgba(0,0,0,0.35);
     box-shadow: 6.13px 5.14px 18px 0px rgba(0,0,0,0.35);
     margin-bottom: 30px;
-    max-height: 335px;
+    max-height: 360px;
+    transition: all 0.25s ease-out;
+}
+
+.programs .item:hover,
+.programs .item:hover,
+.programs .item:hover,
+.programs .item:active:hover,
+.programs .item:active:focus {
+    transform: scale(1.05,1.05);
 }
 
 .programs .item.small-padding {
@@ -1447,9 +1468,11 @@ header .top {
     color: #FFFFFF;
     min-height: 465px;
     opacity: 0.35;
+    transition: all 0.25s ease-out;
 }
 
 .calculator .item.active {
+    transform: scale(1.1,1.1);
     opacity: 1;
 }
 
@@ -1866,6 +1889,9 @@ textarea {
         font-size: 18px;
         margin: 0;
     }
+    .conditions-list .condition .item {
+        min-height: 415px;
+    }
     .programs .programs-wrapper {
         display: -webkit-box;
         display: -ms-flexbox;
@@ -1885,7 +1911,7 @@ textarea {
     .calculator .item {
         display: inline-block;
         max-width: 300px;
-        margin-bottom: 20px;
+        margin-bottom: 50px;
     }
     .why-we .grid .item-image {
         width: 470px;
@@ -1901,6 +1927,17 @@ textarea {
     .advantages .advantages-tabs .item .image .bg {
         width: 45px;
         height: 45px;
+    }
+    .programs .item {
+        max-height: 370px;
+    }
+    .programs .item,
+    .programs .item-link {
+        -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    }
+    .why-we .grid .item-blue {
+        padding: 30px 70px;
     }
 }
 
@@ -1919,6 +1956,26 @@ textarea {
     .advantages .item .info {
         text-align: center;
     }
+    .advantages .advantages-tabs .nav-tabs {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+    }
+    .advantages .tab-numbers div[class*="tab-number"] {
+        text-align: center;
+    }
+    .advantages .tab-numbers .item {
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+    .advantages .tab-numbers .item::after {
+        display: none;
+    }
     .programs .item {
         max-height: none;
         -ms-flex-wrap: wrap;
@@ -1928,6 +1985,25 @@ textarea {
     .programs .item .text {
         -ms-flex-preferred-size: 100%;
         flex-basis: 100%;
+    }
+    .programs .item .text {
+        padding-top: 15px;
+        padding-left: 0;
+        border-top: 2px solid #3B34A6;
+        border-left: 0;
+        margin-top: 25px;
+    }
+    .programs .item .image img {
+        display: block;
+        float: none;
+        margin: 0 auto;
+    }
+    .get-consultation .heading {
+        padding: 0 0 40px;
+    }
+    .calculator .group-name {
+        text-align: center;
+        margin-top: 20px;
     }
     .why-we .grid .item {
         -ms-flex-preferred-size: 100%;
@@ -2082,6 +2158,13 @@ textarea {
         max-width: 250px;
         margin-bottom: 20px;
     }
+    .advantages .conditions-list .condition {
+        text-align: center;
+    }
+    .advantages .tab-graphs .item {
+        max-width: none;
+        margin-bottom: 20px;
+    }
     .get-consultation .heading,
     .get-consultation .buttons {
         text-align: center;
@@ -2089,6 +2172,23 @@ textarea {
     .calculator-row label {
         text-align: center;
         width: 100%;
+    }
+    .calculator .checkbox-additional {
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    }
+    .calculator .checkbox-additional .checkbox {
+        -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+    }
+    .calculator .checkbox-additional label .label-text {
+        display: inline;
+    }
+    .calculator .item.active {
+        transform: none;
+    }
+    .calculator .form {
+        padding: 0 10px;
     }
     .btn-primary.btn-order,
     .btn-primary.btn-order:active,
@@ -2171,6 +2271,23 @@ textarea {
     }
 }
 
+@media all and (max-width: 700px) {
+    .programs .program {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        width: 100%;
+    }
+    .programs .item {
+        max-width: 350px;
+    }
+}
+
 @media all and (max-width: 600px) {
     .programs .programs-wrapper > * {
         width: 100%;
@@ -2180,6 +2297,18 @@ textarea {
         margin: 0 auto;
     }
     .calculator .item-wrapper {
+        width: 100%;
+    }
+    .advantages .conditions-list .condition {
+        width: 100%;
+    }
+    .advantages .tab-numbers div[class*="tab-number"] {
+        width: 100%;
+    }
+}
+
+@media all and (max-width: 550px) {
+    .calculator .calc-time {
         width: 100%;
     }
 }
@@ -2195,5 +2324,11 @@ textarea {
     .btn-primary.btn-order:active:focus,
     .btn-primary.btn-order:active:hover {
         padding: 10px 35px;
+    }
+}
+
+@media all and (max-width: 400px) {
+    .programs .property-wrapper {
+        width: 100%;
     }
 }
