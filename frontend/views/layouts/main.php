@@ -184,7 +184,7 @@ AppAsset::register($this);
         </ul>
     </section>
 
-    <section class="advantages animated animated-up">
+    <section class="advantages">
         <section class="advantages-tabs">
             <div class="container">
                 <ul class="row list-unstyled nav nav-tabs" id="advantage-tabs" role="tablist">
