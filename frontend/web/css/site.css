@@ -766,12 +766,45 @@ header .top {
     width: 100%;
     overflow: hidden;
     margin: 0;
+    min-height: 600px;
+    background-color: #172852;
+}
+
+.slider.flexslider .flex-viewport {
+    min-height: 600px;
+}
+
+.slider .slides {
+    min-height: 600px;
 }
 
 .slider .slides li {
     min-height: 600px;
+    overflow: hidden;
+}
+
+.slider .slides li .bg-layer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     background-repeat: no-repeat;
     background-size: cover;
+    transition: all 5s ease-out;
+}
+
+.slider .slides li .bg-layer.active {
+    transform: matrix3d(1.05498, 0.0000828948, 0, 0, -0.0000828948, 1.05498, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+}
+
+.slider .slides li .flex-caption {
+    opacity: 0;
+    transition: all 3s ease-out;
+}
+
+.slider .slides li .flex-caption.active {
+    opacity: 1;
 }
 
 .slider .flex-control-nav {

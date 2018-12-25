@@ -123,64 +123,68 @@ AppAsset::register($this);
 
     <section class="slider flexslider">
         <ul class="slides">
-            <li style="background-image: url(<?php echo Url::to('@web/img/main/slide-1.jpg'); ?>)">
+            <li class="slide">
+                <div class="bg-layer" style="background-image: url(<?php echo Url::to('@web/img/main/slide-1.jpg'); ?>)">
+                </div>
                 <div class="flex-caption">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="slide-row flex">
-                                    <div class="item">
-                                        <h2><span>Безопасное</span> инвестирование в недвижимость</h2>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="slide-row flex">
+                                        <div class="item">
+                                            <h2><span>Безопасное</span> инвестирование в недвижимость</h2>
+                                        </div>
+                                        <div class="item item-small">
+                                            <p>Всего от<br><span>500 000</span> руб.</p>
+                                        </div>
+                                        <div class="item item-small">
+                                            <p>Доходность:<br><span>10-24 %</span> руб. годовых</p>
+                                        </div>
                                     </div>
-                                    <div class="item item-small">
-                                        <p>Всего от<br><span>500 000</span> руб.</p>
+                                    <div class="slide-text">
+                                        <p>Выберите свою инвестиционную программу! Гарантированный доход, разумное управление рисками, отличная возможность инвестирования как для профессионалов, так и для обычных людей.</p>
                                     </div>
-                                    <div class="item item-small">
-                                        <p>Доходность:<br><span>10-24 %</span> руб. годовых</p>
+                                    <div class="slide-button">
+                                        <button class="btn btn-default btn-slide">Узнать больше</button>
                                     </div>
-                                </div>
-                                <div class="slide-text">
-                                    <p>Выберите свою инвестиционную программу! Гарантированный доход, разумное управление рисками, отличная возможность инвестирования как для профессионалов, так и для обычных людей.</p>
-                                </div>
-                                <div class="slide-button">
-                                    <button class="btn btn-default btn-slide">Узнать больше</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
             </li>
-            <li style="background-image: url(<?php echo Url::to('@web/img/main/slide-2.jpg'); ?>)">
+            <li class="slide">
+                <div class="bg-layer" style="background-image: url(<?php echo Url::to('@web/img/main/slide-2.jpg'); ?>)">
+                </div>
                 <div class="flex-caption">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="slide-row flex">
-                                    <div class="item">
-                                        <h2><span>Высокий</span> уровень доходности</h2>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="slide-row flex">
+                                        <div class="item">
+                                            <h2><span>Высокий</span> уровень доходности</h2>
+                                        </div>
+                                        <div class="item item-small">
+                                            <p>Всего от<br><span>500 000</span> руб.</p>
+                                        </div>
+                                        <div class="item item-small">
+                                            <p>Доходность:<br><span>10-24 %</span> руб. годовых</p>
+                                        </div>
                                     </div>
-                                    <div class="item item-small">
-                                        <p>Всего от<br><span>500 000</span> руб.</p>
+                                    <div class="slide-text">
+                                        <p>Отсутствие рисков потери инвестиции, вложения только в высоколиквидные активы, различные инвестиционные программы и опции, позволяющие получать повышенную доходность! Стать инвестором и зарабатывать может каждый!</p>
                                     </div>
-                                    <div class="item item-small">
-                                        <p>Доходность:<br><span>10-24 %</span> руб. годовых</p>
+                                    <div class="slide-button">
+                                        <button class="btn btn-default btn-slide">Узнать больше</button>
                                     </div>
-                                </div>
-                                <div class="slide-text">
-                                    <p>Отсутствие рисков потери инвестиции, вложения только в высоколиквидные активы, различные инвестиционные программы и опции, позволяющие получать повышенную доходность! Стать инвестором и зарабатывать может каждый!</p>
-                                </div>
-                                <div class="slide-button">
-                                    <button class="btn btn-default btn-slide">Узнать больше</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
             </li>
         </ul>
     </section>
 
-    <section class="advantages">
+    <section class="advantages animated animated-up">
         <section class="advantages-tabs">
             <div class="container">
                 <ul class="row list-unstyled nav nav-tabs" id="advantage-tabs" role="tablist">
@@ -462,7 +466,7 @@ AppAsset::register($this);
         </section>
     </section>
 
-    <section class="programs animated" id="programs">
+    <section class="programs animated animated-up" id="programs">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
@@ -561,7 +565,7 @@ AppAsset::register($this);
         </div>
     </section>
 
-    <section class="get-consultation animated">
+    <section class="get-consultation animated animated-up">
         <div class="container">
             <div class="row flex-row">
                 <div class="col-sm-12 col-md-8">
@@ -579,7 +583,7 @@ AppAsset::register($this);
         </div>
     </section>
 
-    <section class="calculator animated" id="calculator">
+    <section class="calculator animated animated-up" id="calculator">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
@@ -930,7 +934,7 @@ AppAsset::register($this);
     </section>
     -->
 
-    <section class="why-we animated">
+    <section class="why-we animated animated-up">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
@@ -1097,7 +1101,7 @@ AppAsset::register($this);
         </div>
     </section>
 
-    <section class="how-to animated">
+    <section class="how-to animated animated-up">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
@@ -1148,7 +1152,7 @@ AppAsset::register($this);
         </div>
     </section>
 
-    <section class="consultation-form animated" id="consultation-form">
+    <section class="consultation-form animated animated-up" id="consultation-form">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 col-md-5">
@@ -1189,7 +1193,7 @@ AppAsset::register($this);
         </div>
     </section>
 
-    <section class="map animated">
+    <section class="map animated animated-up">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2245.3919969563412!2d37.530455816243816!3d55.751692380553074!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54bdf26955a8f%3A0x27582effbd2d7a96!2z0KHQtdCy0LXRgNC90LDRjyDQkdCw0YjQvdGP!5e0!3m2!1sru!2sru!4v1539330204523" frameborder="0" style="border:0; width: 100%; height: 550px;"></iframe>
         <div class="contacts-card">
             <div class="text">
@@ -1206,7 +1210,7 @@ AppAsset::register($this);
         </div>
     </section>
 
-    <footer class="footer animated">
+    <footer class="footer animated animated-up">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">

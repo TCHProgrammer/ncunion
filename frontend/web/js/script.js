@@ -25,6 +25,30 @@ $(document).ready(function () {
         animation: "slide",
         directionNav: false,
         slideshow: true,
+        slideshowSpeed: 5000,
+        useCSS: true,
+        start: function(slider) {
+            var $activeSlideBg = slider.find('li.flex-active-slide .bg-layer'),
+                $flexCaption   = slider.find('li.flex-active-slide .flex-caption');
+            $activeSlideBg.addClass('active');
+            $flexCaption.addClass('active');
+        },
+        before: function(slider) {
+            slider.find('li.slide').each(function(){
+                $(this)
+                    .find('.bg-layer')
+                    .removeClass('active');
+                $(this)
+                    .find('.flex-caption')
+                    .removeClass('active');
+            });
+        },
+        after: function(slider) {
+            var $activeSlideBg = slider.find('li.flex-active-slide .bg-layer'),
+                $flexCaption   = slider.find('li.flex-active-slide .flex-caption');
+            $activeSlideBg.addClass('active');
+            $flexCaption.addClass('active');
+        }
     });
 
     $('#advantage-tabs a').click(function (e) {
@@ -343,7 +367,7 @@ $(window).on('load resize', function(){
 });
 
 $(window).on('scroll load', function(){
-    $('.animated').each(function(){
+    $('.animated.animated-up').each(function(){
         if (window.matchMedia('(min-width: 992px)').matches) {
             if($(this).is(':appeared')) {
                 $(this).addClass('fadeInUp');
