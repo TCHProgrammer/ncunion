@@ -1181,7 +1181,16 @@ AppAsset::register($this);
                                     <textarea name="" id="" cols="30" rows="10" placeholder="Сообщение"></textarea>
                                 </div>
                             </div>
-                            <div class="col-sm-12">
+                            <div class="col-sm-8">
+                                <div class="checkbox">
+                                    <input type="checkbox" name="policy-check" id="cf-policy-check">
+                                    <label for="cf-policy-check">
+                                        <span class="square"></span>
+                                        <span class="label-text">Согласен на обработку персональных данных</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
                                 <div class="form-buttons">
                                     <input type="submit" class="btn btn-primary" value="Отправить">
                                 </div>

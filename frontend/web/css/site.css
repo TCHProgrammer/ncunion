@@ -1418,7 +1418,8 @@ header .top {
 }
 
 .calculator .radio-group .radio input,
-.calculator .checkbox-additional input {
+.calculator .checkbox-additional input,
+.consultation-form .checkbox input {
     position: absolute;
     left: -9999px;
 }
@@ -1457,7 +1458,8 @@ header .top {
     padding: 0;
 }
 
-.calculator .checkbox {
+.calculator .checkbox,
+.consultation-form .checkbox {
     padding: 0 20px 0 0;
 }
 /* TODO: Префиксы */
@@ -1471,12 +1473,14 @@ header .top {
     font-size: 21px;
 }
 
-.calculator .checkbox-additional label > * {
+.calculator .checkbox-additional label > *,
+.consultation-form .checkbox label > * {
     display: inline-block;
     vertical-align: middle;
 }
 
-.calculator .checkbox-additional label .square {
+.calculator .checkbox-additional label .square,
+.consultation-form .checkbox label .square {
     width: 18px;
     height: 18px;
     border: 1px solid #3B34A6;
@@ -1485,7 +1489,12 @@ header .top {
     margin-right: 5px;
 }
 
-.calculator .checkbox-additional input:checked + label .square {
+.consultation-form .checkbox label .label-text {
+    display: inline;
+}
+
+.calculator .checkbox-additional input:checked + label .square,
+.consultation-form .checkbox input:checked + label .square {
     background-color: #3B34A6;
 }
 

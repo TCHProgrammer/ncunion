@@ -14,6 +14,7 @@ class SignupForm extends Model
     public $email;
     public $phone;
     public $company_name;
+    public $privacy_policy;
     public $password;
     public $password_repeat;
     public $captcha;
@@ -21,8 +22,8 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            [['first_name', 'last_name', 'middle_name', 'phone', 'email', 'password', 'password_repeat'], 'required'],
-            [['first_name', 'last_name', 'middle_name', 'company_name', 'phone', 'password_repeat', 'email', 'first_name', 'last_name', 'middle_name', 'phone', 'company_name'], 'string', 'max' => 255],
+            [['first_name', 'last_name', 'middle_name', 'phone', 'email', 'password', 'password_repeat', 'privacy_policy'], 'required'],
+            [['first_name', 'last_name', 'middle_name', 'company_name', 'phone', 'password_repeat', 'email', 'first_name', 'last_name', 'middle_name', 'phone', 'company_name',  'privacy_policy'], 'string', 'max' => 255],
             [['email'], 'email'],
             [['email'], 'unique', 'targetClass' => '\common\models\User', 'message' => 'Пользователь с таким email уже зарегистрирован.'],
             [['password', 'password_repeat'], 'string', 'min' => 6],
@@ -42,6 +43,7 @@ class SignupForm extends Model
             'password' => 'Пароль',
             'password_repeat' => 'Повторный пароль',
             'company_name' => 'Название компании',
+            'privacy_policy' => 'Согласен на обработку персональных данных',
             'email' => 'Электронная почта',
             'phone' => 'Контактный телефон',
             'status' => 'Статус',
