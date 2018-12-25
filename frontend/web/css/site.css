@@ -1891,6 +1891,10 @@ textarea {
     text-align: center;
 }
 
+.page-content .text {
+    padding-bottom: 50px;
+}
+
 @media all and (max-width: 1199px) {
     .nav > li > a {
         padding: 20px 10px;
