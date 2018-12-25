@@ -2118,6 +2118,10 @@ textarea {
     body.user-form-page {
         padding-bottom: 100px;
     }
+    .page h1,
+    .page .h1 {
+        word-wrap: break-word;
+    }
     h2,
     .h2 {
         font-size: 30px;
