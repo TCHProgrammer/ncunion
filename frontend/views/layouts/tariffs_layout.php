@@ -345,11 +345,14 @@ TariffsAsset::register($this);
         </div>
     </section>
 
-    <footer class="footer">
+    <footer class="footer animated animated-up">
         <div class="container">
             <div class="row">
-                <div class="col-sm-12">
-                    <p class="pull-left">Выплата дохода в конце срока действия договора дополнительные 1,5% </p>
+                <div class="col-sm-6">
+                    <p>Выплата дохода в конце срока действия договора дополнительные 1,5% </p>
+                </div>
+                <div class="col-sm-6">
+                    <a href="<?= Url::toRoute(['/policy']); ?>">Политика конфиденциальности</a>
                 </div>
             </div>
         </div>

@@ -26,11 +26,26 @@ body.user-form-page {
 }
 
 .footer {
-    height: 60px;
+    min-height: 60px;
     background-color: #101C36;
     border-top: 0;
     padding-top: 20px;
     color: #FFFFFF;
+}
+
+.footer a {
+    display: block;
+    text-align: right;
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
+.footer a:hover,
+.footer a:focus,
+.footer a:active,
+.footer a:active:hover,
+.footer a:active:focus {
+    text-decoration: none;
 }
 
 .user-form-page .footer {
@@ -2087,7 +2102,11 @@ textarea {
         background-size: 100% auto;
     }
     .footer {
-        height: auto;
+        padding-bottom: 20px;
+    }
+    .footer p,
+    .footer a {
+        text-align: center;
     }
 }
 
