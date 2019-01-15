@@ -222,6 +222,16 @@ if (!empty($brokersCollection)) {
     <?php endforeach; ?>
 </div>
 
+<div class="row" id="landPricesRow">
+    <?= $form->field($model, 'land_price_cadastral', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
+
+    <?= $form->field($model, 'land_price_tian', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
+
+    <?= $form->field($model, 'land_price_market', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
+
+    <?= $form->field($model, 'land_price_liquidation', ['options' => ['class' => 'col-lg-3 col-md-6']])->textInput() ?>
+</div>
+
 <div class="row row-padding">
     <?php foreach ($listCheckbox as $itemCheckbox) { ?>
         <div class="form-attribute form-attribute-<?= $itemCheckbox->type_id ?>">

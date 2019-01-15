@@ -7,7 +7,6 @@ function checkType(j) {
         }
     }
 }
-
 /* комментарии */
 function openAnswer(id, lvl) {
     var newLvl = lvl + 1;

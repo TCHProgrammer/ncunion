@@ -1,8 +1,15 @@
 
 checkType(Number($('#object-type_id').val()));
+$("#landPricesRow").hide();
 
 $('#object-type_id').change(function(){
-    checkType(Number($(this).val()));
+    var value = Number($(this).val());
+    checkType(value);
+    if (value === 2) {
+        $("#landPricesRow").show();
+    } else {
+        $("#landPricesRow").hide();
+    }
 });
 
 function checkType(j) {

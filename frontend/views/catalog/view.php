@@ -302,16 +302,26 @@ $isCommerce = isset($isCommerce);
                                     </div>
                                 </div>
 
+                                <?php $attributes = [
+                                    'price_cadastral:integer',
+                                    'price_tian:integer',
+                                    'price_market:integer',
+                                    'price_liquidation:integer',
+                                    'nks:integer'
+                                ]?>
+                                <?php $houseType = ObjectType::find()->where(['title' => 'Дом'])->one(); ?>
+                                <?php if ($model->type_id == $houseType->id): ?>
+                                <?php $attributes = ArrayHelper::merge($attributes, [
+                                    'land_price_cadastral:integer',
+                                    'land_price_tian:integer',
+                                    'land_price_market:integer',
+                                    'land_price_liquidation:integer',
+                                ]);?>
+                                <?php endif; ?>
                                 <!-- инфо об объекте -->
                                 <?= DetailView::widget([
                                     'model' => $model,
-                                    'attributes' => [
-                                        'price_cadastral:integer',
-                                        'price_tian:integer',
-                                        'price_market:integer',
-                                        'price_liquidation:integer',
-                                        'nks:integer',
-                                    ],
+                                    'attributes' => $attributes,
                                     'options' => [
                                         'class' => 'table table-bordered detail-view'
                                     ]

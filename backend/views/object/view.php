@@ -144,7 +144,18 @@ $isCommerce = isset($isCommerce);
                 'price_cadastral:integer',
                 'price_tian:integer',
                 'price_market:integer',
-                'price_liquidation:integer',
+                'price_liquidation:integer'
+            ];
+            $houseType = ObjectType::find()->where(['title' => 'Дом'])->one();
+            if ($model->type_id == $houseType->id) {
+                $attributes = ArrayHelper::merge($attributes, [
+                    'land_price_cadastral:integer',
+                    'land_price_tian:integer',
+                    'land_price_market:integer',
+                    'land_price_liquidation:integer',
+                ]);
+            }
+            $attributes = ArrayHelper::merge($attributes, [
                 'rate',
                 'term',
                 [
@@ -166,7 +177,7 @@ $isCommerce = isset($isCommerce);
                         return Yii::$app->date->month($model->updated_at);
                     }
                 ],
-            ];
+            ]);
 
             foreach ($confidences as $confId => $title) {
                 $attributes[] = [
@@ -174,15 +185,15 @@ $isCommerce = isset($isCommerce);
                     'value' => $objectConfidences[$confId]->check ? 'Да' : 'Нет'
                 ];
                 $attributes[] = [
-                    'label' => $title. '(рейтинг)',
+                    'label' => $title . '(рейтинг)',
                     'value' => $objectConfidences[$confId]->rate
                 ];
                 $file = '-';
                 if (isset($objectConfidencesFiles[$confId])) {
-                    $file  = Html::a($objectConfidencesFiles[$confId]->title, $objectConfidencesFiles[$confId]->doc, ['class' => 'form-a-del', 'data-pjax' => '0', 'download' => true]) . '</p>';
+                    $file = Html::a($objectConfidencesFiles[$confId]->title, $objectConfidencesFiles[$confId]->doc, ['class' => 'form-a-del', 'data-pjax' => '0', 'download' => true]) . '</p>';
                 }
                 $attributes[] = [
-                    'label' => $title. '(файл)',
+                    'label' => $title . '(файл)',
                     'value' => $file,
                     'format' => 'raw'
                 ];

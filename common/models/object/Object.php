@@ -45,6 +45,10 @@ use common\models\object\Confidence;
  * @property int locality_type_id
  * @property int region_id
  * @property int broker_id
+ * @property int $land_price_cadastral
+ * @property int $land_price_tian
+ * @property int $land_price_market
+ * @property int $land_price_liquidation
  *
  *
  * @property ObjectType $type
@@ -81,7 +85,7 @@ class Object extends \yii\db\ActiveRecord
             [['order'], 'default', 'value' => 0],
             [['locality_type_id', 'region_id', 'city_id', 'type_id', 'status', 'status_object', 'created_at', 'updated_at', 'close_at', 'term', 'schedule_payments', 'broker_id'], 'integer'],
             [['descr'], 'string'],
-            [['price_liquidation', 'price_market', 'price_cadastral', 'rate', 'amount', 'area', 'nks', 'price_tian', 'place_km'], 'number'],
+            [['price_liquidation', 'price_market', 'price_cadastral', 'rate', 'amount', 'area', 'nks', 'price_tian', 'place_km', 'land_price_cadastral', 'land_price_tian', 'land_price_market', 'land_price_liquidation'], 'number'],
             [['locality_type_id', 'region_id', 'type_id', 'title', 'created_at', 'updated_at', 'order', 'descr', 'amount', 'place_km', 'area', 'rate', 'term', 'schedule_payments'], 'required'],
             ['city_id', 'required',
                 'when' => function ($model) {
@@ -94,6 +98,13 @@ class Object extends \yii\db\ActiveRecord
                 'when' => function ($model) {
                     $commerceType = ObjectType::find()->where(['title' => 'Коммерция'])->one();
                     return $model->type_id != $commerceType->id;
+                },
+                'whenClient' => "type_id"
+            ],
+            [['land_price_cadastral', 'land_price_tian', 'land_price_market', 'land_price_liquidation'], 'required',
+                'when' => function ($model) {
+                    $houseType = ObjectType::find()->where(['title' => 'Дом'])->one();
+                    return $model->type_id != $houseType->id;
                 },
                 'whenClient' => "type_id"
             ],
@@ -141,6 +152,10 @@ class Object extends \yii\db\ActiveRecord
             'broker_full_name' => 'Брокер',
             'broker_phone' => 'Телефон брокера',
             'broker_email' => 'Email брокера',
+            'land_price_cadastral' => 'Кадастровая стоимость земли',
+            'land_price_tian' => 'ЦИАН земли',
+            'land_price_market' => 'Рыночная стоимость земли',
+            'land_price_liquidation' => 'Ликвидационная  стоимость земли'
         ];
     }
 
