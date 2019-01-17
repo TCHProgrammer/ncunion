@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use backend\modules\rbac\models\AuthAssignment;
 use common\models\object\ObjectAttributeRadio;
 use common\models\passport\UserPassport;
 use common\models\UserModel;
@@ -114,6 +115,10 @@ class ObjectSearch extends Object
             ->orderBy(['order' => SORT_ASC, 'created_at' => SORT_DESC])
             ->addGroupBy('o.id');
 
+        $role = AuthAssignment::find()->where(['user_id' => Yii::$app->user->id])->one();
+        if (isset($role) && $role->item_name == 'broker') {
+            $query->andWhere(['broker_id' => Yii::$app->user->id]);
+        }
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
