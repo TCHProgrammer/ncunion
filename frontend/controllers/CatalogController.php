@@ -40,7 +40,7 @@ class CatalogController extends DefaultFrontendController
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['user', 'admin']
+                        'roles' => ['user', 'admin', 'broker']
                     ]
                 ],
                 'denyCallback' => function ($rule, $action) {
