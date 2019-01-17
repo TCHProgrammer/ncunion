@@ -77,7 +77,7 @@ class Object extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tagsArray', 'confArray'], 'safe'],
+            [['tagsArray', 'confArray', 'broker_id'], 'safe'],
             [['imgFile'], 'file', 'extensions' => 'png, jpg'],
             //[['docFile'], 'file', 'extensions' => 'png, txt, pdf, cvg, xlsx, ods, docx'],
             [['created_at'], 'default', 'value' => time()],
@@ -104,7 +104,7 @@ class Object extends \yii\db\ActiveRecord
             [['land_price_cadastral', 'land_price_tian', 'land_price_market', 'land_price_liquidation'], 'required',
                 'when' => function ($model) {
                     $houseType = ObjectType::find()->where(['title' => 'Дом'])->one();
-                    return $model->type_id != $houseType->id;
+                    return $model->type_id == $houseType->id;
                 },
                 'whenClient' => "type_id"
             ],
