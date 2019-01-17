@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use backend\modules\rbac\models\AuthAssignment;
 use common\models\User;
 use Yii;
 use yii\base\Model;
@@ -22,7 +23,7 @@ class ObjectSearch extends Object
     public function rules()
     {
         return [
-            [['id', 'type_id', 'status', 'place_km', 'rooms', 'price_cadastral', 'price_tian', 'price_market', 'price_liquidation', 'status_object', 'rate', 'term', 'schedule_payments'], 'integer'],
+            [['id', 'type_id', 'status', 'place_km', 'rooms', 'price_cadastral', 'price_tian', 'price_market', 'price_liquidation', 'status_object', 'rate', 'term', 'schedule_payments', 'broker_id'], 'integer'],
             [['title', 'descr', 'address', 'address_map', 'owner'], 'safe'],
             [['broker_full_name', 'broker_email'], 'string'],
             [['amount', 'area', 'broker_phone'], 'number'],
@@ -49,7 +50,13 @@ class ObjectSearch extends Object
     public function search($params)
     {
         $userTable = User::tableName();
+
+        $role = AuthAssignment::find()->where(['user_id' => Yii::$app->user->id])->one();
+
         $query = Object::find()->leftJoin($userTable, "{$userTable}.id = broker_id")->orderBy(['order' => SORT_ASC, 'created_at' => SORT_DESC]);
+        if (isset($role) && $role->item_name == 'broker') {
+            $query->where(['broker_id' => Yii::$app->user->id]);
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
