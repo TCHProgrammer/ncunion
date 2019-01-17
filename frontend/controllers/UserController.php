@@ -45,7 +45,7 @@ class UserController extends DefaultFrontendController{
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['unknown', 'no_pay', 'user', 'admin']
+                        'roles' => ['unknown', 'no_pay', 'user', 'admin', 'broker']
                     ]
                 ],
                 'denyCallback' => function ($rule, $action) {
