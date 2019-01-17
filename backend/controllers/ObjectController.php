@@ -200,17 +200,23 @@ class ObjectController extends DefaultBackendController
         /* /Radio */
 
         $post = Yii::$app->request->post();
+        if ($model->load($post)) {
+            $role = AuthAssignment::find()->where(['user_id' => Yii::$app->user->id])->one();
+            if (!isset($model->broker_id) && isset($role) && $role->item_name == 'broker') {
+                $model->broker_id = Yii::$app->user->id;
+            }
+            if ($model->save() && Model::loadMultiple($values, $post)) {
 
-        if ($model->load($post) && $model->save() && Model::loadMultiple($values, $post)) {
-            $this->processValues($values, $model);
+                $this->processValues($values, $model);
 
-            $this->saveCheckbox(Yii::$app->request->post('GroupCheckboxes')[$model->type_id], $model);
+                $this->saveCheckbox(Yii::$app->request->post('GroupCheckboxes')[$model->type_id], $model);
 
-            /* Radio/ */
-            $this->saveRadio(Yii::$app->request->post('GroupRadios')[$model->type_id], $model);
-            /* /Radio */
+                /* Radio/ */
+                $this->saveRadio(Yii::$app->request->post('GroupRadios')[$model->type_id], $model);
+                /* /Radio */
 
-            return $this->redirect(['create-img', 'id' => $model->id]);
+                return $this->redirect(['create-img', 'id' => $model->id]);
+            }
         }
 
         $regionCollection = \common\models\object\Region::find()->all();
