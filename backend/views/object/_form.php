@@ -24,9 +24,10 @@ if (!empty($brokersCollection)) {
     'options' => ['enctype' => 'multipart/form-data']
 ]); ?>
 
+<?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+
 <?php if (Yii::$app->user->can('set_object_broker')): ?>
     <div class="row col-lg-12">
-        <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
         <?= $form->field($model, 'broker_id', ['options' => ['class' => 'col-lg-6 col-md-6']])->dropDownList(
             $brokers,
             ['prompt' => 'Выберите брокера']
