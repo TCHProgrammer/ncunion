@@ -139,7 +139,7 @@ ProfileAsset::register($this);programs
                         // not just as 'controller' even if default action is used.
                         ['label' => 'Главная', 'url' => ['/site/index']],
                         ['label' => 'Каталог объектов', 'url' => ['/catalog']],
-                        ['label' => 'Мои объекты', 'url' => ['/my-object']],
+                        ['label' => 'Мои объекты', 'url' => ['/my-object'], 'visible' => Yii::$app->user->can('access_menu_my_objects')],
                     ],
                     'options'=>[
                         'class' => 'ml-menu'
