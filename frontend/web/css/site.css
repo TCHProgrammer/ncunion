@@ -80,6 +80,16 @@ body.user-form-page {
      justify-content: center;
  }
 
+/* site signup */
+
+#form-signup div[class^="form-"] {
+    margin: 30px 0;
+}
+
+#form-signup .checkbox {
+    padding: 0;
+}
+
 /* add sorting icons to gridview sort links */
 a.asc:after, a.desc:after {
     position: relative;
