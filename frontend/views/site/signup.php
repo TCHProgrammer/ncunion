@@ -45,9 +45,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="col-lg-6">
             <?= $form->field($model, 'captcha')->widget(\yii\captcha\Captcha::className()) ?>
-            <!--
+
             <?= $form->field($model, 'privacy_policy', ['options' => ['class' => 'checkbox-signup']])->checkbox() ?>
-            -->
+
             <div class="form-group">
                 <?= Html::submitButton('Регистрация', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
             </div>
