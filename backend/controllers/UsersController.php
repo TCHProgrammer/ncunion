@@ -124,7 +124,6 @@ class UsersController extends DefaultBackendController
 
     public function actionUsersModer()
     {
-
         $post = Yii::$app->request->post('UserModel');
         if ($post) {
             $userUpdate = AuthAssignment::find()->where(['user_id' => $post['user_id']])->one();
@@ -138,7 +137,6 @@ class UsersController extends DefaultBackendController
                 ];
                 Yii::$app->email->checkModerate($user->email, $contentMas);
             } else {
-//                $userUpdate->item_name = 'no_pay';
                 $userUpdate->item_name = $post['item_name'];
                 if ($userUpdate->save()) {
                     if ($userUpdate->item_name == 'broker') {
@@ -169,7 +167,6 @@ class UsersController extends DefaultBackendController
         ]);
 
         return $this->render('users-moder', [
-            //'users' => $users,
             'dataProvider' => $dataProvider
         ]);
     }
