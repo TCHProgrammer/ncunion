@@ -9,9 +9,7 @@ use common\models\UserModel;
 use backend\models\UserSearch;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
 use backend\components\controllers\DefaultBackendController;
 use backend\models\SignupForm;
@@ -131,17 +129,7 @@ class UsersController extends DefaultBackendController
         if ($post) {
             $userUpdate = AuthAssignment::find()->where(['user_id' => $post['user_id']])->one();
             $user = UserModel::find()->where(['id' => $post['user_id']])->one();
-            if ($post['good_user']) {
-//                $userUpdate->item_name = 'no_pay';
-                $userUpdate->item_name = 'user';
-                if ($userUpdate->save()) {
-                    $contentMas = [
-                        'text' => 'Благодарим вас за ожидание. Вам открыт доступ к сервису. Приятной работы.',
-                        'htmlA' => Html::a('Перейти в каталог', Yii::$app->urlManagerFrontend->createAbsoluteUrl('catalog'), ['style' => 'color:#ebec8b'])
-                    ];
-                    Yii::$app->email->checkModerate($user->email, $contentMas);
-                }
-            } elseif ($post['ban_user']) {
+            if ($post['ban_user']) {
                 $userUpdate->item_name = 'ban';
                 $userUpdate->save();
                 $contentMas = [
@@ -149,6 +137,22 @@ class UsersController extends DefaultBackendController
                     'htmlA' => ''
                 ];
                 Yii::$app->email->checkModerate($user->email, $contentMas);
+            } else {
+//                $userUpdate->item_name = 'no_pay';
+                $userUpdate->item_name = $post['item_name'];
+                if ($userUpdate->save()) {
+                    if ($userUpdate->item_name == 'broker') {
+                        $link = Html::a('Перейти к управлению', Yii::$app->urlManager->createAbsoluteUrl('object'), ['style' => 'color:#ebec8b']);
+                    } else {
+                        $link = Html::a('Перейти в каталог', Yii::$app->urlManagerFrontend->createAbsoluteUrl('catalog'), ['style' => 'color:#ebec8b']);
+                    }
+                    $role = $userUpdate->getItemName()->one();
+                    $contentMas = [
+                        'text' => "Поздравляем, вам назначен статус {$role->description}. Доступ к системе открыт",
+                        'htmlA' => $link
+                    ];
+                    Yii::$app->email->checkModerate($user->email, $contentMas);
+                }
             }
         }
 
