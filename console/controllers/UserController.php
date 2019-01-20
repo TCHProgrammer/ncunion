@@ -1,6 +1,7 @@
 <?php
 namespace console\controllers;
 
+use backend\modules\rbac\models\AuthAssignment;
 use Yii;
 use common\models\User;
 use yii\helpers\Console;
@@ -91,5 +92,20 @@ class UserController extends Controller
             $this->stderr('Error!', Console::FG_RED, Console::BOLD);
         }
         $this->stdout(PHP_EOL);
+    }
+
+    public function actionReassignUserRoles()
+    {
+        $authAssignmentCollection = AuthAssignment::find()->where(['item_name' => 'user'])->all();
+        if (!empty($authAssignmentCollection)) {
+            foreach ($authAssignmentCollection as $authAssignment) {
+                $authAssignment->item_name = 'investor';
+                if ($authAssignment->save()) {
+                    echo 'Success' . PHP_EOL;
+                } else {
+                    echo 'Error' . PHP_EOL;
+                }
+            }
+        }
     }
 }
