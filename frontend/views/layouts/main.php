@@ -282,7 +282,7 @@ AppAsset::register($this);
                                             <h4 class="name">Страхование</h4>
                                             <span class="divider"></span>
                                             <div class="text">
-                                                <p>Страховой сертификат моментальной выплаты позволяет получить денежные средства инвестором в течение трех рабочих дней, но не ранее чем через три месяца после подписания договора и открытии вклада.</p>
+                                                <p>Страховой сертификат моментальной выплаты позволяет получить денежные средства инвестором в течение трех рабочих дней, но не ранее чем через три месяца после подписания договора и открытия вклада.</p>
                                             </div>
                                             <div class="icon">
                                                 <img src="<?php echo Url::to('@web/img/main/condition-icon-9.png'); ?>" alt="Страхование">
@@ -695,7 +695,7 @@ AppAsset::register($this);
                             <div class="info">
                                 <span class="price-name">Вы получите</span>
                                 <p class="item-condition full-price"><span class="value">---</span></p>
-                                <h3>Вклад <span>Летний</span></h3>
+                                <h3>Вклад <span>Бизнес +</span></h3>
                                 <ul class="item-conditions list-unstyled flex">
                                     <li class="item-condition item-price">
                                         <p class="name">Сумма вклада:</p>
@@ -728,7 +728,7 @@ AppAsset::register($this);
                             <div class="info">
                                 <span class="price-name">Вы получите</span>
                                 <p class="item-condition full-price"><span class="value">---</span></p>
-                                <h3>Вклад <span>Весенний</span></h3>
+                                <h3>Вклад <span>ВИП</span></h3>
                                 <ul class="item-conditions list-unstyled flex">
                                     <li class="item-condition item-price">
                                         <p class="name">Сумма вклада:</p>
@@ -761,7 +761,7 @@ AppAsset::register($this);
                             <div class="info">
                                 <span class="price-name">Вы получите</span>
                                 <p class="item-condition full-price"><span class="value">---</span></p>
-                                <h3>Вклад <span>Осенний</span></h3>
+                                <h3>Вклад <span>Партнёрский</span></h3>
                                 <ul class="item-conditions list-unstyled flex">
                                     <li class="item-condition item-price">
                                         <p class="name">Сумма вклада:</p>
@@ -794,7 +794,7 @@ AppAsset::register($this);
                             <div class="info">
                                 <span class="price-name">Вы получите</span>
                                 <p class="item-condition full-price"><span class="value">---</span></p>
-                                <h3>Вклад <span>Зимний</span></h3>
+                                <h3>Вклад <span>Премиум</span></h3>
                                 <ul class="item-conditions list-unstyled flex">
                                     <li class="item-condition item-price">
                                         <p class="name">Сумма вклада:</p>
@@ -997,7 +997,7 @@ AppAsset::register($this);
                 </div>
                 <div class="info">
                     <h3>Различные сроки размещения вложений</h3>
-                    <p>Сроки инвестирования от хх месяцев до хх лет. Один из параметров, влияющих на процент доходности вклада.</p>
+                    <p>Сроки инвестирования от 3 месяцев до 3 лет. Один из параметров, влияющих на процент доходности вклада.</p>
                 </div>
             </div>
             <div class="item">
@@ -1078,7 +1078,7 @@ AppAsset::register($this);
                                 <li>Гарантированные выплаты</li>
                                 <li>Различные инвестиционные программы</li>
                                 <li>Персональный подход к каждому клиенту</li>
-                                <li>Превосходная репутация на рынке</li>
+                                <li>Превосходная деловая репутация на рынке</li>
                             </ul>
                             <a href="#" class="btn btn-default">Подробнее</a>
                         </div>
