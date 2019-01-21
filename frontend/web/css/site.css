@@ -1567,11 +1567,12 @@ header .top {
 .calculator .item h3 {
     color: #FFFFFF;
     font-weight: 400;
+    font-size: 16px;
 }
 
 .calculator .item h3 span {
     font-weight: 700;
-    font-size: 21px;
+    font-size: 16px;
 }
 
 .calculator .item .info .price-name {
