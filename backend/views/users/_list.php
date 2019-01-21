@@ -3,6 +3,13 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
+use backend\modules\rbac\models\AuthItem;
+
+backend\assets\UsersAsset::register($this);
+
+$assignments = ArrayHelper::map(AuthItem::find()->where(['type' => 1])->all(), 'name', 'description');
+unset($assignments['ban']);
 ?>
 
 <div class="user-moder">
@@ -29,9 +36,10 @@ use yii\helpers\Url;
             ]);
 
                 echo $form->field($model, 'user_id')->hiddenInput(['value' => $model->id])->label(false);
-                echo $form->field($model, 'good_user')->hiddenInput(['value' => true])->label(false);
+                echo $form->field($model, 'item_name')->hiddenInput(['value' => 'unknown'])->label(false);
+                echo $form->field($model->getRoles()->one(), 'item_name')->dropDownList($assignments);
 
-                echo Html::submitButton('Подтвердить', ['class' => 'btn btn-success'], ['/admin/users/users-moder']);
+                echo Html::submitButton('Подтвердить', ['class' => 'btn btn-success', 'disabled' => true], ['/admin/users/users-moder']);
 
             ActiveForm::end();
         ?>

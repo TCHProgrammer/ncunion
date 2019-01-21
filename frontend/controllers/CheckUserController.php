@@ -62,9 +62,9 @@ class CheckUserController extends Controller{
             ]);
 
         //тут чекам профиль из паспорта, если есть то гуд
-        }elseif (is_null($user->user_passport_id)){
-            return $this->redirect('/user/create-password');
-        }elseif (Yii::$app->user->can('no_pay') || Yii::$app->user->can('user')){
+//        }elseif (is_null($user->user_passport_id)){
+//            return $this->redirect('/user/create-passport');
+        }elseif (Yii::$app->user->can('no_pay') || Yii::$app->user->can('investor')){
             return $this->redirect('/payment/pay');
         }
 
@@ -83,14 +83,14 @@ class CheckUserController extends Controller{
                 $text = 'Электронная почта была успешно подтверждена!';
             }else{
                 $text = 'Ошибка! Электронная почта не подтверждена!';
+                return $this->render('email', [
+                    'text' => $text
+                ]);
             }
-            return $this->render('email', [
-                'text' => $text
-            ]);
         }else{
             Yii::$app->session->setFlash('success', 'Произошла ошибка. Неверный токен, потвердите вашу почту ещё раз.');
-            return $this->redirect('/check-user');
         }
+        return $this->redirect('/check-user');
     }
 
     public function actionPhone()

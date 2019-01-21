@@ -138,7 +138,7 @@ ProfileAsset::register($this);programs
                         // Important: you need to specify url as 'controller/action',
                         // not just as 'controller' even if default action is used.
                         ['label' => 'Главная', 'url' => ['/site/index']],
-                        ['label' => 'Каталог объектов', 'url' => ['/catalog']],
+                        ['label' => 'Каталог объектов', 'url' => ['/catalog'], 'visible' => Yii::$app->user->can('access_menu_catalog')],
                         ['label' => 'Мои объекты', 'url' => ['/my-object'], 'visible' => Yii::$app->user->can('access_menu_my_objects')],
                     ],
                     'options'=>[
@@ -148,7 +148,7 @@ ProfileAsset::register($this);programs
                 ?>
             </li>
             <li>
-                <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi zmdi-lock"></i><span>Личный кабинет</span></a>
+                <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-lock"></i><span>Личный кабинет</span></a>
                 <?php
                 echo Menu::widget([
                     'items' => [
@@ -156,7 +156,7 @@ ProfileAsset::register($this);programs
                         // not just as 'controller' even if default action is used.
                         ['label' => 'Профиль', 'url' => ['/user/profile']],
                         ['label' => 'Настройки', 'url' => ['/user/settings']],
-                        ['label' => 'Паспорт', 'url' => ['/user/passport']],
+                        ['label' => 'Паспорт', 'url' => ['/user/passport'], 'visible' => Yii::$app->user->can('access_menu_passport')],
                         [
                             'label'    => 'Выйти',
                             'url'      => ['/site/logout'],

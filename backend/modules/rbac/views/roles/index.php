@@ -34,7 +34,7 @@ $this->title = 'Роли пользователей';
             </td>
             <td> <?= $role->name ?></td>
             <td width="16px">
-                <?php if (!in_array($role->name,['admin', 'user', 'ban', 'unknown', 'no_pay'])){ ?>
+                <?php if (!in_array($role->name,['admin', 'investor', 'ban', 'unknown', 'no_pay'])){ ?>
                     <a href="/admin/rbac/roles/delete?role=<?= $role->name ?>&back=<?=urlencode(Yii::$app->request->getUrl())?>" data-method="post" data-confirm="Вы действительно хотите удалить пользователя?">
                         <span class="glyphicon glyphicon-trash"></span>
                     </a>

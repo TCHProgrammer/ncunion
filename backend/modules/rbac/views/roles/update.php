@@ -10,7 +10,7 @@ $this->title = 'Редактирование роли "' . $role->description . 
 <br>
 <?php ActiveForm::begin() ?>
 <div class="name-role">
-    <div class="role-full" style="display:<?= (!in_array($role->name,['admin', 'user', 'ban', 'unknown', 'no_pay'])) ? 'block' : 'none'; ?>">
+    <div class="role-full" style="display:<?= (!in_array($role->name,['admin', 'investor', 'ban', 'unknown', 'no_pay'])) ? 'block' : 'none'; ?>">
         <label class="control-label">Имя роли:</label>
         <?= Html::textInput('role[description]', $role->description ?: Yii::$app->request->post('role')['description'], ['class' => 'form-control']) ?>
     </div>

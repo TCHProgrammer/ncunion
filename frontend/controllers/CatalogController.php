@@ -4,8 +4,6 @@ namespace frontend\controllers;
 
 use common\models\CommentObject;
 use common\models\object\AttributeCheckbox;
-use common\models\object\GroupCheckbox;
-use common\models\object\ObjectAttributeCheckbox;
 use common\models\object\ObjectFile;
 use common\models\object\ObjectImg;
 use common\models\passport\UserPassport;
@@ -16,7 +14,6 @@ use Yii;
 use common\models\object\Object;
 use frontend\models\ObjectSearch;
 use yii\helpers\ArrayHelper;
-use yii\helpers\VarDumper;
 use yii\web\NotFoundHttpException;
 use frontend\components\controllers\DefaultFrontendController;
 use yii\filters\AccessControl;
@@ -25,11 +22,9 @@ use common\models\object\AttributeRadio;
 use common\models\object\Attribute;
 use common\models\object\Confidence;
 use common\models\object\ConfidenceObject;
-use yii\web\Request;
 
 class CatalogController extends DefaultFrontendController
 {
-
     public $layout = "user_layout";
 
     public function behaviors()
@@ -40,7 +35,7 @@ class CatalogController extends DefaultFrontendController
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['user', 'admin', 'broker']
+                        'roles' => ['investor', 'admin', 'broker']
                     ]
                 ],
                 'denyCallback' => function ($rule, $action) {
@@ -58,27 +53,32 @@ class CatalogController extends DefaultFrontendController
 
         /* min и max фильтр */
         $filter = $this->filter();
-
-        $filterPassport = UserPassport::find()
-            ->where(['id' => $user->user_passport_id])
-            ->joinWith('checkboxs')
-            ->joinWith('radios')
-            ->one();
-
+        $filterPassport = [];
         $arrFilterPassport = [];
-        foreach ($filterPassport->checkboxs as $item) {
-            if (isset($arrFilterPassport['checkboxs'][$item->attribute_id])) {
-                array_push($arrFilterPassport['checkboxs'][$item->attribute_id], $item->group_id);
-            } else {
-                $arrFilterPassport['checkboxs'][$item->attribute_id] = [$item->group_id];
+        if (Yii::$app->user->can('access_menu_passport')) {
+            $filterPassport = UserPassport::find()
+                ->where(['id' => $user->user_passport_id])
+                ->joinWith('checkboxs')
+                ->joinWith('radios')
+                ->one();
+            $arrFilterPassport = [];
+            if (!empty($filterPassport->checkboxs)) {
+                foreach ($filterPassport->checkboxs as $item) {
+                    if (isset($arrFilterPassport['checkboxs'][$item->attribute_id])) {
+                        array_push($arrFilterPassport['checkboxs'][$item->attribute_id], $item->group_id);
+                    } else {
+                        $arrFilterPassport['checkboxs'][$item->attribute_id] = [$item->group_id];
+                    }
+                }
             }
-        }
-
-        foreach ($filterPassport->radios as $item) {
-            if (isset($arrFilterPassport['radios'][$item->attribute_id])) {
-                array_push($arrFilterPassport['radios'][$item->attribute_id], $item->group_id);
-            } else {
-                $arrFilterPassport['radios'][$item->attribute_id] = [$item->group_id];
+            if (!empty($filterPassport->radios)) {
+                foreach ($filterPassport->radios as $item) {
+                    if (isset($arrFilterPassport['radios'][$item->attribute_id])) {
+                        array_push($arrFilterPassport['radios'][$item->attribute_id], $item->group_id);
+                    } else {
+                        $arrFilterPassport['radios'][$item->attribute_id] = [$item->group_id];
+                    }
+                }
             }
         }
 
@@ -152,14 +152,13 @@ class CatalogController extends DefaultFrontendController
         /* доверие объекту */
         /** TODO: заменяем старое доверие к объекту */
 
-        $objectRates = (int) $model->getObjectConfidence()->sum('rate');
+        $objectRates = (int)$model->getObjectConfidence()->sum('rate');
         $confObj = $objectRates / 5;
-//        $confObj = $this->confObj($id);
 
         $modelImgs = ObjectImg::find()->where(['object_id' => $id])->orderBy('sort ASC')->all();
         $modelFiles = ObjectFile::find()->where(['object_id' => $id])->all();
 
-        $chekRoomUser = RoomObjectUser::find()->where(['object_id' => $id])->andWhere(['active' => 1])->all();
+        $checkRoomUser = RoomObjectUser::find()->where(['object_id' => $id])->andWhere(['active' => 1])->all();
 
         $commentList = new ActiveDataProvider([
             'query' => CommentObject::find()->where(['object_id' => $id])->orderBy(['path' => SORT_ASC]),
@@ -173,9 +172,9 @@ class CatalogController extends DefaultFrontendController
             ->andWhere(['user_id' => Yii::$app->user->id])
             ->one();
 
-        if (isset($chekRoomUser)) {
+        if (isset($checkRoomUser)) {
             $sumAmount = 0;
-            foreach ($chekRoomUser as $item) {
+            foreach ($checkRoomUser as $item) {
                 $sumAmount = $sumAmount + $item->sum;
             }
             $progress['print-amount'] = $sumAmount;
