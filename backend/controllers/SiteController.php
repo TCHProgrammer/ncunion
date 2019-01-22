@@ -29,7 +29,7 @@ class SiteController extends DefaultBackendController
         $model = new LoginForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->loginAdmin()) {
-            return $this->goBack();
+            return $this->redirect(['index']);
         } else {
             $model->password = '';
 
@@ -47,8 +47,7 @@ class SiteController extends DefaultBackendController
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
-        return $this->goHome();
+        return $this->redirect(['index']);
     }
 
 }
