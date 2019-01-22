@@ -191,14 +191,6 @@ class ObjectController extends DefaultBackendController
         $model = new Object();
         $values = $this->initValues($model);
 
-        $listCheckbox = AttributeCheckbox::find()->joinWith('groupCheckboxes')->all();
-        $rezCheckbox = [];
-
-        /* Radio/ */
-        $listRadio = AttributeRadio::find()->joinWith('groupRadios')->all();
-        $rezRadio = [];
-        /* /Radio */
-
         $post = Yii::$app->request->post();
         if ($model->load($post)) {
             $role = AuthAssignment::find()->where(['user_id' => Yii::$app->user->id])->one();
@@ -218,6 +210,29 @@ class ObjectController extends DefaultBackendController
                 return $this->redirect(['create-img', 'id' => $model->id]);
             }
         }
+        $listCheckbox = AttributeCheckbox::find()->joinWith('groupCheckboxes')->all();
+        $groupCheckboxes = Yii::$app->request->post('GroupCheckboxes');
+        $rezCheckbox = [];
+        if (!empty($groupCheckboxes)) {
+            foreach ($groupCheckboxes as $checkboxGroup) {
+                foreach ($checkboxGroup as $checkboxArr) {
+                    $rezCheckbox = ArrayHelper::merge($rezCheckbox, $checkboxArr);
+                }
+            }
+        }
+
+        /* Radio/ */
+        $listRadio = AttributeRadio::find()->joinWith('groupRadios')->all();
+        $groupRadios = Yii::$app->request->post('GroupRadios');
+        $rezRadio = [];
+        if (!empty($groupRadios)) {
+            foreach ($groupRadios as $radioGroup) {
+                foreach ($radioGroup as $radioArr) {
+                    $rezRadio = ArrayHelper::merge($rezRadio, $radioArr);
+                }
+            }
+        }
+        /* /Radio */
 
         $regionCollection = \common\models\object\Region::find()->all();
         $region = ArrayHelper::map($regionCollection, 'id', 'name');
@@ -229,6 +244,7 @@ class ObjectController extends DefaultBackendController
 
         $userIds = ArrayHelper::getColumn(AuthAssignment::find()->where(['item_name' => 'broker'])->all(), 'user_id');
         $brokersCollection = User::find()->where(['in', 'id', $userIds])->all();
+//        var_dump(Yii::$app->request->post());die;
         return $this->render('create', [
             'model' => $model,
             'values' => $values,
@@ -514,11 +530,15 @@ class ObjectController extends DefaultBackendController
 
     private function initValues(Object $model)
     {
+        $postValues =  Yii::$app->request->post('ObjectAttribute');
         $values = $model->getObjectAttributes()->indexBy('attribute_id')->all();
         $attributes = Attribute::find()->indexBy('id')->all();
 
         foreach (array_diff_key($attributes, $values) as $attribute) {
             $values[$attribute->id] = new ObjectAttribute(['attribute_id' => $attribute->id]);
+            if (!empty($postValues) && is_null($values[$attribute->id]->value) && isset($postValues[$attribute->id]['value'])) {
+                $values[$attribute->id]->value = $postValues[$attribute->id]['value'];
+            }
         }
 
         /*foreach ($values as $value) {
