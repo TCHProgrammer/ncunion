@@ -26,17 +26,17 @@ if (!empty($brokersCollection)) {
 
 <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-<?php if (Yii::$app->user->can('set_object_broker')): ?>
     <div class="row col-lg-12">
-        <?= $form->field($model, 'broker_id', ['options' => ['class' => 'col-lg-6 col-md-6']])->dropDownList(
-            $brokers,
+        <?php if (Yii::$app->user->can('set_object_broker')): ?>
+            <?= $form->field($model, 'broker_id', ['options' => ['class' => 'col-lg-6 col-md-6']])->dropDownList(
+                $brokers,
             ['prompt' => 'Выберите брокера']
         ) ?>
+        <?php endif; ?>
 
         <?= $form->field($model, 'status')->checkbox() ?>
     </div>
 
-<?php endif; ?>
 
 <div class="row">
     <?= $form->field($model, 'type_id', ['options' => ['class' => 'col-lg-6 col-md-6']])->dropDownList(
