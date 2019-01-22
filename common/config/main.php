@@ -40,6 +40,13 @@ return [
             'enableStrictParsing' => true,
             'showScriptName' => false,
         ],
+        'urlManagerBackend' => [
+            'class' => 'yii\web\UrlManager',
+            'baseUrl' => '/admin/',
+            'enablePrettyUrl' => true,
+            'enableStrictParsing' => true,
+            'showScriptName' => false,
+        ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
             //'cache' => 'cache' //Включаем кеширование
