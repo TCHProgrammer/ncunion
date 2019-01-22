@@ -1,16 +1,17 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
+use frontend\assets\ToolsPanelAsset;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 use frontend\widget\AdminPanel;
+use common\widgets\tools_panel\ToolsPanelWidget;
 
 AppAsset::register($this);
 ?>
@@ -26,9 +27,12 @@ AppAsset::register($this);
     <?php $this->head() ?>
 </head>
 <body>
-<?php if (!Yii::$app->user->can('ban')){ ?>
-<?php $this->beginBody() ?>
-<?= AdminPanel::widget(); ?>
+<?php if (Yii::$app->user->can('access_tools_panel')): ?>
+    <?= ToolsPanelWidget::widget(['asset' => new ToolsPanelAsset()]) ?>
+<?php endif; ?>
+<?php if (!Yii::$app->user->can('ban')) { ?>
+    <?php $this->beginBody() ?>
+    <?= AdminPanel::widget(); ?>
     <header>
         <div class="top">
             <div class="container">
@@ -43,7 +47,8 @@ AppAsset::register($this);
                     <div class="col-xs-6 col-sm-4">
                         <div class="header-address">
                             <p>
-                                г. Москва, ул. Тестовская, 10, 2 этаж, офис 203/1,ММДЦ<br>“Москва-Сити” БЦ "Северная Башня"
+                                г. Москва, ул. Тестовская, 10, 2 этаж, офис 203/1,ММДЦ<br>“Москва-Сити” БЦ "Северная
+                                Башня"
                             </p>
                         </div>
                     </div>
@@ -64,8 +69,8 @@ AppAsset::register($this);
         <!--
         <div class="container">
             <?= Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]) ?>
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+        ]) ?>
             <?= Alert::widget() ?>
             <?= $content ?>
         </div>
@@ -75,62 +80,68 @@ AppAsset::register($this);
     <section class="slider flexslider">
         <ul class="slides">
             <li class="slide">
-                <div class="bg-layer" style="background-image: url(<?php echo Url::to('@web/img/main/slide-1.jpg'); ?>)">
+                <div class="bg-layer"
+                     style="background-image: url(<?php echo Url::to('@web/img/main/slide-1.jpg'); ?>)">
                 </div>
                 <div class="flex-caption">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="slide-row flex">
-                                        <div class="item">
-                                            <h2><span>Безопасное</span> инвестирование в недвижимость</h2>
-                                        </div>
-                                        <div class="item item-small">
-                                            <p>Всего от<br><span>500 000</span> руб.</p>
-                                        </div>
-                                        <div class="item item-small">
-                                            <p>Доходность:<br><span>10-24 %</span> руб. годовых</p>
-                                        </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="slide-row flex">
+                                    <div class="item">
+                                        <h2><span>Безопасное</span> инвестирование в недвижимость</h2>
                                     </div>
-                                    <div class="slide-text">
-                                        <p>Выберите свою инвестиционную программу! Гарантированный доход, разумное управление рисками, отличная возможность инвестирования как для профессионалов, так и для обычных людей.</p>
+                                    <div class="item item-small">
+                                        <p>Всего от<br><span>500 000</span> руб.</p>
                                     </div>
-                                    <div class="slide-button">
-                                        <button class="btn btn-default btn-slide">Узнать больше</button>
+                                    <div class="item item-small">
+                                        <p>Доходность:<br><span>10-24 %</span> руб. годовых</p>
                                     </div>
+                                </div>
+                                <div class="slide-text">
+                                    <p>Выберите свою инвестиционную программу! Гарантированный доход, разумное
+                                        управление рисками, отличная возможность инвестирования как для профессионалов,
+                                        так и для обычных людей.</p>
+                                </div>
+                                <div class="slide-button">
+                                    <button class="btn btn-default btn-slide">Узнать больше</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
             </li>
             <li class="slide">
-                <div class="bg-layer" style="background-image: url(<?php echo Url::to('@web/img/main/slide-2.jpg'); ?>)">
+                <div class="bg-layer"
+                     style="background-image: url(<?php echo Url::to('@web/img/main/slide-2.jpg'); ?>)">
                 </div>
                 <div class="flex-caption">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="slide-row flex">
-                                        <div class="item">
-                                            <h2><span>Высокий</span> уровень доходности</h2>
-                                        </div>
-                                        <div class="item item-small">
-                                            <p>Всего от<br><span>500 000</span> руб.</p>
-                                        </div>
-                                        <div class="item item-small">
-                                            <p>Доходность:<br><span>10-24 %</span> руб. годовых</p>
-                                        </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="slide-row flex">
+                                    <div class="item">
+                                        <h2><span>Высокий</span> уровень доходности</h2>
                                     </div>
-                                    <div class="slide-text">
-                                        <p>Отсутствие рисков потери инвестиции, вложения только в высоколиквидные активы, различные инвестиционные программы и опции, позволяющие получать повышенную доходность! Стать инвестором и зарабатывать может каждый!</p>
+                                    <div class="item item-small">
+                                        <p>Всего от<br><span>500 000</span> руб.</p>
                                     </div>
-                                    <div class="slide-button">
-                                        <button class="btn btn-default btn-slide">Узнать больше</button>
+                                    <div class="item item-small">
+                                        <p>Доходность:<br><span>10-24 %</span> руб. годовых</p>
                                     </div>
+                                </div>
+                                <div class="slide-text">
+                                    <p>Отсутствие рисков потери инвестиции, вложения только в высоколиквидные активы,
+                                        различные инвестиционные программы и опции, позволяющие получать повышенную
+                                        доходность! Стать инвестором и зарабатывать может каждый!</p>
+                                </div>
+                                <div class="slide-button">
+                                    <button class="btn btn-default btn-slide">Узнать больше</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
             </li>
         </ul>
     </section>
@@ -167,7 +178,8 @@ AppAsset::register($this);
                                 <div class="col-sm-12 col-md-9">
                                     <div class="info">
                                         <h3>Выгоды</h3>
-                                        <p>Процент доходности больше, чем в банках! Зачем зарабатывать мало, если с нами можно заработать много?</p>
+                                        <p>Процент доходности больше, чем в банках! Зачем зарабатывать мало, если с нами
+                                            можно заработать много?</p>
                                     </div>
                                 </div>
                             </div>
@@ -184,7 +196,8 @@ AppAsset::register($this);
                                 <div class="col-sm-12 col-md-9">
                                     <div class="info">
                                         <h3>Преимущества</h3>
-                                        <p>Начальная сумма инвестиций от 500 000 рублей! Бесплатные консультации начинающим инвесторам.</p>
+                                        <p>Начальная сумма инвестиций от 500 000 рублей! Бесплатные консультации
+                                            начинающим инвесторам.</p>
                                     </div>
                                 </div>
                             </div>
@@ -236,7 +249,8 @@ AppAsset::register($this);
                                                 <p>Страховой сертификат моментальной выплаты позволяет получить денежные средства инвестором в течение трех рабочих дней, но не ранее чем через три месяца после подписания договора и открытия вклада.</p>
                                             </div>
                                             <div class="icon">
-                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-9.png'); ?>" alt="Страхование">
+                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-9.png'); ?>"
+                                                     alt="Страхование">
                                             </div>
                                         </div>
                                     </div>
@@ -246,10 +260,13 @@ AppAsset::register($this);
                                             <h4 class="name">Вексель</h4>
                                             <span class="divider"></span>
                                             <div class="text">
-                                                <p>Ценная бумага, подтверждающая обязательства должника «векселедателя» уплатить требуемую сумму кредитору (векселедержателю) через оговоренный срок после его предъявления.</p>
+                                                <p>Ценная бумага, подтверждающая обязательства должника «векселедателя»
+                                                    уплатить требуемую сумму кредитору (векселедержателю) через
+                                                    оговоренный срок после его предъявления.</p>
                                             </div>
                                             <div class="icon">
-                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-10.png'); ?>" alt="Вексель">
+                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-10.png'); ?>"
+                                                     alt="Вексель">
                                             </div>
                                         </div>
                                     </div>
@@ -259,10 +276,15 @@ AppAsset::register($this);
                                             <h4 class="name">Закладная</h4>
                                             <span class="divider"></span>
                                             <div class="text">
-                                                <p>Именная ценная бумага, удостоверяющая право ее законного владельца на получение исполнения по денежному обязательству, обеспеченному ипотекой, а также право залога на имущество, обремененное ипотекой. Закладная подлежит обязательной государственной нотариальной регистрации.</p>
+                                                <p>Именная ценная бумага, удостоверяющая право ее законного владельца на
+                                                    получение исполнения по денежному обязательству, обеспеченному
+                                                    ипотекой, а также право залога на имущество, обремененное ипотекой.
+                                                    Закладная подлежит обязательной государственной нотариальной
+                                                    регистрации.</p>
                                             </div>
                                             <div class="icon">
-                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-11.png'); ?>" alt="Закладная">
+                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-11.png'); ?>"
+                                                     alt="Закладная">
                                             </div>
                                         </div>
                                     </div>
@@ -276,13 +298,15 @@ AppAsset::register($this);
                                 <div class="col-sm-6 tab-graph">
                                     <div class="item">
                                         <h3>Доходность</h3>
-                                        <img class="img-responsive" src="<?php echo Url::to('@web/img/main/tab-graph-1.png'); ?>">
+                                        <img class="img-responsive"
+                                             src="<?php echo Url::to('@web/img/main/tab-graph-1.png'); ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-6 tab-graph">
                                     <div class="item">
                                         <h3>Надёжность</h3>
-                                        <img class="img-responsive" src="<?php echo Url::to('@web/img/main/tab-graph-2.png'); ?>">
+                                        <img class="img-responsive"
+                                             src="<?php echo Url::to('@web/img/main/tab-graph-2.png'); ?>">
                                     </div>
                                 </div>
                             </div>
@@ -300,12 +324,14 @@ AppAsset::register($this);
                                             <span class="value">от 50 000 Р</span>
                                             <div class="text">
                                                 <p>Для пассивного получения дохода предусмотрено два вида программ: <a
-                                                            href="#">Вклад «Оптимальный»</a> и <a
-                                                            href="#">Вклад «Универсальный»</a>.</p>
-                                                <p>Конкурентные процентные ставки, высоконадежные вклады для получения высокого, стабильного дохода.</p>
+                                                        href="#">Вклад «Оптимальный»</a> и <a
+                                                        href="#">Вклад «Универсальный»</a>.</p>
+                                                <p>Конкурентные процентные ставки, высоконадежные вклады для получения
+                                                    высокого, стабильного дохода.</p>
                                             </div>
                                             <div class="icon">
-                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-1.png'); ?>" alt="Минимальная сумма">
+                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-1.png'); ?>"
+                                                     alt="Минимальная сумма">
                                             </div>
                                         </div>
                                     </div>
@@ -316,10 +342,12 @@ AppAsset::register($this);
                                             <span class="divider"></span>
                                             <span class="value">Бесплатно</span>
                                             <div class="text">
-                                                <p>Бесплатные консультации, обучение, тренинги по закладному кредитованию для начинающих инвесторов.</p>
+                                                <p>Бесплатные консультации, обучение, тренинги по закладному
+                                                    кредитованию для начинающих инвесторов.</p>
                                             </div>
                                             <div class="icon">
-                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-2.png'); ?>" alt="Обучение">
+                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-2.png'); ?>"
+                                                     alt="Обучение">
                                             </div>
                                         </div>
                                     </div>
@@ -330,11 +358,14 @@ AppAsset::register($this);
                                             <span class="divider"></span>
                                             <span class="value">Прозрачность</span>
                                             <div class="text">
-                                                <p>Вы всегда можете узнать, в каких именно проектах (в области залогового кредитования) работают ваши денежные средства.</p>
-                                                <p>Мы полностью проверяем юридическую чистоту сделки. Только после этого вы принимаете решение.</p>
+                                                <p>Вы всегда можете узнать, в каких именно проектах (в области
+                                                    залогового кредитования) работают ваши денежные средства.</p>
+                                                <p>Мы полностью проверяем юридическую чистоту сделки. Только после этого
+                                                    вы принимаете решение.</p>
                                             </div>
                                             <div class="icon">
-                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-3.png'); ?>" alt="Прозрачность сделок">
+                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-3.png'); ?>"
+                                                     alt="Прозрачность сделок">
                                             </div>
                                         </div>
                                     </div>
@@ -345,10 +376,12 @@ AppAsset::register($this);
                                             <span class="divider"></span>
                                             <span class="value">Биржа</span>
                                             <div class="text">
-                                                <p>Единственная биржа недвижимости на Российском рынке, где объединяются инвесторы и заёмщики.</p>
+                                                <p>Единственная биржа недвижимости на Российском рынке, где объединяются
+                                                    инвесторы и заёмщики.</p>
                                             </div>
                                             <div class="icon">
-                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-4.png'); ?>" alt="Единый рынок">
+                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-4.png'); ?>"
+                                                     alt="Единый рынок">
                                             </div>
                                         </div>
                                     </div>
@@ -359,10 +392,12 @@ AppAsset::register($this);
                                             <span class="divider"></span>
                                             <span class="value">Вся Россия</span>
                                             <div class="text">
-                                                <p>Возможность совместного инвестирования в высоколиквидные залоговые объекты по всей территории Российской Федерации</p>
+                                                <p>Возможность совместного инвестирования в высоколиквидные залоговые
+                                                    объекты по всей территории Российской Федерации</p>
                                             </div>
                                             <div class="icon">
-                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-5.png'); ?>" alt="Территория РФ">
+                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-5.png'); ?>"
+                                                     alt="Территория РФ">
                                             </div>
                                         </div>
                                     </div>
@@ -373,10 +408,13 @@ AppAsset::register($this);
                                             <span class="divider"></span>
                                             <span class="value">Понятная система</span>
                                             <div class="text">
-                                                <p>Уникальная, удобная, интуитивно понятная система инвестирования, выбора инвестиционных, залоговых объектов через личный кабинет биржевого портала НКС.</p>
+                                                <p>Уникальная, удобная, интуитивно понятная система инвестирования,
+                                                    выбора инвестиционных, залоговых объектов через личный кабинет
+                                                    биржевого портала НКС.</p>
                                             </div>
                                             <div class="icon">
-                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-6.png'); ?>" alt="Удобство">
+                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-6.png'); ?>"
+                                                     alt="Удобство">
                                             </div>
                                         </div>
                                     </div>
@@ -390,7 +428,8 @@ AppAsset::register($this);
                                                 <p>Возможность самостоятельного выбора объектов инвестирования.</p>
                                             </div>
                                             <div class="icon">
-                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-7.png'); ?>" alt="Выбор">
+                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-7.png'); ?>"
+                                                     alt="Выбор">
                                             </div>
                                         </div>
                                     </div>
@@ -401,10 +440,13 @@ AppAsset::register($this);
                                             <span class="divider"></span>
                                             <span class="value">Ценные документы</span>
                                             <div class="text">
-                                                <p>Все ценные бумаги (вексель\закладная), выпущенные в Национальном кредитном союзе можно предложить к продаже для других инвесторов, так и купить в супермаркете ценных бумаг на нашем сайте.</p>
+                                                <p>Все ценные бумаги (вексель\закладная), выпущенные в Национальном
+                                                    кредитном союзе можно предложить к продаже для других инвесторов,
+                                                    так и купить в супермаркете ценных бумаг на нашем сайте.</p>
                                             </div>
                                             <div class="icon">
-                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-8.png'); ?>" alt="Магазин решений">
+                                                <img src="<?php echo Url::to('@web/img/main/condition-icon-8.png'); ?>"
+                                                     alt="Магазин решений">
                                             </div>
                                         </div>
                                     </div>
@@ -432,7 +474,8 @@ AppAsset::register($this);
                     <div class="item">
                         <a href="/tariffs/optimal" class="item-link">
                             <div class="image">
-                                <img src="<?php echo Url::to('@web/img/main/program-1.png'); ?>" alt="Доходная" class="img-responsive">
+                                <img src="<?php echo Url::to('@web/img/main/program-1.png'); ?>" alt="Доходная"
+                                     class="img-responsive">
                             </div>
                             <div class="text">
                                 <h3>Вклад "Оптимальный"</h3>
@@ -440,7 +483,9 @@ AppAsset::register($this);
                                     <div class="col-sm-6 col-md-12 col-lg-6 property-wrapper">
                                         <div class="property property-price">
                                             <div class="image">
-                                                <img src="<?php echo Url::to('@web/img/main/program-icon-price.png'); ?>" alt="Сумма вклада">
+                                                <img
+                                                    src="<?php echo Url::to('@web/img/main/program-icon-price.png'); ?>"
+                                                    alt="Сумма вклада">
                                             </div>
                                             <span class="name">Сумма вклада:</span>
                                             <p>от 50 000 руб</p>
@@ -450,7 +495,8 @@ AppAsset::register($this);
                                     <div class="col-sm-6 col-md-12 col-lg-6 property-wrapper">
                                         <div class="property property-time">
                                             <div class="image">
-                                                <img src="<?php echo Url::to('@web/img/main/program-icon-time.png'); ?>" alt="Срок вклада">
+                                                <img src="<?php echo Url::to('@web/img/main/program-icon-time.png'); ?>"
+                                                     alt="Срок вклада">
                                             </div>
                                             <span class="name">Срок вклада:</span>
                                             <p>от 3 месяцев</p>
@@ -459,7 +505,9 @@ AppAsset::register($this);
                                     <div class="col-sm-12 property-wrapper">
                                         <div class="property property-percent">
                                             <div class="image">
-                                                <img src="<?php echo Url::to('@web/img/main/program-icon-percent.png'); ?>" alt="Выплата процентов">
+                                                <img
+                                                    src="<?php echo Url::to('@web/img/main/program-icon-percent.png'); ?>"
+                                                    alt="Выплата процентов">
                                             </div>
                                             <span class="name">Выплата процентов:</span>
                                             <p>в конце срока, ежемесячно</p>
@@ -474,41 +522,47 @@ AppAsset::register($this);
                     <div class="item">
                         <a href="#calculator" class="item-link goto-calculator">
                             <div class="image">
-                                <img src="<?php echo Url::to('@web/img/main/program-2.png'); ?>" alt="Доходная" class="img-responsive">
+                                <img src="<?php echo Url::to('@web/img/main/program-2.png'); ?>" alt="Доходная"
+                                     class="img-responsive">
                             </div>
                             <div class="text">
-                            <h3>Вклад "Универсальный"</h3>
-                            <div class="row flex-row properties-list">
-                                <div class="col-sm-6 col-md-12 col-lg-6">
-                                    <div class="property property-price">
-                                        <div class="image">
-                                            <img src="<?php echo Url::to('@web/img/main/program-icon-price.png'); ?>" alt="Сумма вклада">
+                                <h3>Вклад "Универсальный"</h3>
+                                <div class="row flex-row properties-list">
+                                    <div class="col-sm-6 col-md-12 col-lg-6">
+                                        <div class="property property-price">
+                                            <div class="image">
+                                                <img
+                                                    src="<?php echo Url::to('@web/img/main/program-icon-price.png'); ?>"
+                                                    alt="Сумма вклада">
+                                            </div>
+                                            <span class="name">Сумма вклада:</span>
+                                            <p>от 1 500 000 руб</p>
+                                            <p>до 10 000 000 руб</p>
                                         </div>
-                                        <span class="name">Сумма вклада:</span>
-                                        <p>от 1 500 000 руб</p>
-                                        <p>до 10 000 000 руб</p>
                                     </div>
-                                </div>
-                                <div class="col-sm-6 col-md-12 col-lg-6">
-                                    <div class="property property-time">
-                                        <div class="image">
-                                            <img src="<?php echo Url::to('@web/img/main/program-icon-time.png'); ?>" alt="Срок вклада">
+                                    <div class="col-sm-6 col-md-12 col-lg-6">
+                                        <div class="property property-time">
+                                            <div class="image">
+                                                <img src="<?php echo Url::to('@web/img/main/program-icon-time.png'); ?>"
+                                                     alt="Срок вклада">
+                                            </div>
+                                            <span class="name">Срок вклада:</span>
+                                            <p>от 12 месяцев</p>
                                         </div>
-                                        <span class="name">Срок вклада:</span>
-                                        <p>от 12 месяцев</p>
                                     </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="property property-percent">
-                                        <div class="image">
-                                            <img src="<?php echo Url::to('@web/img/main/program-icon-percent.png'); ?>" alt="Выплата процентов">
+                                    <div class="col-sm-12">
+                                        <div class="property property-percent">
+                                            <div class="image">
+                                                <img
+                                                    src="<?php echo Url::to('@web/img/main/program-icon-percent.png'); ?>"
+                                                    alt="Выплата процентов">
+                                            </div>
+                                            <span class="name">Выплата процентов:</span>
+                                            <p>в конце срока, ежемесячно</p>
                                         </div>
-                                        <span class="name">Выплата процентов:</span>
-                                        <p>в конце срока, ежемесячно</p>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         </a>
                     </div>
                 </div>
@@ -594,7 +648,8 @@ AppAsset::register($this);
 
                                     <div class="radio-group radio-group-pay flex">
                                         <div class="radio">
-                                            <input type="radio" id="percent-payment-1" name="percent-payment" value="1" checked>
+                                            <input type="radio" id="percent-payment-1" name="percent-payment" value="1"
+                                                   checked>
                                             <label for="percent-payment-1">
                                                 <span>ежемесячно</span>
                                             </label>
@@ -611,21 +666,24 @@ AppAsset::register($this);
                                 <div class="col-xs-12 col-sm-12">
                                     <div class="checkbox-additional flex">
                                         <div class="checkbox input optimal universal">
-                                            <input type="checkbox" id="additional-guarantees-1" name="additional" value="1">
+                                            <input type="checkbox" id="additional-guarantees-1" name="additional"
+                                                   value="1">
                                             <label for="additional-guarantees-1">
                                                 <span class="square"></span>
                                                 <span class="label-text">Страховка</span>
                                             </label>
                                         </div>
                                         <div class="checkbox input universal">
-                                            <input type="checkbox" id="additional-guarantees-2" name="additional" value="2">
+                                            <input type="checkbox" id="additional-guarantees-2" name="additional"
+                                                   value="2">
                                             <label for="additional-guarantees-2">
                                                 <span class="square"></span>
                                                 <span class="label-text">Вексель</span>
                                             </label>
                                         </div>
                                         <div class="checkbox input universal">
-                                            <input type="checkbox" id="additional-guarantees-3" name="additional" value="3">
+                                            <input type="checkbox" id="additional-guarantees-3" name="additional"
+                                                   value="3">
                                             <label for="additional-guarantees-3">
                                                 <span class="square"></span>
                                                 <span class="label-text">Закладная на имущественные права</span>
@@ -899,43 +957,52 @@ AppAsset::register($this);
         <div class="why-we-carousel owl-carousel">
             <div class="item">
                 <div class="image">
-                    <img src="<?php echo Url::to('@web/img/main/item-1.jpg'); ?>" alt="Высокая безопасность вкладов" class="img-responsive">
+                    <img src="<?php echo Url::to('@web/img/main/item-1.jpg'); ?>" alt="Высокая безопасность вкладов"
+                         class="img-responsive">
                 </div>
                 <div class="info">
                     <h3>Высокая безопасность вкладов</h3>
-                    <p>Мы работаем только с высоколиквидными объектами недвижимости, гарантированно приносящими стабильный доход</p>
+                    <p>Мы работаем только с высоколиквидными объектами недвижимости, гарантированно приносящими
+                        стабильный доход</p>
                 </div>
             </div>
             <div class="item">
                 <div class="image">
-                    <img src="<?php echo Url::to('@web/img/main/item-2.jpg'); ?>" alt="Гарантированный доход" class="img-responsive">
+                    <img src="<?php echo Url::to('@web/img/main/item-2.jpg'); ?>" alt="Гарантированный доход"
+                         class="img-responsive">
                 </div>
                 <div class="info">
                     <h3>Гарантированный доход</h3>
-                    <p>Вы при любых обстоятельствах и колебаниях рынка сможете получить тот доход, на который рассчитываете</p>
+                    <p>Вы при любых обстоятельствах и колебаниях рынка сможете получить тот доход, на который
+                        рассчитываете</p>
                 </div>
             </div>
             <div class="item">
                 <div class="image">
-                    <img src="<?php echo Url::to('@web/img/main/item-3.jpg'); ?>" alt="Высокие проценты" class="img-responsive">
+                    <img src="<?php echo Url::to('@web/img/main/item-3.jpg'); ?>" alt="Высокие проценты"
+                         class="img-responsive">
                 </div>
                 <div class="info">
                     <h3>Высокие проценты</h3>
-                    <p>Доходность выше, чем по банковским вкладам, её уровень зависит от выбора программы инвестирования и дополнительных опций</p>
+                    <p>Доходность выше, чем по банковским вкладам, её уровень зависит от выбора программы инвестирования
+                        и дополнительных опций</p>
                 </div>
             </div>
             <div class="item">
                 <div class="image">
-                    <img src="<?php echo Url::to('@web/img/main/item-4.jpg'); ?>" alt="Различные программы инвестирования" class="img-responsive">
+                    <img src="<?php echo Url::to('@web/img/main/item-4.jpg'); ?>"
+                         alt="Различные программы инвестирования" class="img-responsive">
                 </div>
                 <div class="info">
                     <h3>Различные программы инвестирования</h3>
-                    <p>Выбирайте то, что подходит именно Вам! Ориентируйтесь на процент доходности, срок инвестирования и стартовый уровень вложений</p>
+                    <p>Выбирайте то, что подходит именно Вам! Ориентируйтесь на процент доходности, срок инвестирования
+                        и стартовый уровень вложений</p>
                 </div>
             </div>
             <div class="item">
                 <div class="image">
-                    <img src="<?php echo Url::to('@web/img/main/item-5.jpg'); ?>" alt="Возможности для получения увеличенных процентов доходности" class="img-responsive">
+                    <img src="<?php echo Url::to('@web/img/main/item-5.jpg'); ?>"
+                         alt="Возможности для получения увеличенных процентов доходности" class="img-responsive">
                 </div>
                 <div class="info">
                     <h3>Возможности для получения увеличенных процентов доходности</h3>
@@ -944,7 +1011,8 @@ AppAsset::register($this);
             </div>
             <div class="item">
                 <div class="image">
-                    <img src="<?php echo Url::to('@web/img/main/item-6.jpg'); ?>" alt="Различные сроки размещения вложений" class="img-responsive">
+                    <img src="<?php echo Url::to('@web/img/main/item-6.jpg'); ?>"
+                         alt="Различные сроки размещения вложений" class="img-responsive">
                 </div>
                 <div class="info">
                     <h3>Различные сроки размещения вложений</h3>
@@ -953,34 +1021,41 @@ AppAsset::register($this);
             </div>
             <div class="item">
                 <div class="image">
-                    <img src="<?php echo Url::to('@web/img/main/item-7.jpg'); ?>" alt="Высокий профессионализм команды" class="img-responsive">
+                    <img src="<?php echo Url::to('@web/img/main/item-7.jpg'); ?>" alt="Высокий профессионализм команды"
+                         class="img-responsive">
                 </div>
                 <div class="info">
                     <h3>Высокий профессионализм команды</h3>
-                    <p>В нашей компании работают исключительно высококлассные специалисты с опытом работы в крупнейших мировых финансовых организациях</p>
+                    <p>В нашей компании работают исключительно высококлассные специалисты с опытом работы в крупнейших
+                        мировых финансовых организациях</p>
                 </div>
             </div>
             <div class="item">
                 <div class="image">
-                    <img src="<?php echo Url::to('@web/img/main/item-8.jpg'); ?>" alt="Работа с надежными активами высокой ликвидности" class="img-responsive">
+                    <img src="<?php echo Url::to('@web/img/main/item-8.jpg'); ?>"
+                         alt="Работа с надежными активами высокой ликвидности" class="img-responsive">
                 </div>
                 <div class="info">
                     <h3>Работа с надежными активами высокой ликвидности</h3>
-                    <p>Мы работаем только с теми объектами недвижимости, которые действительно имеют ценность и приносят стабильный доход</p>
+                    <p>Мы работаем только с теми объектами недвижимости, которые действительно имеют ценность и приносят
+                        стабильный доход</p>
                 </div>
             </div>
             <div class="item">
                 <div class="image">
-                    <img src="<?php echo Url::to('@web/img/main/item-9.jpg'); ?>" alt="17 лет на финансовом рынке" class="img-responsive">
+                    <img src="<?php echo Url::to('@web/img/main/item-9.jpg'); ?>" alt="17 лет на финансовом рынке"
+                         class="img-responsive">
                 </div>
                 <div class="info">
                     <h3>17 лет на финансовом рынке</h3>
-                    <p>Компания «Национальный кредитный союз» успешно ведет деятельность на финансовом рынке с 2001 года</p>
+                    <p>Компания «Национальный кредитный союз» успешно ведет деятельность на финансовом рынке с 2001
+                        года</p>
                 </div>
             </div>
             <div class="item">
                 <div class="image">
-                    <img src="<?php echo Url::to('@web/img/main/item-10.jpg'); ?>" alt="Офис в Москва-Сити" class="img-responsive">
+                    <img src="<?php echo Url::to('@web/img/main/item-10.jpg'); ?>" alt="Офис в Москва-Сити"
+                         class="img-responsive">
                 </div>
                 <div class="info">
                     <h3>Офис в Москва-Сити</h3>
@@ -989,7 +1064,8 @@ AppAsset::register($this);
             </div>
             <div class="item">
                 <div class="image">
-                    <img src="<?php echo Url::to('@web/img/main/item-11.jpg'); ?>" alt="Персональный менеджер для каждого клиента" class="img-responsive">
+                    <img src="<?php echo Url::to('@web/img/main/item-11.jpg'); ?>"
+                         alt="Персональный менеджер для каждого клиента" class="img-responsive">
                 </div>
                 <div class="info">
                     <h3>Персональный менеджер для каждого клиента</h3>
@@ -998,11 +1074,13 @@ AppAsset::register($this);
             </div>
             <div class="item">
                 <div class="image">
-                    <img src="<?php echo Url::to('@web/img/main/item-12.jpg'); ?>" alt="Полная прозрачность и отчет по всем операциям" class="img-responsive">
+                    <img src="<?php echo Url::to('@web/img/main/item-12.jpg'); ?>"
+                         alt="Полная прозрачность и отчет по всем операциям" class="img-responsive">
                 </div>
                 <div class="info">
                     <h3>Полная прозрачность и отчет по всем операциям</h3>
-                    <p>Вы регулярно будете получать отчетность о состоянии вклада и процентов доходности удобным для Вас способом</p>
+                    <p>Вы регулярно будете получать отчетность о состоянии вклада и процентов доходности удобным для Вас
+                        способом</p>
                 </div>
             </div>
         </div>
@@ -1010,7 +1088,8 @@ AppAsset::register($this);
             <div class="row">
                 <div class="col-sm-12">
                     <div class="order-button">
-                        <button class="btn btn-primary btn-order btn-consult">Звоните <br><span>+ 7 495-294-30-20</span></button>
+                        <button class="btn btn-primary btn-order btn-consult">Звоните <br><span>+ 7 495-294-30-20</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1019,7 +1098,8 @@ AppAsset::register($this);
             <div class="row">
                 <div class="col-sm-12">
                     <div class="grid">
-                        <div class="item item-image" style="background-image: url(<?php echo Url::to('@web/img/main/why-1.jpg'); ?>);"></div>
+                        <div class="item item-image"
+                             style="background-image: url(<?php echo Url::to('@web/img/main/why-1.jpg'); ?>);"></div>
                         <div class="item">
                             <span class="subheading hidden">Сайт рыбатекст поможет дизайнеру</span>
                             <h3>Почему нам уже доверилось более 2 500 инвесторов?</h3>
@@ -1045,7 +1125,8 @@ AppAsset::register($this);
                             <p>получении прибыли для себя и своих партнеров.</p>
                             <a href="#" class="btn btn-primary btn-blue">Подробнее</a>
                         </div>
-                        <div class="item item-image" style="background-image: url(<?php echo Url::to('@web/img/main/why-2.jpg'); ?>);"></div>
+                        <div class="item item-image"
+                             style="background-image: url(<?php echo Url::to('@web/img/main/why-2.jpg'); ?>);"></div>
                     </div>
                 </div>
             </div>
@@ -1075,7 +1156,8 @@ AppAsset::register($this);
                         </div>
                         <div class="item">
                             <div class="image">
-                                <img src="<?php echo Url::to('@web/img/main/how-to-2.png'); ?>" alt="" class="img-responsive">
+                                <img src="<?php echo Url::to('@web/img/main/how-to-2.png'); ?>" alt=""
+                                     class="img-responsive">
                             </div>
                             <div class="info">
                                 <p>Выплата дохода в конце срока действия договора дополнительные 1,5%</p>
@@ -1083,7 +1165,8 @@ AppAsset::register($this);
                         </div>
                         <div class="item">
                             <div class="image">
-                                <img src="<?php echo Url::to('@web/img/main/how-to-3.png'); ?>" alt="" class="img-responsive">
+                                <img src="<?php echo Url::to('@web/img/main/how-to-3.png'); ?>" alt=""
+                                     class="img-responsive">
                             </div>
                             <div class="info">
                                 <p>Выплата дохода в конце срока действия договора дополнительные 1,5%</p>
@@ -1091,7 +1174,8 @@ AppAsset::register($this);
                         </div>
                         <div class="item">
                             <div class="image">
-                                <img src="<?php echo Url::to('@web/img/main/how-to-4.png'); ?>" alt="" class="img-responsive">
+                                <img src="<?php echo Url::to('@web/img/main/how-to-4.png'); ?>" alt=""
+                                     class="img-responsive">
                             </div>
                             <div class="info">
                                 <p>Выплата дохода в конце срока действия договора дополнительные 1,5%</p>
@@ -1116,16 +1200,20 @@ AppAsset::register($this);
                     <form action="#">
                         <div class="row">
                             <div class="col-sm-6">
-                                <div class="form-group"><input type="text" class="form-control" placeholder="Ваше имя"></div>
+                                <div class="form-group"><input type="text" class="form-control" placeholder="Ваше имя">
+                                </div>
                             </div>
                             <div class="col-sm-6">
-                                <div class="form-group"><input type="text" class="form-control" placeholder="Email"></div>
+                                <div class="form-group"><input type="text" class="form-control" placeholder="Email">
+                                </div>
                             </div>
                             <div class="col-sm-6">
-                                <div class="form-group"><input type="text" class="form-control" placeholder="Тема сообщения"></div>
+                                <div class="form-group"><input type="text" class="form-control"
+                                                               placeholder="Тема сообщения"></div>
                             </div>
                             <div class="col-sm-6">
-                                <div class="form-group"><input type="text" class="form-control" placeholder="Телефон"></div>
+                                <div class="form-group"><input type="text" class="form-control" placeholder="Телефон">
+                                </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
@@ -1154,11 +1242,14 @@ AppAsset::register($this);
     </section>
 
     <section class="map animated animated-up">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2245.3919969563412!2d37.530455816243816!3d55.751692380553074!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54bdf26955a8f%3A0x27582effbd2d7a96!2z0KHQtdCy0LXRgNC90LDRjyDQkdCw0YjQvdGP!5e0!3m2!1sru!2sru!4v1539330204523" frameborder="0" style="border:0; width: 100%; height: 550px;"></iframe>
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2245.3919969563412!2d37.530455816243816!3d55.751692380553074!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54bdf26955a8f%3A0x27582effbd2d7a96!2z0KHQtdCy0LXRgNC90LDRjyDQkdCw0YjQvdGP!5e0!3m2!1sru!2sru!4v1539330204523"
+            frameborder="0" style="border:0; width: 100%; height: 550px;"></iframe>
         <div class="contacts-card">
             <div class="text">
                 <h2>Офис Москва-Сити</h2>
-                <img src="<?php echo Url::to('@web/img/main/contacts-img.jpg'); ?>" alt="Офис Москва-Сити" class="img-responsive">
+                <img src="<?php echo Url::to('@web/img/main/contacts-img.jpg'); ?>" alt="Офис Москва-Сити"
+                     class="img-responsive">
                 <p>г. Москва</p>
                 <p>ул. Тестовская, 10, 2 этаж, офис 203/1, ММДЦ “Москва-Сити” БЦ "Северная Башня"</p>
                 <p>+ 7 495-294-30-20</p>
@@ -1183,22 +1274,23 @@ AppAsset::register($this);
         </div>
     </footer>
 
-<?php }else{ ?>
+<?php } else { ?>
 
-<div class="ban-fon">
-    <div class="ban-contend">
-        <div class="ban-text">
-            <h2>Вы были забанены, свяжитесь с администратором!</h2>
-            <form action="/site/logout" method="post">
-                <input type="hidden" name="_csrf-frontend" value="IAuTD3kiZhigDYINZiLbpA8LMvYiqD-SZYwMjO3wVtAWVN1CC0lLXcJD1UQeWLzeZHhquG_GWsYftD-ho5oV5Q==">
-                <div class="no-access-exit">
-                    <span class="glyphicon glyphicon-log-out"></span>
-                    <button type="submit" class="btn btn-link logout">выход</button>
-                </div>
-            </form>
+    <div class="ban-fon">
+        <div class="ban-contend">
+            <div class="ban-text">
+                <h2>Вы были забанены, свяжитесь с администратором!</h2>
+                <form action="/site/logout" method="post">
+                    <input type="hidden" name="_csrf-frontend"
+                           value="IAuTD3kiZhigDYINZiLbpA8LMvYiqD-SZYwMjO3wVtAWVN1CC0lLXcJD1UQeWLzeZHhquG_GWsYftD-ho5oV5Q==">
+                    <div class="no-access-exit">
+                        <span class="glyphicon glyphicon-log-out"></span>
+                        <button type="submit" class="btn btn-link logout">выход</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
 <?php } ?>
 <?php $this->endBody() ?>
