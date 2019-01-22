@@ -1,0 +1,4 @@
+.tools-panel {
+    position: fixed;
+    z-index: 1031;
+}
