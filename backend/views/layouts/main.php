@@ -1,5 +1,7 @@
 <?php
 use yii\helpers\Html;
+use backend\assets\ToolsPanelAsset;
+use common\widgets\tools_panel\ToolsPanelWidget;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -38,6 +40,9 @@ if (Yii::$app->controller->action->id === 'login') {
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
     <?php $this->beginBody() ?>
+    <?php if (Yii::$app->user->can('access_tools_panel')): ?>
+        <?= ToolsPanelWidget::widget(['asset' => new ToolsPanelAsset()]) ?>
+    <?php endif; ?>
     <div class="wrapper">
 
         <?= $this->render(
