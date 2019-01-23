@@ -3,14 +3,14 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use frontend\assets\ToolsPanelAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 use frontend\widget\AdminPanel;
+use common\widgets\tools_panel\ToolsPanelWidget;
 
 AppAsset::register($this);
 ?>
@@ -28,6 +28,9 @@ AppAsset::register($this);
 <body class="page user-form-page">
 <?php if (!Yii::$app->user->can('ban')){ ?>
 <?php $this->beginBody() ?>
+    <?php if (Yii::$app->user->can('access_tools_panel')): ?>
+        <?= ToolsPanelWidget::widget(['asset' => new ToolsPanelAsset()]) ?>
+    <?php endif; ?>
 <?= AdminPanel::widget(); ?>
 
     <header>
