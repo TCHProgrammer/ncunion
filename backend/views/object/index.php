@@ -11,20 +11,23 @@ use common\models\object\ObjectType;
 /* @var $searchModel backend\models\ObjectSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Каталог объектов';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $title;
 ?>
 <div class="object-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($title) ?></h1>
 
     <?php Pjax::begin(); ?>
 
     <div class="btn-admin">
+
+        <?php if (Yii::$app->user->can('can_create_object')): ?>
         <div class="btn-group btn-indent-margin">
 
             <?= Html::a('Создать объект', ['create'], ['class' => 'btn btn-success']) ?>
         </div>
+        <?php endif; ?>
+        <?php if (Yii::$app->user->can('access_menu_object_common_settings')): ?>
         <div class="btn-group btn-indent-margin">
             <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Общие настройки<span
                         class="caret"></span></button>
@@ -38,6 +41,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
             </ul>
         </div>
+        <?php endif; ?>
+
+        <?php if (Yii::$app->user->can('access_menu_object_additional_attributes')): ?>
         <div class="btn-group btn-indent-margin">
             <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Дополнительные атрибуты<span
                         class="caret"></span></button>
@@ -47,6 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <li><a href="<?= Url::toRoute(['object_attribute/attribute-radio']) ?>">Переключатель (radio)</a></li>
             </ul>
         </div>
+        <?php endif; ?>
     </div>
 
     <div class="table-responsive">
