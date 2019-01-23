@@ -3,9 +3,10 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use common\widgets\tools_panel\ToolsPanelWidget;
+use frontend\assets\ToolsPanelAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\web\User;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Menu;
@@ -30,6 +31,9 @@ ProfileAsset::register($this);programs
 <body class="theme-orange">
 <?php if (!Yii::$app->user->can('ban')){ ?>
 <?php $this->beginBody() ?>
+    <?php if (Yii::$app->user->can('access_tools_panel')): ?>
+        <?= ToolsPanelWidget::widget(['asset' => new ToolsPanelAsset()]) ?>
+    <?php endif; ?>
 <?= AdminPanel::widget(); ?>
 <!-- Page Loader -->
 <div class="page-loader-wrapper" style="display: none;">
