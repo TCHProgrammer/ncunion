@@ -3,10 +3,10 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use common\widgets\tools_panel\ToolsPanelWidget;
+use frontend\assets\ToolsPanelAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\TariffsAsset;
 use common\widgets\Alert;
@@ -27,6 +27,9 @@ TariffsAsset::register($this);
 </head>
 <body class="page user-form-page">
 <?php if (!Yii::$app->user->can('ban')){ ?>
+    <?php if (Yii::$app->user->can('access_tools_panel')): ?>
+        <?= ToolsPanelWidget::widget(['asset' => new ToolsPanelAsset()]) ?>
+    <?php endif; ?>
     <?php $this->beginBody() ?>
     <?= AdminPanel::widget(); ?>
 
