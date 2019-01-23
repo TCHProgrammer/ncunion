@@ -28,6 +28,10 @@ $kek = AppAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 
+<?php if (Yii::$app->user->can('access_tools_panel')): ?>
+    <?= ToolsPanelWidget::widget(['asset' => new ToolsPanelAsset()]) ?>
+<?php endif; ?>
+
 <?php if (!(Yii::$app->user->isGuest)) { ?>
     <?php if(Yii::$app->user->can('canAdmin')){ ?>
         <?php contentF($content) ?>
