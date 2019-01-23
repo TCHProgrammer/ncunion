@@ -133,6 +133,12 @@ $menu = new Menu();
                                 'visible' => $menu->menuObject()
                             ],
                             [
+                                'label' => 'Объекты на модерации',
+                                'icon' => 'fw fa-clock-o',
+                                'url' => ['/object/object-moderation'],
+                                'visible' => Yii::$app->user->can('access_menu_object_moderation')
+                            ],
+                            [
                                 'label' => 'Отклики на объекты',
                                 'icon' => 'fw fa-user',
                                 'url' => ['/object-subscriptions'],
