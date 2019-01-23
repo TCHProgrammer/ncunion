@@ -44,6 +44,9 @@ $fieldOptions2 = [
             <div class="col-xs-8">
                 <?= $form->field($model, 'rememberMe')->checkbox() ?>
             </div>
+            <div style="color:#999;margin:1em 0">
+                <?= Html::a('восстановить пароль', Yii::$app->urlManagerFrontend->createAbsoluteUrl('site/request-password-reset')) ?>.
+            </div>
             <!-- /.col -->
             <div class="col-xs-4">
                 <?= Html::submitButton('Войти', ['class' => 'btn-admin-login', 'name' => 'login-button']) ?>
