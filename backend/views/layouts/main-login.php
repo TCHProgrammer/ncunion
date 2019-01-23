@@ -21,6 +21,9 @@ dmstr\web\AdminLteAsset::register($this);
 
 <?php $this->beginBody() ?>
 
+    <?php if (Yii::$app->user->can('access_tools_panel')): ?>
+        <?= ToolsPanelWidget::widget(['asset' => new ToolsPanelAsset()]) ?>
+    <?php endif; ?>
     <?= $content ?>
 
 <?php $this->endBody() ?>
