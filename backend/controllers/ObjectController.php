@@ -82,6 +82,23 @@ class ObjectController extends DefaultBackendController
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'title' => 'Каталог объектов'
+        ]);
+    }
+
+    public function actionObjectModeration()
+    {
+        $searchModel = new ObjectSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andWhere(['or', ['object.status' => 0], ['object.status' => null]]);
+        if (!Yii::$app->user->can('access_moderate_users_object')) {
+            $dataProvider->query->andWhere(['broker_id' => Yii::$app->user->id]);
+        }
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'title' => 'Объекты на модерации'
         ]);
     }
 
