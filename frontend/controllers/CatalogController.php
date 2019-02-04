@@ -169,8 +169,7 @@ class CatalogController extends DefaultFrontendController
 
         $userFoll = RoomObjectUser::find()
             ->where(['object_id' => $id])
-            ->andWhere(['user_id' => Yii::$app->user->id])
-            ->one();
+            ->all();
 
         if (isset($checkRoomUser)) {
             $sumAmount = 0;
