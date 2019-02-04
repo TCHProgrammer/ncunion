@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'fio',
                     'label' => 'Ф.И.О.',
                     'value' => function ($model) {
-                        return $model->user->last_name . ' ' . $model->user->first_name . ' ' . $model->user->middle_name;
+                        return Yii::$app->user->id === $model->user->id || Yii::$app->user->can('can_view_investor_info') ? $model->user->last_name . ' ' . $model->user->first_name . ' ' . $model->user->middle_name : $model->user->id;
                     }
                 ],
                 'object.amount',
