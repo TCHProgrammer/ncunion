@@ -263,10 +263,16 @@ $isCommerce = isset($isCommerce);
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="card overflowhidden m-t-20">
-                                        <?= $this->render('_listUser', [
-                                            'model' => $userFoll
-                                        ]);
-                                        ?>
+                                        <?php
+                                        $userFoll = ArrayHelper::index($userFoll, function ($element) {
+                                            return $element->user_id === Yii::$app->user->id ? 0 : $element->user_id;
+                                        });
+                                        ksort($userFoll);?>
+                                        <?php foreach ($userFoll as $userFol): ?>
+                                            <?= $this->render('_listUser', [
+                                                'model' => $userFol
+                                            ]); ?>
+                                        <?php endforeach; ?>
                                     </div>
                                 </div>
                             </div>
