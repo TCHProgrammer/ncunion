@@ -21,7 +21,7 @@ $this->title = 'Основная информация';
                 <div class="card overflowhidden m-t-20">
                     <div class="profile-header">
                         <div class="profile_info row">
-                            <div class="col-lg-3 col-md-4 col-12">
+                            <div class="col-lg-2 col-md-4 col-12">
                                 <div class="profile-image float-md-right"> <img src="<?= (isset($userAvatar->avatar)) ? $userAvatar->avatar : Url::to('@web/img/other/default-avatar.png') ?>" alt=""> </div>
                             </div>
                             <div class="col-lg-6 col-md-8 col-12">

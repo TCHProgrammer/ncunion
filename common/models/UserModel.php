@@ -92,7 +92,8 @@ class UserModel extends \yii\db\ActiveRecord
             'check_email' => 'Подтверждение email',
             'check_phone' => 'Подтверждение телефона',
             'role' => 'Роль',
-            'tagsArray' => 'Уведомления по почте'
+            'tagsArray' => 'Уведомления по почте',
+            'imageFile' => 'Загрузить изображение'
         ];
     }
 

@@ -4,19 +4,6 @@ use yii\bootstrap\NavBar;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 
-NavBar::begin([
-    'brandLabel' => false,
-    'options' => [
-        'class' => 'navbar-default',
-    ],
-]);
-$menuItemsLeft = [
-    ['label' => 'О сервисе', 'url' => ['#about-service']],
-    ['label' => 'Программы доходности', 'url' => ['#programs']],
-    ['label' => 'Калькуляторы доходности', 'url' => ['#calc']],
-    ['label' => 'Гарантии', 'url' => ['#guarantee']],
-    ['label' => 'О компании', 'url' => ['#about-service']],
-];
 if (Yii::$app->user->isGuest) {
     $menuItemsRight[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
     $menuItemsRight[] = ['label' => 'Войти', 'url' => ['/site/login']];
@@ -39,6 +26,26 @@ if (Yii::$app->user->isGuest) {
         ]
     ];
 }
+
+$userNavWidget = Nav::widget([
+    'options' => ['class' => 'navbar-nav navbar-right user-account user-account_navbar-header'],
+    'items' => $menuItemsRight
+]);
+
+NavBar::begin([
+    'brandLabel' => false, 
+    'headerContent' => $userNavWidget,
+    'options' => [
+        'class' => 'navbar-default',
+    ],
+]);
+$menuItemsLeft = [
+    ['label' => 'О сервисе', 'url' => ['#about-service']],
+    ['label' => 'Программы доходности', 'url' => ['#programs']],
+    ['label' => 'Калькуляторы доходности', 'url' => ['#calc']],
+    ['label' => 'Гарантии', 'url' => ['#guarantee']],
+    ['label' => 'О компании', 'url' => ['#about-service']],
+];
 echo Nav::widget([
     'options' => ['class' => 'navbar-nav navbar-left'],
     'items' => $menuItemsLeft,

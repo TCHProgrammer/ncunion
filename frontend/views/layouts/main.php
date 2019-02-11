@@ -44,7 +44,7 @@ AppAsset::register($this);
                             </a>
                         </div>
                     </div>
-                    <div class="col-xs-6 col-sm-4">
+                    <div class="col-xs-6 col-sm-3 col-md-4">
                         <div class="header-address">
                             <p>
                                 г. Москва, ул. Тестовская, 10, 2 этаж, офис 203/1,ММДЦ<br>“Москва-Сити” БЦ "Северная

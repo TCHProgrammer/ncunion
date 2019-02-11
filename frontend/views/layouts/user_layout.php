@@ -15,6 +15,8 @@ use frontend\assets\ProfileAsset;
 use common\widgets\Alert;
 use frontend\widget\AdminPanel;
 
+print_r($widgets);
+
 ProfileAsset::register($this);programs
 ?>
 <?php $this->beginPage() ?>
@@ -78,6 +80,8 @@ ProfileAsset::register($this);programs
             </li>
 
         </ul>
+
+        <!--
         <ul class="nav navbar-nav navbar-right">
             <li>
                 <a href="javascript:void(0);" class="fullscreen hidden-sm-down" data-provide="fullscreen" data-close="true">
@@ -86,6 +90,8 @@ ProfileAsset::register($this);programs
             </li>
 
         </ul>
+        -->
+
     </div>
 </nav>
 <!-- Left Sidebar -->
@@ -134,7 +140,7 @@ ProfileAsset::register($this);programs
     <div class="menu">
         <ul class="list">
             <li class="header">ОСНОВНАЯ НАВИГАЦИЯ</li>
-            <li class="active open">
+            <li>
                 <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-home"></i><span>Основные ссылки</span></a>
                 <?php
                 echo Menu::widget([

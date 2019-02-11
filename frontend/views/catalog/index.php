@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'itemOptions' => [
                 'tag' => false,
             ],
-            'layout' => '{summary}{items}<div class="col-sm-12"><div class="card"><div class="body">{pager}</div></div></div>',
+            'layout' => '{summary}{items}<div class="col-xs-12"><div class="card"><div class="body">{pager}</div></div></div>',
             'options' => [
                 'class' => 'list-view row clearfix'
             ],

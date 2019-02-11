@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <section class="content catalog-page object-index">
     <div class="block-header">
         <div class="row">
-            <div class="col-lg-7 col-md-6 col-sm-12">
+            <div class="col-lg-7 col-md-6 col-xs-12">
                 <h1><?= Html::encode($this->title) ?></h1>
             </div>
         </div>

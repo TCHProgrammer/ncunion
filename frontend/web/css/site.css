@@ -1935,7 +1935,9 @@ textarea {
     padding-bottom: 50px;
 }
 
-@media all and (max-width: 1199px) {
+.docs-other > div { display: none }
+
+@media all and (max-width: 1199px) {    
     .nav > li > a {
         padding: 20px 10px;
     }
@@ -2416,4 +2418,55 @@ textarea {
     .programs .property-wrapper {
         width: 100%;
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Фикс*/
+@media all and (min-width: 768px) { 
+  #w0 { display: none }
+}
+
+.navbar-nav { 
+  margin: 0;
+  float: left;
+  left: 0 
+}
+
+#w0.nav > li {
+  width: 50%;
+  float: left;
+  text-align: center
+}
+
+#w0.nav > li.dropdown { width: 100%; text-align: left }
+
+@media (max-width: 767px) {
+  .nav.user-account > li > a.dropdown-toggle {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+  }
+
+  #w0 { 
+    position: relative;
+    float: left;
+    left: 0;
+    width: 65%;
+    overflow: hidden
+  }
+  
+  #w4 { display: none }
 }

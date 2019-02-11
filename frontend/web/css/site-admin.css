@@ -660,6 +660,7 @@ textarea.form-control {
 }
 
 .object-page h4 {
+    margin-top: 24px;
     font-size: 18px;
     font-weight: bold;
 }
@@ -982,4 +983,82 @@ textarea.form-control {
         -ms-flex-preferred-size: 50%;
         flex-basis: 50%;
     }
+}
+
+
+
+
+
+
+
+
+
+
+/*Правки*/
+.navbar { height: 56px }
+
+.navbar-header { padding: 28px 24px }
+
+.navbar-brand {  margin: 0; display: none }
+
+.navbar .ls-closed .bars:after, .ls-closed .bars:before { top: 11px }
+
+.navbar-nav { margin: 0 }
+
+.dropdown .dropdown-toggle { padding: 17px }
+
+.menu > li { display: inline-block }
+
+.theme-orange .navbar-nav .menu-app .menu { width: auto }
+
+.navbar-nav.navbar-left .dropdown-menu { left: -7px }
+
+.sidebar .menu .list .ml-menu li.active a { font-weight: 700 }
+
+.nav-tabs { margin-bottom: 64px }
+
+.settings-block-1 { padding-right: 40px }
+
+.settings-block-1 .form-update-pic { margin-top: 27px }
+
+.settings-block-1 .form-update-pic img { width: 100%; margin: 2px 0 }
+
+.settings-block-1 .form-group { margin-bottom: 0 }
+
+.passport-checkbox [type="checkbox"]+label, 
+.passport-checkbox [type="radio"]+label {
+  width: auto;
+  margin-right: 32px
+}
+
+.passport-checkbox b { 
+  float: left;
+  left: 0;
+  width: 100%;
+  display: block;
+  margin-top: 24px;
+  margin-bottom: 12px
+}
+
+.passport-form label:first-child { 
+  float: left;
+  left: 0;
+  width: 100%;
+  display: block;
+  margin-top: 32px;
+  margin-bottom: 12px
+}
+
+.profile-page .profile-header .profile_info .profile-image img { width: 100% }
+
+@media (max-width: 767px) {
+  .settings-block-1 { padding-right: 15px }
+
+  .nav-tabs>li { width: 100% }
+
+  .passport-checkbox [type="checkbox"]+label, 
+  .passport-checkbox [type="radio"]+label {
+    width: 100%;
+    margin-right: 0
+  }
 }

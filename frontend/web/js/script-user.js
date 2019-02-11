@@ -312,7 +312,33 @@ $(document).ready(function () {
         $("#comment-input-send").find('textarea').focus();
     });
 
-    /* Фиксирование боковой панели на странице объекта */
+
+    /*активный пункт меню в административном сайдбаре*/
+
+    $(function() {
+
+        var pathname_url = window.location.pathname;
+        var href_url = window.location.href;
+
+        $(".list li").each(function () {
+
+            var link = $(this).find("a").attr("href");
+
+            if (pathname_url == link || href_url == link) {
+
+                $(this).addClass("active");
+
+            }
+
+        });
+
+    });
+    
+
+
+
+    /* Фиксирование боковой панели на странице объекта
+    
     var $objectSide = $('#object-side');
     var sideScrollTop = $objectSide.offset();
 
@@ -333,4 +359,6 @@ $(document).ready(function () {
             $objectSide.removeClass('fixed');
         }
     });
+
+    */
 });

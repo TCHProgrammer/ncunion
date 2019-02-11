@@ -288,6 +288,17 @@ $isCommerce = isset($isCommerce);
                                 <h4 class="price"><?= Yii::$app->formatter->asInteger($model->amount) ?> &#8381;</h4>
                                 <span class="product_help">Требуемая сумма</span>
 
+                                <div class="action">
+                                    <?php if ($userFoll) { ?>
+                                        <?= Html::a('Отписаться', ['/catalog/unsubscribe?oId=' . $model->id], ['class' => 'btn btn-primary btn-respond waves-effect', 'data-confirm' => 'Вы уверены, что хотите отписаться?', 'disable' => true]) ?>
+                                    <?php } else { ?>
+                                        <?= Html::button('Откликнуться', ['class' => 'btn btn-primary btn-respond waves-effect', 'data-toggle' => 'modal', 'data-target' => '.bs-example-modal-lg']) ?>
+                                    <?php } ?>
+                                </div>
+                                <div class="scroll-to-comment">
+                                    <?= Html::button('Оставить комментарий', ['class' => 'btn btn-scrollto waves-effect', 'id' => 'scroll-to-comment-button']) ?>
+                                </div>
+
                                 <!-- шкала -->
                                 <h4>Собранные средства</h4>
                                 <div class="object-view">
@@ -361,17 +372,6 @@ $isCommerce = isset($isCommerce);
                                         'class' => 'table table-bordered detail-view credit-wishes'
                                     ]
                                 ]) ?>
-
-                                <div class="action">
-                                    <?php if ($userFoll) { ?>
-                                        <?= Html::a('Отписаться', ['/catalog/unsubscribe?oId=' . $model->id], ['class' => 'btn btn-primary btn-respond waves-effect', 'data-confirm' => 'Вы уверены, что хотите отписаться?', 'disable' => true]) ?>
-                                    <?php } else { ?>
-                                        <?= Html::button('Откликнуться', ['class' => 'btn btn-primary btn-respond waves-effect', 'data-toggle' => 'modal', 'data-target' => '.bs-example-modal-lg']) ?>
-                                    <?php } ?>
-                                </div>
-                                <div class="scroll-to-comment">
-                                    <?= Html::button('Оставить комментарий', ['class' => 'btn btn-scrollto waves-effect', 'id' => 'scroll-to-comment-button']) ?>
-                                </div>
                             </div>
                         </div>
                     </div>

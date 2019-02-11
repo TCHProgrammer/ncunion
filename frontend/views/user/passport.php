@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 use common\models\object\ObjectType;
 use common\models\passport\FormParticipation;
 
-$this->title="Паспорт клиента";
+$this->title="Паспорт инвестора";
 
 function valuePassport($item, $filter, $model){
     return (!empty($model->$item)) ? $model->$item : $filter['ObjectSearch'][$item];
@@ -32,18 +32,19 @@ function valuePassport($item, $filter, $model){
                         <!-- ползунки -->
                         <div class="row clearfix">
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <?= $form->field($model, 'amount_min', ['options' => ['class' => 'form-line input-adjustment']]) ?>
                                 </div>
                             </div>
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <?= $form->field($model, 'amount_max', ['options' => ['class' => 'form-line input-adjustment']]) ?>
                                 </div>
                             </div>
 
+                            <!--
                             <div class="col-sm-12">
                                 <input id="price-slider"
                                        data-slider-id='ex1Slider'
@@ -55,19 +56,21 @@ function valuePassport($item, $filter, $model){
                                        data-to="<?= valuePassport('amount_max', $filter, $model) ?>"
                                 />
                             </div>
+                            -->
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <?= $form->field($model, 'area_min', ['options' => ['class' => 'form-line input-adjustment']]) ?>
                                 </div>
                             </div>
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <?= $form->field($model, 'area_max', ['options' => ['class' => 'form-line input-adjustment']]) ?>
                                 </div>
                             </div>
 
+                            <!--
                             <div class="col-sm-12">
                                 <input id="area-slider"
                                        data-slider-id='ex1Slider'
@@ -79,19 +82,21 @@ function valuePassport($item, $filter, $model){
                                        data-to="<?= valuePassport('area_max', $filter, $model) ?>"
                                 />
                             </div>
+                            -->
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <?= $form->field($model, 'rooms_min', ['options' => ['class' => 'form-line input-adjustment']]) ?>
                                 </div>
                             </div>
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <?= $form->field($model, 'rooms_max', ['options' => ['class' => 'form-line input-adjustment']]) ?>
                                 </div>
                             </div>
 
+                            <!--
                             <div class="col-sm-12">
                                 <input id="rooms-slider"
                                        data-slider-id='ex1Slider'
@@ -104,20 +109,23 @@ function valuePassport($item, $filter, $model){
                                 />
                             </div>
                         </div>
+                        -->
 
                         <!-- типы объектов -->
 
-                        <ul class="nav nav-tabs" id="myTabEvents">
-                            <?php
-                            $activeTab = 'class="nav-item active" aria-expanded="true"';
-                            $inactiveTab = 'class="nav-item" aria-expanded="false"';
-                            ?>
-                            <?php foreach ($objectTypeList as $id => $title){?>
-                                <li <?= ($id == 1) ? $activeTab : $inactiveTab ?>>
-                                    <a class="tabnav nav-link" data-toggle="tab" href="#panel-type-<?= $id ?>"><?= $title ?></a>
-                                </li>
-                            <?php } ?>
-                        </ul>
+                        <div class="col-xs-12">
+                            <ul class="nav nav-tabs" id="myTabEvents">
+                                <?php
+                                $activeTab = 'class="nav-item active" aria-expanded="true"';
+                                $inactiveTab = 'class="nav-item" aria-expanded="false"';
+                                ?>
+                                <?php foreach ($objectTypeList as $id => $title){?>
+                                    <li <?= ($id == 1) ? $activeTab : $inactiveTab ?>>
+                                        <a class="tabnav nav-link" data-toggle="tab" href="#panel-type-<?= $id ?>"><?= $title ?></a>
+                                    </li>
+                                <?php } ?>
+                            </ul>
+                        </div>
 
                         <div class="tab-content" id="myTabContent">
                             <?php foreach ($objectTypeList as $id => $title){?>
@@ -135,6 +143,7 @@ function valuePassport($item, $filter, $model){
                                     </div>-->
 
                                     <!-- группа четбоксов -->
+                                <div class="col-xs-12 passport-checkbox">
                                     <div>
                                         <?php foreach ($listCheckbox as $itemCheckbox){ ?>
                                             <?php if ($itemCheckbox->type_id == $id){ ?>
@@ -155,8 +164,10 @@ function valuePassport($item, $filter, $model){
                                             <?php }else{continue;} ?>
                                         <?php } ?>
                                     </div>
+                                </div>
 
                                     <!-- группа радио кнопок -->
+                                <div class="col-xs-12 passport-checkbox">
                                     <div>
                                         <?php foreach ($listRadio as $itemRadio){ ?>
                                             <?php if ($itemRadio->type_id == $id){ ?>
@@ -176,12 +187,14 @@ function valuePassport($item, $filter, $model){
                                         <?php } ?>
                                     </div>
                                 </div>
+                                </div>
                             <?php } ?>
                             <hr>
                         </div>
-
+                          
                         <div class="row clearfix">
                             <div class="col-lg-12">
+                                <div class="col-xs-12 passport-form">
                                 <?=
                                 $form->field($model, 'tagsArray', ['options' => ['class' => 'radio-form']])->checkboxList(
                                     ArrayHelper::map(FormParticipation::find()->all(), 'id', 'title'),
@@ -196,6 +209,7 @@ function valuePassport($item, $filter, $model){
                                     ]
                                 )?>
                                 <?= Html::submitButton('Сохранить', ['class' => 'btn btn-raised btn-primary m-t-15 waves-effect']) ?>
+                                </div>
                             </div>
                         </div>
                     </div>
