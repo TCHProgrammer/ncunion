@@ -44,7 +44,7 @@ AppAsset::register($this);
                             </a>
                         </div>
                     </div>
-                    <div class="col-xs-6 col-sm-3 col-md-4">
+                    <div class="col-xs-6 col-sm-3 col-md-3">
                         <div class="header-address">
                             <p>
                                 г. Москва, ул. Тестовская, 10, 2 этаж, офис 203/1,ММДЦ<br>“Москва-Сити” БЦ "Северная
@@ -1263,10 +1263,7 @@ AppAsset::register($this);
 
     <footer class="footer animated animated-up">
         <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <p>Выплата дохода в конце срока действия договора дополнительные 1,5% </p>
-                </div>
+            <div class="row">   
                 <div class="col-sm-6">
                     <a href="<?= Url::toRoute(['/policy']); ?>">Политика конфиденциальности</a>
                 </div>

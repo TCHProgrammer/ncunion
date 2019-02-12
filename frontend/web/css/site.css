@@ -83,7 +83,7 @@ body.user-form-page {
 /* site signup */
 
 #form-signup div[class^="form-"] {
-    margin: 30px 0;
+    margin: 48px 0;
 }
 
 #form-signup .checkbox {
@@ -2161,9 +2161,6 @@ textarea {
 }
 
 @media all and (max-width: 767px) {
-    body.user-form-page {
-        padding-bottom: 100px;
-    }
     .page h1,
     .page .h1 {
         word-wrap: break-word;
@@ -2434,24 +2431,46 @@ textarea {
 
 
 
-/*Фикс*/
-@media all and (min-width: 768px) { 
-  #w0 { display: none }
-}
 
+
+/*Фикс*/
 .navbar-nav { 
   margin: 0;
   float: left;
   left: 0 
 }
 
-#w0.nav > li {
+.user-account_navbar-header li {
   width: 50%;
   float: left;
   text-align: center
 }
 
-#w0.nav > li.dropdown { width: 100%; text-align: left }
+.user-account_navbar-header > li.dropdown { width: 100%; text-align: left }
+
+.user-form-page .container { padding: 32px 15px }
+
+.navbar-default .navbar-nav > .active > a, 
+.navbar-default .navbar-nav > .active > a:hover, 
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #e7e7e7;
+    background-color: transparent
+}
+
+.user-form-page h3 {
+  font-weight: inherit;
+  color: inherit;
+}
+
+.user-form-page label { 
+  float: left; 
+  left: 0;
+  margin-bottom: 8px
+}
+
+@media all and (min-width: 768px) { 
+  .user-account_navbar-header { display: none }
+}
 
 @media (max-width: 767px) {
   .nav.user-account > li > a.dropdown-toggle {
@@ -2460,13 +2479,22 @@ textarea {
     white-space: nowrap
   }
 
-  #w0 { 
+  .user-account_navbar-header { 
     position: relative;
     float: left;
     left: 0;
     width: 65%;
+    padding: 0 15px; 
     overflow: hidden
   }
   
-  #w4 { display: none }
+  .user-account_right { display: none }
+
+  body.user-form-page { padding-bottom: 0 }
+
+  .user-form-page .footer { position: relative }
+
+  .user-form-page .btn-primary { min-width: 100%; margin-top: 16px }
+
+  .checkbox { padding: 0 }
 }

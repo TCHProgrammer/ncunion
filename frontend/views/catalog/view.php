@@ -254,33 +254,41 @@ $isCommerce = isset($isCommerce);
                                 </div>
                             </div>
                         </div>
-
-                        <!-- вывод информации на подписку -->
-                        <?php if ($userFoll) { ?>
-                            <div class="profile-page row clearfix">
-                                <div class="col-sm-12">
-                                    <h2 class="card-inside-title">Вы откликнулись на сделку</h2>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="card overflowhidden m-t-20">
-                                        <?php
-                                        $userFoll = ArrayHelper::index($userFoll, function ($element) {
-                                            return $element->user_id === Yii::$app->user->id ? 0 : $element->user_id;
-                                        });
-                                        ksort($userFoll);?>
-                                        <?php foreach ($userFoll as $userFol): ?>
-                                            <?= $this->render('_listUser', [
-                                                'model' => $userFol
-                                            ]); ?>
-                                        <?php endforeach; ?>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php } ?>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 object-side" id="object-side">
+
+                <div class="card">
+                    <div class="body">
+                        <div class="row">
+                            
+                            <!-- вывод информации на подписку -->
+                            <?php if ($userFoll) { ?>
+                                <div class="profile-page row clearfix">
+                                    <div class="col-xs-12">
+                                        <h2 class="card-inside-title">Вы откликнулись на сделку</h2>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="card">
+                                            <?php
+                                            $userFoll = ArrayHelper::index($userFoll, function ($element) {
+                                                return $element->user_id === Yii::$app->user->id ? 0 : $element->user_id;
+                                            });
+                                            ksort($userFoll);?>
+                                            <?php foreach ($userFoll as $userFol): ?>
+                                                <?= $this->render('_listUser', [
+                                                    'model' => $userFol
+                                                ]); ?>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="card">
                     <div class="body">
                         <div class="row">
@@ -438,47 +446,60 @@ $isCommerce = isset($isCommerce);
                 </button>
                 <h4 class="modal-title" id="gridSystemModalLabel">Добавить новый элемент</h4>
             </div>
-            <div class="modal-body modal-checkbox">
+            <div class="modal-checkbox">
 
-                <div class="form-group">
-                    <?= $formCheckbox->field($userRoom, 'sum', ['options' => ['class' => 'form-line']])->textInput(['value' => '']) ?>
+                <div class="col-xs-12 col-sm-6">
+                    <div class="form-group">
+                        <?= $formCheckbox->field($userRoom, 'sum', ['options' => ['class' => 'form-line']])->textInput(['value' => '']) ?>
+                    </div>
+                </div>
+                
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                            <?= $formCheckbox->field($userRoom, 'rate', ['options' => ['class' => 'form-line']])->textInput() ?>
+                        </div>
+                    </div>
+
+                <div class="col-xs-12 hidden-xs">
+                    <div>
+                        <input id="user-slider"
+                               data-slider-id='ex1Slider'
+                               type="text"
+                               data-min="0"
+                               data-max="<?= $model->amount ?>"
+                               data-step="1"
+                        />
+                    </div>
                 </div>
 
-                <div>
-                    <input id="user-slider"
-                           data-slider-id='ex1Slider'
-                           type="text"
-                           data-min="0"
-                           data-max="<?= $model->amount ?>"
-                           data-step="1"
-                    />
-                </div>
-                <br>
-                <div>
                     <?= $formCheckbox->field($userRoom, 'object_id', ['options' => ['class' => 'form-block']])->hiddenInput(['value' => $model->id])->label(false); ?>
 
                     <?= $formCheckbox->field($userRoom, 'user_id', ['options' => ['class' => 'form-block']])->hiddenInput(['value' => Yii::$app->user->id])->label(false); ?>
 
-                    <div class="form-group">
-                        <?= $formCheckbox->field($userRoom, 'rate', ['options' => ['class' => 'form-line']])->textInput() ?>
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                            <?= $formCheckbox->field($userRoom, 'term', ['options' => ['class' => 'form-line']])->textInput() ?>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <?= $formCheckbox->field($userRoom, 'term', ['options' => ['class' => 'form-line']])->textInput() ?>
+                    <div class="col-xs-12 col-sm-6">
+                        <?= $formCheckbox->field($userRoom, 'schedule_payments')->dropDownList(
+                            [1 => 'шаровый', 2 => 'аннуитетный']
+                        ) ?>
                     </div>
 
-                    <?= $formCheckbox->field($userRoom, 'schedule_payments')->dropDownList(
-                        [1 => 'шаровый', 2 => 'аннуитетный']
-                    ) ?>
-                    <div class="form-group">
-                        <?= $formCheckbox->field($userRoom, 'comment', ['options' => ['class' => 'form-line']])->textarea() ?>
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <?= $formCheckbox->field($userRoom, 'comment', ['options' => ['class' => 'form-line']])->textarea() ?>
+                        </div>
                     </div>
-                </div>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+                <div class="col-xs-12">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+                </div>
             </div>
             <?php ActiveForm::end(); ?>
         </div><!-- /.modal-content -->

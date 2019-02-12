@@ -5,12 +5,12 @@ use yii\helpers\Html;
 
 <div class="profile-header catalog-user-profil">
     <div class="profile_info row">
-        <div class="col-lg-3 col-md-4 col-12">
+        <div class="col-xs-12 col-sm-3">
             <div class="profile-image catalog-user-avatar float-md-right"> <img src="<?= isset($model['userAvatar']->avatar) ? $model['userAvatar']->avatar : '/img/other/default-avatar.png' ?>"> </div>
         </div>
-        <div class="col-lg-6 col-md-8 col-12">
+        <div class="col-xs-12 col-sm-9">
             <?php if ($model->user_id === Yii::$app->user->id  || Yii::$app->user->can('can_view_investor_info')): ?>
-                <h4 class="m-t-5 m-b-0">
+                <h4>
                     ФИО:
                     <a href="<?= Url::toRoute('/admin/users/view?id=' ) . $model->user_id ?>" target="_blank">
                         <?= $model['user']->last_name . ' ' . $model['user']->first_name . ' ' . $model['user']->middle_name ?>

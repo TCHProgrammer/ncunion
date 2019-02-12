@@ -1053,6 +1053,16 @@ textarea.form-control {
 
 #filter-slider .search-filters_modification { padding: 4px 0 }
 
+.modal-body.modal-checkbox { border: none }
+
+.profile-page  .card-inside-title { margin-left: 15px }
+
+.profile-page .profile-header { padding-bottom: 0 }
+
+.profile-page .profile-header .profile_info .profile-image { margin-top: 25px }
+
+.profile-page .profile-header .profile_info .profile-image img { border-radius: 0 }
+
 @media (max-width: 767px) {
   .settings-block-1 { padding-right: 15px }
 

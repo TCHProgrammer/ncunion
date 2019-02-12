@@ -13,13 +13,10 @@ $this->title = 'Подтверждение телефона';
 ?>
 <div class="object-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h3><?= Html::encode($this->title) ?></h3>
 
     <div class="row">
-        <div class="col-lg-4 text-center">
-            <!-- ты создан, что бы делать отсуп -->
-        </div>
-        <div class="col-lg-4 text-center">
+        <div class="col-lg-4">
             <?php $form = ActiveForm::begin() ?>
 
             <?= $form->field($model, 'code') ?>

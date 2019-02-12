@@ -51,7 +51,7 @@ echo Nav::widget([
     'items' => $menuItemsLeft,
 ]);
 echo Nav::widget([
-    'options' => ['class' => 'navbar-nav navbar-right user-account'],
+    'options' => ['class' => 'navbar-nav navbar-right user-account user-account_right'],
     'items' => $menuItemsRight
 ]);
 NavBar::end();
