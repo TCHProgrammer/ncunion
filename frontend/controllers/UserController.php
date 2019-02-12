@@ -64,6 +64,9 @@ class UserController extends DefaultFrontendController
     public function actionProfile()
     {
         $user = UserModel::findOne(Yii::$app->user->id);
+        if (!($user->check_email && $user->check_phone)) {
+            return $this->redirect('/check-user');
+        }
         $userAvatar = UserAvatar::findOne(Yii::$app->user->id);
 
         return $this->render('profile', [
@@ -74,6 +77,10 @@ class UserController extends DefaultFrontendController
 
     public function actionSettings()
     {
+        $user = UserModel::findOne(Yii::$app->user->id);
+        if (!($user->check_email && $user->check_phone)) {
+            return $this->redirect('/check-user');
+        }
         $model = $this->findModel(Yii::$app->user->id);
         $updatePas = new UpdatePassword();
 
