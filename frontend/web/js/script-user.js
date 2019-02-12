@@ -333,8 +333,57 @@ $(document).ready(function () {
         });
 
     });
-    
 
+
+    function toggleFilter(state, cb = function(){}){
+        if(state === "init"){
+            return cb();
+        }else{
+            localStorage.setItem('openFilters', !localStorage.getItem('openFilters'));
+            return cb();
+        }
+    }
+
+
+    if (localStorage.getItem('openFilters') === null) {
+
+        localStorage.setItem('openFilters', false);
+    
+    } else {
+        toggleFilter("init", function() {
+            if(localStorage.getItem('openFilters') === "true"){
+                $('#openFilters').html('Скрыть филтрацию')
+                .removeClass('btn-primary')
+                .addClass('btn-filter')
+                .data('status', true);
+                $('#filter-slider').addClass('active');
+            }
+        });
+    };
+
+    $('#openFilters').on("click", function(e){
+        e.preventDefault();
+        toggleFilter("even", () => {
+            if (!$(this).data('status')) {
+                localStorage.setItem('openFilters', true);
+                $(this).html('Скрыть филтрацию');
+
+                $(this).removeClass('btn-primary');
+                $(this).addClass('btn-filter');
+
+                $(this).data('status', true);
+                $('#filter-slider').addClass('active');
+            } else {
+                localStorage.setItem('openFilters', false);
+                $(this).html('Раскрыть фильтрацию');
+
+                $(this).removeClass('btn-filter');
+                $(this).addClass('btn-primary');
+                $(this).data('status', false);
+                $('#filter-slider').removeClass('active');
+            };
+        });
+    });
 
 
     /* Фиксирование боковой панели на странице объекта

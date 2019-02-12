@@ -29,6 +29,9 @@ function valueFilter($item, $filter){
         <div class="col-sm-12">
             <div class="card">
                 <div class="body">
+
+                    <a class="btn btn-primary hidden-md hidden-lg" id="openFilters" rel="nofollow">Открыть фильтрацию</a>
+
                     <div id="filter-slider">
                         <div class="row clearfix search-filters">
                             <div class="col-lg-4 col-md-6 col-sm-12 hide">
@@ -195,7 +198,7 @@ function valueFilter($item, $filter){
                             </div><!-- /.modal-dialog -->
                         </div><!-- /.modal -->
 
-                        <div class="row clearfix search-filters">
+                        <div class="row clearfix search-filters search-filters_modification">
                             <div class="col-sm-12">
                                 <div class="form-group buttons">
                                     <?= Html::submitButton('Поиск', ['class' => 'btn btn-primary']) ?>

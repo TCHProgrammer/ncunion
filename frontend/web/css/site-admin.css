@@ -1051,6 +1051,8 @@ textarea.form-control {
 
 .profile-page .profile-header .profile_info .profile-image img { width: 100% }
 
+#filter-slider .search-filters_modification { padding: 4px 0 }
+
 @media (max-width: 767px) {
   .settings-block-1 { padding-right: 15px }
 
@@ -1060,5 +1062,66 @@ textarea.form-control {
   .passport-checkbox [type="radio"]+label {
     width: 100%;
     margin-right: 0
+  }
+
+  .catalog-page .search-filters .form-group { width: 100% }
+
+  .catalog-page .input-adjustment-dropdown { float: left; left: 0; width: 50% }
+
+  .catalog-page .input-adjustment-dropdown:first-child { border-right: 1px solid #00B034 }
+
+  .inputs-group-stack { width: 100% }
+
+  .inputs-group .form-line,
+  .inputs-group.search-filters-price .form-line { width: 50% }
+
+  .inputs-group .inputs-group-label { margin-bottom: 16px }
+
+  .btn, .btn:not(.btn-link):not(.btn-circle) { width: 100% }
+
+  #filter-slider { 
+    height: 0;
+    opacity: 0;
+    pointer-events: none
+  }
+
+  #filter-slider.active { 
+    height: auto;
+    opacity: 1;
+    margin-top: 32px;
+    pointer-events: auto
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+  .catalog-page .search-filters .form-group { width: 100% }
+
+  .catalog-page .input-adjustment-dropdown { float: left; left: 0; width: 50% }
+
+  .catalog-page .input-adjustment-dropdown:first-child { border-right: 1px solid #00B034 }
+
+  .inputs-group-stack { width: 100% }
+
+  .inputs-group .form-line,
+  .inputs-group.search-filters-price .form-line { width: 50% }
+
+  .inputs-group .inputs-group-label { margin-bottom: 16px }
+
+  .btn, .btn:not(.btn-link):not(.btn-circle) { width: 100% }
+
+  #filter-slider {
+    height: 0;
+    opacity: 0;
+    display: none;
+    pointer-events: none
+  }
+
+  #filter-slider.active { 
+    height: auto;
+    opacity: 1;
+    display: block;
+    margin-top: 32px;
+    pointer-events: auto
   }
 }
