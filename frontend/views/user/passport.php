@@ -34,13 +34,13 @@ function valuePassport($item, $filter, $model){
 
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <?= $form->field($model, 'amount_min', ['options' => ['class' => 'form-line input-adjustment']]) ?>
+                                    <?= $form->field($model, 'amount_min', ['options' => ['class' => 'form-line input-adjustment js-input-adjustment']]) ?>
                                 </div>
                             </div>
 
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <?= $form->field($model, 'amount_max', ['options' => ['class' => 'form-line input-adjustment']]) ?>
+                                    <?= $form->field($model, 'amount_max', ['options' => ['class' => 'form-line input-adjustment js-input-adjustment']]) ?>
                                 </div>
                             </div>
 

@@ -65,20 +65,29 @@ $isCommerce = isset($isCommerce);
                                     <img class="img-fluid" src="/img/object/no-photo.jpg">
                                 <?php } ?>
 
+
+                                <!-- Уебашим здесь карусель-->
                                 <?php if (!empty($modelImgs)) { ?>
-                                    <ul class="preview-thumbnail nav nav-tabs">
+<div class="object-carousel owl-carousel owl-theme">
                                         <?php $count = 1; ?>
-                                        <?php foreach ($modelImgs as $item) { ?>
-                                            <?php if ($count != 1) { ?>
-                                                <li class="nav-item"><a class="nav-link" data-lightbox="object-gallery"
-                                                                        href="<?= $item->img ?>"><img
-                                                                src="<?= isset($item->img_min) ? $item->img_min : $item->img ?>"></a>
-                                                </li>
-                                            <?php } ?>
+                                            <?php foreach ($modelImgs as $item) { ?>
+                                                <?php if ($count != 1) { ?>
+    <div class="item">
+                                                        <a class="nav-link" data-lightbox="object-gallery" href="<?= $item->img ?>">
+                                                            <img src="<?= isset($item->img_min) ? $item->img_min : $item->img ?>">
+                                                        </a>
+    </div>
+                                                <?php } ?>
                                             <?php $count++; ?>
                                         <?php } ?>
-                                    </ul>
+</div>
                                 <?php } ?>
+                                <!-- Уебашим здесь карусель-->
+
+
+
+
+
 
                             </div>
                             <div class="details col-lg-5 col-md-12">
@@ -150,6 +159,12 @@ $isCommerce = isset($isCommerce);
                                         <?php } ?>
                                     </div>
                                 <?php } ?>
+                            </div>
+                        </div>
+                        <!-- описание объекта -->
+                        <div class="row clearfix" id="object-wrapper-center">
+                            <div class="col-sm-12">
+
                                 <h4>Общая информация</h4>
 
                                 <!-- инфо об объекте -->
@@ -175,11 +190,7 @@ $isCommerce = isset($isCommerce);
                                         'class' => 'table table-bordered detail-view'
                                     ]
                                 ]) ?>
-                            </div>
-                        </div>
-                        <!-- описание объекта -->
-                        <div class="row clearfix" id="object-wrapper-center">
-                            <div class="col-sm-12">
+
                                 <h4>Описание</h4>
                                 <div class="object-description">
                                     <?= $model->descr; ?>
@@ -258,36 +269,35 @@ $isCommerce = isset($isCommerce);
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 object-side" id="object-side">
-
+            
+            <!-- вывод информации на подписку -->
+            <?php if ($userFoll) { ?>
                 <div class="card">
                     <div class="body">
                         <div class="row">
-                            
-                            <!-- вывод информации на подписку -->
-                            <?php if ($userFoll) { ?>
-                                <div class="profile-page row clearfix">
-                                    <div class="col-xs-12">
-                                        <h2 class="card-inside-title">Вы откликнулись на сделку</h2>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <div class="card">
-                                            <?php
-                                            $userFoll = ArrayHelper::index($userFoll, function ($element) {
-                                                return $element->user_id === Yii::$app->user->id ? 0 : $element->user_id;
-                                            });
-                                            ksort($userFoll);?>
-                                            <?php foreach ($userFoll as $userFol): ?>
-                                                <?= $this->render('_listUser', [
-                                                    'model' => $userFol
-                                                ]); ?>
-                                            <?php endforeach; ?>
-                                        </div>
+                            <div class="profile-page row clearfix">
+                                <div class="col-xs-12">
+                                    <h2 class="card-inside-title">Вы откликнулись на сделку</h2>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="card">
+                                        <?php
+                                        $userFoll = ArrayHelper::index($userFoll, function ($element) {
+                                            return $element->user_id === Yii::$app->user->id ? 0 : $element->user_id;
+                                        });
+                                        ksort($userFoll);?>
+                                        <?php foreach ($userFoll as $userFol): ?>
+                                            <?= $this->render('_listUser', [
+                                                'model' => $userFol
+                                            ]); ?>
+                                        <?php endforeach; ?>
                                     </div>
                                 </div>
-                            <?php } ?>
+                            </div>
                         </div>
                     </div>
                 </div>
+            <?php } ?>
 
                 <div class="card">
                     <div class="body">

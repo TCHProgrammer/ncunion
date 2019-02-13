@@ -291,6 +291,26 @@ $(document).ready(function () {
         navText: ['<i class="zmdi zmdi-chevron-left"></i>','<i class="zmdi zmdi-chevron-right"></i>']
     });
 
+    $('.object-carousel').owlCarousel({
+        loop: true,
+        navigation: true,
+        pagination: true,
+        responsive:{
+            0:{
+                items: 1
+            },
+            600: {
+                items: 2
+            },
+            992:{
+                items: 2
+            },
+            1200:{
+                items: 3
+            }
+        }
+    });
+
     /* Блок "Доверие" на каждом объекте страницы каталога */
     $('.trust_o_meter').knob({
         'draw' : function() {
@@ -316,23 +336,31 @@ $(document).ready(function () {
     /*активный пункт меню в административном сайдбаре*/
 
     $(function() {
+        let pathname_url = window.location.pathname;
+        let href_url = window.location.href;
 
-        var pathname_url = window.location.pathname;
-        var href_url = window.location.href;
+        
 
         $(".list li").each(function () {
 
-            var link = $(this).find("a").attr("href");
+            var link = $(this).find(".waves-effect").attr("href");
+
+            console.log(link)
 
             if (pathname_url == link || href_url == link) {
+                let ulParentNode = $(this).closest('ul');
 
                 $(this).addClass("active");
-
+                ulParentNode.closest('li').addClass('open active');
+                ulParentNode.slideDown();
+                ulParentNode.closest('li').find('.menu-toggle').addClass('toggled')
             }
 
         });
 
     });
+
+
 
 
     function toggleFilter(state, cb = function(){}){
@@ -411,3 +439,22 @@ $(document).ready(function () {
 
     */
 });
+
+(function($, document, window){
+    $('.js-input-adjustment').find('input').on("keyup", function(e){
+        e.preventDefault();
+
+        let arrVal = $(this).val().replace(/[^\d]/g, '').split("").reverse();
+
+        arrVal.map(function (item, i, arr) {
+            if((i + 1) % 3 === 0 && (i + 1) !== arr.length){
+                 arr[i] = ' ' + item
+            }
+            return item
+        })
+
+
+        $(this).val(arrVal.reverse().join(""))
+        
+    });
+})(jQuery, document, window)
