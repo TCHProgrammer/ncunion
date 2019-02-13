@@ -39,6 +39,7 @@ class ProfileAsset extends AssetBundle
         'css/ion.rangeSlider.css',
         'css/ion.rangeSlider.skinFlat.css',
         'css/owl.carousel/owl.carousel.min.css',
+        'css/owl.carousel/owl.theme.default.css',
         'css/lightbox.min.css',
         'css/site-admin.css'
     ];

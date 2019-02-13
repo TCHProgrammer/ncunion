@@ -1057,11 +1057,21 @@ textarea.form-control {
 
 .profile-page  .card-inside-title { margin-left: 15px }
 
-.profile-page .profile-header { padding-bottom: 0 }
-
 .profile-page .profile-header .profile_info .profile-image { margin-top: 25px }
 
 .profile-page .profile-header .profile_info .profile-image img { border-radius: 0 }
+
+.preview-pic.tab-content { padding: 8px }
+
+.object-carousel .item { padding: 8px }
+
+.tools-panel {
+    float: left;
+    left: 0;
+    position: absolute;
+    margin-top: 7px;
+    margin-left: 311px;
+}
 
 @media (max-width: 767px) {
   .settings-block-1 { padding-right: 15px }
@@ -1101,6 +1111,12 @@ textarea.form-control {
     margin-top: 32px;
     pointer-events: auto
   }
+
+  .tools-panel {
+    margin-left: 80px;
+    margin-top: 58px
+  }
+
 }
 
 @media (min-width: 768px) and (max-width: 991px) {

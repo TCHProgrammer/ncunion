@@ -75,6 +75,7 @@ $(document).ready(function () {
         }
     });
 
+
     $('.btn-consult').on('click', function(){
         $('html, body').animate({
             scrollTop: $("#consultation-form").offset().top
