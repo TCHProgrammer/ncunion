@@ -13,6 +13,8 @@ class SiteController extends DefaultBackendController
 
     public function actionIndex()
     {
+		Yii::$app->cache->flush();
+		//Yii::$app->frontendCache->flush();
         return $this->render('index');
     }
 
@@ -23,6 +25,9 @@ class SiteController extends DefaultBackendController
      */
     public function actionLogin()
     {
+		Yii::$app->cache->flush();
+		//Yii::$app->frontendCache->flush();
+		
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }

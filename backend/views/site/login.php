@@ -6,6 +6,8 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \common\models\LoginForm */
 
+\Yii::$app->cache->flush();
+
 $this->title = 'Sign In';
 
 $fieldOptions1 = [
